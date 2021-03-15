@@ -1,0 +1,22 @@
+@import "@/variables.scss";
+.messenger-content-nav{
+  height: 100%;
+  width: 127px;
+  min-width: 127px;
+  max-width: 127px;
+  &.messenger-content-nav_dark{
+    background: $left-bar-color__dark;
+  }
+  &.messenger-content-nav_light{
+    background: $left-bar-color__light;
+  }
+}
+.messenger-content-nav__ava-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(53px + 26px);
+}
+.messenger-content-nav__folder-container{
+  padding: 15px 9px 0;
+}
