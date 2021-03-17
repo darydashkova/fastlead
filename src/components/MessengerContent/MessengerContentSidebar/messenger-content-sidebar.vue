@@ -1,15 +1,12 @@
 <template>
     <div class="messenger-content-sidebar"
-        :class="isDark? 'messenger-content-sidebar_dark' : 'messenger-content-sidebar_light'"
     >
         <BaseSearchInput
-                :isDark="isDark"
         ></BaseSearchInput>
             <div class="messenger-content-sidebar__container">
                     <BaseNavMessage
                         v-for="i in 20"
                         :key="i*1000"
-                        :isDark="isDark"
                         :chatInfo="{
                             src: require('../../../assets/images/icon_inactive.png'),
                             name: 'Человек #'+i,
@@ -27,17 +24,9 @@
 </template>
 <script>
     import BaseSearchInput from '../../Base/BaseSearchInput'
-    import BaseNavMessage from '../../Base/BsaeNavMessage'
+    import BaseNavMessage from '../../Base/BaseNavMessage'
     export default {
         components: { BaseSearchInput, BaseNavMessage },
-        props: {
-            isDark: Boolean,
-        },
-        setup(props) {
-            return {
-                isDark: props.isDark
-            }
-        }
     }
 </script>
 

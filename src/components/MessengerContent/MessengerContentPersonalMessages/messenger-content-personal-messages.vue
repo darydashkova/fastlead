@@ -1,6 +1,5 @@
 <template>
     <div class="messenger-content-personal-messages"
-         :class="isDark? 'messenger-content-personal-messages_dark' : 'messenger-content-personal-messages_light'"
     >
         <div class="messenger-content-personal-messages__header">
             <BaseSquareIcon
@@ -12,10 +11,8 @@
             </div>
         </div>
         <hr class="separator"
-            :class="isDark? 'separator_dark' : 'separator_light'"
         />
         <MessagesContainer
-                :isDark="isDark"
         ></MessagesContainer>
     </div>
 </template>
@@ -25,14 +22,6 @@
     import MessagesContainer from '../../MessagesContainer/messages-container.vue'
     export default {
         components: { BaseSquareIcon, MessagesContainer },
-        props: {
-            isDark: Boolean,
-        },
-        setup(props) {
-            return {
-                isDark: props.isDark
-            }
-        }
     }
 </script>
 

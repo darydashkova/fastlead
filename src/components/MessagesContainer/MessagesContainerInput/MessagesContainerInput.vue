@@ -1,7 +1,6 @@
 <template>
     <div class="messages-container__input">
         <BaseMessageInput
-                :isDark="isDark"
         ></BaseMessageInput>
     </div>
 </template>
@@ -10,14 +9,6 @@
     import BaseMessageInput from '../../Base/BaseMessageInput'
     export default {
         components : { BaseMessageInput },
-        props: {
-            isDark: Boolean,
-        },
-        setup(props) {
-            return {
-                isDark: props.isDark,
-            }
-        }
     }
 </script>
 

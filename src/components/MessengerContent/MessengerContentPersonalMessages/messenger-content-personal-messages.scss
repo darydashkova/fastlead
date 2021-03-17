@@ -1,16 +1,5 @@
-@import "@/variables.scss";
 .messenger-content-personal-messages{
   width: 100%;
-  &.messenger-content-personal-messages_dark{
-    .messenger-content-personal-messages__name{
-      color: $font-color__dark;
-    }
-  }
-  &.messenger-content-personal-messages_light{
-    .messenger-content-personal-messages__name{
-      color: $font-color__light;
-    }
-  }
 }
 
 .messenger-content-personal-messages__header{
@@ -27,11 +16,12 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 24px;
+  color: var(--font-color__dark);
 }
 .messenger-content-personal-messages__date{
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 19px;
-  color: $folder-color;
+  color: var(--folder-color);
 }

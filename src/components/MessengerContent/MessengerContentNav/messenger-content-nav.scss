@@ -1,15 +1,9 @@
-@import "@/variables.scss";
 .messenger-content-nav{
   height: 100%;
   width: 127px;
   min-width: 127px;
   max-width: 127px;
-  &.messenger-content-nav_dark{
-    background: $left-bar-color__dark;
-  }
-  &.messenger-content-nav_light{
-    background: $left-bar-color__light;
-  }
+  background: var(--left-bar-color);
 }
 .messenger-content-nav__ava-container{
   display: flex;
