@@ -5,29 +5,29 @@
         <BaseSearchInput
                 :isDark="isDark"
         ></BaseSearchInput>
-        <div class="messenger-content-sidebar__container">
-            <BaseNavMessage
-                v-for="i in 4"
-                :key="i*1000"
-                :isDark="isDark"
-                :chatInfo="{
-                    src: require('../../../assets/images/icon_inactive.png'),
-                    name: 'Человек #'+i,
-                    message: {
-                        text: 'Как дела? =)',
-                        date: '21:22',
-                    },
-                    status: i,
-                    unreadableCount: '6',
-                }"
-                :isActive="i === 4"
-            ></BaseNavMessage>
-        </div>
+            <div class="messenger-content-sidebar__container">
+                    <BaseNavMessage
+                        v-for="i in 20"
+                        :key="i*1000"
+                        :isDark="isDark"
+                        :chatInfo="{
+                            src: require('../../../assets/images/icon_inactive.png'),
+                            name: 'Человек #'+i,
+                            message: {
+                                text: 'Как дела? =)',
+                                date: '21:22',
+                            },
+                            status: i,
+                            unreadableCount: '6',
+                        }"
+                        :isActive="i === 4"
+                    ></BaseNavMessage>
+            </div>
     </div>
 </template>
 <script>
-    import BaseSearchInput from '../../../components/Base/base-search-input'
-    import BaseNavMessage from '../../../components/Base/base-nav-message'
+    import BaseSearchInput from '../../Base/BaseSearchInput'
+    import BaseNavMessage from '../../Base/BsaeNavMessage'
     export default {
         components: { BaseSearchInput, BaseNavMessage },
         props: {

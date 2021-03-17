@@ -30,8 +30,8 @@
 </template>
 
 <script>
-    import BaseCircleIcon from "../../Base/base-circle-icon";
-    import BaseFolder from "../../Base/base-folder";
+    import BaseCircleIcon from "../../Base/BaseCircleIcon";
+    import BaseFolder from "../../Base/BaseFolder";
     export default {
         components: {BaseCircleIcon, BaseFolder},
         props: {

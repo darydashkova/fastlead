@@ -3,14 +3,20 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/login',
-    name: 'Login',
-    component: () => import ('../views/Login/Login.vue')
+    name: 'login',
+    component: () => import ('../views/login/login.vue'),
+    meta: {
+      requiresAuth: false,
+    }
   },
   {
     path: '/messenger',
-    name: 'Messenger',
-    component: () => import ('../views/Messenger/Messenger.vue')
-  }
+    name: 'messenger',
+    component: () => import ('../views/messenger/messenger.vue'),
+    meta: {
+      requiresAuth: true,
+    }
+  },
 ]
 
 const router = createRouter({

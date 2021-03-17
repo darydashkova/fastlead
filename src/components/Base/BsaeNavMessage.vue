@@ -1,13 +1,10 @@
 <template>
     <div class="base-nav-message"
         :class="{
-            'base-nav-message_dark': isDark,
-            'base-nav-message_light': !isDark,
             'base-nav-message_active': isActive,
         }"
     >
         <BaseCircleIcon
-            :isDark="isDark"
             :src="chatInfo.src"
             :isActive="false"
         ></BaseCircleIcon>
@@ -66,11 +63,10 @@
 </template>
 
 <script>
-    import BaseCircleIcon from './base-circle-icon'
+    import BaseCircleIcon from './BaseCircleIcon'
     export default {
         components: { BaseCircleIcon },
         props: {
-            isDark: Boolean,
             chatInfo: {
                 src: String,
                 name: String,
@@ -85,7 +81,6 @@
         },
         setup(props) {
             return {
-                isDark: props.isDark,
                 chatInfo: props.chatInfo,
                 isActive: props.isActive
             }
@@ -94,7 +89,6 @@
 </script>
 
 <style lang="scss">
-    @import "@/variables.scss";
     .base-nav-message{
         cursor: pointer;
         width: 100%;
@@ -104,18 +98,13 @@
         margin-bottom: 10px;
         padding: 0 16px;
         &.base-nav-message_active {
-            &.base-nav-message_dark {
-                background: $search-input-color__dark;
-            }
-            &.base-nav-message_light {
-                background: $search-input-color__light;
-            }
+            background: var(--search-input-color);
             &:after {
                 content: '';
                 position: absolute;
                 height: 46px;
                 width: 3px;
-                background: $green;
+                background: var(--green-color);
                 left: 0;
             }
         }
@@ -156,7 +145,7 @@
         align-items: flex-end;
     }
     .base-nav-message__status_count{
-        background: $green;
+        background: var(--green-color);
         border-radius: 5px;
         width: 17px;
         height: 17px;
@@ -166,27 +155,14 @@
         line-height: 16px;
         color: #FFFFFF;
     }
-    .base-nav-message_dark {
-        .base-nav-message__name {
-            color: $font-color__dark;
-        }
-        .base-nav-message__text {
-            color: $sub-text-color_dark;
-        }
-        .base-nav-message__date {
-            color: $sub-text-color_dark;
-        }
+    .base-nav-message__name {
+        color: var(--font-color);
     }
-    .base-nav-message_light {
-        .base-nav-message__name {
-            color: $font-color__light;
-        }
-        .base-nav-message__text {
-            color: $sub-text-color_light;
-        }
-        .base-nav-message__date {
-            color: $sub-text-color_light;
-        }
+    .base-nav-message__text {
+        color: var(--sub-text-color);
+    }
+    .base-nav-message__date {
+        color: var(--sub-text-color);
     }
 
 </style>

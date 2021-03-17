@@ -14,13 +14,17 @@
         <hr class="separator"
             :class="isDark? 'separator_dark' : 'separator_light'"
         />
+        <MessagesContainer
+                :isDark="isDark"
+        ></MessagesContainer>
     </div>
 </template>
 
 <script>
-    import BaseSquareIcon from '../../Base/base-square-icon'
+    import BaseSquareIcon from '../../Base/BaseSquareIcon'
+    import MessagesContainer from '../../MessagesContainer/messages-container.vue'
     export default {
-        components: { BaseSquareIcon },
+        components: { BaseSquareIcon, MessagesContainer },
         props: {
             isDark: Boolean,
         },

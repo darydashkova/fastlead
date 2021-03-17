@@ -9,7 +9,7 @@
   padding: 14px 0;
 
   top: -14px;
-  height: calc(100% + 14px);
+  height: calc(100vh - 16px);
   &.messenger-content-sidebar_dark {
     background: $messages-color__dark;
   }
@@ -20,4 +20,6 @@
 
 .messenger-content-sidebar__container{
     margin-top: 15px;
+    max-height: calc(100% - 34px - 15px);
+    overflow-y: auto;
 }

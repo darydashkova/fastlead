@@ -1,19 +1,21 @@
-$green: linear-gradient(45.66deg, #00BF6D -40.44%, #98D730 120.07%);
-$placeholder-color: #B7B7BE;
+$green: linear-gradient(45.66deg, #00BF6D -40.44%, #98D730 120.07%); //основной зеленый --> var(--green-color)
+$placeholder-color: #B7B7BE; //var(--placeholder-color)
 
-$folder-color: #757589;
+$folder-color: #757589; //var(--folder-color)
+$webkit-scroll-color: #B7B7BE; //var(--webkit-scroll-color)
 
 
-$header-color__dark: #0F0F1B; //цвет фона и хедера
-$left-bar-color__dark: #1D1D35; //цвет панели с папками
-$main-color__dark: #1D1D35; //цвет фона с перепиской
-$font-color__dark: #EDEDEF; //цвет шрифта(основной)
-$messages-color__dark: #404054; //цвет чужого сообщения
-$search-input-color__dark: #757589; //цвет поисковой строки
-$active-message-color__dark: #757589; //цвет выбранного диалога
-$separator-color__dark: #404054; //цвет разделительной линии
-$active-folder-color__dark: #EDEDEF; //цвет активной директории
-$sub-text-color_dark: #B7B7BE; //цвет шрифта(вторичный)
+$header-color__dark: #0F0F1B; //цвет фона и хедера --> var(--header-color)
+$left-bar-color__dark: #1D1D35; //цвет панели с папками --> var(--left-bar-color)
+$main-color__dark: #1D1D35; //цвет фона с перепиской --> var(--main-color)
+$font-color__dark: #EDEDEF; //цвет шрифта(основной) --> var(--font-color)
+$messages-color__dark: #404054; //цвет чужого сообщения var(--messages-color)
+$search-input-color__dark: #757589; //цвет поисковой строки var(--search-input-color)
+$active-message-color__dark: #757589; //цвет выбранного диалога var(--active-message-color)
+$separator-color__dark: #404054; //цвет разделительной линии var(--separator-color)
+$active-folder-color__dark: #EDEDEF; //цвет активной директории var(--active-folder-color)
+$sub-text-color_dark: #B7B7BE; //цвет шрифта(вторичный) var(--sub-text-color)
+
 
 $header-color__light: #404054;
 $left-bar-color__light: #C4C4C4;
@@ -25,6 +27,5 @@ $active-message-color__light: #EDEDEF;
 $separator-color__light: #B7B7BE;
 $active-folder-color__light: #1D1D35;
 $sub-text-color_light: #757589; //цвет шрифта(вторичный)
-
 
 

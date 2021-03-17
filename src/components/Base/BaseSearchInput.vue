@@ -1,8 +1,6 @@
 <template>
     <div class="base-search-input">
-        <input type="text" class="base-search-input__input" placeholder="Поиск..."
-            :class="isDark? 'base-search-input__input_dark' : 'base-search-input__input_light'"
-        >
+        <input type="text" class="base-search-input__input" placeholder="Поиск...">
         <svg class="base-search-input__lupa" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0)">
                 <path d="M15.8045 14.8623L11.2545 10.3124C12.1359 9.22374 12.6665 7.84041 12.6665 6.33377C12.6665 2.8418 9.82522 0.000488281 6.33325 0.000488281C2.84128 0.000488281 0 2.84177 0 6.33374C0 9.8257 2.84132 12.667 6.33328 12.667C7.83992 12.667 9.22325 12.1364 10.3119 11.255L14.8619 15.805C14.9919 15.935 15.1625 16.0003 15.3332 16.0003C15.5039 16.0003 15.6745 15.935 15.8045 15.805C16.0652 15.5443 16.0652 15.123 15.8045 14.8623ZM6.33328 11.3337C3.57597 11.3337 1.33333 9.09105 1.33333 6.33374C1.33333 3.57642 3.57597 1.33379 6.33328 1.33379C9.0906 1.33379 11.3332 3.57642 11.3332 6.33374C11.3332 9.09105 9.09057 11.3337 6.33328 11.3337Z" fill="#B7B7BE"/>
@@ -19,21 +17,10 @@
 
 <script>
     export default {
-        props: {
-            isDark: Boolean,
-        },
-        setup(props) {
-
-            return {
-                isDark: props.isDark,
-            }
-        }
-
     }
 </script>
 
 <style lang="scss">
-    @import "@/variables.scss";
     $padding: 16px;
     .base-search-input {
         position: relative;
@@ -47,27 +34,22 @@
         -moz-box-shadow: none;
         box-shadow: none;
         border:none;
-        border-radius: 16.9474px;
         outline: none;
+
+        border-radius: 16.9474px;
         width: 100%;
         padding: 8px 8px 8px 59px;
         position: relative;
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
-        &.base-search-input__input_dark {
-            color: $font-color__dark;
-            background: $search-input-color__dark;
-        }
-        &.base-search-input__input_light {
-            color: $font-color__light;
-            background: $search-input-color__light;
-        }
+        color: var(--font-color);
+        background: var(--search-input-color);
         &::placeholder {
             font-style: normal;
             font-weight: normal;
             font-size: 16px;
-            color: $placeholder-color;
+            color: var(--placeholder-color);
         }
     }
     .base-search-input__lupa{

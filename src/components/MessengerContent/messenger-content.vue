@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import BaseCircleIcon from '../Base/base-circle-icon'
+    import BaseCircleIcon from '../Base/BaseCircleIcon'
     import MessengerContentNav from './MessengerContentNav/messenger-content-nav'
     import MessengerContentSidebar from './MessengerContentSidebar/messenger-content-sidebar'
     import MessengerContentPersonalMessages from './MessengerContentPersonalMessages/messenger-content-personal-messages'

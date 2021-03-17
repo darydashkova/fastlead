@@ -1,8 +1,6 @@
 <template>
     <div class="base-folder"
          :class="{
-                'base-folder_dark': isDark,
-                'base-folder_light': !isDark,
                 'base-folder_active': isActive,
             }"
     >
@@ -24,52 +22,35 @@
     export default {
         props: {
             isActive: Boolean,
-            isDark: Boolean,
         },
         setup(props) {
             return {
                 isActive: props.isActive,
-                isDark: props.isDark,
             }
         }
     }
 </script>
 
 <style lang="scss">
-    @import "@/variables.scss";
     .base-folder{
         text-align: center;
         cursor: pointer;
         .base-folder__icon {
             path {
-                fill: $folder-color;
+                fill: var(--folder-color);
             }
         }
         .base-folder__text {
-            color: $folder-color;
+            color: var(--folder-color);
         }
-        &.base-folder_dark{
-            &.base-folder_active {
-                .base-folder__icon {
-                    path {
-                        fill: $active-folder-color__dark;
-                    }
-                }
-                .base-folder__text {
-                    color: $active-folder-color__dark;
+        &.base-folder_active {
+            .base-folder__icon {
+                path {
+                    fill: var(--active-folder-color);
                 }
             }
-        }
-        &.base-folder_light{
-            &.base-folder_active {
-                .base-folder__icon {
-                    path {
-                        fill: $active-folder-color__light;
-                    }
-                }
-                .base-folder__text {
-                    color: $active-folder-color__light;
-                }
+            .base-folder__text {
+                color: var(--active-folder-color);
             }
         }
         &.base-folder_margin-bottom {
