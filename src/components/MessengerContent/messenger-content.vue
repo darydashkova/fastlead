@@ -1,6 +1,5 @@
 <template>
-    <div class="messenger-content"
-    >
+    <div class="messenger-content">
         <MessengerContentNav
         ></MessengerContentNav>
         <MessengerContentSidebar

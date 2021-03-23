@@ -1,7 +1,11 @@
 <template>
     <div class="base-message-input"
     >
-        <textarea type="text" class="base-message-input__input" @input="resize" placeholder="Введите ваше сообщение..."
+        <textarea class="base-message-input__input"
+                  placeholder="Введите ваше сообщение..."
+                  v-model="value"
+                  @input="resize"
+                  @keypress="isEnter"
         ></textarea>
         <div class="base-message-input__input base-message-input__input_hidden-div" tabindex="-1"></div>
         <svg class="base-message-input__smile-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,8 +22,22 @@
 </template>
 
 <script>
+    import {ref} from 'vue'
+    import {useMessages} from "../../composition/useMessages";
     export default {
-        setup(props) {
+        setup() {
+            const value = ref('')
+            const { addMessage } = useMessages()
+
+            const isEnter = ($event) => {
+                if ($event.keyCode === 13 && !$event.shiftKey) {
+                    $event.preventDefault();
+                    addMessage(value.value);
+                    value.value = '';
+                    return false;
+                }
+            }
+
             const resize = ($event) => {
                 let hiddenDiv = document.querySelector('.base-message-input__input_hidden-div');
                 hiddenDiv.style.display = 'block';
@@ -38,6 +56,8 @@
             }
             return {
                 resize,
+                value,
+                isEnter
             }
         }
 
@@ -76,6 +96,9 @@
         color: var(--font-color);
         &::placeholder {
             color: var(--placeholder-color);
+        }
+        &::-webkit-scrollbar {
+            display: none;
         }
     }
     .base-message-input__input_hidden-div {

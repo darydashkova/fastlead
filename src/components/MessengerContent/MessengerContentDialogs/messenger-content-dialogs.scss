@@ -1,0 +1,25 @@
+.messenger-content-dialog {
+  max-width: 364px;
+  border-radius: 15px 15px 0px 0px;
+  position: relative;
+  padding: 14px 0;
+  width: 26vw;
+
+  top: -14px;
+  height: calc(100vh - 16px);
+  background: var(--messages-color);
+}
+
+.messenger-content-dialog__container{
+    margin-top: 15px;
+    height: calc(100% - 34px - 15px);
+    position: relative;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+}
+.messenger-content-dialog__content {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}

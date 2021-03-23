@@ -9,9 +9,12 @@ export const api = {
         withCredential && (fetchArgs.credentials = 'include')
         fetchArgs.headers['Content-Type'] = 'application/json'
         fetchArgs.headers['Accept'] = 'application/json'
-        // token? (fetchArgs.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`) : null;
         body && (fetchArgs.body = JSON.stringify(body))
         return await fetch(url+endpoint, fetchArgs)
             .then(res => res.json())
     },
+
+    socket: (url) => {
+        return new WebSocket(url)
+    }
 }

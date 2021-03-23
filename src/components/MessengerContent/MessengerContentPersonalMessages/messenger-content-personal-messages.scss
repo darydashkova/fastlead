@@ -1,5 +1,6 @@
 .messenger-content-personal-messages{
   width: 100%;
+  flex: 7;
 }
 
 .messenger-content-personal-messages__header{
@@ -17,6 +18,7 @@
   font-size: 18px;
   line-height: 24px;
   color: var(--font-color__dark);
+  text-align: left;
 }
 .messenger-content-personal-messages__date{
   font-style: normal;
@@ -24,4 +26,5 @@
   font-size: 14px;
   line-height: 19px;
   color: var(--folder-color);
+  text-align: left;
 }

@@ -1,6 +1,6 @@
 <template>
-    <div class="messenger"
-    >
+    <div class="messenger">
+        <BaseContextMenu v-if="isContextOpened"></BaseContextMenu>
         <MessengerContent
         ></MessengerContent>
     </div>

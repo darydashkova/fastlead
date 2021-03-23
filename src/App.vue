@@ -17,7 +17,6 @@
 </script>
 
 <style lang="scss">
-  @import "variables.scss";
   * {
     box-sizing: border-box;
   }
@@ -35,13 +34,25 @@
     height: 100vh;
     overflow: hidden;
   }
-
-  ::-webkit-scrollbar {
-    width: 3px;
+  .scroll {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    top: 5px;
+    width: 6px;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
   }
-  ::-webkit-scrollbar-thumb {
-    background: --var(kek);
+  .scroll__bar {
+    position: absolute;
+    right: 0;
+    height: 30px;
+    width: 3px;
     border-radius: 11px;
+    background: var(--webkit-scroll-color);
+    transition: transform .5s ease, opacity .3s ease;
+    opacity: 0;
   }
 </style>
 <style lang="scss" src="./fonts.scss"></style>

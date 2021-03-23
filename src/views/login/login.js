@@ -1,16 +1,12 @@
 import {useAuth} from "../../composition/useAuth";
-import {user} from '@/api/actions'
 export default {
     setup() {
-        const {authData, tryAuth} = useAuth()
-        const getUser = () => {
-            user.tryGetUser()
-        }
+        const {authData, tryAuth, loading, error} = useAuth()
         return {
             authData,
             tryAuth,
-            getUser
-
+            loading,
+            error
         }
     }
 }

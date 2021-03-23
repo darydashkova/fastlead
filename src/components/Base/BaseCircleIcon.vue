@@ -1,15 +1,13 @@
 <template>
     <div class="base-circle-icon"
-        :class="{
-        'base-circle-icon_active': isActive,
-        }"
+        :class="{'base-circle-icon_active': isActive,}"
     >
         <img class="base-circle-icon__image" :src="src" alt="">
     </div>
 </template>
 
 <script>
-
+    import { computed } from "vue";
     export default {
         props: {
             isActive: Boolean,
@@ -18,7 +16,7 @@
         setup(props) {
             return {
                 isActive: props.isActive,
-                src: props.src,
+                src: computed(() => props.src),
             }
         }
     }

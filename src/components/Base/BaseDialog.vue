@@ -1,0 +1,184 @@
+<template>
+    <div class="base-dialog"
+
+    >
+        <BaseCircleIcon
+            :src="chatInfo.avatar"
+            :isActive="false"
+        ></BaseCircleIcon>
+        <div class="base-dialog__container">
+            <div class="base-dialog__row">
+                    <div class="base-dialog__name">
+                        {{chatInfo.name}}
+                    </div>
+                <div class="base-dialog__date">
+                    {{validDate(chatInfo.last_message.time)}}
+                </div>
+            </div>
+            <div class="base-dialog__row">
+                    <div class="base-dialog__text">
+                        {{chatInfo.last_message.message}}
+                    </div>
+                <template v-if="chatInfo.last_message.is_me">
+                    <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_unreadable">
+                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.87103 12.0154L6.18244 14.5716L13.096 6.05078" stroke="url(#paint0_linear)" stroke-width="1.5" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="paint0_linear" x1="-1.35783" y1="17.9379" x2="12.3055" y2="1.91598" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#00BF6D"/>
+                                    <stop offset="1" stop-color="#98D730"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div v-else class="base-dialog__status base-dialog__status_readable">
+                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.71429 12.0154L6.0257 14.5716L12.9393 6.05078" stroke="url(#paint0_linear)" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M11.0085 14.5716L10.5731 15.1823L11.1469 15.5914L11.5909 15.0442L11.0085 14.5716ZM18.5045 6.52333C18.7655 6.20168 18.7163 5.72936 18.3946 5.46838C18.073 5.20739 17.6007 5.25658 17.3397 5.57823L18.5045 6.52333ZM9.03791 14.0877L10.5731 15.1823L11.4439 13.9609L9.90874 12.8663L9.03791 14.0877ZM11.5909 15.0442L18.5045 6.52333L17.3397 5.57823L10.4261 14.0991L11.5909 15.0442Z" fill="url(#paint1_linear)"/>
+                            <defs>
+                                <linearGradient id="paint0_linear" x1="-1.51456" y1="17.9379" x2="12.1487" y2="1.91598" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#00BF6D"/>
+                                    <stop offset="1" stop-color="#98D730"/>
+                                </linearGradient>
+                                <linearGradient id="paint1_linear" x1="5.97909" y1="17.9379" x2="19.8091" y2="4.5377" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#00BF6D"/>
+                                    <stop offset="1" stop-color="#98D730"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </template>
+                <template v-else>
+                    <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_count">
+                        {{chatInfo.unread}}
+                    </div>
+                    <div v-else class="base-dialog__status base-dialog__status_none"></div>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import BaseCircleIcon from './BaseCircleIcon'
+    import {useDate} from "../../composition/useDate";
+    export default {
+        components: { BaseCircleIcon },
+        props: {
+            chatInfo: {
+                avatar: String,
+                name: String,
+                is_read: Boolean,
+                is_online: Boolean,
+                last_message: {
+                    message: String,
+                    time: [String, Number],
+                    is_me: Boolean,
+                },
+                unread: Number,
+            },
+        },
+        setup(props) {
+            const { validDate } = useDate()
+
+            return {
+                chatInfo: props.chatInfo,
+                validDate
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    .base-dialog{
+        cursor: pointer;
+        width: 100%;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 0 16px;
+        position: relative;
+        &.base-dialog_active {
+            background: var(--search-input-color);
+            &:after {
+                content: '';
+                position: absolute;
+                height: 46px;
+                width: 3px;
+                background: var(--green-color);
+                left: 0;
+                top: calc((70px - 46px) / 2);
+            }
+        }
+    }
+    .base-dialog__container{
+        margin-left: 10px;
+        max-width: calc(100% - 46px - 10px);
+        width: calc(100% - 46px - 10px);
+        text-align: left;
+    }
+    .base-dialog__row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        &:last-of-type {
+            margin-top: 2px;
+            align-items: flex-end;
+        }
+    }
+    .base-dialog__name {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 24px;
+        max-width: 77%;
+        width: 77%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .base-dialog__text {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 19px;
+        max-width: 77%;
+        width: 77%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+    }
+    .base-dialog__date {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 19px;
+    }
+    .base-dialog__status_readable, .base-dialog__status_unreadable {
+        display: flex;
+        align-items: flex-end;
+    }
+    .base-dialog__status_count{
+        background: var(--green-color);
+        border-radius: 5px;
+        padding: 0 5px;
+        height: 17px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #FFFFFF;
+    }
+    .base-dialog__name {
+        color: var(--font-color);
+    }
+    .base-dialog__text {
+        color: var(--sub-text-color);
+    }
+    .base-dialog__date {
+        color: var(--sub-text-color);
+    }
+
+</style>

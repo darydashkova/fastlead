@@ -2,6 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/:pathMatch(.*)*',
+    redirect: '/login',
+  },
+  {
+    path: '',
+    component: () => import ('../views/messenger/messenger.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import ('../views/login/login.vue'),

@@ -6,6 +6,8 @@
 
 <script>
 
+    import {computed} from "vue";
+
     export default {
         props: {
             isActive: Boolean,
@@ -14,7 +16,7 @@
         setup(props) {
             return {
                 isActive: props.isActive,
-                src: props.src,
+                src: computed(() => props.src),
             }
         }
     }

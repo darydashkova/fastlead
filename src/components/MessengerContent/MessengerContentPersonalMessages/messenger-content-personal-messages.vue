@@ -1,17 +1,15 @@
 <template>
-    <div class="messenger-content-personal-messages"
-    >
+    <div class="messenger-content-personal-messages" v-if="selectedDialog">
         <div class="messenger-content-personal-messages__header">
             <BaseSquareIcon
-                    :src="require('../../../assets/images/avatarko_anonim.jpg')"
+                    :src="messages.avatar"
             ></BaseSquareIcon>
             <div class="messenger-content-personal-messages__name-container">
-                <div class="messenger-content-personal-messages__name">Имя</div>
-                <div class="messenger-content-personal-messages__date">Имя2</div>
+                <div class="messenger-content-personal-messages__name">{{messages.name}}</div>
+                <div class="messenger-content-personal-messages__date">{{messages.is_online? 'В сети' : 'Не в сети'}}</div>
             </div>
         </div>
-        <hr class="separator"
-        />
+        <hr class="separator"/>
         <MessagesContainer
         ></MessagesContainer>
     </div>
@@ -20,8 +18,21 @@
 <script>
     import BaseSquareIcon from '../../Base/BaseSquareIcon'
     import MessagesContainer from '../../MessagesContainer/messages-container.vue'
+    import { useMessages } from "../../../composition/useMessages";
+    import { computed } from 'vue';
+    import { useDialogs } from "../../../composition/useDialogs";
     export default {
         components: { BaseSquareIcon, MessagesContainer },
+        setup() {
+            const { messages } = useMessages();
+
+            const { selectedDialog } = useDialogs()
+
+            return {
+                messages,
+                selectedDialog,
+            }
+        }
     }
 </script>
 
