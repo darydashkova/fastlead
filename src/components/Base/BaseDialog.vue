@@ -17,7 +17,7 @@
             </div>
             <div class="base-dialog__row">
                     <div class="base-dialog__text">
-                        {{chatInfo.last_message.message}}
+                        {{chatInfo.last_message.type === 'text'? chatInfo.last_message.message : 'Вложение'}}
                     </div>
                 <template v-if="chatInfo.last_message.is_me">
                     <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_unreadable">
@@ -111,6 +111,9 @@
                 top: calc((70px - 46px) / 2);
             }
         }
+        &.base-dialog_not-padding {
+            padding: 0;
+        }
     }
     .base-dialog__container{
         margin-left: 10px;
@@ -120,7 +123,7 @@
     }
     .base-dialog__row {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
         &:last-of-type {
             margin-top: 2px;

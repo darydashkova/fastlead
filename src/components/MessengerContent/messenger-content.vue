@@ -2,8 +2,16 @@
     <div class="messenger-content">
         <MessengerContentNav
         ></MessengerContentNav>
+
         <MessengerContentSidebar
+                v-if="!openedSettings"
+                class="messenger-content__middle-bar"
         ></MessengerContentSidebar>
+        <UserInfo
+                v-else
+                class="messenger-content__middle-bar"
+        ></UserInfo>
+
         <MessengerContentPersonalMessages
         ></MessengerContentPersonalMessages>
     </div>

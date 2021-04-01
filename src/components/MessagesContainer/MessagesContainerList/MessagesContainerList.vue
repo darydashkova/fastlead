@@ -13,20 +13,69 @@
 </template>
 
 <script>
-    import {ref, onMounted} from 'vue';
+    import { onMounted, computed } from 'vue';
     import BaseMessage from '../../Base/BaseMessage';
-    import {useCustomScroll} from "../../../composition/useCustomScroll";
-    import {useMessages} from "../../../composition/useMessages";
+    import { useCustomScroll } from "../../../composition/useCustomScroll";
+    import { useMessages } from "../../../composition/useMessages";
+    import {useDate} from "../../../composition/useDate";
+
     export default {
         components: {BaseMessage},
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
+            const { messages, setListRef } = useMessages();
+            const { validDate } = useDate();
+
             onMounted( () => {
-                init()
-                content.value.scrollTop = content.value.scrollHeight;
+                init();
+                setListRef(content.value);
+            })
+            let groupedMessages = computed(() => {
+                let dateArr = [];
+                let finalArr = [];
+
+                if (messages.value.message) {
+                    messages.value.message.forEach(item => {
+                        let elem = dateArr.find(i => validDate(item.time, true) === i.date)
+                        elem
+                            ? elem.message.push(item)
+                            : dateArr.push({date: validDate(item.time, true), message: [item]})
+                    })
+                }
+                if (dateArr.length) {
+                    finalArr = dateArr.map(i => {
+                        return {
+                            date: i.date,
+                            message: [],
+                        }
+                    })
+                    for (let i = 0; i < dateArr.length; i++) {
+                        let groupImg = [];
+                        dateArr[i].message.forEach(item => {
+                            //бежим по массиву сообщений определенной даты
+                            if (item.type === 'text') {
+                                //если текстовое сообщение проверяем
+                                if (groupImg.length > 3) {
+                                    //если больше 3 подряд то проверяем на совпадение по времени
+                                    //ToDo поделить на группы по 30 минут
+                                } else {
+                                    //если меньше 4 подряд - пушим фотографии отдельно и обнуляем массив
+                                    groupImg.forEach(img => {
+                                        finalArr[i].message.push(img);
+                                    })
+                                    groupImg = [];
+                                }
+                                finalArr[i].message.push(item);
+                            } else {
+                                groupImg.push(item);
+                            }
+                        })
+                    }
+                }
+
+                return dateArr;
             })
 
-            const { messages } = useMessages();
 
             return {
                 container,
@@ -35,6 +84,7 @@
                 scrollTo,
 
                 messages,
+                groupedMessages,
             }
         }
     }

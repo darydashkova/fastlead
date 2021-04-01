@@ -6,13 +6,13 @@ export function useDate() {
     }
 
 
-    const validDate = (date) => {
+    const validDate = (date, withToday = false) => {
         let vDate = new Date(date * 1000);
         let vDateNow = new Date();
         let result;
         let yesterday = ( d => new Date(d.setDate(d.getDate()-1)) )(new Date);
         areSameDate(vDate, vDateNow)
-            ? result = `${vDate.getHours()}:${vDate.getMinutes() < 10? '0'+vDate.getMinutes() : vDate.getMinutes()}`
+            ? (result = withToday? 'Сегодня' : `${vDate.getHours()}:${vDate.getMinutes() < 10? '0'+vDate.getMinutes() : vDate.getMinutes()}`)
             : areSameDate(vDate, yesterday)
                 ? result = 'Вчера'
                 : result = `${
@@ -30,7 +30,7 @@ export function useDate() {
     }
 
     const validTime = (date) => {
-        let d = new Date(date);
+        let d = new Date(date * 1000);
         return `${d.getHours()}:${d.getMinutes() < 10? '0'+d.getMinutes() : d.getMinutes()}`
     }
 

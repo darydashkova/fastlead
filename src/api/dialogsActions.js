@@ -11,6 +11,13 @@ export default {
             csrf_token: localStorage.getItem('x-csrf'),
         }
         return api.fetch('POST', 'delete/dialog', body)
-    }
+    },
 
+    readDialog: (dialog_id) => {
+        let body = {
+            dialog_id: dialog_id,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'set/dialog/read', body)
+    }
 }

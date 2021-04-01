@@ -40,10 +40,8 @@
                 height: 16px;
                 border-radius: 50%;
                 background: var(--green-color);
-                left: 15px;
+                left: calc(#{$diagonal} / 2 - 9.5px);
                 bottom: 0;
-            }
-            &:after{
                 border: 1.5px solid var(--left-bar-color);
             }
         }

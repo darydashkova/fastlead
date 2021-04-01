@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   width: 100%;
-  height: calc(100vh - 30px);
+  height: calc(100vh - 60px);
   margin: 0 auto;
   //max-width: 1400px;
   background: var(--main-color);
@@ -16,4 +16,14 @@
   padding: 0;
   color: var(--separator-color); /*для IE */
   background-color: var(--separator-color); /*для Firefox, Opera, Safari*/
+}
+
+.messenger-content__middle-bar {
+  border-radius: 15px;
+  position: relative;
+  padding: 18px 0;
+  width: calc(calc(100vw - 127px) * 0.25);
+  top: -18px;
+  height: calc(100vh - 24px);
+  background: var(--messages-color);
 }

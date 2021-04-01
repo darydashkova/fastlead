@@ -1,4 +1,4 @@
-import {reactive, ref} from 'vue';
+import {reactive, ref, computed} from 'vue';
 
 const contextPosition = reactive({
     top: '0px',
@@ -7,18 +7,23 @@ const contextPosition = reactive({
 
 const isContextOpened = ref(false);
 
-const dialogId = ref(null);
+const context = reactive({
+    id: null,
+    item: '',
+});
 
 export function useContextMenu() {
 
-    const setContext = (context, id) => {
-        contextPosition.top = context.top + 'px';
-        contextPosition.left = context.left + 'px';
+    const setContext = (position, ctx) => {
+        contextPosition.top = position.top + 'px';
+        contextPosition.left = position.left + 'px';
+        context.id = ctx.id;
+        context.item = ctx.item;
+
         isContextOpened.value = true;
-        dialogId.value = id;
     }
 
-    const unsetContext = (context) => {
+    const unsetContext = () => {
         isContextOpened.value = false;
     }
 
@@ -26,7 +31,7 @@ export function useContextMenu() {
     return {
         contextPosition,
         isContextOpened,
-        dialogId,
+        context: computed(() => context),
 
         setContext,
         unsetContext,

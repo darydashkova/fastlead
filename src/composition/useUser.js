@@ -2,15 +2,14 @@ import { reactive, computed } from 'vue'
 import userActions from '../api/userActions'
 import { useRouter } from 'vue-router'
 
+const user = reactive({
+    data: {
+        'avatar': '/img/icon_inactive.png'
+    },
+})
 
 export function useUser() {
     const router = useRouter();
-
-    const user = reactive({
-        data: {
-            'avatar': '/img/icon_inactive.png'
-        },
-    })
 
     const getUser = () => {
         userActions.tryGetUser()

@@ -7,7 +7,10 @@
     >
         <div class="base-message__container">
             <div class="base-message__message">
-                {{message.message}}
+                <template v-if="message.type === 'text'">
+                    <span v-html="message.message.replace(/\n/g, '<br>')"></span>
+                </template>
+                <img class="base-message__attachment" v-if="message.type === 'img'" :src="message.img" alt="">
             </div>
             <div class="base-message__state">
                 {{validTime(message.time)}}
@@ -118,5 +121,8 @@
     }
     .base-message_not-my + .base-message_my {
         margin-top: 16px;
+    }
+    .base-message__attachment {
+        max-width: 100%;
     }
 </style>

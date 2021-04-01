@@ -13,8 +13,4 @@ export const api = {
         return await fetch(url+endpoint, fetchArgs)
             .then(res => res.json())
     },
-
-    socket: (url) => {
-        return new WebSocket(url)
-    }
 }

@@ -10,6 +10,7 @@
     setup() {
       const {getCsrf} = useAuth()
       const {setStyle} = useStyle()
+
       setStyle(localStorage.getItem('style') === 'true')
       getCsrf();
     }
@@ -17,6 +18,16 @@
 </script>
 
 <style lang="scss">
+  input, textarea, button {
+    -webkit-appearance: none;
+    -webkit-box-shadow: none;
+    -moz-appearance: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    resize: none;
+    border: none;
+  }
   * {
     box-sizing: border-box;
   }
@@ -53,6 +64,10 @@
     background: var(--webkit-scroll-color);
     transition: transform .5s ease, opacity .3s ease;
     opacity: 0;
+  }
+
+  .pointer {
+    cursor: pointer;
   }
 </style>
 <style lang="scss" src="./fonts.scss"></style>

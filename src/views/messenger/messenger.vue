@@ -1,6 +1,10 @@
 <template>
     <div class="messenger">
         <BaseContextMenu v-if="isContextOpened"></BaseContextMenu>
+
+        <ModalCreateFolder v-if="openedModalCreateFolder"></ModalCreateFolder>
+        <ModalCreateChat v-if="openedModalCreateChat"></ModalCreateChat>
+
         <MessengerContent
         ></MessengerContent>
     </div>

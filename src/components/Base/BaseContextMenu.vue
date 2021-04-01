@@ -4,12 +4,34 @@
             @blur="unsetContext"
     >
         <ul class="base-context-menu__list">
-            <li class="base-context-menu__element" @click="del(dialogId)">
-                Удалить диалог
-            </li>
-            <li class="base-context-menu__element">
-                Переместить диалог
-            </li>
+            <template v-if="context.item === 'dialog'">
+                <li class="base-context-menu__element" @click="delDialog(context.id)">
+                    Архивировать
+                </li>
+                <li class="base-context-menu__element">
+                    Переместить
+                </li>
+                <li class="base-context-menu__element">
+                    Добавить тег
+                </li>
+                <li class="base-context-menu__element">
+                    Заблокировать
+                </li>
+                <li class="base-context-menu__element">
+                    Поместить как прочитанное
+                </li>
+                <li class="base-context-menu__element">
+                    Выбрать несколько
+                </li>
+            </template>
+            <template v-if="context.item === 'folder'">
+                <li class="base-context-menu__element">
+                    Редактировать папку
+                </li>
+                <li class="base-context-menu__element" @click="delFolder(context.id)">
+                    Удалить
+                </li>
+            </template>
         </ul>
     </button>
 </template>
@@ -21,15 +43,15 @@
     import {useFolder} from "../../composition/useFolder";
     export default {
         setup() {
-            const { contextPosition, isContextOpened, unsetContext, dialogId } = useContextMenu()
-            const { selectedFolder } = useFolder()
+            const { contextPosition, isContextOpened, unsetContext, context } = useContextMenu()
+            const { selectedFolder, deleteFolder, selectFolder, getAllFolders } = useFolder()
             const { deleteDialog, getDialogs, selectDialog } = useDialogs()
 
             onMounted(() => {
                 document.querySelector('.base-context-menu').focus()
             })
 
-            const del = (id) => {
+            const delDialog = (id) => {
                 deleteDialog(id)
                     .then(() => {
                         selectDialog(null);
@@ -38,15 +60,24 @@
                     })
             }
 
+            const delFolder = (id) => {
+                deleteFolder(id)
+                    .then(() => {
+                        selectFolder(null);
+                        getAllFolders();
+                        document.querySelector('.base-context-menu').blur()
+                    })
+            }
+
 
             return {
                 contextPosition,
                 isContextOpened,
-                dialogId,
-                del,
+                context,
+                delDialog,
+                delFolder,
 
                 unsetContext,
-                deleteDialog,
             }
         }
     }
@@ -65,20 +96,25 @@
         border-radius: 8px;
         position: absolute;
         z-index: 1200;
-        background: var(--header-color);
-        color: var(--font-color)
+        background: var(--context-background-color);
+        color: var(--sub-text-color);
     }
     .base-context-menu__list {
         margin: 0;
-        padding: 4px 0;
+        padding: 6px 12px;
         text-align: left;
     }
     .base-context-menu__element {
         list-style-type: none;
-        padding: 3px 14px;
+        margin: 10px 0;
         cursor: pointer;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 21px;
+        transition: .3s ease;
         &:hover {
-            background: var(--main-color);
+            color: var(--font-color);
         }
     }
 </style>
