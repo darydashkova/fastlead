@@ -18,17 +18,18 @@ export function useFolder() {
     const setOffsetFolderDialogsPosition = (offset) => {
         offsetFolderDialogsPosition.value = offset;
     }
-    const getAllFolders = () => {
-        folderActions.getAllFolders()
+    const getAllFolders = async () => {
+        return await folderActions.getAllFolders()
             .then(r => {
                 folders.data = [...r.folders]
+                return r.folders
             })
     }
     const createFolder = async (data) => {
         return await folderActions.createFolder(data)
     }
-    const deleteFolder = async (id) => {
-        await folderActions.deleteFolder(id)
+    const deleteFolder = async (ids) => {
+        await folderActions.deleteFolder(ids)
     }
 
 

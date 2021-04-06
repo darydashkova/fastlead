@@ -6,10 +6,10 @@
         <ul class="base-context-menu__list">
             <template v-if="context.item === 'dialog'">
                 <li class="base-context-menu__element" @click="delDialog(context.id)">
-                    Архивировать
+                    Удалить
                 </li>
                 <li class="base-context-menu__element">
-                    Переместить
+                    Переместить в папку
                 </li>
                 <li class="base-context-menu__element">
                     Добавить тег
@@ -17,15 +17,9 @@
                 <li class="base-context-menu__element">
                     Заблокировать
                 </li>
-                <li class="base-context-menu__element">
-                    Поместить как прочитанное
-                </li>
-                <li class="base-context-menu__element">
-                    Выбрать несколько
-                </li>
             </template>
             <template v-if="context.item === 'folder'">
-                <li class="base-context-menu__element">
+                <li class="base-context-menu__element" @click="toggleModalCreateFolder(true, context.id)">
                     Редактировать папку
                 </li>
                 <li class="base-context-menu__element" @click="delFolder(context.id)">
@@ -41,11 +35,13 @@
     import {onMounted} from 'vue';
     import {useDialogs} from "../../composition/useDialogs";
     import {useFolder} from "../../composition/useFolder";
+    import {useModals} from "../../composition/useModals";
     export default {
         setup() {
-            const { contextPosition, isContextOpened, unsetContext, context } = useContextMenu()
-            const { selectedFolder, deleteFolder, selectFolder, getAllFolders } = useFolder()
-            const { deleteDialog, getDialogs, selectDialog } = useDialogs()
+            const { contextPosition, isContextOpened, unsetContext, context } = useContextMenu();
+            const { selectedFolder, deleteFolder, selectFolder, getAllFolders } = useFolder();
+            const { deleteDialog, getDialogs, selectDialog } = useDialogs();
+            const { toggleModalCreateFolder } = useModals();
 
             onMounted(() => {
                 document.querySelector('.base-context-menu').focus()
@@ -61,7 +57,7 @@
             }
 
             const delFolder = (id) => {
-                deleteFolder(id)
+                deleteFolder([id])
                     .then(() => {
                         selectFolder(null);
                         getAllFolders();
@@ -78,6 +74,7 @@
                 delFolder,
 
                 unsetContext,
+                toggleModalCreateFolder,
             }
         }
     }

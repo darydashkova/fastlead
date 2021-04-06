@@ -59,6 +59,8 @@ export function useStyle() {
             'button-cancel-color': '#4A4A5D', //цвет bg cancel кнопки
 
             'create-chat-border-color': '#404054', //цвет бордера и ховера папки
+            'modal-bg-color': '#1d1d35',
+
 
 
         }

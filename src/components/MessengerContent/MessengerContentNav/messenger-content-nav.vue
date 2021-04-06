@@ -54,7 +54,7 @@
         <BaseFolder
                 class="base-folder_create"
                 :isCreate="true"
-                @click="toggleModalCreateFolder(true)"
+                @click="toggleModalCreateFolder(true, null)"
         >
             <svg
                     width="46" height="40" viewBox="0 0 46 40" fill="none" xmlns="http://www.w3.org/2000/svg">

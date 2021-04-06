@@ -1,6 +1,6 @@
 <template>
     <div class="base-search-input">
-        <input @input="search" type="text" class="base-search-input__input" placeholder="Поиск или новый чат">
+        <input v-model="searchValue" @input="search" type="text" class="base-search-input__input" :placeholder="placeholder">
         <svg class="base-search-input__loupe" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0)">
                 <path d="M15.8045 14.8623L11.2545 10.3124C12.1359 9.22374 12.6665 7.84041 12.6665 6.33377C12.6665 2.8418 9.82522 0.000488281 6.33325 0.000488281C2.84128 0.000488281 0 2.84177 0 6.33374C0 9.8257 2.84132 12.667 6.33328 12.667C7.83992 12.667 9.22325 12.1364 10.3119 11.255L14.8619 15.805C14.9919 15.935 15.1625 16.0003 15.3332 16.0003C15.5039 16.0003 15.6745 15.935 15.8045 15.805C16.0652 15.5443 16.0652 15.123 15.8045 14.8623ZM6.33328 11.3337C3.57597 11.3337 1.33333 9.09105 1.33333 6.33374C1.33333 3.57642 3.57597 1.33379 6.33328 1.33379C9.0906 1.33379 11.3332 3.57642 11.3332 6.33374C11.3332 9.09105 9.09057 11.3337 6.33328 11.3337Z" fill="#B7B7BE"/>
@@ -11,25 +11,42 @@
                 </clipPath>
             </defs>
         </svg>
+        <svg v-show="searchValue" @click="deleteSearchValue" class="base-search-input__exit" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L9 9M9 1L1 9" stroke="#EDEDEF" stroke-linecap="round"/>
+        </svg>
+
     </div>
 </template>
 
 <script>
-    import {useSearch} from "../../composition/useSearch";
+    import { ref } from 'vue';
     export default {
-        setup() {
-            const { toggleSearch } = useSearch()
+        props: {
+            placeholder: String,
+        },
+
+        setup(props, {emit}) {
+
+            const searchValue = ref('');
+
+            const deleteSearchValue = () => {
+                searchValue.value = '';
+                emit('toggleSearch', false);
+            }
 
             const search = ($event) => {
-                if ($event.target.value.length) {
-                    toggleSearch(true)
-                } else {
-                    toggleSearch(false)
-                }
+                $event.target.value.length
+                    ? emit('toggleSearch', true)
+                    : emit('toggleSearch', false)
+
+                emit('handler', $event.target.value)
             }
 
             return {
-                search
+                placeholder: props.placeholder,
+                search,
+                searchValue,
+                deleteSearchValue
             }
         }
     }
@@ -42,6 +59,9 @@
         display: flex;
         align-items: center;
         padding: 0 $padding;
+        &.base-search-input_m {
+            margin: 24px 0 34px;
+        }
     }
     .base-search-input__input{
         -webkit-appearance: none;
@@ -53,7 +73,7 @@
 
         border-radius: 16.9474px;
         width: 100%;
-        padding: 8px 8px 8px 59px;
+        padding: 8px 28px 8px 59px;
         position: relative;
         font-family: Segoe UI;
         font-style: normal;
@@ -72,6 +92,11 @@
     .base-search-input__loupe{
         position: absolute;
         left: calc(15px + #{$padding});
+        cursor: pointer;
+    }
+    .base-search-input__exit {
+        position: absolute;
+        right: calc(15px + #{$padding});
         cursor: pointer;
     }
 </style>

@@ -11,9 +11,9 @@ export default {
       }
       return api.fetch('POST', 'create/folder', lData);
     },
-    deleteFolder: (id) => {
+    deleteFolder: (ids) => {
         let lData = {
-            folder_id: id,
+            folder_ids: [...ids],
             csrf_token: localStorage.getItem('x-csrf')
         }
       return api.fetch('POST', 'delete/folder', lData)

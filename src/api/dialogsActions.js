@@ -19,5 +19,13 @@ export default {
             csrf_token: localStorage.getItem('x-csrf'),
         }
         return api.fetch('POST', 'set/dialog/read', body)
+    },
+
+    createDialog: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'create/dialog', body)
     }
 }

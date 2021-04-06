@@ -13,13 +13,14 @@ export function useDialogs() {
     const { getAllFolders } = useFolder();
 
     const getDialogs = async (folder_id, offset = 0) => {
-        await dialogsActions.getDialogsFromFolder(folder_id, offset)
+        return await dialogsActions.getDialogsFromFolder(folder_id, offset)
             .then(r => {
                 if (offset > 0) {
                     dialogs.data = dialogs.data.concat(r.dialogues);
                 } else {
                     dialogs.data = [...r.dialogues];
                 }
+                return r;
             })
     }
 
@@ -48,6 +49,10 @@ export function useDialogs() {
         dialogs.data = [...newDialogs];
     }
 
+    const createDialog = async (data) => {
+        return await dialogsActions.createDialog(data)
+    }
+
     return {
         dialogs: computed(() => dialogs.data),
         selectedDialog,
@@ -57,5 +62,6 @@ export function useDialogs() {
         getDialogs,
         setDialogs,
         deleteDialog,
+        createDialog,
     }
 }

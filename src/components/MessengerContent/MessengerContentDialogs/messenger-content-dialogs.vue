@@ -1,6 +1,9 @@
 <template>
     <div class="messenger-content-dialogs">
-        <BaseSearchInput></BaseSearchInput>
+        <BaseSearchInput
+                placeholder="Поиск или новый чат"
+                @toggleSearch="toggleSearch"
+        ></BaseSearchInput>
         <template v-if="openedSearch">
             <div class="messenger-content-dialogs__parameters-container" @click="toggleSearchParameters(!openedSearchParameters)">
                 <span class="messenger-content-dialogs__parameters-button pointer">
@@ -94,7 +97,7 @@
 
             const { getMessagesFromDialog } = useMessages()
 
-            const { openedSearch, openedSearchParameters, toggleSearchParameters } = useSearch()
+            const { openedSearch, openedSearchParameters, toggleSearchParameters, toggleSearch } = useSearch()
 
 
 
@@ -127,6 +130,7 @@
                 openedSearch,
                 openedSearchParameters,
                 toggleSearchParameters,
+                toggleSearch,
 
             }
         }

@@ -2,6 +2,9 @@ import MessengerContent from "../../components/MessengerContent/messenger-conten
 import BaseContextMenu from "../../components/Base/BaseContextMenu.vue"
 import ModalCreateFolder from "../../components/Modals/ModalCreateFolder.vue"
 import ModalCreateChat from "../../components/Modals/ModalCreateChat.vue"
+import ModalAddToFolder from "../../components/Modals/ModalAddToFolder.vue"
+import ModalEditFolders from "../../components/Modals/ModalEditFolders.vue"
+import ModalMoveChat from "../../components/Modals/ModalMoveChat.vue"
 
 import { provide } from "vue"
 
@@ -13,7 +16,15 @@ import { useDialogs } from "../../composition/useDialogs";
 import { useMessages } from "../../composition/useMessages";
 import { useModals } from "../../composition/useModals";
 export default {
-    components: { MessengerContent, BaseContextMenu, ModalCreateFolder, ModalCreateChat },
+    components: {
+        MessengerContent,
+        BaseContextMenu,
+        ModalCreateFolder,
+        ModalCreateChat,
+        ModalAddToFolder,
+        ModalEditFolders,
+        ModalMoveChat
+    },
     setup() {
         const { user, getUser } = useUser();
         const { getAllFolders, selectFolder, folders } = useFolder();
@@ -22,7 +33,13 @@ export default {
         const { selectDialog, getDialogs } = useDialogs();
         const { getMessagesFromDialog } = useMessages();
 
-        const { openedModalCreateFolder, openedModalCreateChat } = useModals()
+        const {
+            openedModalCreateFolder,
+            openedModalCreateChat,
+            openedModalAddToFolder,
+            openedModalEditFolders,
+            openedModalMoveChat
+        } = useModals()
 
         getUser();
         getAllFolders();
@@ -56,7 +73,10 @@ export default {
             isContextOpened,
 
             openedModalCreateFolder,
-            openedModalCreateChat
+            openedModalCreateChat,
+            openedModalAddToFolder,
+            openedModalEditFolders,
+            openedModalMoveChat,
         }
     },
 }
