@@ -1,0 +1,49 @@
+.settings-nav {
+  height: 100%;
+  background: var(--messages-color);
+  width: 293px;
+}
+.settings-nav__header {
+  height: 80px;
+  padding: 17px 43px;
+  position: relative;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--create-folder-border-color);
+  &:before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    width: 9px;
+    height: 9px;
+    border-bottom: 1.5px solid #757589;
+    border-left: 1.5px solid #757589;
+    transform: rotate(45deg);
+  }
+  a {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 29px;
+    color: var(--create-folder-header-color);
+    text-decoration: none;
+  }
+}
+.settings-nav__list {
+  padding: 12px 44px;
+  text-align: left;
+}
+.settings-nav__element {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--create-folder-header-color);
+  cursor: pointer;
+
+  margin-bottom: 11px;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}

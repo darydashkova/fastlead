@@ -11,10 +11,13 @@ export function useStyle() {
             'folder-color': '#757589',
             'webkit-scroll-color': '#B7B7BE',
             'font-my-message-color': '#EDEDEF',
+
         }
         const dark = {
             ...common,
             'header-color': '#141427', //цвет фона и хедера --> var(--)
+            'footer-color': '#141427',
+
             'left-bar-color': '#1D1D35', //цвет панели с папками --> var(--left-bar-color)
             'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
             'font-color': '#EDEDEF', //цвет шрифта(основной) --> var(--font-color)
@@ -25,6 +28,15 @@ export function useStyle() {
             'active-folder-color': '#EDEDEF', //цвет активной директории var(--active-folder-color)
             'sub-text-color': '#B7B7BE', //цвет шрифта(вторичный) var(--sub-text-color),
 
+            'message-action-icon-color': '#B7B7BE', //цвет иконок
+            'folder-create-button-color': '#404054', //цвет создания папки и текста
+            'folder-create-plus-color': '#1D1D35', //цвет линий плюсика в svg
+            'stripe-instead-ava': '#FFFFFF', //цвет полосок вместо авы
+
+            'user-name-color': '#FFFFFF', //имя профиля в левой панели
+
+            'svg-settings-fill': '#F9F5F3', //цвет SVG в настройках профиля
+
             'context-background-color': '#2B2B41', //цвет бг контекстного меню
 
             'create-folder-color': '#1D1D35', //цвет модального окна создания папки var(--create-folder-color)
@@ -32,14 +44,21 @@ export function useStyle() {
             'create-folder-header-color': '#FFFFFF', //цвет заголовка в модальном окне создания папки var(--create-folder-font--color)
             'create-folder-border-color': '#757589', //цвет бордеров в модальном окне создания папки var(--create-folder-font--color)
             'create-folder-font-button': '#EDEDEF', //цвет текста в кнопке
+
+            'cancel-button-color-in-modals': '#4A4A5D', //цвет "Отмены" во всех модалках
+
             'button-cancel-color': '#4A4A5D', //цвет bg cancel кнопки
+
+            'hover-svg-fill': '#EDEDEF', //цвет ховера fill в модалках
+            'default-svg-fill': '#757589',
 
             'create-chat-border-color': '#404054', //цвет бордера и ховера папки
         }
         const light = {
             ...common,
-            'header-color': '#404054', //цвет фона и хедера --> var(--)
-            'left-bar-color': '#C4C4C4', //цвет панели с папками --> var(--left-bar-color)
+            'header-color': '#757589', //цвет фона и хедера --> var(--)
+            'footer-color': '#B7B7BE',
+            'left-bar-color': '#EDEDEF', //цвет панели с папками --> var(--left-bar-color)
             'main-color': '#EDEDEF', //цвет фона с перепиской --> var(--main-color)
             'font-color': '#1D1D35', //цвет шрифта(основной) --> var(--font-color)
             'messages-color': '#FFFFFF', //цвет чужого сообщения var(--messages-color)
@@ -49,20 +68,31 @@ export function useStyle() {
             'active-folder-color': '#1D1D35', //цвет активной директории var(--active-folder-color)
             'sub-text-color': '#757589', //цвет шрифта(вторичный) var(--sub-text-color)
 
+            'message-action-icon-color': '#FFFFFF', //цвет иконок
+            'folder-create-button-color': '#FFFFFF', //цвет создания папки и текста
+            'folder-create-plus-color': '#B7B7BE', //цвет линий плюсика в svg
+            'stripe-instead-ava': '#757589', //цвет полосок вместо авы
+
+            'user-name-color': '#404054', //имя профиля в левой панели
+
+            'svg-settings-fill': '#B7B7BE', //цвет SVG в настройках профиля
+
             'context-background-color': '#C3C3C3', //цвет бг контекстного меню
 
             'create-folder-color': '#FFFFFF', //цвет модального окна создания папки var(--create-folder-color)
-            'create-folder-font-color': '#4A4A5D', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
+            'create-folder-font-color': '#404054', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
             'create-folder-header-color': '#000000', //цвет заголовка в модальном окне создания папки var(--create-folder-font--color)
-            'create-folder-border-color': '#C4C4C4', //цвет бордеров в модальном окне создания папки var(--create-folder-font--color)
+            'create-folder-border-color': '#757589', //цвет бордеров в модальном окне создания папки var(--create-folder-font--color)
             'create-folder-font-button': '#F3F3F3', //цвет текста в кнопке
-            'button-cancel-color': '#4A4A5D', //цвет bg cancel кнопки
 
-            'create-chat-border-color': '#404054', //цвет бордера и ховера папки
-            'modal-bg-color': '#1d1d35',
+            'cancel-button-color-in-modals': '#757589', //цвет "Отмены" во всех модалках
 
+            'button-cancel-color': '#EDEDEF', //цвет bg cancel кнопки
 
+            'hover-svg-fill': '#757589', //цвет ховера fill в модалках
+            'default-svg-fill': '#B7B7BE',
 
+            'create-chat-border-color': '#EDEDEF', //цвет бордера и ховера папки
         }
 
         let setProperties = (property) => {

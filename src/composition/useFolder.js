@@ -32,6 +32,10 @@ export function useFolder() {
         await folderActions.deleteFolder(ids)
     }
 
+    const updateFolder = async (data) => {
+        await folderActions.updateFolder(data);
+    }
+
 
     return {
         folders: computed(() => folders.data),
@@ -42,6 +46,8 @@ export function useFolder() {
         selectFolder,
         offsetFolderDialogsPosition,
         setOffsetFolderDialogsPosition,
+
+        updateFolder,
 
     }
 }

@@ -3,11 +3,30 @@ import { ref, reactive, computed } from 'vue';
 const openedModalCreateFolder = ref(false);
 const openedModalCreateChat = ref(false);
 const openedModalAddToFolder = ref(false);
-const openedModalEditFolders = ref(true);
+const openedModalEditFolders = ref(false);
 const openedModalMoveChat = ref(false);
 
 const selectedFolderToEdit = ref(null);
-const selectedDialogsToFolder = reactive({data: []})
+const selectedDialogsToFolder = reactive({data: []});
+
+const fromModals = reactive({
+    fromAddToFolderToCreateChat: false,
+    fromCreateChatToCreateFolder: false,
+})
+
+let onCloseCallback = () => null;
+let onCloseCallbackMoveModal = () => null;
+
+const setCloseCallback = (cb) => {
+    onCloseCallback = cb;
+}
+const setCloseCallbackMoveModal = (cb) => {
+    onCloseCallbackMoveModal = cb;
+}
+
+const selectedDialogsToMove = reactive({
+    data: [],
+});
 
 export function useModals() {
     const toggleModalCreateFolder = (value, folder) => {
@@ -34,6 +53,18 @@ export function useModals() {
         selectedDialogsToFolder.data = [...dialogs];
     }
 
+    const selectedDialogsInEdit = reactive({
+        data: [],
+    })
+
+    const setSelectedDialogsInEdit = (data) => {
+        selectedDialogsInEdit.data = [...data];
+    }
+
+    const setSelectedDialogsToMove = (data) => {
+        selectedDialogsToMove.data = [...data];
+    }
+
     return {
         toggleModalCreateFolder,
         openedModalCreateFolder,
@@ -53,6 +84,19 @@ export function useModals() {
         selectedFolderToEdit,
         selectedDialogsToFolder: computed(() => selectedDialogsToFolder.data),
         setSelectedDialogs,
+
+        fromModals,
+        onCloseCallback,
+        setCloseCallback,
+
+        selectedDialogsToMove: computed(() => selectedDialogsToMove.data),
+        setSelectedDialogsToMove,
+
+        setSelectedDialogsInEdit,
+        selectedDialogsInEdit: computed(() => selectedDialogsInEdit.data),
+
+        setCloseCallbackMoveModal,
+        onCloseCallbackMoveModal
 
     }
 }

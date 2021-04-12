@@ -1,10 +1,11 @@
 <template>
-    <div class="base-dialog"
-
-    >
+    <div class="base-dialog">
         <BaseCircleIcon
             :src="chatInfo.avatar"
+            :isNeedSelecting="isNeedSelecting"
+            :isSelected="isSelected"
             :isActive="false"
+            @toggleSelecting="toggleSelecting"
         ></BaseCircleIcon>
         <div class="base-dialog__container">
             <div class="base-dialog__row">
@@ -62,6 +63,7 @@
 <script>
     import BaseCircleIcon from './BaseCircleIcon'
     import {useDate} from "../../composition/useDate";
+    import { computed } from 'vue';
     export default {
         components: { BaseCircleIcon },
         props: {
@@ -77,13 +79,22 @@
                 },
                 unread: Number,
             },
+            isNeedSelecting: Boolean,
+            isSelected: Boolean,
         },
-        setup(props) {
+        setup(props, {emit}) {
             const { validDate } = useDate()
+
+            const toggleSelecting = () => {
+                emit('toggleSelecting');
+            }
 
             return {
                 chatInfo: props.chatInfo,
-                validDate
+                validDate,
+                isNeedSelecting: props.isNeedSelecting,
+                toggleSelecting,
+                isSelected: computed(() => props.isSelected),
             }
         }
     }
@@ -113,6 +124,7 @@
         }
         &.base-dialog_not-padding {
             padding: 0;
+            margin-bottom: 0;
         }
     }
     .base-dialog__container{

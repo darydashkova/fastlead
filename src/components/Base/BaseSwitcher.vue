@@ -62,7 +62,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: var(--green-color);
+        background: var(--svg-settings-fill);
         -webkit-transition: .4s;
         transition: .4s;
         .base-switcher__slider-circle {
@@ -71,7 +71,7 @@
             width: 18px;
             left: 0;
             bottom: -1.5px;
-            background: var(--green-color);
+            background: var(--svg-settings-fill);
             -webkit-transition: .4s;
             transition: .4s;
             display: flex;
@@ -82,7 +82,7 @@
                 content: '';
                 width: 14px;
                 height: 14px;
-                background: #404054;
+                background: var(--messages-color);
             }
         }
     }

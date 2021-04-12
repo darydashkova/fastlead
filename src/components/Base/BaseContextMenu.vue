@@ -8,15 +8,15 @@
                 <li class="base-context-menu__element" @click="delDialog(context.id)">
                     Удалить
                 </li>
-                <li class="base-context-menu__element">
+                <li class="base-context-menu__element" @click="moveChat(context.id)">
                     Переместить в папку
                 </li>
-                <li class="base-context-menu__element">
-                    Добавить тег
-                </li>
-                <li class="base-context-menu__element">
-                    Заблокировать
-                </li>
+<!--                <li class="base-context-menu__element">-->
+<!--                    Добавить тег-->
+<!--                </li>-->
+<!--                <li class="base-context-menu__element">-->
+<!--                    Заблокировать-->
+<!--                </li>-->
             </template>
             <template v-if="context.item === 'folder'">
                 <li class="base-context-menu__element" @click="toggleModalCreateFolder(true, context.id)">
@@ -41,14 +41,14 @@
             const { contextPosition, isContextOpened, unsetContext, context } = useContextMenu();
             const { selectedFolder, deleteFolder, selectFolder, getAllFolders } = useFolder();
             const { deleteDialog, getDialogs, selectDialog } = useDialogs();
-            const { toggleModalCreateFolder } = useModals();
+            const { toggleModalCreateFolder, toggleModalMoveChat, setSelectedDialogsToMove } = useModals();
 
             onMounted(() => {
                 document.querySelector('.base-context-menu').focus()
             })
 
             const delDialog = (id) => {
-                deleteDialog(id)
+                deleteDialog([id])
                     .then(() => {
                         selectDialog(null);
                         getDialogs(selectedFolder.value);
@@ -65,6 +65,12 @@
                     })
             }
 
+            const moveChat = (id) => {
+                setSelectedDialogsToMove([id]);
+                toggleModalMoveChat(true);
+                document.querySelector('.base-context-menu').blur()
+            }
+
 
             return {
                 contextPosition,
@@ -72,9 +78,11 @@
                 context,
                 delDialog,
                 delFolder,
+                moveChat,
 
                 unsetContext,
                 toggleModalCreateFolder,
+                toggleModalMoveChat,
             }
         }
     }

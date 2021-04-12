@@ -6,7 +6,7 @@ import ModalAddToFolder from "../../components/Modals/ModalAddToFolder.vue"
 import ModalEditFolders from "../../components/Modals/ModalEditFolders.vue"
 import ModalMoveChat from "../../components/Modals/ModalMoveChat.vue"
 
-import { provide } from "vue"
+import { provide, onUnmounted, onMounted } from "vue"
 
 import { useUser } from "../../composition/useUser";
 import { useFolder } from "../../composition/useFolder";
@@ -30,7 +30,7 @@ export default {
         const { getAllFolders, selectFolder, folders } = useFolder();
         const { isContextOpened } = useContextMenu();
         const { socket } = useSocket();
-        const { selectDialog, getDialogs } = useDialogs();
+        const { selectDialog, getDialogs, toggleAllSelectedGroupDialogs } = useDialogs();
         const { getMessagesFromDialog } = useMessages();
 
         const {
@@ -67,6 +67,19 @@ export default {
         if (dialog_id) {
             selectDialog(+dialog_id);
             getMessagesFromDialog(+dialog_id);
+        }
+
+        onMounted(() => {
+            document.addEventListener('keyup', close);
+        })
+        onUnmounted(() => {
+            document.removeEventListener('keyup', close);
+        })
+
+        const close = (e) => {
+            if (e.keyCode === 27) {
+                toggleAllSelectedGroupDialogs(false)
+            }
         }
 
         return {

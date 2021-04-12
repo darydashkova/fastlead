@@ -1,5 +1,6 @@
 <template>
-    <div class="modal-create-chat" @mousedown.self="toggleModalCreateChat(false)">
+    <div class="modal-create-chat" @mousedown.self="close"
+    :class="{'z-index': fromModals.fromAddToFolderToCreateChat}">
         <div class="modal-create-chat__body">
             <BaseModalHeader>
                 Создать чат
@@ -38,7 +39,7 @@
                 <div class="modal-create-chat__my-folders"
                      :class="{'modal-create-chat__my-folders_scroll': folders.length > 3}"
                 >
-                    <div v-if="folders.length > 3" class="scroll" ref="container" @click.self="scrollTo">
+                    <div v-show="folders.length > 3" class="scroll" ref="container" @click.self="scrollTo">
                         <div class="scroll__bar" ref="scrollbar"></div>
                     </div>
                     <div class="modal-create-chat__folder-content" ref="content">
@@ -79,7 +80,11 @@
                 </div>
                 <div class="modal-create-chat__label modal-create-chat__label_padding-20 modal-create-chat__label_mt-26 modal-create-chat__label_uppercase pointer">
                 </div>
-                <BaseModalText class="base-modal-text_padding-20 base-modal-text_mt-26 base-modal-text_uppercase pointer">Создать новую папку</BaseModalText>
+                <BaseModalText
+                        class="base-modal-text_padding-20 base-modal-text_mt-26 base-modal-text_uppercase pointer"
+                        v-if="!fromModals.fromAddToFolderToCreateChat"
+                        @click="createFolder"
+                >Создать новую папку</BaseModalText>
             </div>
 
             <div class="modal-create-chat__buttons">
@@ -91,7 +96,7 @@
                 </BaseButton>
                 <BaseButton
                         class="base-button_cancel"
-                        @click.self="toggleModalCreateChat(false)"
+                        @click.self="close"
                 >
                     Отмена
                 </BaseButton>
@@ -117,9 +122,9 @@
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseModalHeader },
         setup() {
-            const { folders, selectFolder } = useFolder();
+            const { folders, selectFolder, getAllFolders } = useFolder();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-            const { toggleModalCreateChat } = useModals();
+            const { toggleModalCreateChat, toggleModalCreateFolder, fromModals, setCloseCallback, onCloseCallback } = useModals();
             const { getWhatsapps, whatsapps } = useWhatsapp()
             const { createDialog, getDialogs, selectDialog } = useDialogs();
 
@@ -146,6 +151,17 @@
                 phone: false,
             })
 
+            const close = () => {
+                fromModals.fromAddToFolderToCreateChat = false;
+                setCloseCallback(() => null);
+                toggleModalCreateChat(false);
+            }
+
+            const createFolder = () => {
+                fromModals.fromCreateChatToCreateFolder = true;
+                toggleModalCreateFolder(true);
+            }
+
             const save = () => {
                 errors.whatsapp = false;
                 errors.phone = false;
@@ -162,8 +178,17 @@
                     whatsapp_id: selectedWhatsapp.value.whatsapp_id,
                     folder_id: selectedFolder.value,
                 }).then(r => {
+                    if (r.error) {
+                        errors.phone = true;
+                        return;
+                    }
                     selectFolder(selectedFolder.value);
                     getDialogs(selectedFolder.value);
+                    getAllFolders();
+
+                    onCloseCallback();
+                    fromModals.fromAddToFolderToCreateChat = false;
+                    setCloseCallback(() => null);
 
                     toggleModalCreateChat(false);
                 })
@@ -198,6 +223,10 @@
                 save,
 
                 errors,
+
+                fromModals,
+                close,
+                createFolder,
             }
         }
     }
@@ -216,6 +245,9 @@
         align-items: center;
         justify-content: center;
         text-align: left;
+        &.z-index {
+            z-index: 1400;
+        }
     }
     .modal-create-chat__body {
         width: 364px;
@@ -242,7 +274,7 @@
         margin-top: 6px;
         color: var(--create-folder-header-color);
         width: 100%;
-        border-bottom: 1px solid var(--create-chat-border-color);
+        border-bottom: 1px solid var(--separator-color);
         padding: 2px;
         background: transparent;
     }
@@ -261,7 +293,7 @@
     }
     .modal-create-chat__icon_default {
         path {
-            fill: var(--search-input-color);
+            fill: var(--default-svg-fill);
         }
     }
     .modal-create-chat__folder {
@@ -275,7 +307,7 @@
             .modal-create-chat__icon {
                 &.modal-create-chat__icon_default {
                     path {
-                        fill: var(--create-folder-font-button);
+                        fill: var(--hover-svg-fill);
                     }
                 }
             }
@@ -292,7 +324,7 @@
         margin-top: 44px;
     }
     .modal-create-chat__folder-name {
-        color: var(--create-folder-font-button);
+        color: var(--create-folder-font-color);
         font-style: normal;
         font-weight: normal;
         font-size: 16px;

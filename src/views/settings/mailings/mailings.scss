@@ -1,0 +1,19 @@
+.settings-mailings__header {
+  height: 80px;
+  padding: 16px;
+  position: relative;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--create-folder-border-color);
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 29px;
+  color: var(--create-folder-header-color);
+}
+.settings-mailings__content {
+  width: 100%;
+}

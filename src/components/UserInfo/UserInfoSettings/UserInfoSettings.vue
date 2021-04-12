@@ -2,14 +2,18 @@
     <div class="user-info__settings">
         <div class="user-info__setting">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 0C11.2092 0 13 1.79084 13 4C13 6.20916 11.2092 8 9 8C6.79084 8 5 6.20916 5 4C5.00217 1.79177 6.79177 0.00216584 9 0Z" fill="#EDEDEF"/>
-                <path d="M0 18C0.083163 16.0923 1.00975 14.3505 2.63376 13.0612C4.31004 11.7316 6.56906 11 8.9999 11C11.4307 11 13.69 11.7316 15.366 13.0612C16.99 14.3505 17.9166 16.0923 18 18H0Z" fill="#EDEDEF"/>
+                <path d="M9 0C11.2092 0 13 1.79084 13 4C13 6.20916 11.2092 8 9 8C6.79084 8 5 6.20916 5 4C5.00217 1.79177 6.79177 0.00216584 9 0Z"
+                      fill="#EDEDEF"/>
+                <path d="M0 18C0.083163 16.0923 1.00975 14.3505 2.63376 13.0612C4.31004 11.7316 6.56906 11 8.9999 11C11.4307 11 13.69 11.7316 15.366 13.0612C16.99 14.3505 17.9166 16.0923 18 18H0Z"
+                      fill="#EDEDEF"/>
             </svg>
             <span class="user-info__setting-name">Редактировать профиль</span>
         </div>
-        <div class="user-info__setting">
+
+        <div class="user-info__setting" @click="toggleModalEditFolders(true)">
             <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0516 0H1.94837C0.872332 0 0 0.864291 0 1.93041V9.61932C0 10.6854 0.872332 11.5497 1.94837 11.5497H14.2777C14.8432 11.5497 15.3898 11.7521 15.8166 12.1197L18 14V1.93041C18 0.864291 17.1277 0 16.0516 0Z" fill="#F9F5F3"/>
+                <path d="M16.0516 0H1.94837C0.872332 0 0 0.864291 0 1.93041V9.61932C0 10.6854 0.872332 11.5497 1.94837 11.5497H14.2777C14.8432 11.5497 15.3898 11.7521 15.8166 12.1197L18 14V1.93041C18 0.864291 17.1277 0 16.0516 0Z"
+                      fill="#F9F5F3"/>
             </svg>
             <span class="user-info__setting-name">Редактировать папки</span>
         </div>
@@ -38,7 +42,7 @@
                 >Ночной режим</BaseSwitcher>
             </span>
         </div>
-        <div class="user-info__setting">
+        <div class="user-info__setting" @click="outAuth">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0)">
                     <path d="M17.9426 7.96339C17.9044 7.87188 17.8496 7.78863 17.7799 7.71888L15.5306 5.46962C15.2374 5.17712 14.7634 5.17712 14.4701 5.46962C14.1769 5.76286 14.1769 6.23761 14.4701 6.53011L15.4399 7.49986H11.2504C10.8356 7.49986 10.5004 7.83585 10.5004 8.24985C10.5004 8.66385 10.8356 8.99983 11.2504 8.99983H15.4398L14.4701 9.96958C14.1769 10.2628 14.1769 10.7376 14.4701 11.0301C14.6163 11.1771 14.8083 11.2498 15.0004 11.2498C15.1924 11.2498 15.3844 11.1771 15.5306 11.0301L17.7799 8.78081C17.8496 8.7118 17.9044 8.62855 17.9426 8.5363C18.0183 8.35338 18.0183 8.14638 17.9426 7.96339Z" fill="#F9F5F3"/>
@@ -58,15 +62,23 @@
 <script>
     import BaseSwitcher from "../../Base/BaseSwitcher";
     import { useStyle } from "../../../composition/useStyle";
+    import { useModals } from "../../../composition/useModals";
+    import { useAuth } from "../../../composition/useAuth";
 
     export default {
         components: { BaseSwitcher },
         setup() {
-            const { style, setStyle } = useStyle()
+            const { style, setStyle } = useStyle();
+
+            const { toggleModalEditFolders } = useModals();
+
+            const { outAuth } = useAuth();
 
             return {
                 style,
-                setStyle
+                setStyle,
+                toggleModalEditFolders,
+                outAuth
             }
         }
     }
@@ -88,6 +100,9 @@
 
         svg{
             min-width: 18px;
+            path {
+                fill: var(--svg-settings-fill);
+            }
         }
     }
     .user-info__setting-name {

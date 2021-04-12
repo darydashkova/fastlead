@@ -16,6 +16,13 @@ export default {
             folder_ids: [...ids],
             csrf_token: localStorage.getItem('x-csrf')
         }
-      return api.fetch('POST', 'delete/folder', lData)
+        return api.fetch('POST', 'delete/folder', lData)
     },
+    updateFolder: (data) => {
+        let lData = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf')
+        }
+        return api.fetch('POST', 'update/folder/name', lData)
+    }
 }

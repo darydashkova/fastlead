@@ -1,5 +1,6 @@
 <template>
-    <div class="modal-create-folder" @mousedown.self="toggleModalCreateFolder(false)">
+    <div class="modal-create-folder" @mousedown.self="close"
+         :class="{'z-index': fromModals.fromCreateChatToCreateFolder}">
         <div class="modal-create-folder__body">
             <BaseModalHeader>
                 {{editingFolder.name? editingFolder.name : 'Новая папка'}}
@@ -20,15 +21,22 @@
                 >Добавить чат</BaseModalText>
             </div>
 
-            <div class="modal-create-folder__dialogs">
-                <div class="modal-create-folder__dialog" v-for="dialog in selectedDialogsToFolder">
-                    <BaseCircleIcon :src="dialog.avatar"></BaseCircleIcon>
-                    <div class="modal-create-folder__name">
-                        {{dialog.name}}
+            <div class="modal-create-folder__dialogs"
+                 :class="{'modal-create-folder__dialogs_scroll': selectedDialogsToFolder.length > 4}"
+            >
+                <div v-show="selectedDialogsToFolder.length > 4" class="scroll" ref="container" @click.self="scrollTo">
+                    <div class="scroll__bar" ref="scrollbar"></div>
+                </div>
+                <div class="modal-create-folder__container" ref="content">
+                    <div class="modal-create-folder__dialog" v-for="dialog in selectedDialogsToFolder">
+                        <BaseCircleIcon :src="dialog.avatar"></BaseCircleIcon>
+                        <div class="modal-create-folder__name">
+                            {{dialog.name}}
+                        </div>
+                        <svg @click="delDialog(dialog)" class="modal-create-folder__dialog-delete pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L12.5 12.5M12.5 1L1 12.5" stroke="#757589" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
                     </div>
-                    <svg @click="delDialog(dialog)" class="modal-create-folder__dialog-delete pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L12.5 12.5M12.5 1L1 12.5" stroke="#757589" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
                 </div>
             </div>
 
@@ -44,7 +52,7 @@
                     Добавить
                 </BaseButton>
                 <BaseButton
-                        @click="toggleModalCreateFolder(false)"
+                        @click="close"
                         class="base-button_cancel"
                 >
                     Отмена
@@ -63,17 +71,17 @@
     import BaseModalHeader from '../Base/BaseModalHeader.vue'
 
     import { useFolder } from "../../composition/useFolder";
-    import { ref, computed, reactive } from 'vue';
+    import { ref, computed, onMounted } from 'vue';
     import { useModals } from "../../composition/useModals";
     import { useDialogs } from "../../composition/useDialogs";
+    import {useCustomScroll} from "../../composition/useCustomScroll";
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseCircleIcon, BaseModalHeader },
         setup() {
-            const { createFolder, getAllFolders, folders, selectFolder } = useFolder();
-
-            const { toggleModalCreateFolder, toggleModalAddToFolder, selectedFolderToEdit, selectedDialogsToFolder, setSelectedDialogs } = useModals();
-
-            const { getDialogs } = useDialogs();
+            const { createFolder, getAllFolders, folders, selectFolder, updateFolder } = useFolder();
+            const { toggleModalCreateFolder, toggleModalAddToFolder, selectedFolderToEdit, selectedDialogsToFolder, setSelectedDialogs, fromModals, setCloseCallback, selectedDialogsInEdit, setSelectedDialogsInEdit } = useModals();
+            const { getDialogs, dischargeDialog, moveDialog } = useDialogs();
+            const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
 
             const name = ref('');
 
@@ -90,37 +98,76 @@
                     name.value = f.name;
                     getDialogs(selectedFolderToEdit.value)
                         .then(r => {
-                            setSelectedDialogs(r.dialogues)
+                            setSelectedDialogs(r.dialogues);
+                            setSelectedDialogsInEdit(r.dialogues);
                         })
                     return f;
                 } else return {};
             })
 
+            const close = () => {
+                fromModals.fromCreateChatToCreateFolder = false;
+
+                toggleModalCreateFolder(false);
+            }
+
             const lCreateFolder = () => {
                 error.value = false;
+                // selectedDialogsInEdit
+                const closeModalAfterFetch = () => {
+                    getAllFolders()
+                        .then(r => {
+                            let id = r.find(i => i.name === name.value).folder_id
+                            selectFolder(id);
+                            getDialogs(id);
+
+                            fromModals.fromCreateChatToCreateFolder = false;
+
+                            toggleModalCreateFolder(false);
+                        })
+                }
                 if (name.value) {
-                    createFolder({
-                        name: name.value,
-                        dialog_ids: selectedDialogsToFolder.value.map(i => i.dialog_id),
-                    }).then(r => {
-                        if (r.error) {
-                            error.value = true;
-                        } else {
-                            getAllFolders()
-                                .then(r => {
-                                    let id = r.find(i => i.name === name.value).folder_id
-                                    selectFolder(id);
-                                    getDialogs(id);
-                                    toggleModalCreateFolder(false);
-                                })
+                    if (editingFolder.value.name) {
+                        let toDischarge = selectedDialogsInEdit.value.filter(item => {
+                            return selectedDialogsToFolder.value.find(i => i.dialog_id !== item.dialog_id);
+                        })
+                        let toMoveIn = selectedDialogsToFolder.value.filter(item => {
+                            return selectedDialogsInEdit.value.find(i => i.dialog_id !== item.dialog_id);
+                        })
+                        const afterUpdateName = async () => {
+                            toDischarge.length && await dischargeDialog({dialog_ids: toDischarge.map(i => i.dialog_id)})
+                            toMoveIn.length && await moveDialog({dialog_ids: toMoveIn.map(i => i.dialog_id), folder_id: editingFolder.value.folder_id})
+                            closeModalAfterFetch();
                         }
-                    })
+                        (editingFolder.value.name !== name.value) && updateFolder({name: name.value, folder_id: editingFolder.value.folder_id})
+                        afterUpdateName();
+                    } else {
+                        createFolder({
+                            name: name.value,
+                            dialog_ids: selectedDialogsToFolder.value.map(i => i.dialog_id),
+                        }).then(r => {
+                            if (r.error) {
+                                error.value = true;
+                            } else {
+                                closeModalAfterFetch()
+                            }
+                        })
+                    }
                 } else {
                     error.value = true;
                 }
             }
 
+            onMounted(() => {
+                init()
+            })
+
             return {
+                container,
+                content,
+                scrollbar,
+                scrollTo,
+
                 name,
                 error,
                 lCreateFolder,
@@ -132,6 +179,8 @@
                 selectedDialogsToFolder,
 
                 delDialog,
+                close,
+                fromModals,
 
 
             }
@@ -152,6 +201,9 @@
         align-items: center;
         justify-content: center;
         text-align: left;
+        &.z-index {
+            z-index: 1400;
+        }
     }
     .modal-create-folder__body {
         width: 364px;
@@ -193,7 +245,7 @@
         margin-top: 6px;
         color: var(--create-folder-header-color);
         width: 100%;
-        border-bottom: 1px solid var(--create-chat-border-color);
+        border-bottom: 1px solid var(--separator-color);
         padding: 2px;
         background: transparent;
     }
@@ -224,6 +276,17 @@
     }
     .modal-create-folder__dialogs {
         padding: 0 20px;
+        position: relative;
+        &.modal-create-folder__dialogs_scroll {
+            height: calc(56px * 4);
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+    .modal-create-folder__container {
+        overflow-y: auto;
+        height: 100%;
     }
     .modal-create-folder__dialog {
         display: flex;
@@ -242,7 +305,7 @@
         font-weight: normal;
         font-size: 18px;
         line-height: 24px;
-        color: var(--font-color);
+        color: var(--create-folder-font-color);
     }
     .modal-create-folder__dialog-delete {
         position: absolute;

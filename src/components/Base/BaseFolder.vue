@@ -42,6 +42,10 @@
             white-space: pre-wrap;
             word-wrap: break-word;
             color: var(--folder-color);
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 19px;
         }
         &.base-folder_active {
             .base-folder__icon {
@@ -57,9 +61,12 @@
             margin-bottom: 42px;
         }
         &.base-folder_create{
-            background: var(--header-color);
+            background: var(--footer-color);
             margin-bottom: 0;
-            padding-top: 10px;
+            padding-top: 12px;
+            .base-folder__text {
+                color: var(--folder-create-button-color);
+            }
         }
     }
     .base-folder__unread-count {

@@ -9,6 +9,10 @@ const dialogs = reactive({
 
 const selectedDialog = ref(null);
 
+const selectedGroupDialogs = reactive({
+    data: [],
+})
+
 export function useDialogs() {
     const { getAllFolders } = useFolder();
 
@@ -24,12 +28,12 @@ export function useDialogs() {
             })
     }
 
-    const deleteDialog = async (dialog_id) => {
-        await dialogsActions.deleteDialog(dialog_id);
+    const deleteDialog = async (dialog_ids) => {
+        await dialogsActions.deleteDialog(dialog_ids);
     }
 
     const setRead = () => {
-        dialogsActions.readDialog(selectedDialog.value)
+        dialogsActions.readDialog([selectedDialog.value])
             .then(() => {
                 let dialog = dialogs.data.find(i => i.dialog_id === selectedDialog.value);
                 if (dialog) {
@@ -53,6 +57,28 @@ export function useDialogs() {
         return await dialogsActions.createDialog(data)
     }
 
+    const moveDialog = async (data) => {
+        return await dialogsActions.moveDialog(data)
+    }
+
+    const dischargeDialog = async (data) => {
+        return await dialogsActions.dischargeDialog(data);
+    }
+
+    const toggleSelectedGroupDialogs = (id) => {
+        selectedGroupDialogs.data.find(i => i === id)
+            ? selectedGroupDialogs.data = selectedGroupDialogs.data.filter(i => i !== id)
+            : selectedGroupDialogs.data.push(id);
+    }
+
+    const toggleAllSelectedGroupDialogs = (boolean) => {
+        if (boolean) {
+            selectedGroupDialogs.data = dialogs.data.map(i => i.dialog_id);
+        } else {
+            selectedGroupDialogs.data = [];
+        }
+    }
+
     return {
         dialogs: computed(() => dialogs.data),
         selectedDialog,
@@ -63,5 +89,11 @@ export function useDialogs() {
         setDialogs,
         deleteDialog,
         createDialog,
+        moveDialog,
+        dischargeDialog,
+
+        selectedGroupDialogs: computed(() => selectedGroupDialogs.data),
+        toggleSelectedGroupDialogs,
+        toggleAllSelectedGroupDialogs,
     }
 }

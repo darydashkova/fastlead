@@ -8,6 +8,10 @@
   display: flex;
   align-items: center;
   padding: 0 29px;
+  &.messenger-content-personal-messages__header_header {
+    background: var(--header-color);
+    align-items: flex-start;
+  }
 }
 .messenger-content-personal-messages__name-container{
   margin-left: 16px;
@@ -17,7 +21,7 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 24px;
-  color: var(--font-color__dark);
+  color: var(--font-color);
   text-align: left;
 }
 .messenger-content-personal-messages__date{
@@ -38,4 +42,59 @@
       fill: var(--font-color);
     }
   }
+}
+
+.dialogs-selections {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  width: 100%;
+
+  color: #EDEDEF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+}
+
+.dialogs-selections__checkbox {
+  background: #EDEDEF;
+  border: 0.954545px solid #EDEDEF;
+  border-radius: 3.18182px;
+  width: 14px;
+  height: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.dialogs-selections__container {
+  width: 175px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dialogs-selections__button {
+  padding: 8px 6px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  svg {
+    margin-right: 10px;
+  }
+
+  &:hover {
+    background: var(--separator-color);
+  }
+  &.dialogs-selections__button_mr {
+    margin-right: 20px;
+  }
+}
+.dialogs-selections__actions-container {
+  display: flex;
+  align-items: center;
+
 }

@@ -3,11 +3,16 @@
         <div class="scroll" ref="container" @click.self="scrollTo">
             <div class="scroll__bar" ref="scrollbar"></div>
         </div>
-        <div class="messages_container-list__content" ref="content">
-            <BaseMessage
-                    v-for="message in messages.message"
-                    :message="message"
-            ></BaseMessage>
+        <div class="messages-container-list__content" ref="content">
+            <template v-for="group in groupedMessages">
+                <div class="messages-container-list__date">
+                    {{group.date}}
+                </div>
+                <BaseMessage
+                        v-for="message in group.message"
+                        :message="message"
+                ></BaseMessage>
+            </template>
         </div>
     </div>
 </template>
@@ -56,6 +61,8 @@
                             if (item.type === 'text') {
                                 //если текстовое сообщение проверяем
                                 if (groupImg.length > 3) {
+                                    finalArr[i].message.push(groupImg);
+                                    groupImg = [];
                                     //если больше 3 подряд то проверяем на совпадение по времени
                                     //ToDo поделить на группы по 30 минут
                                 } else {
@@ -70,10 +77,13 @@
                                 groupImg.push(item);
                             }
                         })
+                        if (groupImg.length) {
+                            finalArr[i].message.push(groupImg);
+                            groupImg = [];
+                        }
                     }
                 }
-
-                return dateArr;
+                return finalArr;
             })
 
 
@@ -99,7 +109,7 @@
             display: none;
         }
     }
-    .messages_container-list__content {
+    .messages-container-list__content {
         height: 100%;
         width: 100%;
         overflow-y: auto;

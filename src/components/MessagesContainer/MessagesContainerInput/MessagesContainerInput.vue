@@ -18,6 +18,6 @@
         padding: 15px 40px 3px 29px;
         width: 100%;
         max-width: 100%;
-        background: var(--header-color);
+        background: var(--footer-color);
     }
 </style>

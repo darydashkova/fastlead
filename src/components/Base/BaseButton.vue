@@ -19,6 +19,9 @@
         background: var(--green-color);
     }
     .base-button_cancel {
-        background: var(--button-cancel-color);
+        background: var(--cancel-button-color-in-modals);
+    }
+    .base-button_p5-15 {
+        padding: 5.5px 15.5px;
     }
 </style>

@@ -1,6 +1,6 @@
 .messenger-content-nav{
-  //10 padding у создания папки и 12 - отступ от низа
-  height: calc(100% + 22px);
+  //10 padding у создания папки и 10 - отступ от низа
+  height: calc(100% + 20px);
   width: 127px;
   min-width: 127px;
   max-width: 127px;
@@ -12,6 +12,9 @@
   justify-content: center;
   align-items: center;
   height: 85px;
+  &.messenger-content-nav__ava-container_header {
+    background: var(--header-color);
+  }
 }
 .messenger-content-nav__folder-container{
   padding: 19px 9px 0;
@@ -36,7 +39,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 19px;
-  color: #FFFFFF;
+  color: var(--user-name-color);
 }
 .messenger-content-nav__pseudo-ava {
   margin-bottom: 7px;
