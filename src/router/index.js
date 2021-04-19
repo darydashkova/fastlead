@@ -35,6 +35,9 @@ const routes = [
       },
       {
         path: 'mailings', component: () => import('../views/settings/mailings/mailings.vue')
+      },
+      {
+        path: 'whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue')
       }
     ]
   },

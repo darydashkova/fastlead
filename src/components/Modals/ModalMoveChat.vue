@@ -57,7 +57,7 @@
             <BaseModalHint class="base-modal-hint_padding-20">
                 Вы можете создать папки с нужными <br> чатами и переключаться между ними
             </BaseModalHint>
-            <div class="modal-create-chat__buttons">
+            <div class="modal-move-chat__buttons">
                 <BaseButton
                         class="base-button_enter"
                         @click="move"
@@ -95,8 +95,11 @@
             BaseModalHeader,
             BaseButton,
         },
-        setup() {
-            const { folders, selectedFolder } = useFolder();
+        props: {
+            withCallback: Boolean,
+        },
+        setup(props, {emit}) {
+            const { folders, selectedFolder, getAllFolders } = useFolder();
             const { toggleModalMoveChat, selectedDialogsToMove, toggleModalCreateFolder, onCloseCallbackMoveModal, setCloseCallbackMoveModal} = useModals();
             const { moveDialog, getDialogs } = useDialogs();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll();
@@ -107,8 +110,21 @@
                 selectedLocalFolder.value = id;
             }
 
+            if (props.withCallback) {
+                getAllFolders();
+            }
+
             const move = () => {
                 if (selectedLocalFolder.value) {
+                    if (props.withCallback) {
+                        onCloseCallbackMoveModal({
+                            id: selectedLocalFolder.value,
+                            name: folders.value.find(i => i.folder_id === selectedLocalFolder.value).name,
+                        })
+                        setCloseCallbackMoveModal(() => null);
+                        toggleModalMoveChat(false);
+                        return;
+                    }
                     moveDialog({
                         folder_id: selectedLocalFolder.value,
                         dialog_ids: selectedDialogsToMove.value
@@ -232,6 +248,13 @@
         display: flex;
         justify-content: space-between;
         margin-top: 24px;
+    }
+    .modal-move-chat__buttons {
+        padding: 0 20px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 44px;
     }
 
 </style>

@@ -1,6 +1,6 @@
 .settings-nav {
   height: 100%;
-  background: var(--messages-color);
+  background: var(--settings-nav-color);
   width: 293px;
 }
 .settings-nav__header {
@@ -10,7 +10,7 @@
   text-align: left;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--create-folder-border-color);
+  border-bottom: 1px solid var(--settings-nav-border-color);
   &:before {
     content: '';
     position: absolute;
@@ -31,19 +31,25 @@
   }
 }
 .settings-nav__list {
-  padding: 12px 44px;
   text-align: left;
 }
 .settings-nav__element {
+  padding: 12px 44px;
+  &.router-link-exact-active {
+    background: var(--settings-active-link-color);
+  }
+}
+.settings-nav__link-container {
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 24px;
   color: var(--create-folder-header-color);
-  cursor: pointer;
-
-  margin-bottom: 11px;
   &:last-of-type {
     margin-bottom: 0;
   }
+}
+.settings-nav__link {
+  color: var(--create-folder-header-color);
+  text-decoration: none;
 }

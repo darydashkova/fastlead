@@ -21,6 +21,9 @@
     .base-button_cancel {
         background: var(--cancel-button-color-in-modals);
     }
+    .base-button_settings-cancel {
+        background: var(--mailings-cancel-button-color);
+    }
     .base-button_p5-15 {
         padding: 5.5px 15.5px;
     }

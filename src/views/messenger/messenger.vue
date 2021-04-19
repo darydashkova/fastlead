@@ -1,14 +1,14 @@
 <template>
     <div class="messenger">
         <div class="messenger__bg">
+            <teleport to="body">
+                <ModalEditFolders v-if="openedModalEditFolders"></ModalEditFolders>
+                <ModalMoveChat v-if="openedModalMoveChat"></ModalMoveChat>
+                <ModalCreateFolder v-if="openedModalCreateFolder"></ModalCreateFolder>
+                <ModalCreateChat v-if="openedModalCreateChat"></ModalCreateChat>
+                <ModalAddToFolder v-if="openedModalAddToFolder"></ModalAddToFolder>
+            </teleport>
             <BaseContextMenu v-if="isContextOpened"></BaseContextMenu>
-
-            <ModalEditFolders v-if="openedModalEditFolders"></ModalEditFolders>
-            <ModalMoveChat v-if="openedModalMoveChat"></ModalMoveChat>
-
-            <ModalCreateFolder v-if="openedModalCreateFolder"></ModalCreateFolder>
-            <ModalCreateChat v-if="openedModalCreateChat"></ModalCreateChat>
-            <ModalAddToFolder v-if="openedModalAddToFolder"></ModalAddToFolder>
 
             <MessengerContent></MessengerContent>
         </div>

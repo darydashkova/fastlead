@@ -6,7 +6,9 @@
         <div class="messages-container-list__content" ref="content">
             <template v-for="group in groupedMessages">
                 <div class="messages-container-list__date">
-                    {{group.date}}
+                    <div class="messages-container-list__date-text">
+                        {{group.date}}
+                    </div>
                 </div>
                 <BaseMessage
                         v-for="message in group.message"
@@ -117,6 +119,23 @@
         @media(max-width: 1366px) {
             padding: 15px 29px;
         }
+    }
+    .messages-container-list__date {
+        margin: 25px 0;
+        text-align: center;
+    }
+    .messages-container-list__date-text {
+        display: inline-block;
+        margin: 0 auto;
+        background: var(--folder-color);
+        padding: 4px 16px;
+        border-radius: 4px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 21px;
+        color: var(--date-in-message-color);
+
     }
 
 </style>

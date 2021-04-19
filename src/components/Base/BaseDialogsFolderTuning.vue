@@ -27,7 +27,7 @@
         },
         setup(props) {
 
-            const { openedModalCreateChat, toggleModalCreateChat } = useModals()
+            const { toggleModalCreateChat } = useModals()
 
             return {
                 folder: computed(() => props.folder),

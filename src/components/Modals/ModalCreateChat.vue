@@ -120,8 +120,11 @@
     import {useDialogs} from "../../composition/useDialogs";
 
     export default {
+        props: {
+          fromSettings: Boolean,
+        },
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseModalHeader },
-        setup() {
+        setup(props) {
             const { folders, selectFolder, getAllFolders } = useFolder();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { toggleModalCreateChat, toggleModalCreateFolder, fromModals, setCloseCallback, onCloseCallback } = useModals();
@@ -197,7 +200,15 @@
             onMounted( () => {
                 init();
                 getWhatsapps();
-                selectLocalFolder(folders.value.find(i => i.is_default).folder_id);
+
+                if (props.fromSettings) {
+                    getAllFolders()
+                        .then(() => {
+                            selectLocalFolder(folders.value.find(i => i.is_default).folder_id)
+                        })
+                } else {
+                    selectLocalFolder(folders.value.find(i => i.is_default).folder_id)
+                }
             })
 
             return {

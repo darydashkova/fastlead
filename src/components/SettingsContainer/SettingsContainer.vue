@@ -23,7 +23,7 @@
     }
     .settings-content {
         height: 100%;
-        background: var(--main-color);
+        background: var(--settings-main-color);
         width: calc(100vw - 293px);
     }
 </style>
