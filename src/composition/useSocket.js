@@ -21,7 +21,7 @@ mp3.type = 'audio/mpeg';
 audio.append(ogg);
 audio.append(mp3);
 
-const socket = new WebSocket('ws://192.168.0.11:2346')
+const socket = new WebSocket('ws://192.168.0.10:2346')
 
 export function useSocket() {
     const { dialogs, setDialogs, selectedDialog } = useDialogs();

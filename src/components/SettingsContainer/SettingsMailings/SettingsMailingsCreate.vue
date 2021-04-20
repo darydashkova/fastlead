@@ -25,12 +25,12 @@
                                         @blur="toggleOpenedDatepicker(false)"
                                 >
                                     <div class="settings-mailings-create__select-item pointer">
-                                        {{time? validDate(time, true) : 'Выбрать дату'}}
+                                        {{time? `${validDate(time, true)} ${validTime(time)}` : 'Выбрать дату'}}
                                     </div>
                                     <BaseCalendar
                                             :time="time"
                                             @selectDate="selectDate"
-                                            v-if="isOpenedDatepicker"
+                                            v-if="true"
                                     ></BaseCalendar>
                                 </button>
                                 <svg class="settings-mailings-create__input-icon" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -408,7 +408,7 @@
 
             const { createMailing, updateMailing } = useMailings();
 
-            const { validDate } = useDate();
+            const { validDate, validTime } = useDate();
 
             const isSecondStep = ref(false);
 
@@ -482,7 +482,7 @@
             }
             const selectDate = (time) => {
                 infoToSend.time_start = Math.floor(time / 1000);
-                toggleOpenedDatepicker(false);
+                console.log(infoToSend.time_start)
             }
 
             const isOpenedRangeWork = ref(false);
@@ -693,6 +693,7 @@
 
                 selectDate,
                 validDate,
+                validTime,
                 toggleOpenedDatepicker,
                 isOpenedDatepicker,
 
