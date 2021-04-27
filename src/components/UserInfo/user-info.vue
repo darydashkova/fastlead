@@ -1,6 +1,6 @@
 <template>
     <div class="user-info">
-        <div class="user-info__header pointer" @click="toggleSettings(false)">
+        <div class="user-info__header pointer" @click="toggleOpenedUserInfo(false)">
             Учетные данные
         </div>
         <div class="user-info__container">

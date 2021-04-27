@@ -98,7 +98,7 @@
         props: {
             withCallback: Boolean,
         },
-        setup(props, {emit}) {
+        setup(props) {
             const { folders, selectedFolder, getAllFolders } = useFolder();
             const { toggleModalMoveChat, selectedDialogsToMove, toggleModalCreateFolder, onCloseCallbackMoveModal, setCloseCallbackMoveModal} = useModals();
             const { moveDialog, getDialogs } = useDialogs();

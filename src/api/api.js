@@ -13,4 +13,17 @@ export const api = {
         return await fetch(url+endpoint, fetchArgs)
             .then(res => res.json())
     },
+    fetchFormData: async (method, endpoint, body, token = false, withCredential = false) => {
+        let fetchArgs = {
+            method: method,
+            headers: {},
+        };
+        withCredential && (fetchArgs.credentials = 'include')
+        fetchArgs.headers['Accept'] = 'application/json'
+        let formData = new FormData();
+        formData.append('image', body);
+        fetchArgs.body = formData;
+        return await fetch(url+endpoint, fetchArgs)
+            .then(res => res.json())
+    }
 }

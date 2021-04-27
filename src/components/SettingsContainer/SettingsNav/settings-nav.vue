@@ -77,7 +77,7 @@
             <div class="settings-nav__link-container">
                 <router-link
                         class="settings-nav__link"
-                        to="/settings/"
+                        to="/settings/account"
                         v-slot="{ href, route, navigate, isActive, isExactActive}"
                 >
                     <div class="settings-nav__element"
@@ -179,7 +179,7 @@
             <div class="settings-nav__link-container">
                 <router-link
                         class="settings-nav__link"
-                        to="/settings/"
+                        to="/settings/autoresponder"
                         v-slot="{ href, route, navigate, isActive, isExactActive}"
                 >
                     <div class="settings-nav__element"

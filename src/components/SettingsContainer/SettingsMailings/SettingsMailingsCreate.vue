@@ -3,17 +3,16 @@
         <template v-if="!isSecondStep">
             <div class="settings-mailings-create__input-groups">
                 <div class="settings-mailings-create__input-column">
-                    <div class="settings-mailings-create__input-group">
-                        <label class="settings-mailings-create__label" for="settings-mailings-create__name"
-                               :class="{'settings-mailings-create__label_error': errors.find(i => i === 'name')}"
-                        >
-                            Название
-                        </label>
-                        <input class="settings-mailings-create__input" type="text" id="settings-mailings-create__name"
-                               placeholder="Название рассылки не отображается у получателей"
-                               v-model="infoToSend.name"
-                        >
-                    </div>
+                    <BaseInputGroup
+                            :error="!!errors.find(i => i === 'name')"
+                            :value="infoToSend.name"
+                            :placeholder="'Название рассылки не отображается у получателей'"
+                            :dynamic-id="'settings-mailings-create__name'"
+
+                            @inputValue="inputName"
+                    >
+                        Название
+                    </BaseInputGroup>
                     <div class="settings-mailings-create__row">
                         <div class="settings-mailings-create__input-group">
                             <label class="settings-mailings-create__label">
@@ -30,7 +29,7 @@
                                     <BaseCalendar
                                             :time="time"
                                             @selectDate="selectDate"
-                                            v-if="true"
+                                            v-if="isOpenedDatepicker"
                                     ></BaseCalendar>
                                 </button>
                                 <svg class="settings-mailings-create__input-icon" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,26 +109,7 @@
                                         </svg>
                                         <span>Ничего не делать</span>
                                     </div>
-                                    <div @click.stop="toggleModalMoveChat(true)" class="settings-mailings-create__select-item settings-mailings-create__select-item_arrow">
-                                        <svg class="settings-mailings-create__select-icon" width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16 5.2744L16.6 5.2744L16 5.2744ZM16 12L15.4 12L16 12ZM13 13.4C12.6686 13.4 12.4 13.6686 12.4 14C12.4 14.3314 12.6686 14.6 13 14.6V13.4ZM7.49997 14.6C7.83134 14.6 8.09997 14.3314 8.09997 14C8.09997 13.6686 7.83134 13.4 7.49997 13.4V14.6ZM0.4 2.7058V12H1.6V2.7058H0.4ZM2.7058 1.6H4.96479V0.4H2.7058V1.6ZM15.4 5.2744L15.4 12L16.6 12L16.6 5.2744L15.4 5.2744ZM7.23919 3.87441H12.25V2.67441H7.23919V3.87441ZM14.0001 2.67441H12.25V3.87441H14.0001V2.67441ZM14 13.4H13V14.6H14V13.4ZM3 14.6H7.49997V13.4H3V14.6ZM16.6 5.2744C16.6 3.83849 15.436 2.67441 14.0001 2.67441V3.87441C14.7732 3.87441 15.4 4.50118 15.4 5.2744L16.6 5.2744ZM6.18431 2.81952C6.18431 3.40212 6.6566 3.87441 7.23919 3.87441V2.67441C7.31934 2.67441 7.38431 2.73938 7.38431 2.81952H6.18431ZM4.96479 1.6C5.63831 1.6 6.18431 2.146 6.18431 2.81952H7.38431C7.38431 1.48326 6.30106 0.4 4.96479 0.4V1.6ZM1.6 2.7058C1.6 2.09509 2.09509 1.6 2.7058 1.6V0.4C1.43234 0.4 0.4 1.43234 0.4 2.7058H1.6ZM15.4 12C15.4 12.7732 14.7732 13.4 14 13.4V14.6C15.436 14.6 16.6 13.4359 16.6 12L15.4 12ZM0.4 12C0.4 13.4359 1.56406 14.6 3 14.6V13.4C2.2268 13.4 1.6 12.7732 1.6 12H0.4Z" fill="#B7B7BE"/>
-                                            <path d="M8.15034 11.5814C8.19924 11.6319 8.25742 11.672 8.32151 11.6994C8.38561 11.7268 8.45436 11.7408 8.5238 11.7408C8.59323 11.7408 8.66198 11.7268 8.72608 11.6994C8.79018 11.672 8.84835 11.6319 8.89725 11.5814L9.81646 10.6168L9.81646 14.0539C9.81646 14.1968 9.87187 14.3339 9.97051 14.435C10.0692 14.536 10.2029 14.5928 10.3424 14.5928C10.4819 14.5928 10.6157 14.536 10.7144 14.435C10.813 14.3339 10.8684 14.1968 10.8684 14.0539L10.8684 10.6168L11.7876 11.5814C11.8365 11.6319 11.8947 11.672 11.9588 11.6994C12.0229 11.7268 12.0917 11.7408 12.1611 11.7408C12.2305 11.7408 12.2993 11.7268 12.3634 11.6994C12.4275 11.672 12.4856 11.6319 12.5345 11.5814C12.6325 11.4805 12.6875 11.3439 12.6875 11.2015C12.6875 11.0591 12.6325 10.9225 12.5345 10.8216L10.9679 9.31796C10.7716 9.11555 10.621 9.0012 10.3424 9C10.0657 9.00262 9.94294 9.11686 9.74785 9.31796L8.1556 10.8216C8.05693 10.9218 8.001 11.058 8.00001 11.2004C7.99903 11.3428 8.05307 11.4797 8.15034 11.5814Z" fill="#B7B7BE"/>
-                                        </svg>
-                                        <span>Переместить в папку</span>
-                                        <svg class="settings-mailings-create__select-pseudo-icon" width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.999838 10L5.66651 5.29253L0.999841 0.857141" stroke="#B7B7BE" stroke-linecap="round"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="settings-mailings-create__select-list" v-if="isOpenedSelectEvents">
-                                    <div @click.stop="selectEvent(0)" class="settings-mailings-create__select-item">
-                                        <svg class="settings-mailings-create__select-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10.6668 5.33334C10.5418 5.20836 10.3723 5.13815 10.1955 5.13815C10.0187 5.13815 9.84919 5.20836 9.72417 5.33334L8.00017 7.05734L6.27617 5.33334C6.15043 5.21191 5.98203 5.14471 5.80724 5.14623C5.63244 5.14775 5.46523 5.21786 5.34162 5.34146C5.21802 5.46507 5.14791 5.63228 5.14639 5.80708C5.14487 5.98187 5.21206 6.15028 5.3335 6.27601L7.0575 8.00001L5.3335 9.72401C5.21206 9.84974 5.14487 10.0181 5.14639 10.1929C5.14791 10.3677 5.21802 10.5349 5.34162 10.6586C5.46523 10.7822 5.63244 10.8523 5.80724 10.8538C5.98203 10.8553 6.15043 10.7881 6.27617 10.6667L8.00017 8.94268L9.72417 10.6667C9.8499 10.7881 10.0183 10.8553 10.1931 10.8538C10.3679 10.8523 10.5351 10.7822 10.6587 10.6586C10.7823 10.5349 10.8524 10.3677 10.854 10.1929C10.8555 10.0181 10.7883 9.84974 10.6668 9.72401L8.94284 8.00001L10.6668 6.27601C10.7918 6.15099 10.862 5.98145 10.862 5.80468C10.862 5.6279 10.7918 5.45836 10.6668 5.33334Z" fill="#B7B7BE"/>
-                                            <path d="M8 0C6.41775 0 4.87103 0.469192 3.55544 1.34824C2.23985 2.22729 1.21447 3.47672 0.608967 4.93853C0.00346629 6.40034 -0.15496 8.00887 0.153721 9.56072C0.462403 11.1126 1.22433 12.538 2.34315 13.6569C3.46197 14.7757 4.88743 15.5376 6.43928 15.8463C7.99113 16.155 9.59966 15.9965 11.0615 15.391C12.5233 14.7855 13.7727 13.7602 14.6518 12.4446C15.5308 11.129 16 9.58225 16 8C15.9977 5.87897 15.1541 3.84547 13.6543 2.34568C12.1545 0.845885 10.121 0.00229405 8 0V0ZM8 14.6667C6.68146 14.6667 5.39253 14.2757 4.2962 13.5431C3.19987 12.8106 2.34539 11.7694 1.84081 10.5512C1.33622 9.33305 1.2042 7.9926 1.46143 6.6994C1.71867 5.40619 2.35361 4.2183 3.28596 3.28595C4.21831 2.3536 5.40619 1.71867 6.6994 1.46143C7.99261 1.2042 9.33305 1.33622 10.5512 1.8408C11.7694 2.34539 12.8106 3.19987 13.5431 4.2962C14.2757 5.39253 14.6667 6.68146 14.6667 8C14.6647 9.76751 13.9617 11.4621 12.7119 12.7119C11.4621 13.9617 9.76752 14.6647 8 14.6667Z" fill="#B7B7BE"/>
-                                        </svg>
-                                        <span>Ничего не делать</span>
-                                    </div>
-                                    <div @click.stop="toggleModalMoveChat(true)" class="settings-mailings-create__select-item settings-mailings-create__select-item_arrow">
+                                    <div @click.stop="toggleModalMoveChat(true)" class="settings-mailings-create__select-item">
                                         <svg class="settings-mailings-create__select-icon" width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M16 5.2744L16.6 5.2744L16 5.2744ZM16 12L15.4 12L16 12ZM13 13.4C12.6686 13.4 12.4 13.6686 12.4 14C12.4 14.3314 12.6686 14.6 13 14.6V13.4ZM7.49997 14.6C7.83134 14.6 8.09997 14.3314 8.09997 14C8.09997 13.6686 7.83134 13.4 7.49997 13.4V14.6ZM0.4 2.7058V12H1.6V2.7058H0.4ZM2.7058 1.6H4.96479V0.4H2.7058V1.6ZM15.4 5.2744L15.4 12L16.6 12L16.6 5.2744L15.4 5.2744ZM7.23919 3.87441H12.25V2.67441H7.23919V3.87441ZM14.0001 2.67441H12.25V3.87441H14.0001V2.67441ZM14 13.4H13V14.6H14V13.4ZM3 14.6H7.49997V13.4H3V14.6ZM16.6 5.2744C16.6 3.83849 15.436 2.67441 14.0001 2.67441V3.87441C14.7732 3.87441 15.4 4.50118 15.4 5.2744L16.6 5.2744ZM6.18431 2.81952C6.18431 3.40212 6.6566 3.87441 7.23919 3.87441V2.67441C7.31934 2.67441 7.38431 2.73938 7.38431 2.81952H6.18431ZM4.96479 1.6C5.63831 1.6 6.18431 2.146 6.18431 2.81952H7.38431C7.38431 1.48326 6.30106 0.4 4.96479 0.4V1.6ZM1.6 2.7058C1.6 2.09509 2.09509 1.6 2.7058 1.6V0.4C1.43234 0.4 0.4 1.43234 0.4 2.7058H1.6ZM15.4 12C15.4 12.7732 14.7732 13.4 14 13.4V14.6C15.436 14.6 16.6 13.4359 16.6 12L15.4 12ZM0.4 12C0.4 13.4359 1.56406 14.6 3 14.6V13.4C2.2268 13.4 1.6 12.7732 1.6 12H0.4Z" fill="#B7B7BE"/>
                                             <path d="M8.15034 11.5814C8.19924 11.6319 8.25742 11.672 8.32151 11.6994C8.38561 11.7268 8.45436 11.7408 8.5238 11.7408C8.59323 11.7408 8.66198 11.7268 8.72608 11.6994C8.79018 11.672 8.84835 11.6319 8.89725 11.5814L9.81646 10.6168L9.81646 14.0539C9.81646 14.1968 9.87187 14.3339 9.97051 14.435C10.0692 14.536 10.2029 14.5928 10.3424 14.5928C10.4819 14.5928 10.6157 14.536 10.7144 14.435C10.813 14.3339 10.8684 14.1968 10.8684 14.0539L10.8684 10.6168L11.7876 11.5814C11.8365 11.6319 11.8947 11.672 11.9588 11.6994C12.0229 11.7268 12.0917 11.7408 12.1611 11.7408C12.2305 11.7408 12.2993 11.7268 12.3634 11.6994C12.4275 11.672 12.4856 11.6319 12.5345 11.5814C12.6325 11.4805 12.6875 11.3439 12.6875 11.2015C12.6875 11.0591 12.6325 10.9225 12.5345 10.8216L10.9679 9.31796C10.7716 9.11555 10.621 9.0012 10.3424 9C10.0657 9.00262 9.94294 9.11686 9.74785 9.31796L8.1556 10.8216C8.05693 10.9218 8.001 11.058 8.00001 11.2004C7.99903 11.3428 8.05307 11.4797 8.15034 11.5814Z" fill="#B7B7BE"/>
@@ -147,38 +127,32 @@
                         </div>
                     </div>
                     <div class="settings-mailings-create__row">
-                        <div class="settings-mailings-create__input-group settings-mailings-create__input-group_w-50">
-                            <label class="settings-mailings-create__label" for="settings-mailings-create__mails-count">
-                                Кол-во писем в день
-                            </label>
-                            <div class="settings-mailings-create__ranged-input">
-                                <input v-model="infoToSend.send_day" class="settings-mailings-create__input" type="text" id="settings-mailings-create__mails-count"
-                                       placeholder="0"
-                                       @keypress="onlyNumber"
-                                >
-                                <BaseRangedButtons
-                                    @up="infoToSend.send_day++"
-                                    @down="infoToSend.send_day > 0? infoToSend.send_day-- : null"
-                                    :disabledDown="+infoToSend.send_day === 0"
-                                ></BaseRangedButtons>
-                            </div>
-                        </div>
-                        <div class="settings-mailings-create__input-group settings-mailings-create__input-group_w-30">
-                            <label class="settings-mailings-create__label" for="settings-mailings-create__interval">
-                                Интервал
-                            </label>
-                            <div class="settings-mailings-create__ranged-input">
-                                <input v-model="infoToSend.interval" class="settings-mailings-create__input" type="text" id="settings-mailings-create__interval"
-                                       placeholder="0"
-                                       @keypress="onlyNumber"
-                                >
-                                <BaseRangedButtons
-                                        @up="infoToSend.interval++"
-                                        @down="infoToSend.interval > 0? infoToSend.interval-- : null"
-                                        :disabledDown="+infoToSend.interval === 0"
-                                ></BaseRangedButtons>
-                            </div>
-                        </div>
+                        <BaseRangeInputGroup
+                                class="base-range-input-group_w-50"
+                                :value="infoToSend.send_day"
+                                :dynamic-id="'settings-mailings-create__mails-count'"
+                                :placeholder="'0'"
+                                :disabledDown="+infoToSend.send_day === 0"
+
+                                @up="infoToSend.send_day++"
+                                @down="infoToSend.send_day > 0? infoToSend.send_day-- : null"
+                                @inputValue="inputSendDay"
+                        >
+                            Кол-во писем в день
+                        </BaseRangeInputGroup>
+                        <BaseRangeInputGroup
+                                class="base-range-input-group_w-30"
+                                :value="infoToSend.interval"
+                                :dynamic-id="'settings-mailings-create__interval'"
+                                :placeholder="'0'"
+                                :disabledDown="+infoToSend.interval === 0"
+
+                                @up="infoToSend.interval++"
+                                @down="infoToSend.interval > 0? infoToSend.interval-- : null"
+                                @inputValue="inputInterval"
+                        >
+                            Интервал
+                        </BaseRangeInputGroup>
                     </div>
                 </div>
             </div>
@@ -376,11 +350,12 @@
 </template>
 
 <script>
-    import BaseRangedButtons from '../../Base/BaseRangedButtons.vue'
+    import BaseRangeInputGroup from '../../Base/BaseRangeInputGroup.vue'
     import BaseButton from '../../Base/BaseButton.vue'
     import BaseCircleIcon from '../../Base/BaseCircleIcon.vue'
     import BaseCalendar from '../../Base/BaseCalendar.vue'
     import BaseTimepicker from '../../Base/BaseTimepicker.vue'
+    import BaseInputGroup from '../../Base/BaseInputGroup.vue'
     import ModalMoveChat from '../../Modals/ModalMoveChat.vue'
     import ModalCreateChat from '../../Modals/ModalCreateChat.vue'
 
@@ -398,7 +373,7 @@
                 interval: Number,
             }
         },
-        components: { BaseRangedButtons, BaseButton, BaseCircleIcon, BaseCalendar, BaseTimepicker, ModalMoveChat, ModalCreateChat },
+        components: { BaseRangeInputGroup, BaseButton, BaseCircleIcon, BaseCalendar, BaseTimepicker, BaseInputGroup, ModalMoveChat, ModalCreateChat },
         setup(props, {emit}) {
             const { toggleModalMoveChat, toggleModalCreateChat, setCloseCallbackMoveModal } = useModals();
 
@@ -482,7 +457,6 @@
             }
             const selectDate = (time) => {
                 infoToSend.time_start = Math.floor(time / 1000);
-                console.log(infoToSend.time_start)
             }
 
             const isOpenedRangeWork = ref(false);
@@ -502,6 +476,16 @@
                     return `Выбрать`
                 }
             })
+
+            const inputName = ($event) => {
+                infoToSend.name = $event;
+            }
+            const inputSendDay = ($event) => {
+                infoToSend.send_day = $event;
+            }
+            const inputInterval = ($event) => {
+                infoToSend.interval = $event;
+            }
 
 
 
@@ -603,12 +587,7 @@
 
 
 
-            const onlyNumber = ($event) => {
-                let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
-                if (keyCode < 48 || keyCode > 57) { // 46 is dot
-                    $event.preventDefault();
-                }
-            }
+
 
             onMounted(() => {
                 if (props.selectedMailingToEdit) {
@@ -689,7 +668,6 @@
 
                 create,
                 errors,
-                onlyNumber,
 
                 selectDate,
                 validDate,
@@ -701,6 +679,10 @@
                 isOpenedRangeWork,
                 toggleOpenedRangeWork,
                 rangeWorkString,
+
+                inputName,
+                inputSendDay,
+                inputInterval,
 
             }
         }
@@ -730,6 +712,7 @@
             @media(max-width: 1400px) {
                 width: 100%;
                 max-width: 100%;
+                padding-right: 50px;
             }
         }
         &:last-of-type {
@@ -863,7 +846,7 @@
     }
     .settings-mailings-create__steps {
         background: var(--messages-color);
-        border: 0.74px solid var(--settings-dropdown-border-color);
+        border: 0.74px solid var(--settings-active-background-color);
         box-sizing: border-box;
         border-radius: 3px;
 
@@ -882,7 +865,7 @@
         font-weight: normal;
         font-size: 22px;
         line-height: 29px;
-        color: var(--settings-dropdown-border-color);
+        color: var(--settings-active-background-color);
 
         &:last-of-type {
             &:before {

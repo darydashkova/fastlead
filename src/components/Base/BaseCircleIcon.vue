@@ -96,6 +96,17 @@
             height: $diagonal;
             border-radius: 50%;
         }
+        &.base-circle-icon_big {
+            $diagonal: 75px;
+            /*diagonal === диагональ круга(картинки)*/
+            width: $diagonal;
+            height: $diagonal;
+            display: inline-block;
+            .base-circle-icon__image{
+                width: $diagonal;
+                height: $diagonal;
+            }
+        }
         &.base-circle-icon_little {
             $diagonal: 21px;
             /*diagonal === диагональ круга(картинки)*/

@@ -11,14 +11,15 @@ const user = reactive({
 export function useUser() {
     const router = useRouter();
 
-    const getUser = () => {
+    const getUser = (again = false) => {
         userActions.tryGetUser()
             .then(r => {
                 user.data = {...r.user}
+                user.data.avatar = user.data.avatar + (again? `?anti-cash=${new Date().getTime()}`: '')
             })
-            .catch(err => {
-                router.push('/login')
-            })
+            // .catch(err => {
+            //     router.push('/login')
+            // })
     }
 
     return {

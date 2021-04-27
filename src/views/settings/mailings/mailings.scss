@@ -14,6 +14,17 @@
   line-height: 29px;
   color: var(--create-folder-header-color);
 }
+.settings-mailings__scroll-container {
+  //30px padding
+  //80px header
+  height: calc(100vh - 110px);
+  position: relative;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
 .settings-mailings__content {
   width: 100%;
+  height: 100%;
+  overflow-y: auto;
 }

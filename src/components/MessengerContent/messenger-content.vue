@@ -4,7 +4,7 @@
         ></MessengerContentNav>
 
         <MessengerContentSidebar
-                v-if="!openedSettings"
+                v-if="!openedUserInfo"
                 class="messenger-content__middle-bar"
         ></MessengerContentSidebar>
         <UserInfo

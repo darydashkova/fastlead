@@ -14,8 +14,17 @@
   line-height: 29px;
   color: var(--create-folder-header-color);
 }
+.settings-whatsapps__scroll-container {
+  height: calc(100vh - 110px);
+  position: relative;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
 .settings-whatsapps__content {
   width: 100%;
+  height: 100%;
+  overflow-y: auto;
   padding: 18px 8px 0;
   display: flex;
   flex-wrap: wrap;

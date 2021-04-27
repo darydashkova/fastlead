@@ -5,15 +5,15 @@
         >
             <template v-if="!selectedGroupDialogs.length">
                 <BaseCircleIcon
-                        v-if="!openedSettings"
-                        @click="toggleSettings(true)"
+                        v-if="!openedUserInfo"
+                        @click="toggleOpenedUserInfo(true)"
                         class="pointer"
                         :src="image"
                         :isActive="true"
                 ></BaseCircleIcon>
                 <svg
                         v-else
-                        @click="toggleSettings(false)"
+                        @click="toggleOpenedUserInfo(false)"
                         class="messenger-content-nav__pseudo-ava pointer"
                         width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="22" cy="22" r="22" fill="var(--folder-create-button-color)"/>
@@ -83,7 +83,7 @@
     import {useDialogs} from "../../../composition/useDialogs";
     import {useFolder} from "../../../composition/useFolder";
     import {useContextMenu} from "../../../composition/useContextMenu";
-    import {useSettings} from "../../../composition/useSettings";
+    import {useUserInfo} from "../../../composition/useUserInfo";
     import {useModals} from "../../../composition/useModals";
     import {useLoader} from "../../../composition/useLoader";
     export default {
@@ -99,7 +99,7 @@
 
             const { setContext } = useContextMenu()
 
-            const { toggleSettings, openedSettings } = useSettings()
+            const { toggleOpenedUserInfo, openedUserInfo } = useUserInfo()
 
             const { isLoadingDialogs } = useLoader()
 
@@ -140,8 +140,8 @@
                 toggleModalCreateFolder,
                 openContextMenu,
 
-                toggleSettings,
-                openedSettings,
+                toggleOpenedUserInfo,
+                openedUserInfo,
 
 
                 image: computed(() => user.value.avatar),

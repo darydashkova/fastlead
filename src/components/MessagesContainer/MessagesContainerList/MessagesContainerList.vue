@@ -10,10 +10,16 @@
                         {{group.date}}
                     </div>
                 </div>
-                <BaseMessage
-                        v-for="message in group.message"
-                        :message="message"
-                ></BaseMessage>
+                <template v-for="message in group.message">
+                    <BaseGroupedImages
+                            v-if="Array.isArray(message)"
+                            :images="message"
+                    ></BaseGroupedImages>
+                    <BaseMessage
+                            v-else
+                            :message="message"
+                    ></BaseMessage>
+                </template>
             </template>
         </div>
     </div>
@@ -22,12 +28,13 @@
 <script>
     import { onMounted, computed } from 'vue';
     import BaseMessage from '../../Base/BaseMessage';
+    import BaseGroupedImages from '../../Base/BaseGroupedImages';
     import { useCustomScroll } from "../../../composition/useCustomScroll";
     import { useMessages } from "../../../composition/useMessages";
     import {useDate} from "../../../composition/useDate";
 
     export default {
-        components: {BaseMessage},
+        components: {BaseMessage, BaseGroupedImages},
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { messages, setListRef } = useMessages();
@@ -79,8 +86,13 @@
                                 groupImg.push(item);
                             }
                         })
-                        if (groupImg.length) {
+                        if (groupImg.length > 3) {
                             finalArr[i].message.push(groupImg);
+                            groupImg = [];
+                        } else {
+                            groupImg.forEach(img => {
+                                finalArr[i].message.push(img);
+                            })
                             groupImg = [];
                         }
                     }

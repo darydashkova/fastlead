@@ -22,6 +22,9 @@
         &.base-modal-text_mt-29 {
             margin-top: 29px;
         }
+        &.base-modal-text_mt-45 {
+            margin-top: 45px;
+        }
         &.base-modal-text_uppercase {
             text-transform: uppercase;
         }

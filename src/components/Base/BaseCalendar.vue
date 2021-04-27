@@ -73,37 +73,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="base-timepicker__column">
-                    <div class="base-timepicker__button" @click.stop="prev('m')" :disabled="timepicker.disabled.m">
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 5L4.88097 1L1 5" stroke="#1D1D35" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <div class="base-timepicker__slider">
-                        <div class="base-timepicker__slider-wrapper" ref="m">
-                            <div class="base-timepicker__element" v-for="minute in timepicker.times.m"
-                                 :class="{'base-timepicker__element_active': minute === modifiedPropsRangeWork.m}"
-                            >
-                                {{minute}}
+                <div class="base-calendar-timepicker__container-column">
+                    <div class="base-calendar-timepicker__column">
+                        <div class="base-calendar-timepicker__button" @click.stop="prev('m')" :disabled="timepicker.disabled.m">
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 5L4.88097 1L1 5" stroke="#1D1D35" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="base-calendar-timepicker__slider">
+                            <div class="base-calendar-timepicker__slider-wrapper" ref="m">
+                                <div class="base-calendar-timepicker__element" v-for="minute in timepicker.times.m"
+                                     :class="{'base-calendar-timepicker__element_active': minute === modifiedPropsRangeWork.m}"
+                                >
+                                    {{minute}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="base-timepicker__button" @click.stop="next('m')" :disabled="timepicker.disabled.m">
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L5.11903 5L9 1" stroke="#1D1D35" stroke-linecap="round"/>
-                        </svg>
-                    </div>
+                        <div class="base-calendar-timepicker__button" @click.stop="next('m')" :disabled="timepicker.disabled.m">
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L5.11903 5L9 1" stroke="#1D1D35" stroke-linecap="round"/>
+                            </svg>
+                        </div>
 
-                </div>
-                <div class="base-calendar-timepicker__selector">
-                    <div class="base-calendar-timepicker__double-dot">
-                        :
                     </div>
+                </div>
+
+                <div class="base-calendar-timepicker__selector">
                     <div class="base-calendar-timepicker__hyphen">
                         —
-                    </div>
-                    <div class="base-calendar-timepicker__double-dot">
-                        :
                     </div>
                 </div>
             </div>
@@ -181,9 +178,8 @@
             })
 
             const selectDate = (day) => {
-                emit('selectDate', new Date(calendar.currentYear, calendar.currentMonth, +day).getTime());
+                firstInit(day)
                 pickedDate.value = false;
-                firstInit();
             }
 
             const pickedDate = ref(true);
@@ -217,8 +213,8 @@
             const modifiedPropsRangeWork = computed(() => {
                 if (props.time) {
                     return {
-                        h: new Date(props.time * 1000).getHours(),
-                        m: new Date(props.time * 1000).getMinutes(),
+                        h: new Date(props.time * 1000).getHours() < 10? '0'+new Date(props.time * 1000).getHours() : new Date(props.time * 1000).getHours().toString(),
+                        m: new Date(props.time * 1000).getMinutes() < 10? '0'+new Date(props.time * 1000).getMinutes() : new Date(props.time * 1000).getMinutes().toString(),
                     }
                 } else return false;
 
@@ -293,7 +289,7 @@
                     }
                 }
             }
-            const firstInit = () => {
+            const firstInit = (day) => {
                 if (modifiedPropsRangeWork.value !== false) {
                     for (let prop in timepicker.current) {
                         while (timepicker.times[prop][2] !== modifiedPropsRangeWork.value[prop]) {
@@ -313,8 +309,12 @@
                         }
                     }
                 } else {
-                    let date = new Date(+props.time * 1000);
-                    emit('selectDate', new Date(calendar.currentYear, calendar.currentMonth, date.getDate(), date.getHours(), date.getMinutes()).getTime())
+                    if (modifiedPropsRangeWork.value) {
+                        emit('selectDate', new Date(calendar.currentYear, calendar.currentMonth, +day, modifiedPropsRangeWork.value.h, modifiedPropsRangeWork.value.m).getTime())
+                    } else {
+                        emit('selectDate', new Date(calendar.currentYear, calendar.currentMonth, +day, 2, 20).getTime())
+
+                    }
                 }
             }
             if (!props.time) {
@@ -322,7 +322,7 @@
             } else {
                 createCalendar(new Date(+props.time * 1000).getFullYear(), new Date(+props.time * 1000).getMonth() + 1)
             }
-
+            firstInit();
 
             return {
                 calendar,
@@ -457,11 +457,11 @@
     }
     .base-calendar-timepicker__container-column {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         width: 40%;
         margin: 0 10px;
         position: relative;
-        z-indeX: 101;
+        z-index: 101;
     }
     .base-calendar-timepicker__column {
         display: flex;

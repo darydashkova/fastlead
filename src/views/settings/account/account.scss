@@ -1,0 +1,175 @@
+.settings-account__header {
+  height: 80px;
+  padding: 16px;
+  position: relative;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--separator-color);
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 29px;
+  color: var(--create-folder-header-color);
+}
+.settings-account__scroll-container {
+  //30px padding
+  //80px header
+  height: calc(100vh - 110px);
+  position: relative;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+.settings-account__content {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+.settings-account__text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--settings-recipients-active-font-color);
+
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.settings-account__sub-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--folder-color);
+
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.settings-account__online-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  background: var(--green-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.settings-account__row {
+  width: 100%;
+  display: flex;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--separator-color);
+  &.settings-account__row_pd-26 {
+    padding: 26px 16px;
+  }
+  &.settings-account__row_pd-32 {
+    padding: 32px 16px;
+  }
+  &.settings-account__row_none {
+    padding: 0;
+    border-bottom: none;
+  }
+  &.settings-account__row_jsb {
+    justify-content: space-between;
+  }
+  &.settings-account__row_w-40 {
+    width: 40%;
+  }
+  &.settings-account__row_column {
+    flex-direction: column;
+  }
+  &.settings-account__row_mb-24 {
+    margin-bottom: 24px;
+  }
+}
+.settings-account__first-element {
+  width: 270px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.settings-account__last-element {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  &.settings-account__last-element_w-little {
+    width: 145px;
+    .base-button {
+      width: 100%;
+    }
+  }
+  &.settings-account__last-element_w-middle {
+    width: 180px;
+    .base-button {
+      width: 100%;
+    }
+  }
+  &.settings-account__last-element_w-big {
+    width: 210px;
+    .base-button {
+      width: 100%;
+    }
+  }
+}
+.settings-account_input {
+  padding: 6px 10px;
+  background: transparent;
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--font-color);
+  border: 0.7px solid var(--separator-color);
+  border-radius: 3px;
+  width: 312px;
+  text-align: left;
+  &::placeholder {
+    color: var(--default-svg-fill);
+  }
+}
+.settings-account__password_error-confirm {
+  position: relative;
+  &:before {
+    content: 'Пароли не совпадают';
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 15px;
+
+    position: absolute;
+    top: 100%;
+    color: var(--red-color);
+  }
+  .settings-account_input {
+    border: 0.7px solid var(--red-color);
+  }
+}
+.settings-account__password_error-length {
+  position: relative;
+  &:before {
+    content: 'Пароль должен содержать не менее 8 символов';
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 15px;
+
+    position: absolute;
+    top: 100%;
+    color: var(--red-color);
+  }
+  .settings-account_input {
+    border: 0.7px solid var(--red-color);
+  }
+}

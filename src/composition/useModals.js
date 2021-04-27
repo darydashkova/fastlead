@@ -7,6 +7,8 @@ const openedModalEditFolders = ref(false);
 const openedModalMoveChat = ref(false);
 const openedModalCreateWhatsapp = ref(false);
 const openedModalSyncWhatsapp = ref(false);
+const openedModalChangeAva = ref(false);
+const openedModalNewMessage = ref(false);
 
 const selectedFolderToEdit = ref(null);
 const selectedDialogsToFolder = reactive({data: []});
@@ -18,12 +20,16 @@ const fromModals = reactive({
 
 let onCloseCallback = () => null;
 let onCloseCallbackMoveModal = () => null;
+let onCloseCallbackNewMessage = () => null;
 
 const setCloseCallback = (cb) => {
     onCloseCallback = cb;
 }
 const setCloseCallbackMoveModal = (cb) => {
     onCloseCallbackMoveModal = cb;
+}
+const setCloseCallbackNewMessage = (cb) => {
+    onCloseCallbackNewMessage = cb;
 }
 
 const selectedDialogsToMove = reactive({
@@ -57,6 +63,12 @@ export function useModals() {
     }
     const toggleModalSyncWhatsapp = (value) => {
         openedModalSyncWhatsapp.value = value;
+    }
+    const toggleModalChangeAva = (value) => {
+        openedModalChangeAva.value = value;
+    }
+    const toggleModalNewMessage = (value) => {
+        openedModalNewMessage.value = value;
     }
 
     const setSelectedDialogs = (dialogs) => {
@@ -98,6 +110,12 @@ export function useModals() {
         toggleModalSyncWhatsapp,
         openedModalSyncWhatsapp,
 
+        toggleModalChangeAva,
+        openedModalChangeAva,
+
+        toggleModalNewMessage,
+        openedModalNewMessage,
+
 
         selectedFolderToEdit,
         selectedDialogsToFolder: computed(() => selectedDialogsToFolder.data),
@@ -115,6 +133,9 @@ export function useModals() {
 
         setCloseCallbackMoveModal,
         onCloseCallbackMoveModal,
+
+        setCloseCallbackNewMessage,
+        onCloseCallbackNewMessage,
 
     }
 }

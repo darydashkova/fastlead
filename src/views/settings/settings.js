@@ -6,6 +6,8 @@ import ModalEditFolders from "../../components/Modals/ModalEditFolders.vue"
 import ModalMoveChat from "../../components/Modals/ModalMoveChat.vue"
 import ModalCreateWhatsapp from "../../components/Modals/ModalCreateWhatsapp.vue"
 import ModalSyncWhatsapp from "../../components/Modals/ModalSyncWhatsapp.vue"
+import ModalChangeAva from "../../components/Modals/ModalChangeAva.vue"
+import ModalNewMessage from "../../components/Modals/ModalNewMessage.vue"
 import {useModals} from "../../composition/useModals";
 
 export default {
@@ -18,6 +20,8 @@ export default {
         ModalMoveChat,
         ModalCreateWhatsapp,
         ModalSyncWhatsapp,
+        ModalChangeAva,
+        ModalNewMessage
     },
     setup() {
         const {
@@ -28,6 +32,8 @@ export default {
             openedModalMoveChat,
             openedModalCreateWhatsapp,
             openedModalSyncWhatsapp,
+            openedModalChangeAva,
+            openedModalNewMessage
         } = useModals()
 
         return {
@@ -37,7 +43,9 @@ export default {
             openedModalEditFolders,
             openedModalMoveChat,
             openedModalCreateWhatsapp,
-            openedModalSyncWhatsapp
+            openedModalSyncWhatsapp,
+            openedModalChangeAva,
+            openedModalNewMessage
         }
     }
 }

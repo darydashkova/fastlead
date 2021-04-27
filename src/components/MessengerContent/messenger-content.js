@@ -2,13 +2,13 @@ import MessengerContentNav from './MessengerContentNav/messenger-content-nav'
 import MessengerContentSidebar from './MessengerContentDialogs/messenger-content-dialogs'
 import MessengerContentPersonalMessages from './MessengerContentPersonalMessages/messenger-content-personal-messages'
 import UserInfo from '../UserInfo/user-info.vue'
-import { useSettings } from "../../composition/useSettings";
+import { useUserInfo } from "../../composition/useUserInfo";
 export default {
     components: { MessengerContentNav, MessengerContentSidebar, MessengerContentPersonalMessages, UserInfo},
     setup() {
-        const { openedSettings } = useSettings()
+        const { openedUserInfo } = useUserInfo()
         return {
-            openedSettings
+            openedUserInfo
         }
     }
 }

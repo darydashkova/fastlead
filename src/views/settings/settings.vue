@@ -4,7 +4,6 @@
             <ModalEditFolders v-if="openedModalEditFolders"></ModalEditFolders>
             <ModalMoveChat v-if="openedModalMoveChat"
                            :withCallback="true"
-                           @move="selectFolder"
             ></ModalMoveChat>
             <ModalCreateFolder v-if="openedModalCreateFolder"></ModalCreateFolder>
             <ModalCreateChat v-if="openedModalCreateChat"
@@ -13,6 +12,8 @@
             <ModalAddToFolder v-if="openedModalAddToFolder"></ModalAddToFolder>
             <ModalCreateWhatsapp v-if="openedModalCreateWhatsapp"></ModalCreateWhatsapp>
             <ModalSyncWhatsapp v-if="openedModalSyncWhatsapp"></ModalSyncWhatsapp>
+            <ModalChangeAva v-if="openedModalChangeAva"></ModalChangeAva>
+            <ModalNewMessage v-if="openedModalNewMessage"></ModalNewMessage>
         </teleport>
         <SettingsContainer></SettingsContainer>
     </div>

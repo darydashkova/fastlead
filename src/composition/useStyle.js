@@ -85,6 +85,14 @@ export function useStyle() {
             'settings-whatsapp-del-icon-fill': '#EB5757',
             'settings-whatsapp-default-icon-fill': '#B7B7BE',
             'settings-whatsapp-del-icon-bg': '#1D1D35',
+
+            'settings-autoresponders-actions-dropdown-font-color': '#B7B7BE',
+            'settings-autoresponders-actions-input-bg-color': '#141427',
+
+            'base-checkbox-group-font-color': '#757589',
+
+
+            'empty-photo-bg': 'rgba(29, 29, 53, 0.88)',
         }
         const light = {
             ...common,
@@ -157,6 +165,12 @@ export function useStyle() {
             'settings-whatsapp-default-icon-fill': '#FFFFFF',
             'settings-whatsapp-del-icon-bg': '#EB5757',
 
+            'settings-autoresponders-actions-dropdown-font-color': '#EDEDEF',
+            'settings-autoresponders-actions-input-bg-color': '#FFFFFF',
+
+            'base-checkbox-group-font-color': '#404054',
+
+            'empty-photo-bg': 'rgba(64, 64, 84, 0.56)',
         }
 
         let setProperties = (property) => {
