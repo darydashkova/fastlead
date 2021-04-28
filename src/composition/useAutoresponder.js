@@ -34,6 +34,7 @@ const autorespondersActions = reactive({
                         },
                     ],
                     disable_dialog: false,
+                    id: autorespondersActions.data.length,
                 })
             }
 
@@ -51,9 +52,28 @@ const autorespondersActions = reactive({
         },
         changeAutoresponder(index, data) {
             autorespondersActions.data[index] = {...data};
+
+            autorespondersActions.data.sort((a, b) => {
+                if (a.start_condition[0].type && !b.start_condition[0].type) {
+                    return -1;
+                } else if (b.start_condition[0].type && !a.start_condition[0].type) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
         },
         setNewActions(data) {
             autorespondersActions.data = [...data];
+            autorespondersActions.data.sort((a, b) => {
+                if (a.start_condition[0].type && !b.start_condition[0].type) {
+                    return -1;
+                } else if (b.start_condition[0].type && !a.start_condition[0].type) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
         }
     },
     isOpenedEdit: false,

@@ -140,6 +140,9 @@
             justify-content: center;
             cursor: pointer;
         }
+        &.settings-autoresponder-create-parameters-card_opacity {
+            opacity: .5;
+        }
     }
     .settings-autoresponder-create-parameters-card__header {
         font-style: normal;

@@ -95,6 +95,9 @@
         &.base-range-input-group_w-80 {
             width: 80%;
         }
+        &.base-range-input-group_w-37 {
+            width: 37%;
+        }
         &.base-range-input-group_another-color {
             .base-range-input-group__input {
                 background: var(--settings-autoresponders-actions-input-bg-color);

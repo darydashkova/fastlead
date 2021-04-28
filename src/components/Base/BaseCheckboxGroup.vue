@@ -2,11 +2,11 @@
     <div class="base-checkbox-group">
         <input :value="value" type="checkbox" @change="$emit('changeChecked', $event.target.checked)" class="display: none" :id="dynamicId">
         <label :for="dynamicId" class="base-checkbox-group__container">
-            <span class="base-checkbox-group__checkbox">
-                <template v-if="value">&#10004;</template>
-            </span>
             <span class="base-checkbox-group__label">
                 Выполнять один раз
+            </span>
+            <span class="base-checkbox-group__checkbox">
+                <template v-if="value">&#10004;</template>
             </span>
         </label>
     </div>
@@ -47,7 +47,6 @@
         min-width: 21px;
         height: 21px;
         min-height: 21px;
-        margin-right: 24px;
         position: relative;
         display: flex;
         align-items: center;
@@ -60,5 +59,7 @@
         font-size: 16px;
         line-height: 21px;
         color: var(--base-checkbox-group-font-color);
+        margin-right: 24px;
+
     }
 </style>

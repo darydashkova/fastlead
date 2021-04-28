@@ -34,7 +34,7 @@
                 input: ($event) => emit('inputValue', $event.target.value),
                 id: props.dynamicId,
                 placeholder: props.placeholder,
-                error: props.error,
+                error: computed(() => props.error),
             }
         }
     }
@@ -52,6 +52,9 @@
         }
         &.base-input-group_w-45 {
             width: 45%;
+        }
+        &.base-input-group_w-53 {
+            width: 53%;
         }
         &.base-input-group_full-height {
             height: 100%;

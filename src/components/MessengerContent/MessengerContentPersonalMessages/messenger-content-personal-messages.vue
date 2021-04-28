@@ -69,9 +69,9 @@
             </template>
             <template v-else>
                 <template v-if="selectedDialog">
-                    <BaseSquareIcon
+                    <BaseCircleIcon
                             :src="messages.avatar"
-                    ></BaseSquareIcon>
+                    ></BaseCircleIcon>
                     <div class="messenger-content-personal-messages__name-container">
                         <div class="messenger-content-personal-messages__name">{{messages.name}}</div>
                         <div class="messenger-content-personal-messages__date">{{messages.is_online? 'В сети' : 'Не в сети'}}</div>
@@ -94,14 +94,14 @@
 </template>
 
 <script>
-    import BaseSquareIcon from '../../Base/BaseSquareIcon'
+    import BaseCircleIcon from '../../Base/BaseCircleIcon'
     import MessagesContainer from '../../MessagesContainer/messages-container.vue'
     import { useMessages } from "../../../composition/useMessages";
     import { useDialogs } from "../../../composition/useDialogs";
     import {useFolder} from "../../../composition/useFolder";
     import {useModals} from "../../../composition/useModals";
     export default {
-        components: { BaseSquareIcon, MessagesContainer },
+        components: { BaseCircleIcon, MessagesContainer },
         setup() {
             const { messages } = useMessages();
 

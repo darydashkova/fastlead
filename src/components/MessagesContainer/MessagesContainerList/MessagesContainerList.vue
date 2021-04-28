@@ -124,13 +124,11 @@
         }
     }
     .messages-container-list__content {
-        height: 100%;
+        height: calc(100% - 20px);
         width: 100%;
         overflow-y: auto;
-        padding: 15px 90px 15px 29px;
-        @media(max-width: 1366px) {
-            padding: 15px 29px;
-        }
+        padding: 15px 29px;
+        margin: 10px 0;
     }
     .messages-container-list__date {
         margin: 25px 0;

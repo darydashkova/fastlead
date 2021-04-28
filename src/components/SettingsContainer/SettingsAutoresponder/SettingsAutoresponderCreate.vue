@@ -270,31 +270,36 @@
             </div>
         </template>
         <template v-else>
-            <div class="settings-autoresponder-create__parameters">
-                <template v-if="actions.isOpenedEdit">
-                    <SettingsAutoresponderCreateParameters
-                            ref="autoresponderEdit"
-                        :index="actions.indexToEdit"
-                        :action="actions.data[actions.indexToEdit - 1]"
-                        :error="!!errors.find(item => item.name === 'actions') && !!(errors.find(item => item.name === 'actions').data.find(item => item === actions.indexToEdit - 1) || actions.indexToEdit - 1 === errors.find(item => item.name === 'actions').data.find(item => item === actions.indexToEdit - 1))"
-                    ></SettingsAutoresponderCreateParameters>
-                </template>
-                <template v-else>
-                    <SettingsAutoresponderCreateParametersCard
-                            v-for="(i, index) in actions.data"
-                            :key="`SettingsAutoresponderCreateParameters${index}`"
-                            :action="i"
-                            :index="index + 1"
-                            :error="!!errors.find(item => item.name === 'actions') && !!(errors.find(item => item.name === 'actions').data.find(item => item === index) || index === errors.find(item => item.name === 'actions').data.find(item => item === index))"
-                            @changeProperty="actions.actions.changeProperty"
-                            @edit="actions.actions.edit"
-                    ></SettingsAutoresponderCreateParametersCard>
-                    <SettingsAutoresponderCreateParametersCard
-                            @add="addAction"
-                            :isEmpty="true"
-                    ></SettingsAutoresponderCreateParametersCard>
-                </template>
+            <div class="settings-autoresponder-create__parameters" v-if="actions.isOpenedEdit">
+                <SettingsAutoresponderCreateParameters
+                        ref="autoresponderEdit"
+                    :index="actions.indexToEdit"
+                    :action="actions.data[actions.indexToEdit - 1]"
+                    :error="!!errors.find(item => item.name === 'actions') && (actions.data[actions.indexToEdit - 1].id === errors.find(item => item.name === 'actions').data.find(item => item === actions.data[actions.indexToEdit - 1].id))"
+                ></SettingsAutoresponderCreateParameters>
             </div>
+            <draggable v-else v-model="actionsData"
+                       item-key="id"
+                       class="settings-autoresponder-create__parameters"
+                       ghost-class="settings-autoresponder-create-parameters-card_opacity"
+            >
+                    <template #item="{i, index}">
+                        <SettingsAutoresponderCreateParametersCard
+                                :key="`SettingsAutoresponderCreateParameters${index}`"
+                                :action="actionsData[index]"
+                                :index="index + 1"
+                                :error="!!errors.find(item => item.name === 'actions') && ( actionsData[index].id === errors.find(item => item.name === 'actions').data.find(item => item === actionsData[index].id))"
+                                @changeProperty="actions.actions.changeProperty"
+                                @edit="actions.actions.edit"
+                        ></SettingsAutoresponderCreateParametersCard>
+                    </template>
+                    <template #footer>
+                        <SettingsAutoresponderCreateParametersCard
+                                @add="addAction"
+                                :isEmpty="true"
+                        ></SettingsAutoresponderCreateParametersCard>
+                    </template>
+                </draggable>
         </template>
 
         <div class="settings-autoresponder-create__footer">
@@ -329,6 +334,8 @@
     import SettingsAutoresponderCreateParameters from './SettingsAutoresponderCreateParameters/SettingsAutoresponderCreateParameters.vue'
     import SettingsAutoresponderCreateParametersCard from './SettingsAutoresponderCreateParameters/SettingsAutoresponderCreateParametersCard.vue'
 
+    import draggable from 'vuedraggable'
+
     import { ref, reactive, computed, onMounted } from 'vue'
     import { useModals } from "../../../composition/useModals";
     import { useFolder } from "../../../composition/useFolder";
@@ -352,7 +359,9 @@
             ModalMoveChat,
             ModalCreateChat,
             SettingsAutoresponderCreateParameters,
-            SettingsAutoresponderCreateParametersCard
+            SettingsAutoresponderCreateParametersCard,
+
+            draggable,
         },
         setup(props, {emit}) {
             const { toggleModalMoveChat, toggleModalCreateChat } = useModals();
@@ -496,30 +505,28 @@
                         disable_dialog: i.disable_dialog,
                     }
                     i.else_action_type && (newObj.else_action_type = i.else_action_type);
-                    i.start_condition.forEach((item, index) => {
-                        !newObj.start_condition && (newObj.start_condition = []);
-                        if (item.type) {
-                            newObj.start_condition.push(item)
-                        } else {
-                            newObj.start_condition.push({
-                                data: item.data,
-                            })
+                    if (i.start_condition.length < 2) {
+                        if (i.start_condition[0].type) {
+                            newObj.start_condition =  [...i.start_condition]
                         }
-                    })
+                    } else {
+                        newObj.start_condition =  [...i.start_condition]
+                    }
+
                     if (typeof i.else_action_data === "string" || i.else_action_data === "number") {
                         newObj.else_action_data = i.else_action_data
                     } else {
                         i.else_action_data.data && (newObj.else_action_data = i.else_action_data)
                     }
-
                     return newObj;
-
                 });
-                let errsActions = body.actions
+
+                let errsActions = autorespondersActions.data
                     .filter(i => {
                         return !i.action_type && ((typeof i.action_data === "string") || (typeof i.action_data === "number")? !i.action_data : !i.action_data.data)
                     })
-                    .map((i, index) => index);
+                    .map(i => i.id);
+
                 (errsActions.length) && errors.value.push({
                     name: 'actions',
                     data: errsActions,
@@ -578,25 +585,58 @@
                         recipients.dialog_ids = [...toEdit.send.dialog_ids];
                     }
 
-
-                    let newArrActions = toEdit.actions.map(item => {
-                        let actions = {
-                            start_condition: item.start_condition,
-                            disable_dialog: item.disable_dialog,
-                            action_type: item.action_type,
-                            else_action_type: item.else_action_type,
-                        }
-                        if (item.action_type === 'SendMessage') {
-                            actions.action_data = {
-                                type: item.action_data.type,
-                                data: item.action_data.message,
+                    if (toEdit.actions.length) {
+                        let newArrActions = toEdit.actions.map((item, superIndex) => {
+                            let actions = {
+                                disable_dialog: item.disable_dialog,
+                                action_type: item.action_type,
+                                else_action_type: item.else_action_type,
                             }
-                        }
-                    });
-                    //ToDo доделать/переделать
+                            if (item.start_condition.length) {
+                                actions.start_condition = item.start_condition;
+                            } else {
+                                actions.start_condition = [
+                                    {
+                                        type: null,
+                                        data: {
+                                            count: 0,
+                                            text: ''
+                                        }
+                                    },
+                                ]
+                            }
+                            if (item.action_type === 'SendMessage') {
+                                actions.action_data = {
+                                    type: item.action_data.type,
+                                    data: item.action_data.message,
+                                }
+                            } else {
+                                actions.action_data = item.action_data
+                            }
+                            if (item.else_action_type === 'SendMessage') {
+                                actions.else_action_data = {
+                                    type: item.else_action_data.type,
+                                    data: item.else_action_data.message,
+                                }
+                            } else {
+                                (item.else_action_data === null)
+                                    ? (actions.else_action_data = {
+                                        type: null,
+                                        data: null,
+                                    })
+                                    : (actions.else_action_data = item.else_action_data)
+                            }
 
+                            actions.id = superIndex;
 
-                    autorespondersActions.actions.setNewActions(newArrActions);
+                            return actions;
+                        });
+
+                        autorespondersActions.actions.setNewActions(newArrActions);
+                    } else {
+                        autorespondersActions.actions.setNewActions([]);
+                    }
+
                 } else {
                     autorespondersActions.actions.setNewActions([]);
                 }
@@ -632,7 +672,15 @@
                 isOpenedDatepicker,
 
                 inputName,
-                actions: computed(() => autorespondersActions),
+                actions: computed(() =>  autorespondersActions),
+                actionsData: computed({
+                    get() {
+                        return autorespondersActions.data;
+                    },
+                    set(newValue) {
+                        autorespondersActions.actions.setNewActions(newValue)
+                    }
+                }),
 
                 saveChanges,
                 addAction,
@@ -669,8 +717,8 @@
     }
     .settings-autoresponder-create__parameters {
         width: 100%;
-        text-align: left;
         height: calc(100% - 32px - 29px);
+        text-align: left;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -958,4 +1006,5 @@
             margin-left: 10px;
         }
     }
+
 </style>
