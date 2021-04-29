@@ -8,6 +8,7 @@ const autoresponders = reactive({
 
 const autorespondersActions = reactive({
     data: [],
+    idInc: 0,
     actions: {
         addAction(obj) {
             if (obj) {
@@ -34,10 +35,13 @@ const autorespondersActions = reactive({
                         },
                     ],
                     disable_dialog: false,
-                    id: autorespondersActions.data.length,
+                    id: autorespondersActions.idInc,
                 })
+                autorespondersActions.actions.setIdsCount(autorespondersActions.idInc + 1)
             }
-
+        },
+        setIdsCount(count) {
+            autorespondersActions.idInc = count;
         },
         changeProperty( value, index, property ) {
             autorespondersActions.data[index][property] = value;
@@ -74,7 +78,10 @@ const autorespondersActions = reactive({
                     return 0;
                 }
             })
-        }
+        },
+        del(id) {
+            autorespondersActions.data = autorespondersActions.data.filter(item => item.id !== id)
+        },
     },
     isOpenedEdit: false,
     indexToEdit: null,

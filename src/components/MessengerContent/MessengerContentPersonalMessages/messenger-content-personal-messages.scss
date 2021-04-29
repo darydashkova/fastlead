@@ -1,7 +1,7 @@
 .messenger-content-personal-messages{
   //364 - dialogs, 127 - nav
-  width: calc(100vw - 364px - 127px);
-  max-width: calc(100vw - 364px - 127px);
+  width: calc(100% - 364px - 127px);
+  max-width: calc(100% - 364px - 127px);
 }
 
 .messenger-content-personal-messages__header{

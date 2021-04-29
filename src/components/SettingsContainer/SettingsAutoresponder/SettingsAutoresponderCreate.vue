@@ -291,6 +291,7 @@
                                 :error="!!errors.find(item => item.name === 'actions') && ( actionsData[index].id === errors.find(item => item.name === 'actions').data.find(item => item === actionsData[index].id))"
                                 @changeProperty="actions.actions.changeProperty"
                                 @edit="actions.actions.edit"
+                                @del="actions.actions.del"
                         ></SettingsAutoresponderCreateParametersCard>
                     </template>
                     <template #footer>
@@ -633,12 +634,16 @@
                         });
 
                         autorespondersActions.actions.setNewActions(newArrActions);
+                        autorespondersActions.actions.setIdsCount(newArrActions.length);
+
                     } else {
                         autorespondersActions.actions.setNewActions([]);
+                        autorespondersActions.actions.setIdsCount(0);
                     }
 
                 } else {
                     autorespondersActions.actions.setNewActions([]);
+                    autorespondersActions.actions.setIdsCount(0);
                 }
             })
 

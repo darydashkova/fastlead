@@ -76,7 +76,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="settings-autoresponder-create-parameters__hint" v-if="startCond.type === null">
+                    <div class="settings-autoresponder-create-parameters__hint" v-if="startCond.type === null && index === 0">
                         Если нет условий запуска, действие будет выполняться<br>в любом случае в соответствии с порядком
                     </div>
                     <div v-else class="settings-autoresponder-create-parameters__buttons">

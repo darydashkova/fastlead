@@ -68,7 +68,8 @@
             Действие выполняется один раз для каждого клиента
         </div>
         <div class="settings-autoresponder-create-parameters-card__button">
-            <BaseButton class="base-button_cancel" @click.stop="edit">Редактировать</BaseButton>
+            <BaseButton class="base-button_settings-cancel" @click.stop="edit">Редактировать</BaseButton>
+            <BaseButton class="base-button_delete" @click.stop="del">Удалить</BaseButton>
         </div>
     </div>
     <div class="settings-autoresponder-create-parameters-card settings-autoresponder-create-parameters-card_empty"
@@ -106,7 +107,7 @@
             }
 
             return {
-                index: props.index,
+                index: computed(() => props.index),
                 action: computed(() => props.action),
 
                 changeIsOnlyOne,
@@ -114,6 +115,7 @@
                 isEmpty: props.isEmpty,
 
                 edit: () => emit('edit', props.index),
+                del: () => emit('del', props.action.id),
                 add: () => emit('add'),
 
                 folders,
@@ -177,8 +179,11 @@
         }
     }
     .settings-autoresponder-create-parameters-card__button {
+        width: 100%;
         padding-top: 20px;
         margin-top: auto;
+        display: flex;
+        justify-content: space-between;
     }
     .settings-autoresponder-create-parameters-card__add-text {
         font-style: normal;

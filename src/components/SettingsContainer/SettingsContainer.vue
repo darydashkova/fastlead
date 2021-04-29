@@ -10,9 +10,6 @@
 
     export default {
         components: { SettingsNav },
-        setup() {
-
-        }
     }
 </script>
 
@@ -24,6 +21,6 @@
     .settings-content {
         height: 100%;
         background: var(--settings-main-color);
-        width: calc(100vw - 293px);
+        width: calc(100% - 293px);
     }
 </style>

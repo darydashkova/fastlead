@@ -21,6 +21,9 @@
     .base-button_cancel {
         background: var(--cancel-button-color-in-modals);
     }
+    .base-button_delete {
+        background: var(--red-color);
+    }
     .base-button_settings-cancel {
         background: var(--mailings-cancel-button-color);
     }
