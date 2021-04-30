@@ -1,10 +1,58 @@
-import {useAuth} from "../../composition/useAuth";
+import { useAuth } from "../../composition/useAuth";
+
+import { useRouter } from 'vue-router'
+import { ref } from 'vue';
+
 export default {
     setup() {
-        const {authData, tryAuth, loading, error} = useAuth()
+        const { tryAuth } = useAuth()
+        const router = useRouter();
+
+        const loading = ref(false);
+        const error = ref('');
+
+        const login = ref('');
+        const password = ref('');
+        const onlyEngChars = ($event) => {
+            let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+            if (keyCode < 48 || (keyCode > 57 && keyCode < 65) || keyCode > 122 || (keyCode > 90 && keyCode < 97)) { // 46 is dot
+                $event.preventDefault();
+            }
+        }
+
+        const auth = () => {
+            if (!login.value.length) {
+                error.value = 'Введите логин';
+                return;
+            }
+            if (!password.value.length) {
+                error.value = 'Введите пароль';
+                return;
+            }
+
+            loading.value = true;
+            error.value = '';
+            tryAuth({
+                login: login.value,
+                password: password.value,
+            })
+                .then(r => {
+                    loading.value = false;
+                    if (r.error) {
+                        error.value = r.error;
+                    } else {
+                        router.push('/messenger')
+                    }
+                })
+        }
+
+
         return {
-            authData,
-            tryAuth,
+            login,
+            password,
+            auth,
+            onlyEngChars,
+
             loading,
             error
         }

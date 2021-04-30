@@ -1,6 +1,4 @@
-import {reactive, ref} from 'vue'
 import authActions from '../api/authActions'
-import { useRouter } from 'vue-router'
 
 function deleteAllCookies() {
     let cookies = document.cookie.split(";");
@@ -14,31 +12,13 @@ function deleteAllCookies() {
 }
 
 export function useAuth() {
-    const router = useRouter();
 
-    const authData = reactive({
-        login: '',
-        password: '',
-    })
+    const tryAuth = async (data) => {
+        return await authActions.tryAuth(data)
+    }
 
-    const error = ref(false);
-    const loading = ref(false);
-
-    const tryAuth = () => {
-        loading.value = true;
-        error.value = false;
-        authActions.tryAuth({
-            login: authData.login,
-            password: authData.password
-        })
-            .then(r => {
-                loading.value = false;
-                if (r.error) {
-                    error.value = true;
-                } else {
-                    router.push('/messenger')
-                }
-            })
+    const tryRegistr = async (data) => {
+        return await authActions.tryRegistr(data)
     }
 
     const getCsrf = async () => {
@@ -47,15 +27,16 @@ export function useAuth() {
 
     const outAuth = () => {
         deleteAllCookies();
+        let style = localStorage.getItem('style');
+        localStorage.clear();
+        localStorage.setItem('style', style);
         window.location.reload(true);
     }
 
     return {
-        authData: authData,
         tryAuth,
+        tryRegistr,
         getCsrf,
-        error,
-        loading,
 
         outAuth,
     }

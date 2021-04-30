@@ -8,7 +8,7 @@
                 <ModalCreateChat v-if="openedModalCreateChat"></ModalCreateChat>
                 <ModalAddToFolder v-if="openedModalAddToFolder"></ModalAddToFolder>
             </teleport>
-            <BaseContextMenu v-if="isContextOpened"></BaseContextMenu>
+            <ContextMenu v-if="isContextOpened"></ContextMenu>
 
             <MessengerContent></MessengerContent>
         </div>

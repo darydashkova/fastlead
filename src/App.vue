@@ -10,7 +10,6 @@
     setup() {
       const {getCsrf} = useAuth()
       const {setStyle} = useStyle()
-
       setStyle(localStorage.getItem('style') === 'true')
       getCsrf();
     }

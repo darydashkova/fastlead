@@ -31,11 +31,11 @@
 </template>
 
 <script>
-    import {useContextMenu} from "../../composition/useContextMenu";
+    import {useContextMenu} from "../composition/useContextMenu";
     import {onMounted} from 'vue';
-    import {useDialogs} from "../../composition/useDialogs";
-    import {useFolder} from "../../composition/useFolder";
-    import {useModals} from "../../composition/useModals";
+    import {useDialogs} from "../composition/useDialogs";
+    import {useFolder} from "../composition/useFolder";
+    import {useModals} from "../composition/useModals";
     export default {
         setup() {
             const { contextPosition, isContextOpened, unsetContext, context } = useContextMenu();

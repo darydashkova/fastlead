@@ -8,6 +8,7 @@ export function useStyle() {
         const common = {
             'green-color': 'linear-gradient(45.66deg, #00BF6D -40.44%, #98D730 120.07%)',
             'red-color': '#EB5757',
+            'yellow-color': '#F2C94C',
             'placeholder-color': '#B7B7BE',
             'folder-color': '#757589',
             'webkit-scroll-color': '#B7B7BE',

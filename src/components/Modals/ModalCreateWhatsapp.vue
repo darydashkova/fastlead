@@ -10,8 +10,11 @@
             </div>
             <div class="modal-create-whatsapp__input-group modal-create-whatsapp__input-group_padding-20">
                 <BaseModalLabel for-id="modal-create-whatsapp__input-phone" :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
-                <input id="modal-create-whatsapp__input-phone" type="text" class="modal-create-whatsapp__input" v-model="phone"
-                    @keypress="onlyNumber"
+                <input id="modal-create-whatsapp__input-phone"
+                       type="text"
+                       class="modal-create-whatsapp__input"
+                       v-model="phone"
+                       v-maska="'+7##########'"
                 >
             </div>
             <div class="modal-create-whatsapp__buttons">
@@ -47,6 +50,7 @@
             const { toggleModalCreateWhatsapp, selectedWhatsappToAction } = useModals();
 
             const { createWhatsapp, getWhatsapps, updateWhatsapp } = useWhatsapp();
+
 
             const phone = ref('');
             const name = ref('');

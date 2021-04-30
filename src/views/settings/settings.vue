@@ -14,6 +14,10 @@
             <ModalSyncWhatsapp v-if="openedModalSyncWhatsapp"></ModalSyncWhatsapp>
             <ModalChangeAva v-if="openedModalChangeAva"></ModalChangeAva>
             <ModalNewMessage v-if="openedModalNewMessage"></ModalNewMessage>
+            <ModalChoiceActivationMethod v-if="openedModalActivationMethod"></ModalChoiceActivationMethod>
+            <ModalChoiceActivationMethodMyself v-if="openedModalActivationMethodMyself"></ModalChoiceActivationMethodMyself>
+            <ModalChoiceActivationMethodSuccess v-if="openedModalActivationMethodSuccess"></ModalChoiceActivationMethodSuccess>
+            <ModalChoiceActivationMethodNotMyself v-if="openedModalActivationMethodNotMyself"></ModalChoiceActivationMethodNotMyself>
         </teleport>
         <SettingsContainer></SettingsContainer>
     </div>

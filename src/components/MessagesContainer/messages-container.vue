@@ -2,8 +2,10 @@
     <div class="messages-container">
         <MessagesContainerList
         ></MessagesContainerList>
-        <MessagesContainerInput
-        ></MessagesContainerInput>
+        <div class="messages-container__input">
+            <MessagesContainerInput
+            ></MessagesContainerInput>
+        </div>
     </div>
 </template>
 

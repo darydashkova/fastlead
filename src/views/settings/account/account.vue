@@ -21,7 +21,7 @@
                     <div class="settings-account__text">
                         {{user.login}}
                     </div>
-                    <div class="settings-account__last-element settings-account__last-element_w-middle">
+                    <div class="settings-account__last-element">
                         <BaseButton class="base-button_enter base-button_p5-15" @click="toggleModalChangeAva(true)">Изменить</BaseButton>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         <div>
                             <input type="password" class="settings-account_input" v-model="password.prev">
                         </div>
-                        <div class="settings-account__last-element settings-account__last-element_w-little">
+                        <div class="settings-account__last-element">
                             <BaseButton class="base-button_enter base-button_p5-15" @click="tryToChangePass">Готово</BaseButton>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         >
                             <input type="password" class="settings-account_input" v-model="password.new">
                         </div>
-                        <div class="settings-account__last-element settings-account__last-element_w-little">
+                        <div class="settings-account__last-element">
                             <BaseButton class="base-button_cancel base-button_p5-15" @click="toggleOpenedChangePass(false)">Отмена</BaseButton>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                     <div class="settings-account__sub-text">
                         Обновлен 8 месяцев назад
                     </div>
-                    <div class="settings-account__last-element settings-account__last-element_w-middle">
+                    <div class="settings-account__last-element">
                         <BaseButton class="base-button_enter base-button_p5-15" @click="toggleOpenedChangePass(true)">Изменить пароль</BaseButton>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                                 Последняя активность
                             </div>
                         </div>
-                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-40">
+                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
                             <div>
                                 <div class="settings-account__text">
                                     Windows - Краснодар, Россия
@@ -102,7 +102,7 @@
                                 online
                             </div>
                         </div>
-                        <div class="settings-account__last-element settings-account__last-element_w-big">
+                        <div class="settings-account__last-element">
                             <BaseButton v-if="!openedActivity"
                                         @click="toggleOpenedActivity(true)"
                                         class="base-button_enter base-button_p5-15"
@@ -121,7 +121,7 @@
                         <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
                             <div class="settings-account__first-element">
                             </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-40">
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
                                 <div>
                                     <div class="settings-account__text">
                                         Windows - Краснодар, Россия
@@ -138,7 +138,7 @@
                         <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
                             <div class="settings-account__first-element">
                             </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-40">
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
                                 <div>
                                     <div class="settings-account__text">
                                         Windows - Краснодар, Россия
@@ -155,7 +155,7 @@
                         <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
                             <div class="settings-account__first-element">
                             </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-40">
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
                                 <div>
                                     <div class="settings-account__text">
                                         Windows - Краснодар, Россия
@@ -183,7 +183,7 @@
                         <div class="settings-account__sub-text">
                             Сегодня в 20:30 - создал рассылку
                         </div>
-                        <div class="settings-account__last-element settings-account__last-element_w-big">
+                        <div class="settings-account__last-element">
                             <BaseButton v-if="!openedActions" class="base-button_enter base-button_p5-15" @click="toggleOpenedActions(true)">История действий</BaseButton>
                             <BaseButton v-else class="base-button_cancel base-button_p5-15" @click="toggleOpenedActions(false)">Свернуть</BaseButton>
                         </div>

@@ -30,4 +30,7 @@
     .base-button_p5-15 {
         padding: 5.5px 15.5px;
     }
+    .base-button_w-100 {
+        width: 100%;
+    }
 </style>

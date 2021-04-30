@@ -31,5 +31,15 @@ export default {
             csrf_token: localStorage.getItem('x-csrf')
         }
         return api.fetch('POST', 'whatsapp/synchronization', lData)
+    },
+    activateWhatsapp: (id) => {
+        let lData = {
+            whatsapp_id: id,
+            csrf_token: localStorage.getItem('x-csrf')
+        }
+        return api.fetch('POST', 'activate/whatsapp', lData)
+    },
+    getWhatsappQr: (id) => {
+        return api.fetch('GET', `get/whatsapp/qr?whatsapp_id=${id}`)
     }
 }

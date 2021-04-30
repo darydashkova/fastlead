@@ -13,6 +13,18 @@ export const api = {
         return await fetch(url+endpoint, fetchArgs)
             .then(res => res.json())
     },
+    fetchImage : async (method, endpoint, body = null, token = false, withCredential = false) => {
+        let fetchArgs = {
+            method: method,
+            headers: {},
+        };
+        withCredential && (fetchArgs.credentials = 'include')
+        fetchArgs.headers['Content-Type'] = 'application/json'
+        fetchArgs.headers['Accept'] = 'application/json'
+        body && (fetchArgs.body = JSON.stringify(body))
+        return await fetch(url+endpoint, fetchArgs)
+            .then(res => res.blob())
+    },
     fetchFormData: async (method, endpoint, body, token = false, withCredential = false) => {
         let fetchArgs = {
             method: method,

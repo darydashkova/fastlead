@@ -23,15 +23,14 @@
 }
 .settings-whatsapps__content {
   width: 100%;
-  height: 100%;
   overflow-y: auto;
   padding: 18px 8px 0;
   display: flex;
   flex-wrap: wrap;
 }
 .settings-whatsapps__element {
-  width: 166px;
-  height: 140px;
+  width: 257px;
+  height: 208px;
   border-radius: 9px;
   background: var(--settings-whatsapp-color);
   margin: 0 8px 27px;
@@ -40,7 +39,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
 }
 .settings-whatsapps__name {
   font-style: normal;
@@ -48,6 +46,12 @@
   font-size: 18px;
   line-height: 24px;
   color: var(--settings-whatsapp-name-color);
+
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 11px;
+  border-bottom: 0.7px solid var(--calendar-border-color);
 }
 .settings-whatsapps__phone {
   font-style: normal;
@@ -55,11 +59,30 @@
   font-size: 16px;
   line-height: 21px;
   color: var(--folder-color);
+  text-align: left;
+  margin: 19px 0 12px;
+  &:last-of-type {
+    margin: 0 0 26px;
+  }
+  &.settings-whatsapps__phone_active {
+    background: var(--green-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  &.settings-whatsapps__phone_warning {
+    background: var(--yellow-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  &.settings-whatsapps__phone_error {
+    background: var(--red-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 .settings-whatsapps__action-container {
   display: flex;
   align-items: center;
-  width: 100%;
 }
 .settings-whatsapps__action {
   border-radius: 3px;
@@ -70,7 +93,7 @@
   justify-content: center;
   margin-right: 4px;
   &:last-of-type {
-    margin: 0 10px 0 28px;
+    margin: 0;
   }
   &.settings-whatsapps__action_default {
     background: var(--calendar-border-color);

@@ -86,6 +86,7 @@
     import {useUserInfo} from "../../../composition/useUserInfo";
     import {useModals} from "../../../composition/useModals";
     import {useLoader} from "../../../composition/useLoader";
+    import {useUser} from "../../../composition/useUser";
     export default {
         components: {BaseCircleIcon, BaseFolder},
         setup() {
@@ -102,6 +103,8 @@
             const { toggleOpenedUserInfo, openedUserInfo } = useUserInfo()
 
             const { isLoadingDialogs } = useLoader()
+
+            const { user } = useUser()
 
             const openContextMenu = ($event, context) => {
                 setContext({
@@ -120,7 +123,7 @@
                         })
                 }
                 toggleAllSelectedGroupDialogs(false);
-                toggleSettings(false);
+                toggleOpenedUserInfo(false);
             }
 
 
@@ -128,8 +131,6 @@
                 init()
             })
 
-
-            const user = inject('user');
             return {
                 container,
                 content,

@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import {useAuth} from "../composition/useAuth";
+const { outAuth } = useAuth()
 
 const routes = [
   {
@@ -13,6 +15,17 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import ('../views/login/login.vue'),
+    meta: {
+      withoutAuth: true,
+    }
+  },
+  {
+    path: '/registration',
+    name: 'registration',
+    component: () => import ('../views/registration/registration.vue'),
+    meta: {
+      withoutAuth: true,
+    }
   },
   {
     path: '/messenger',
@@ -69,6 +82,11 @@ router.beforeEach((to, from, next) => {
     }
     next('/login')
   } else {
+    if (to.matched.some(record => record.meta.withoutAuth)) {
+      if (getCookie('SessionKey')) {
+        outAuth();
+      }
+    }
     next()
   }
 })

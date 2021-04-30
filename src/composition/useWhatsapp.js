@@ -21,7 +21,13 @@ export function useWhatsapp() {
         return await whatsappActions.updateWhatsapp(data);
     }
     const syncWhatsapp = async (id) => {
-        return await whatsappActions.syncWhatsapp(data);
+        return await whatsappActions.syncWhatsapp(id);
+    }
+    const activateWhatsapp = async (id) => {
+        return await whatsappActions.activateWhatsapp(id);
+    }
+    const getWhatsappQr = async (id) => {
+        return await whatsappActions.getWhatsappQr(id);
     }
 
     return {
@@ -30,6 +36,8 @@ export function useWhatsapp() {
         deleteWhatsapps,
         createWhatsapp,
         updateWhatsapp,
-        syncWhatsapp
+        syncWhatsapp,
+        activateWhatsapp,
+        getWhatsappQr,
     }
 }

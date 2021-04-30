@@ -1,18 +1,19 @@
 <template>
     <div class="login">
-        <form class="login__form" @submit.prevent="tryAuth">
+        <form class="login__form" @submit.prevent="auth">
             <h1 class="login__header">Авторизация</h1>
-            <input class="login__input" type="text" v-model="authData.login"
+            <input class="login__input" type="text" v-model="login"
                    placeholder="Логин"
-                   :class="error? 'login__input_error' : ''"
+                   @keypress="onlyEngChars"
             >
-            <input class="login__input" type="password" v-model="authData.password"
+            <input class="login__input" type="password" v-model="password"
                    placeholder="Пароль"
-                   :class="error? 'login__input_error' : ''"
             >
+            <div v-if="error" class="login__error">{{error}}</div>
             <button class="login__button" type="submit"
                 :disabled="loading"
             >Войти</button>
+            <router-link class="login__hint" to="/registration">У меня нет аккаунта</router-link>
         </form>
     </div>
 </template>

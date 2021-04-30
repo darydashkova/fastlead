@@ -34,10 +34,6 @@
     color: var(--placeholder-color);
   }
 
-  &.login__input_error {
-    border: 1px solid red;
-  }
-
 }
 .login__header {
   padding: 0;
@@ -73,4 +69,25 @@
     color: var(--font-color);
     cursor: no-drop;
   }
+}
+.login__hint {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  text-decoration: none;
+  background: var(--green-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 15px;
+}
+.login__error {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  text-decoration: none;
+  background: var(--red-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

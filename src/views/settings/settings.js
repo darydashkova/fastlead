@@ -8,7 +8,13 @@ import ModalCreateWhatsapp from "../../components/Modals/ModalCreateWhatsapp.vue
 import ModalSyncWhatsapp from "../../components/Modals/ModalSyncWhatsapp.vue"
 import ModalChangeAva from "../../components/Modals/ModalChangeAva.vue"
 import ModalNewMessage from "../../components/Modals/ModalNewMessage.vue"
+import ModalChoiceActivationMethod from "../../components/Modals/ModalChoiceActivationMethod.vue"
+import ModalChoiceActivationMethodMyself from "../../components/Modals/ModalChoiceActivationMethodMyself.vue"
+import ModalChoiceActivationMethodSuccess from "../../components/Modals/ModalChoiceActivationMethodSuccess.vue"
+import ModalChoiceActivationMethodNotMyself from "../../components/Modals/ModalChoiceActivationMethodNotMyself.vue"
+
 import {useModals} from "../../composition/useModals";
+import {useModalsWhatsapps} from "../../composition/useModalsWhatsapps";
 
 export default {
     components: {
@@ -21,7 +27,11 @@ export default {
         ModalCreateWhatsapp,
         ModalSyncWhatsapp,
         ModalChangeAva,
-        ModalNewMessage
+        ModalNewMessage,
+        ModalChoiceActivationMethod,
+        ModalChoiceActivationMethodMyself,
+        ModalChoiceActivationMethodSuccess,
+        ModalChoiceActivationMethodNotMyself,
     },
     setup() {
         const {
@@ -30,11 +40,17 @@ export default {
             openedModalAddToFolder,
             openedModalEditFolders,
             openedModalMoveChat,
+            openedModalNewMessage,
+            openedModalChangeAva,
+        } = useModals()
+        const {
+            openedModalActivationMethod,
+            openedModalActivationMethodMyself,
+            openedModalActivationMethodSuccess,
+            openedModalActivationMethodNotMyself,
             openedModalCreateWhatsapp,
             openedModalSyncWhatsapp,
-            openedModalChangeAva,
-            openedModalNewMessage
-        } = useModals()
+        } = useModalsWhatsapps()
 
         return {
             openedModalCreateFolder,
@@ -42,10 +58,15 @@ export default {
             openedModalAddToFolder,
             openedModalEditFolders,
             openedModalMoveChat,
+            openedModalChangeAva,
+            openedModalNewMessage,
+
+            openedModalActivationMethod,
+            openedModalActivationMethodMyself,
+            openedModalActivationMethodSuccess,
+            openedModalActivationMethodNotMyself,
             openedModalCreateWhatsapp,
             openedModalSyncWhatsapp,
-            openedModalChangeAva,
-            openedModalNewMessage
         }
     }
 }

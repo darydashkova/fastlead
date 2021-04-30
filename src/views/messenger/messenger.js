@@ -1,10 +1,12 @@
 import MessengerContent from "../../components/MessengerContent/messenger-content.vue";
-import BaseContextMenu from "../../components/Base/BaseContextMenu.vue"
 import ModalCreateFolder from "../../components/Modals/ModalCreateFolder.vue"
 import ModalCreateChat from "../../components/Modals/ModalCreateChat.vue"
 import ModalAddToFolder from "../../components/Modals/ModalAddToFolder.vue"
 import ModalEditFolders from "../../components/Modals/ModalEditFolders.vue"
 import ModalMoveChat from "../../components/Modals/ModalMoveChat.vue"
+
+import ContextMenu from "../../components/ContextMenu.vue"
+
 
 import { provide, onUnmounted, onMounted } from "vue"
 
@@ -18,12 +20,13 @@ import { useModals } from "../../composition/useModals";
 export default {
     components: {
         MessengerContent,
-        BaseContextMenu,
         ModalCreateFolder,
         ModalCreateChat,
         ModalAddToFolder,
         ModalEditFolders,
-        ModalMoveChat
+        ModalMoveChat,
+
+        ContextMenu,
     },
     setup() {
         const { user, getUser } = useUser();
@@ -42,27 +45,19 @@ export default {
         } = useModals()
 
         getUser();
-        getAllFolders();
-        provide('user', user);
+        getAllFolders()
+            .then(() => {
+                let folder_id = localStorage.getItem('folder_id');
+                if (folder_id) {
+                    selectFolder(+folder_id);
+                    getDialogs(+folder_id);
+                } else {
+                    let def = +folders.value.find(i => i.is_default).folder_id;
+                    selectFolder(def);
+                    getDialogs(def);
+                }
+            })
 
-        const setFirst = () => {
-            if (!folders.value.length) {
-                setTimeout(() => {
-                    setFirst()
-                }, 100)
-            } else {
-                selectFolder(+folders.value[0].folder_id);
-                getDialogs(+folders.value[0].folder_id);
-            }
-        }
-
-        let folder_id = localStorage.getItem('folder_id');
-        if (folder_id) {
-            selectFolder(+folder_id);
-            getDialogs(+folder_id);
-        } else {
-            setFirst();
-        }
         let dialog_id = localStorage.getItem('dialog_id');
         if (dialog_id) {
             selectDialog(+dialog_id);

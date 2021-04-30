@@ -127,7 +127,7 @@
         setup(props) {
             const { folders, selectFolder, getAllFolders } = useFolder();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-            const { toggleModalCreateChat, toggleModalCreateFolder, fromModals, setCloseCallback, onCloseCallback } = useModals();
+            const { toggleModalCreateChat, toggleModalCreateFolder, fromModals, setCloseCallbackCreateChat, onCloseCallbackCreateChat } = useModals();
             const { getWhatsapps, whatsapps } = useWhatsapp()
             const { createDialog, getDialogs, selectDialog } = useDialogs();
 
@@ -156,7 +156,7 @@
 
             const close = () => {
                 fromModals.fromAddToFolderToCreateChat = false;
-                setCloseCallback(() => null);
+                setCloseCallbackCreateChat(() => null);
                 toggleModalCreateChat(false);
             }
 
@@ -189,9 +189,9 @@
                     getDialogs(selectedFolder.value);
                     getAllFolders();
 
-                    onCloseCallback();
+                    onCloseCallbackCreateChat();
                     fromModals.fromAddToFolderToCreateChat = false;
-                    setCloseCallback(() => null);
+                    setCloseCallbackCreateChat(() => null);
 
                     toggleModalCreateChat(false);
                 })

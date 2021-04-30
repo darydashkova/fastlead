@@ -5,8 +5,7 @@ const openedModalCreateChat = ref(false);
 const openedModalAddToFolder = ref(false);
 const openedModalEditFolders = ref(false);
 const openedModalMoveChat = ref(false);
-const openedModalCreateWhatsapp = ref(false);
-const openedModalSyncWhatsapp = ref(false);
+
 const openedModalChangeAva = ref(false);
 const openedModalNewMessage = ref(false);
 
@@ -18,16 +17,17 @@ const fromModals = reactive({
     fromCreateChatToCreateFolder: false,
 })
 
-let onCloseCallback = () => null;
-let onCloseCallbackMoveModal = () => null;
-let onCloseCallbackNewMessage = () => null;
-
-const setCloseCallback = (cb) => {
-    onCloseCallback = cb;
+let onCloseCallbackCreateChat = () => null;
+const setCloseCallbackCreateChat = (cb) => {
+    onCloseCallbackCreateChat = cb;
 }
+
+let onCloseCallbackMoveModal = () => null;
 const setCloseCallbackMoveModal = (cb) => {
     onCloseCallbackMoveModal = cb;
 }
+
+let onCloseCallbackNewMessage = () => null;
 const setCloseCallbackNewMessage = (cb) => {
     onCloseCallbackNewMessage = cb;
 }
@@ -35,8 +35,6 @@ const setCloseCallbackNewMessage = (cb) => {
 const selectedDialogsToMove = reactive({
     data: [],
 });
-
-const selectedWhatsappToAction = ref(null);
 
 export function useModals() {
     const toggleModalCreateFolder = (value, folder) => {
@@ -58,12 +56,6 @@ export function useModals() {
     const toggleModalMoveChat = (value) => {
         openedModalMoveChat.value = value;
     }
-    const toggleModalCreateWhatsapp = (value) => {
-        openedModalCreateWhatsapp.value = value;
-    }
-    const toggleModalSyncWhatsapp = (value) => {
-        openedModalSyncWhatsapp.value = value;
-    }
     const toggleModalChangeAva = (value) => {
         openedModalChangeAva.value = value;
     }
@@ -78,7 +70,6 @@ export function useModals() {
     const selectedDialogsInEdit = reactive({
         data: [],
     })
-
     const setSelectedDialogsInEdit = (data) => {
         selectedDialogsInEdit.data = [...data];
     }
@@ -93,6 +84,8 @@ export function useModals() {
 
         toggleModalCreateChat,
         openedModalCreateChat,
+        onCloseCallbackCreateChat,
+        setCloseCallbackCreateChat,
 
         toggleModalAddToFolder,
         openedModalAddToFolder,
@@ -102,13 +95,6 @@ export function useModals() {
 
         toggleModalMoveChat,
         openedModalMoveChat,
-
-        toggleModalCreateWhatsapp,
-        openedModalCreateWhatsapp,
-        selectedWhatsappToAction,
-
-        toggleModalSyncWhatsapp,
-        openedModalSyncWhatsapp,
 
         toggleModalChangeAva,
         openedModalChangeAva,
@@ -122,8 +108,6 @@ export function useModals() {
         setSelectedDialogs,
 
         fromModals,
-        onCloseCallback,
-        setCloseCallback,
 
         selectedDialogsToMove: computed(() => selectedDialogsToMove.data),
         setSelectedDialogsToMove,

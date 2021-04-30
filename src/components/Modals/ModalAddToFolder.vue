@@ -105,7 +105,7 @@
             BaseCircleIcon,
         },
         setup() {
-            const { toggleModalAddToFolder, toggleModalCreateChat ,selectedDialogsToFolder, setSelectedDialogs, fromModals, setCloseCallback } = useModals();
+            const { toggleModalAddToFolder, toggleModalCreateChat ,selectedDialogsToFolder, setSelectedDialogs, fromModals, setCloseCallbackCreateChat } = useModals();
             const { search, selectParameter } = useSearch();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
 
@@ -145,7 +145,7 @@
 
             const createChat = () => {
                 fromModals.fromAddToFolderToCreateChat = true;
-                setCloseCallback(() => {
+                setCloseCallbackCreateChat(() => {
                     selectParameter('name');
                     search('')
                         .then(r => {

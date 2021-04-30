@@ -38,4 +38,9 @@
             opacity: 0;
         }
     }
+    .base-loader_black {
+        div {
+            border: 4px solid var(--folder-color);
+        }
+    }
 </style>

@@ -81,8 +81,8 @@
   &.settings-account__row_jsb {
     justify-content: space-between;
   }
-  &.settings-account__row_w-40 {
-    width: 40%;
+  &.settings-account__row_w-489 {
+    width: 489px;
   }
   &.settings-account__row_column {
     flex-direction: column;
@@ -101,23 +101,10 @@
   margin-left: auto;
   display: flex;
   align-items: center;
-  &.settings-account__last-element_w-little {
-    width: 145px;
-    .base-button {
-      width: 100%;
-    }
-  }
-  &.settings-account__last-element_w-middle {
-    width: 180px;
-    .base-button {
-      width: 100%;
-    }
-  }
-  &.settings-account__last-element_w-big {
-    width: 210px;
-    .base-button {
-      width: 100%;
-    }
+  width: 210px;
+  min-width: 210px;
+  .base-button {
+    width: 100%;
   }
 }
 .settings-account_input {
