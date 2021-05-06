@@ -11,13 +11,15 @@
         <div class="base-timepicker__container">
             <div class="base-timepicker__container-column">
                 <div class="base-timepicker__column">
-                    <div class="base-timepicker__button" @click.stop="prev('h_start')" :disabled="timepicker.disabled.h_start">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(-1, null, 'h_start')" >
                         <svg  width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 5L4.88097 1L1 5" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <div class="base-timepicker__slider">
-                        <div class="base-timepicker__slider-wrapper" ref="h_start">
+                        <div class="base-timepicker__slider-wrapper" ref="h_start"
+                            style="transform: translate3d(0, 0, 0)"
+                        >
                             <div class="base-timepicker__element" v-for="hour in timepicker.times.h_start"
                                 :class="{'base-timepicker__element_active': hour === modifiedPropsRangeWork.h_start}"
                             >
@@ -25,20 +27,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="base-timepicker__button" @click.stop="next('h_start')" :disabled="timepicker.disabled.h_start">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(1, null, 'h_start')" >
                         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5.11903 5L9 1" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
                     </div>
                 </div>
                 <div class="base-timepicker__column">
-                    <div class="base-timepicker__button" @click.stop="prev('m_start')" :disabled="timepicker.disabled.m_start">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(-1, null, 'm_start')" >
                         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 5L4.88097 1L1 5" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <div class="base-timepicker__slider">
-                        <div class="base-timepicker__slider-wrapper" ref="m_start">
+                        <div class="base-timepicker__slider-wrapper" ref="m_start"
+                             style="transform: translate3d(0, 0, 0)"
+                        >
                             <div class="base-timepicker__element" v-for="minute in timepicker.times.m_start"
                                  :class="{'base-timepicker__element_active': minute === modifiedPropsRangeWork.m_start}"
                             >
@@ -46,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="base-timepicker__button" @click.stop="next('m_start')" :disabled="timepicker.disabled.m_start">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(1, null, 'm_start')" >
                         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5.11903 5L9 1" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
@@ -56,13 +60,15 @@
             </div>
             <div class="base-timepicker__container-column">
                 <div class="base-timepicker__column">
-                    <div class="base-timepicker__button" @click.stop="prev('h_end')" :disabled="timepicker.disabled.h_end">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(-1, null, 'h_end')" >
                         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 5L4.88097 1L1 5" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <div class="base-timepicker__slider">
-                        <div class="base-timepicker__slider-wrapper" ref="h_end">
+                        <div class="base-timepicker__slider-wrapper" ref="h_end"
+                             style="transform: translate3d(0, 0, 0)"
+                        >
                             <div class="base-timepicker__element" v-for="hour in timepicker.times.h_end"
                                  :class="{'base-timepicker__element_active': hour === modifiedPropsRangeWork.h_end}"
                             >
@@ -70,20 +76,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="base-timepicker__button" @click.stop="next('h_end')" :disabled="timepicker.disabled.h_end">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(1, null, 'h_end')" >
                         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5.11903 5L9 1" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
                     </div>
                 </div>
                 <div class="base-timepicker__column">
-                    <div class="base-timepicker__button" @click.stop="prev('m_end')" :disabled="timepicker.disabled.m_end">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(-1, null, 'm_end')" >
                         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 5L4.88097 1L1 5" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <div class="base-timepicker__slider">
-                        <div class="base-timepicker__slider-wrapper" ref="m_end">
+                        <div class="base-timepicker__slider-wrapper" ref="m_end"
+                             style="transform: translate3d(0, 0, 0)"
+                        >
                             <div class="base-timepicker__element" v-for="minute in timepicker.times.m_end"
                                  :class="{'base-timepicker__element_active': minute === modifiedPropsRangeWork.m_end}"
                             >
@@ -91,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="base-timepicker__button" @click.stop="next('m_end')" :disabled="timepicker.disabled.m_end">
+                    <div class="base-timepicker__button" @click.stop="shiftSlide(1, null, 'm_end')" >
                         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L5.11903 5L9 1" stroke="#1D1D35" stroke-linecap="round"/>
                         </svg>
@@ -114,7 +122,8 @@
 </template>
 
 <script>
-    import { reactive, ref, computed } from 'vue';
+    import { reactive, ref, computed, onMounted } from 'vue';
+    import WheelIndicator from 'wheel-indicator'
 
     export default {
         props: {
@@ -131,15 +140,6 @@
         },
         setup(props, {emit}) {
             const timepicker = reactive({
-                hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
-                minutes: ['00', '10', '20', '30', '40', '50'],
-                lasts: {
-                    h_start: '23',
-                    h_end: '23',
-                    m_start: '50',
-                    m_end: '50',
-                },
-                start: '00',
                 times: {
                     h_start: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
                     h_end: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
@@ -147,16 +147,10 @@
                     m_end: ['00', '10', '20', '30', '40', '50'],
                 },
                 current: {
-                    h_start: '00',
-                    m_start: '00',
-                    h_end: '00',
-                    m_end: '00',
-                },
-                disabled: {
-                    h_start: false,
-                    h_end: false,
-                    m_start: false,
-                    m_end: false,
+                    h_start: 0,
+                    m_start: 0,
+                    h_end: 0,
+                    m_end: 0,
                 },
             })
             const refs = {
@@ -181,21 +175,8 @@
             const firstInit = () => {
                 if (modifiedPropsRangeWork.value !== false) {
                     for (let prop in timepicker.current) {
-                        while (timepicker.times[prop][2] !== modifiedPropsRangeWork.value[prop]) {
-                            timepicker.times[prop].push(timepicker.current[prop]);
-                            let afterChangeCurrent = () => {
-                                timepicker.times[prop].shift();
-                                timepicker.disabled[prop] = false;
-                            }
-                            if (timepicker.current[prop] === timepicker.lasts[prop]) {
-                                timepicker.current[prop] = timepicker.start;
-                                afterChangeCurrent();
-                            } else {
-                                let ind = timepicker.times[prop].findIndex(i => i === timepicker.current[prop])
-                                timepicker.current[prop] = timepicker.times[prop][ind + 1];
-                                afterChangeCurrent();
-                            }
-                        }
+                        let index = timepicker.times[prop].findIndex(i => i === modifiedPropsRangeWork.value[prop]);
+                        shiftSlide(1, null, prop, index - 2);
                     }
                 } else {
                     emit('selectRangeWork', {
@@ -206,77 +187,128 @@
                     });
                 }
             }
-
-            const next = (property) => {
-                if (!timepicker.disabled[property]) {
-                    timepicker.disabled[property] = true;
-                    timepicker.times[property].push(timepicker.current[property]);
-                    refs[property].value.classList.add('base-timepicker__slider-wrapper_next');
-                    let afterChangeCurrent = () => {
-                        timepicker.times[property].shift();
-                        refs[property].value.classList.remove('base-timepicker__slider-wrapper_next');
-                        timepicker.disabled[property] = false;
-
-                        let newRangeWork = {}
-                        for (let prop in timepicker.current) {
-                            newRangeWork[prop] = timepicker.times[prop][2];
-                        }
-                        emit('selectRangeWork', newRangeWork);
-                    }
-                    if (timepicker.current[property] === timepicker.lasts[property]) {
-                        setTimeout(() => {
-                            timepicker.current[property] = timepicker.start;
-                            afterChangeCurrent();
-                        }, 300)
-                    } else {
-                        setTimeout(() => {
-                            let ind = timepicker.times[property].findIndex(i => i === timepicker.current[property])
-                            timepicker.current[property] = timepicker.times[property][ind + 1];
-                            afterChangeCurrent();
-                        }, 300)
-                    }
-                }
-            }
-
-            const prev = (property) => {
-                if (!timepicker.disabled[property]) {
-                    let afterChangeCurrent = () => {
-                        refs[property].value.classList.remove('base-timepicker__slider-wrapper_prev');
-                        timepicker.disabled[property] = false;
-
-                        let newRangeWork = {}
-                        for (let prop in timepicker.current) {
-                            newRangeWork[prop] = timepicker.times[prop][2];
-                        }
-                        emit('selectRangeWork', newRangeWork);
-                    }
-
-                    timepicker.disabled[property] = true;
-                    if (timepicker.current[property] !== timepicker.start) {
-                        let newCurrent = timepicker.times[property][timepicker.times[property].length - 1]
-                        timepicker.times[property].unshift(newCurrent);
-                        refs[property].value.classList.add('base-timepicker__slider-wrapper_prev');
-
-                        setTimeout(() => {
-                            timepicker.times[property].pop();
-                            timepicker.current[property] = newCurrent
-
-                            afterChangeCurrent()
-                        }, 300)
-                    } else {
-                        timepicker.times[property].unshift(timepicker.lasts[property]);
-                        refs[property].value.classList.add('base-timepicker__slider-wrapper_prev');
-                        setTimeout(() => {
-                            timepicker.times[property].pop();
-                            timepicker.current[property] = timepicker.lasts[property];
-
-                            afterChangeCurrent()
-                        }, 300)
-                    }
-                }
-            }
-
             firstInit();
+
+            //обработка слайдера
+            let posY1 = 0,
+                posY2 = 0,
+                posInitial,
+                posFinal,
+                threshold = 22.5,
+                slideSize = 45, //45 Высота
+                trfRegExp = /[-0-9.]+(?=px)/g,
+                dragging = false;
+
+
+            function dragStart (e, prop) {
+                e = e || window.event;
+                e.preventDefault();
+                let style = refs[prop].value.style.transform;
+                posInitial = +style.match(trfRegExp)[1]
+
+                if (e.type === 'touchstart') {
+                    posY1 = e.touches[0].clientY;
+                    document.ontouchend = (e) => dragEnd(e, prop);
+                    document.ontouchmove = (e) => dragAction(e, prop);
+                } else {
+                    posY1 = e.clientY;
+                    document.onmouseup = (e) => dragEnd(e, prop);
+                    document.onmousemove = (e) => dragAction(e, prop);
+                    dragging = true;
+                }
+            }
+            function dragAction (e, prop) {
+                e = e || window.event;
+                if (e.type === 'touchmove') {
+                    posY2 = posY1 - e.touches[0].clientY;
+                    posY1 = e.touches[0].clientY;
+                } else {
+                    posY2 = posY1 - e.clientY;
+                    posY1 = e.clientY;
+                }
+                if (dragging) {
+                    let style = refs[prop].value.style.transform,
+                        transform = +style.match(trfRegExp)[1];
+                    refs[prop].value.style.transform = `translate3d(0px, ${transform - posY2}px, 0px)`;
+                }
+            }
+            function dragEnd (e, prop) {
+                dragging = false;
+                let style = refs[prop].value.style.transform;
+                posFinal = +style.match(trfRegExp)[1];
+                let k = Math.abs(Math.trunc((posFinal - posInitial) / (threshold * 2)));
+                if (posFinal - posInitial < -threshold) {
+                    let rest = (posFinal - posInitial) % (-threshold * 2);
+                    if (rest < -threshold) {
+                        shiftSlide(1, 'drag', prop, k + 1);
+                    } else {
+                        shiftSlide(1, 'drag', prop, k);
+                    }
+                } else if (posFinal - posInitial > threshold) {
+                    let rest = (posFinal - posInitial) % (threshold * 2);
+                    if (rest > threshold) {
+                        shiftSlide(-1, 'drag', prop, k + 1);
+                    } else {
+                        shiftSlide(-1, 'drag', prop, k);
+                    }
+                } else {
+                    refs[prop].value.style.transform = `translate3d(0px, ${posInitial}px, 0px)`;
+                }
+                document.onmouseup = null;
+                document.onmousemove = null;
+                document.ontouchend = null;
+                document.ontouchmove = null;
+            }
+            function shiftSlide(dir, action, prop, count = 1) {
+                refs[prop].value.classList.add('base-timepicker__slider-wrapper_shifting');
+                if (!action) {
+                    let style = refs[prop].value.style.transform;
+                    posInitial = +style.match(trfRegExp)[1];
+                }
+                if (dir === 1) {
+                    let toChangeCurrent = timepicker.current[prop] + count,
+                        toChangeDifference = toChangeCurrent - timepicker.times[prop].length - 1 + 4,
+                        newCount = count;
+                    if (toChangeDifference >= 0) {
+                        newCount -= toChangeDifference;
+                    }
+                    refs[prop].value.style.transform = `translate3d(0px, ${posInitial - slideSize * newCount}px, 0px)`;
+                    timepicker.current[prop] = timepicker.current[prop] + newCount;
+                } else if (dir === -1) {
+                    let toChangeCurrent = timepicker.current[prop] - count,
+                        toChangeDifference = toChangeCurrent + 2,
+                        newCount = count;
+                    if (toChangeDifference < 0) {
+                        newCount += toChangeDifference;
+                    }
+                    refs[prop].value.style.transform = `translate3d(0px, ${posInitial + slideSize * newCount}px, 0px)`;
+                    timepicker.current[prop] = timepicker.current[prop] - newCount;
+                }
+                let newRangeWork = {}
+                for (let property in timepicker.current) {
+                    newRangeWork[property] = timepicker.times[property][timepicker.current[property] + 2];
+                }
+                emit('selectRangeWork', newRangeWork);
+            }
+
+            onMounted(() => {
+                for (let prop in refs) {
+                    refs[prop].value.addEventListener('mousedown', (e) => dragStart(e, prop));
+                    refs[prop].value.addEventListener('touchstart', (e) => dragStart(e, prop));
+                    new WheelIndicator({
+                        elem: refs[prop].value,
+                        callback: (e) => {
+                            let delta = e.deltaY || e.detail || e.wheelDelta;
+                            if (delta > 0) {
+                                shiftSlide(1, null, prop)
+                            } else if (delta <= 0) {
+                                shiftSlide(-1, null, prop)
+                            }
+                        },
+                        preventMouse: false,
+                    })
+                }
+            })
 
             return {
                 timepicker: computed(() => timepicker),
@@ -286,8 +318,7 @@
                 h_end: refs.h_end,
                 m_end: refs.m_end,
 
-                next,
-                prev,
+                shiftSlide,
 
                 modifiedPropsRangeWork,
             }
@@ -348,15 +379,24 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        user-select: none;
+        touch-action: pan-y;
     }
     .base-timepicker__slider {
         height: 200px;
         margin: 10px 0;
         overflow: hidden;
+        position: relative;
     }
     .base-timepicker__slider-wrapper {
         transition: .2s;
-        height: 100%;
+        position: relative;
+        transform: translate3d(0, 0px, 0);
+        height: 10000px;
+        .base-timepicker__slider-wrapper_shifting {
+            transition: transform .1s ease-out;
+        }
     }
     .base-timepicker__element {
         margin-bottom: 24px;
@@ -367,6 +407,9 @@
         line-height: 21px;
         text-align: center;
         color: var(--calendar-font-color);
+
+        cursor: pointer;
+        position: relative;
         &.base-timepicker__element_active {
             color: var(--calendar-active-font-color);
         }
@@ -378,31 +421,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    @keyframes next {
-        from {
-            transform: translateY(0);
-        }
-        to {
-            transform: translateY(-45px)
-        }
-    }
-
-    @keyframes prev {
-        from {
-            transform: translateY(-45px);
-        }
-        to {
-            transform: translateY(0)
-        }
-    }
-
-    .base-timepicker__slider-wrapper_next {
-        animation: .3s next forwards;
-    }
-
-    .base-timepicker__slider-wrapper_prev {
-        animation: .3s prev forwards;
     }
     .base-timepicker__selector {
         position: absolute;

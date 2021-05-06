@@ -26,7 +26,7 @@
             </div>
         </div>
         <div v-if="message.type === 'img'" class="base-message__container base-message__container_full">
-            <div class="base-message__message message__message_full">
+            <div class="base-message__message base-message__message_full">
                 <div class="base-message__image"
                      :style="{'background': `url(${message.img}) no-repeat`, 'background-size': 'cover', 'background-position': 'center center' }"
                 >

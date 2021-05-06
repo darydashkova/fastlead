@@ -7,7 +7,7 @@
                 <path d="M0 18C0.083163 16.0923 1.00975 14.3505 2.63376 13.0612C4.31004 11.7316 6.56906 11 8.9999 11C11.4307 11 13.69 11.7316 15.366 13.0612C16.99 14.3505 17.9166 16.0923 18 18H0Z"
                       fill="#EDEDEF"/>
             </svg>
-            <span class="user-info__setting-name">Редактировать профиль</span>
+            <router-link to="/settings/account" class="user-info__setting-name">Редактировать профиль</router-link>
         </div>
 
         <div class="user-info__setting" @click="toggleModalEditFolders(true)">
@@ -112,6 +112,7 @@
         line-height: 24px;
         color: var(--font-color);
         margin-left: 10px;
+        text-decoration: none;
     }
     .user-info__setting-name_flex {
         display: flex;
