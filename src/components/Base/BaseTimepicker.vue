@@ -175,8 +175,9 @@
             const firstInit = () => {
                 if (modifiedPropsRangeWork.value !== false) {
                     for (let prop in timepicker.current) {
-                        let index = timepicker.times[prop].findIndex(i => i === modifiedPropsRangeWork.value[prop]);
-                        shiftSlide(1, null, prop, index - 2);
+                        let index = timepicker.times[prop].findIndex(i => i == modifiedPropsRangeWork.value[prop]);
+                        timepicker.current[prop] = index - 2;
+                        refs[prop].value.style.transform = `translate3d(0px, ${ - slideSize * timepicker.current[prop]}px, 0px)`;
                     }
                 } else {
                     emit('selectRangeWork', {
@@ -187,7 +188,7 @@
                     });
                 }
             }
-            firstInit();
+
 
             //обработка слайдера
             let posY1 = 0,
@@ -260,7 +261,6 @@
                 document.ontouchmove = null;
             }
             function shiftSlide(dir, action, prop, count = 1) {
-                refs[prop].value.classList.add('base-timepicker__slider-wrapper_shifting');
                 if (!action) {
                     let style = refs[prop].value.style.transform;
                     posInitial = +style.match(trfRegExp)[1];
@@ -292,6 +292,7 @@
             }
 
             onMounted(() => {
+                firstInit();
                 for (let prop in refs) {
                     refs[prop].value.addEventListener('mousedown', (e) => dragStart(e, prop));
                     refs[prop].value.addEventListener('touchstart', (e) => dragStart(e, prop));
@@ -393,10 +394,7 @@
         transition: .2s;
         position: relative;
         transform: translate3d(0, 0px, 0);
-        height: 10000px;
-        .base-timepicker__slider-wrapper_shifting {
-            transition: transform .1s ease-out;
-        }
+        height: 100%;
     }
     .base-timepicker__element {
         margin-bottom: 24px;

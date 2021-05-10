@@ -109,7 +109,7 @@ export function useStyle() {
             'separator-color': '#B7B7BE', //цвет разделительной линии var(--separator-color)
             'active-folder-color': '#1D1D35', //цвет активной директории var(--active-folder-color)
             'sub-text-color': '#757589', //цвет шрифта(вторичный) var(--sub-text-color)
-            'date-in-message-color': '#FFFFFF', //цвет текста в отображении даты
+            'date-in-message-color': '#1D1D35', //цвет текста в отображении даты
 
             'message-action-icon-color': '#FFFFFF', //цвет иконок
             'folder-create-button-color': '#FFFFFF', //цвет создания папки и текста

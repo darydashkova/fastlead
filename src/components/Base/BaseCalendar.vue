@@ -182,9 +182,10 @@
             })
 
             const selectDate = (day) => {
-                firstInit(day)
                 pickedDate.value = false;
                 setTimeout(() => {
+                    firstInit(day)
+
                     for (let prop in refs) {
                         refs[prop].value.addEventListener('mousedown', (e) => dragStart(e, prop));
                         refs[prop].value.addEventListener('touchstart', (e) => dragStart(e, prop));
@@ -210,7 +211,12 @@
             const timepicker = reactive({
                 times: {
                     h: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
-                    m: ['00', '10', '20', '30', '40', '50'],
+                    m: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09',
+                        '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
+                        '20', '21', '22', '23', '24', '25', '26', '27', '28', '29',
+                        '30', '31', '32', '33', '34', '35', '36', '37', '38', '39',
+                        '40', '41', '42', '43', '44', '45', '46', '47', '48', '49',
+                        '50', '51', '52', '53', '54', '55', '56', '57', '58', '59',],
                 },
                 current: {
                     h: 0,
@@ -302,7 +308,7 @@
                 document.ontouchmove = null;
             }
             function shiftSlide(dir, action, prop, count = 1) {
-                refs[prop].value.classList.add('base-timepicker__slider-wrapper_shifting');
+                console.log(prop);
                 if (!action) {
                     let style = refs[prop].value.style.transform;
                     posInitial = +style.match(trfRegExp)[1];
@@ -350,12 +356,13 @@
                     }
                 }
             }
-            if (!props.time) {
-                createCalendar(new Date().getFullYear(), new Date().getMonth() + 1)
-            } else {
-                createCalendar(new Date(+props.time * 1000).getFullYear(), new Date(+props.time * 1000).getMonth() + 1)
-            }
-            firstInit();
+            onMounted(() => {
+                if (!props.time) {
+                    createCalendar(new Date().getFullYear(), new Date().getMonth() + 1)
+                } else {
+                    createCalendar(new Date(+props.time * 1000).getFullYear(), new Date(+props.time * 1000).getMonth() + 1)
+                }
+            })
 
             return {
                 calendar,
@@ -504,10 +511,15 @@
         height: 200px;
         margin: 10px 0;
         overflow: hidden;
+        position: relative;
     }
     .base-calendar-timepicker__slider-wrapper {
         transition: .2s;
         height: 100%;
+        position: relative;
+
+        cursor: pointer;
+        transform: translate3d(0, 0px, 0);
     }
     .base-calendar-timepicker__element {
         margin-bottom: 24px;

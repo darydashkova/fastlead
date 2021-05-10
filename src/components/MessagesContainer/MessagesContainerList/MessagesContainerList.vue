@@ -132,12 +132,13 @@
     }
     .messages-container-list__date {
         margin: 25px 0;
-        text-align: center;
+        width: 100%;
+        text-align: right;
+        border-bottom: 1px solid var(--folder-color);
     }
     .messages-container-list__date-text {
         display: inline-block;
         margin: 0 auto;
-        background: var(--folder-color);
         padding: 4px 16px;
         border-radius: 4px;
         font-style: normal;

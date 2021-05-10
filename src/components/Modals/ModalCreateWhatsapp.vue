@@ -40,14 +40,14 @@
     import BaseModalLabel from '../Base/BaseModalLabel.vue'
     import BaseModalHeader from '../Base/BaseModalHeader.vue'
 
-    import { useModals } from "../../composition/useModals";
     import { onMounted, ref, reactive, computed } from "vue";
     import {useWhatsapp} from "../../composition/useWhatsapp";
+    import {useModalsWhatsapps} from "../../composition/useModalsWhatsapps";
 
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalHeader },
         setup() {
-            const { toggleModalCreateWhatsapp, selectedWhatsappToAction } = useModals();
+            const { toggleModalCreateWhatsapp, selectedWhatsappToAction } = useModalsWhatsapps()
 
             const { createWhatsapp, getWhatsapps, updateWhatsapp } = useWhatsapp();
 
