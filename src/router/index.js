@@ -74,21 +74,21 @@ function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (getCookie('SessionKey')) {
-      next()
-      return
-    }
-    next('/login')
-  } else {
-    if (to.matched.some(record => record.meta.withoutAuth)) {
-      if (getCookie('SessionKey')) {
-        outAuth();
-      }
-    }
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (getCookie('SessionKey')) {
+//       next()
+//       return
+//     }
+//     next('/login')
+//   } else {
+//     if (to.matched.some(record => record.meta.withoutAuth)) {
+//       if (getCookie('SessionKey')) {
+//         outAuth();
+//       }
+//     }
+//     next()
+//   }
+// })
 
 export default router

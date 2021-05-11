@@ -62,7 +62,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: var(--svg-settings-fill);
+        background: var(--user-info-settings-default-setting-name);
         -webkit-transition: .4s;
         transition: .4s;
         .base-switcher__slider-circle {
@@ -71,7 +71,7 @@
             width: 18px;
             left: 0;
             bottom: -1.5px;
-            background: var(--svg-settings-fill);
+            background: var(--user-info-settings-default-setting-name);
             -webkit-transition: .4s;
             transition: .4s;
             display: flex;
@@ -82,14 +82,12 @@
                 content: '';
                 width: 14px;
                 height: 14px;
-                background: var(--messages-color);
+                background: var(--messenger-middle-bar-bg);
             }
         }
     }
     .base-switcher__slider_checked {
-        background: var(--active-folder-color);
         .base-switcher__slider-circle {
-            background: var(--active-folder-color);
             -webkit-transform: translateX(15px);
             -ms-transform: translateX(15px);
             transform: translateX(15px);

@@ -6,7 +6,9 @@ const style = ref(null);
 export function useStyle() {
     const setStyle = (type = null) => {
         const common = {
-            'green-color': 'linear-gradient(45.66deg, #00BF6D -40.44%, #98D730 120.07%)',
+            'green-color': 'linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%)',
+            'search-input-placeholder-color': '#9797BB',
+
             'red-color': '#EB5757',
             'yellow-color': '#F2C94C',
             'placeholder-color': '#B7B7BE',
@@ -14,19 +16,34 @@ export function useStyle() {
             'webkit-scroll-color': '#B7B7BE',
             'font-my-message-color': '#EDEDEF',
 
+
         }
         const dark = {
             ...common,
-            'header-color': '#141427', //цвет фона и хедера --> var(--)
-            'footer-color': '#141427',
+            'left-bar-color': '#141427', //цвет панели с папками --> var(--left-bar-color)
+            'default-svg-fill': '#575773',
+            'hover-folder-bg': '#1D1D35',
+            'messenger-middle-bar-bg': '#414159',
+            'separator-color': '#2E2E4E', //цвет разделительной линии var(--separator-color)
+            'user-info-settings-header-bg': '#2E2E4E',
+            'user-info-settings-hover-svg-fill': '#F0F0FA',
+            'user-info-settings-default-svg-fill': '#9797BB',
+            'user-info-settings-default-setting-name': '#F0F0FA',
+            'user-info-settings-hover-setting-bg': '#575773',
+            'foreign-messages-font-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
 
-            'left-bar-color': '#1D1D35', //цвет панели с папками --> var(--left-bar-color)
+
+
+
+
+
+            'header-color': '#141427', //цвет фона и хедера --> var(--)
+
             'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
             'font-color': '#EDEDEF', //цвет шрифта(основной) --> var(--font-color)
             'messages-color': '#404054', //цвет чужого сообщения var(--messages-color)
             'search-input-color': '#757589', //цвет поисковой строки var(--search-input-color)
             'active-message-color': '#757589', //цвет выбранного диалога var(--active-message-color)
-            'separator-color': '#404054', //цвет разделительной линии var(--separator-color)
             'active-folder-color': '#EDEDEF', //цвет активной директории var(--active-folder-color)
             'sub-text-color': '#B7B7BE', //цвет шрифта(вторичный) var(--sub-text-color),
             'date-in-message-color': '#EDEDEF', //цвет текста в отображении даты
@@ -53,7 +70,6 @@ export function useStyle() {
             'button-cancel-color': '#4A4A5D', //цвет bg cancel кнопки
 
             'hover-svg-fill': '#EDEDEF', //цвет ховера fill в модалках
-            'default-svg-fill': '#757589',
 
             'create-chat-border-color': '#404054', //цвет бордера и ховера папки
 
@@ -97,16 +113,29 @@ export function useStyle() {
         }
         const light = {
             ...common,
+            'left-bar-color': '#DEDEEE', //цвет панели с папками --> var(--left-bar-color)
+            'default-svg-fill': '#9797BB', //дефолтный fill всех свг
+            'hover-folder-bg': '#F0F0FA',
+            'messenger-middle-bar-bg': '#FBFBFE',
+            'separator-color': '#DEDEEE', //цвет разделительной линии var(--separator-color)
+            'user-info-settings-header-bg': '#DEDEEE',
+            'user-info-settings-hover-svg-fill': '#575773',
+            'user-info-settings-default-svg-fill': '#9797BB',
+            'user-info-settings-default-setting-name': '#9797BB',
+            'user-info-settings-hover-setting-bg': '#F0F0FA',
+            'foreign-messages-font-color': '#575773', //цвет чужого сообщения var(--messages-color)
+
+
+
+
             'header-color': '#757589', //цвет фона и хедера --> var(--)
             'footer-color': '#B7B7BE',
 
-            'left-bar-color': '#EDEDEF', //цвет панели с папками --> var(--left-bar-color)
             'main-color': '#EDEDEF', //цвет фона с перепиской --> var(--main-color)
             'font-color': '#1D1D35', //цвет шрифта(основной) --> var(--font-color)
-            'messages-color': '#FFFFFF', //цвет чужого сообщения var(--messages-color)
+            'messages-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
             'search-input-color': '#EDEDEF', //цвет поисковой строки var(--search-input-color)
             'active-message-color': '#EDEDEF', //цвет выбранного диалога var(--active-message-color)
-            'separator-color': '#B7B7BE', //цвет разделительной линии var(--separator-color)
             'active-folder-color': '#1D1D35', //цвет активной директории var(--active-folder-color)
             'sub-text-color': '#757589', //цвет шрифта(вторичный) var(--sub-text-color)
             'date-in-message-color': '#1D1D35', //цвет текста в отображении даты
@@ -133,7 +162,6 @@ export function useStyle() {
             'button-cancel-color': '#EDEDEF', //цвет bg cancel кнопки
 
             'hover-svg-fill': '#757589', //цвет ховера fill в модалках
-            'default-svg-fill': '#B7B7BE',
 
             'create-chat-border-color': '#EDEDEF', //цвет бордера и ховера папки
 

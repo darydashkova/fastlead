@@ -1,36 +1,8 @@
 
-.user-info__header {
-  height: 86px;
-  position: relative;
-  padding: 20px 0 36px 51px;
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 22px;
-  line-height: 29px;
-  text-align: left;
-  display: flex;
-  align-items: center;
-
-  color: var(--create-folder-header-color);
-  border-bottom: 1px solid var(--search-input-color);
-  &:before {
-    content: '';
-    position: absolute;
-    left: 17px;
-    width: 9px;
-    height: 9px;
-    border-bottom: 1.5px solid #757589;
-    border-left: 1.5px solid #757589;
-    transform: rotate(45deg);
-  }
-}
 .user-info__container {
-  margin-top: 6px;
-  padding: 0 17px;
+  padding: 13px 17px;
   width: 100%;
-  display: flex;
-  align-items: center;
+  background: var(--user-info-settings-header-bg);
 }
 .user-info__ava-container {
   background: var(--green-color);
@@ -50,7 +22,6 @@
   border: 2px solid var(--messages-color);
 }
 .user-info__login {
-  margin-left: 38px;
   font-family: Segoe UI;
   font-style: normal;
   font-weight: normal;
@@ -59,4 +30,6 @@
   background: var(--green-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-top: 16px;
+  text-align: left;
 }

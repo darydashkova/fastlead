@@ -1,7 +1,7 @@
 <template>
     <div class="messenger-content-dialogs">
         <BaseSearchInput
-                placeholder="Поиск или новый чат"
+                placeholder="Поиск"
                 @toggleSearch="toggleSearch"
                 @handler="searchHandler"
         ></BaseSearchInput>

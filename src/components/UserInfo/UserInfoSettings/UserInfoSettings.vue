@@ -1,36 +1,44 @@
 <template>
     <div class="user-info__settings">
-        <div class="user-info__setting">
+        <router-link to="/settings/account" class="user-info__setting">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 0C11.2092 0 13 1.79084 13 4C13 6.20916 11.2092 8 9 8C6.79084 8 5 6.20916 5 4C5.00217 1.79177 6.79177 0.00216584 9 0Z"
                       fill="#EDEDEF"/>
                 <path d="M0 18C0.083163 16.0923 1.00975 14.3505 2.63376 13.0612C4.31004 11.7316 6.56906 11 8.9999 11C11.4307 11 13.69 11.7316 15.366 13.0612C16.99 14.3505 17.9166 16.0923 18 18H0Z"
                       fill="#EDEDEF"/>
             </svg>
-            <router-link to="/settings/account" class="user-info__setting-name">Редактировать профиль</router-link>
-        </div>
-
+            <span class="user-info__setting-name">Редактировать профиль</span>
+        </router-link>
+        <router-link to="/settings" class="user-info__setting">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 0C11.2092 0 13 1.79084 13 4C13 6.20916 11.2092 8 9 8C6.79084 8 5 6.20916 5 4C5.00217 1.79177 6.79177 0.00216584 9 0Z"
+                      fill="#EDEDEF"/>
+                <path d="M0 18C0.083163 16.0923 1.00975 14.3505 2.63376 13.0612C4.31004 11.7316 6.56906 11 8.9999 11C11.4307 11 13.69 11.7316 15.366 13.0612C16.99 14.3505 17.9166 16.0923 18 18H0Z"
+                      fill="#EDEDEF"/>
+            </svg>
+            <span class="user-info__setting-name">Продвинутые настройки</span>
+        </router-link>
+        <router-link to="/settings" class="user-info__setting">
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0516 0H1.94837C0.872332 0 0 0.864291 0 1.93041V9.61932C0 10.6854 0.872332 11.5497 1.94837 11.5497H14.2777C14.8432 11.5497 15.3898 11.7521 15.8166 12.1197L18 14V1.93041C18 0.864291 17.1277 0 16.0516 0Z"
+                      fill="#F9F5F3"/>
+            </svg>
+            <span class="user-info__setting-name">Настройки чатов</span>
+        </router-link>
         <div class="user-info__setting" @click="toggleModalEditFolders(true)">
             <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16.0516 0H1.94837C0.872332 0 0 0.864291 0 1.93041V9.61932C0 10.6854 0.872332 11.5497 1.94837 11.5497H14.2777C14.8432 11.5497 15.3898 11.7521 15.8166 12.1197L18 14V1.93041C18 0.864291 17.1277 0 16.0516 0Z"
                       fill="#F9F5F3"/>
             </svg>
-            <span class="user-info__setting-name">Редактировать папки</span>
+            <span class="user-info__setting-name">Папки</span>
         </div>
-        <div class="user-info__setting">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0)">
-                    <path d="M16.8007 4.32438L6.08812 0.281272C5.61522 0.102799 5.08852 0.130839 4.63343 0.349857L0.799486 2.19976C0.120834 2.52677 -0.181926 3.32933 0.11174 4.02276L1.76991 7.93742C1.96695 8.40312 2.34739 8.76234 2.82028 8.94043L13.5325 12.9835C14.4862 13.3431 15.5563 12.8763 15.9163 11.9226L17.8817 6.71501C18.2413 5.76164 17.754 4.68398 16.8007 4.32438ZM5.94943 5.18681C5.66676 5.93595 4.83009 6.31335 4.08172 6.03106C3.33259 5.748 2.95442 4.9121 3.2371 4.16296C3.51978 3.41383 4.35606 3.03605 5.10519 3.31834C5.85395 3.6014 6.23211 4.43768 5.94943 5.18681Z" fill="#F9F5F3"/>
-                    <path d="M2.48069 9.83913C2.25258 9.75273 2.04039 9.63565 1.84448 9.49658L5.76634 16.8473C6.24606 17.7465 7.35858 18.1012 8.25776 17.6215L13.1686 15.0008C13.5657 14.789 13.8427 14.4465 13.9981 14.0565C13.723 14.0368 13.4532 13.9804 13.1921 13.8815L2.48069 9.83913Z" fill="#F9F5F3"/>
-                </g>
-                <defs>
-                    <clipPath id="clip0">
-                        <rect width="18" height="18" fill="white"/>
-                    </clipPath>
-                </defs>
+        <router-link to="/" class="user-info__setting">
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0516 0H1.94837C0.872332 0 0 0.864291 0 1.93041V9.61932C0 10.6854 0.872332 11.5497 1.94837 11.5497H14.2777C14.8432 11.5497 15.3898 11.7521 15.8166 12.1197L18 14V1.93041C18 0.864291 17.1277 0 16.0516 0Z"
+                      fill="#F9F5F3"/>
             </svg>
             <span class="user-info__setting-name">Настройки тегов</span>
-        </div>
+        </router-link>
         <div class="user-info__setting">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.546 2.62124C15.7988 2.475 15.9545 2.20505 15.9545 1.91302C15.9545 1.62098 15.7988 1.35104 15.546 1.2048C14.1834 0.416618 12.6272 0 11.0454 0C6.08281 0 2.04541 4.0374 2.04541 9C2.04541 13.9626 6.08281 18 11.0454 18C12.6272 18 14.1834 17.5834 15.546 16.7953C15.7988 16.649 15.9545 16.3791 15.9545 16.087C15.9545 15.795 15.7988 15.5251 15.546 15.3788C13.2746 14.0648 11.8636 11.6206 11.8636 9C11.8636 6.37942 13.2746 3.93524 15.546 2.62124Z" fill="#F9F5F3"/>
@@ -54,7 +62,7 @@
                     </clipPath>
                 </defs>
             </svg>
-            <span class="user-info__setting-name">Выйти с аккаунта</span>
+            <span class="user-info__setting-name">Выйти из аккаунта</span>
         </div>
     </div>
 </template>
@@ -86,34 +94,39 @@
 
 <style lang="scss">
     .user-info__settings {
-        margin-top: 31px;
-        padding: 0 17px;
-    }
-    .user-info__setting {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        cursor: pointer;
-        &:last-of-type {
-            margin-bottom: 0;
-        }
-
-        svg{
-            min-width: 18px;
-            path {
-                fill: var(--svg-settings-fill);
-            }
-        }
+        margin-top: 17px;
     }
     .user-info__setting-name {
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
         line-height: 24px;
-        color: var(--font-color);
+        color: var(--user-info-settings-default-setting-name);
         margin-left: 10px;
         text-decoration: none;
+        transition: .2s ease;
     }
+    .user-info__setting {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 11px 17px;
+        text-decoration: none;
+        transition: .2s ease;
+        svg{
+            min-width: 18px;
+            path {
+                fill: var(--svg-settings-fill);
+            }
+        }
+        &:hover {
+            background: var(--user-info-settings-hover-setting-bg);
+            .user-info__setting-name {
+                color: var(--user-info-settings-hover-svg-fill);
+            }
+        }
+    }
+
     .user-info__setting-name_flex {
         display: flex;
         width: 100%;
