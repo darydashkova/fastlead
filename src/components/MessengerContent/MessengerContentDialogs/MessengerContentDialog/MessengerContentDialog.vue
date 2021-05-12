@@ -56,9 +56,9 @@
 
 <style lang="scss">
     .messenger-content-dialog{
-        margin-top: 9px;
+        margin-top: 18px;
         //34px - поиск, 9 - margin, 29 - название папки, 22 - margin названия
-        height: calc(100% - 34px - 9px - 29px - 22px);
+        height: calc(100% - 34px - 18px);
         position: relative;
         ::-webkit-scrollbar {
             display: none;

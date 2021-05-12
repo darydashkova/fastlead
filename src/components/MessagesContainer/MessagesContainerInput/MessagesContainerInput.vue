@@ -109,9 +109,20 @@
                       fill="#B7B7BE"/>
             </svg>
 
-            <input type="file" style="display: none;" id="messages-container-input__attachment">
+            <input @change="attachment.change"
+                   type="file"
+                   style="display: none;"
+                   id="messages-container-input__attachment"
+                   multiple
+                   accept="image/jpeg,image/png,image/gif"
+            >
         </div>
+        <teleport to="body">
+            <ModalSendImages
+                    v-if="openedModalSendImages"
 
+            ></ModalSendImages>
+        </teleport>
     </div>
 </template>
 
@@ -120,26 +131,26 @@
     import { useDialogs } from "../../../composition/useDialogs";
     import { useSocket } from "../../../composition/useSocket";
 
-    import data from "../../emoji-component/data/apple.json";
-    import "../../emoji-component/css/emoji-mart.css";
-    import { Picker, EmojiIndex } from "../../emoji-component/src";
-    import emojiRegex from 'emoji-regex'
-
-    let emojiIndex = new EmojiIndex(data);
+    import { Picker } from "../../emoji-component/src";
+    import ModalSendImages from "../../Modals/ModalSendImages";
+    import {useModalsImages} from "../../../composition/useModalsImages";
+    import {useImages} from "../../../composition/useImages";
+    import {useEmoji} from "../../../composition/useEmoji";
 
     export default {
         components: {
-            Picker
+            Picker, ModalSendImages
         },
         data() {
             return {
-                emojiIndex: emojiIndex,
-                emojisOutput: ""
             }
         },
         setup() {
             const { selectedDialog } = useDialogs();
             const { socketSend } = useSocket();
+            const { createImage, replaceImages, addImage } = useImages()
+            const { openedModalSendImages, toggleModalSendImages } = useModalsImages()
+            const { emojiIndex, emojiToHtml, wrapEmoji } = useEmoji()
 
             const value = ref('');
             const textarea = ref(null);
@@ -153,38 +164,20 @@
 
             const send = () => {
                 if (value.value) {
-                    socketSend('send_message', {type: 'text', data: value.value, dialog_id: selectedDialog.value})
+                    let div = document.createElement('div');
+                    div.innerHTML = value.value;
+                    div.querySelectorAll('img').forEach(img => {
+                        img.replaceWith(img.getAttribute('data-text'))
+                    })
+                    socketSend('send_message', {type: 'text', data: div.innerHTML, dialog_id: selectedDialog.value})
                     value.value = '';
+                    textarea.value.innerHTML = '';
                 }
             }
             const input = ($event) => {
                 value.value = $event.target.innerHTML
             }
-            const unicodeEmojiRegex = emojiRegex()
 
-            const wrapEmoji = (text) => {
-                return text.replace(unicodeEmojiRegex, function(match, offset) {
-                    const before = text.substring(0, offset)
-                    if (before.endsWith('alt="') || before.endsWith('data-text="')) {
-                        // Emoji inside the replaced <img>
-                        return match
-                    }
-                    // Find emoji object by native emoji.
-                    let emoji = emojiIndex.nativeEmoji(match)
-                    if (!emoji) {
-                        // Can't find unicode emoji in our index
-                        return match
-                    }
-                    // See `emojiToHtml` function above.
-                    return emojiToHtml(emoji)
-                })
-            }
-            const emojiToHtml = (emoji) => {
-                let style = `background-position: ${emoji.getPosition()}; width: 24px; height: 24px; display: inline-block`
-                return `<img data-text="${emoji.native}" alt="${emoji.colons}"
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                        class="emoji-set-apple emoji-type-image" style="${style}">`
-            }
 
             const smiles = reactive({
                 isOpened: false,
@@ -195,11 +188,26 @@
                     smiles.isOpened = boolean;
                 },
                 addEmoji: (emoji) => {
-                    if (textarea.value.innerHTML) {
-                        pasteHtmlAtCaret(emojiToHtml(emoji))
+                    if (!textarea.value.innerHTML.length
+                        || !window.getSelection()
+                        || !window.getSelection().anchorNode.classList
+                        || (!window.getSelection().anchorNode.classList.contains('messages-container-input__input')
+                            && !window.getSelection().anchorNode.parentElement.classList.contains('messages-container-input__input'))) {
+                        if (!textarea.value.innerHTML.length) {
+                            textarea.value.innerHTML = emojiToHtml(emoji);
+                            value.value = textarea.value.innerHTML;
+                            textarea.value.focus();
+                            setCaretToPos(textarea.value, textarea.value.childNodes.length)
+                        } else {
+                            textarea.value.focus();
+                            setCaretToPos(textarea.value, textarea.value.childNodes.length);
+                            value.value = textarea.value.innerHTML;
+                        }
                     } else {
-                        textarea.value.innerHTML = emojiToHtml(emoji)
+                        pasteHtmlAtCaret(emojiToHtml(emoji))
+                        value.value = textarea.value.innerHTML
                     }
+
                 },
                 paste: ($event) => {
                     let paste = ($event.clipboardData || window.clipboardData).getData('text');
@@ -209,6 +217,15 @@
                     $event.preventDefault();
                 }
             })
+            const setCaretToPos = (elem, pos) => {
+                let range = document.createRange();
+                let sel = window.getSelection();
+                range.setStart(elem, pos);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+
             const pasteHtmlAtCaret = (html) => {
                 let sel, range;
                 if (window.getSelection) {
@@ -218,9 +235,6 @@
                         range = sel.getRangeAt(0);
                         range.deleteContents();
 
-                        // Range.createContextualFragment() would be useful here but is
-                        // only relatively recently standardized and is not supported in
-                        // some browsers (IE9, for one)
                         let el = document.createElement("div");
                         el.innerHTML = html;
                         let frag = document.createDocumentFragment(), node, lastNode;
@@ -254,10 +268,35 @@
                 },
                 addPhoto: () => {
                     document.getElementById('messages-container-input__attachment').click()
-                }
+                },
+                change: ($event) => {
+                    if ($event.target.files[0]) {
+                        replaceImages([]);
+                        toggleModalSendImages(true);
+                        $event.target.files.forEach(item => {
+                            let fr = new FileReader();
+                            fr.addEventListener("load", function () {
+                                createImage(item)
+                                    .then((r) => {
+                                        if (r.status === 'ok') {
+                                            addImage({
+                                                name: item.name,
+                                                size: item.size,
+                                                type: item.type,
+                                                id: r.files[0],
+                                                src: fr.result,
+                                            })
+                                        }
+                                    })
+                            }, false);
+                            fr.readAsDataURL(item);
+                        })
+                    }
+                },
             })
 
             return {
+                emojiIndex,
                 value,
                 textarea,
 
@@ -267,6 +306,8 @@
 
                 smiles,
                 attachment,
+
+                openedModalSendImages,
 
             }
         }
@@ -308,6 +349,7 @@
         max-height: 150px;
 
         width: 100%;
+        word-break: break-all;
 
         padding: 13px 50px 16px 63px;
         border-radius: 31px;

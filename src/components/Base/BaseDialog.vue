@@ -9,17 +9,13 @@
         ></BaseCircleIcon>
         <div class="base-dialog__container">
             <div class="base-dialog__row">
-                    <div class="base-dialog__name">
-                        {{chatInfo.name}}
-                    </div>
+                    <div class="base-dialog__name" v-html="wrapEmoji(chatInfo.name)"></div>
                 <div class="base-dialog__date">
                     {{validDate(chatInfo.last_message.time)}}
                 </div>
             </div>
             <div class="base-dialog__row">
-                    <div class="base-dialog__text">
-                        {{chatInfo.last_message.type === 'text'? chatInfo.last_message.message : 'Вложение'}}
-                    </div>
+                    <div class="base-dialog__text" v-html="chatInfo.last_message.type === 'text'? wrapEmoji(chatInfo.last_message.message) : 'Вложение'"></div>
                 <template v-if="chatInfo.last_message.is_me">
                     <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_unreadable">
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,6 +60,7 @@
     import BaseCircleIcon from './BaseCircleIcon'
     import {useDate} from "../../composition/useDate";
     import { computed } from 'vue';
+    import {useEmoji} from "../../composition/useEmoji";
     export default {
         components: { BaseCircleIcon },
         props: {
@@ -88,8 +85,10 @@
             const toggleSelecting = () => {
                 emit('toggleSelecting');
             }
+            const { wrapEmoji } = useEmoji()
 
             return {
+                wrapEmoji,
                 chatInfo: props.chatInfo,
                 validDate,
                 isNeedSelecting: props.isNeedSelecting,
@@ -104,14 +103,17 @@
     .base-dialog{
         cursor: pointer;
         width: 100%;
-        height: 70px;
+        height: 78px;
         display: flex;
         align-items: center;
-        margin-bottom: 10px;
         padding: 0 16px;
         position: relative;
+        transition: .2s ease;
+        &:hover {
+            background: var(--messenger-search-input-bg);
+        }
         &.base-dialog_active {
-            background: var(--search-input-color);
+            background: var(--messenger-search-input-bg);
             &:after {
                 content: '';
                 position: absolute;
@@ -119,7 +121,7 @@
                 width: 3px;
                 background: var(--green-color);
                 left: 0;
-                top: calc((70px - 46px) / 2);
+                top: calc((78px - 46px) / 2);
             }
         }
         &.base-dialog_not-padding {
@@ -152,6 +154,8 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        display: flex;
+        align-items: center;
     }
     .base-dialog__text {
         font-style: normal;
@@ -163,6 +167,8 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        display: flex;
+        align-items: center;
 
     }
     .base-dialog__date {
@@ -190,10 +196,10 @@
         color: var(--font-color);
     }
     .base-dialog__text {
-        color: var(--sub-text-color);
+        color: var(--search-input-placeholder-color);
     }
     .base-dialog__date {
-        color: var(--sub-text-color);
+        color: var(--search-input-placeholder-color);
     }
 
 </style>

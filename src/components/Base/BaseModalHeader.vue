@@ -11,5 +11,8 @@
         line-height: 29px;
         color: var(--create-folder-header-color);
         padding: 0 20px;
+        &.base-modal-header__pd-0 {
+            padding: 0;
+        }
     }
 </style>

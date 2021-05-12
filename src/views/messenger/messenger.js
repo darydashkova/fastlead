@@ -8,7 +8,7 @@ import ModalMoveChat from "../../components/Modals/ModalMoveChat.vue"
 import ContextMenu from "../../components/ContextMenu.vue"
 
 
-import { provide, onUnmounted, onMounted } from "vue"
+import { onUnmounted, onMounted } from "vue"
 
 import { useUser } from "../../composition/useUser";
 import { useFolder } from "../../composition/useFolder";
@@ -17,6 +17,9 @@ import { useSocket } from "../../composition/useSocket";
 import { useDialogs } from "../../composition/useDialogs";
 import { useMessages } from "../../composition/useMessages";
 import { useModals } from "../../composition/useModals";
+
+import "../../components/emoji-component/css/emoji-mart.css";
+
 export default {
     components: {
         MessengerContent,

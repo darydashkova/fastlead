@@ -1,27 +1,31 @@
 .messenger-content-personal-messages{
-  //364 - dialogs, 127 - nav
-  width: calc(100% - 364px - 127px);
-  max-width: calc(100% - 364px - 127px);
+  width: calc(100% - 90px - 365px);
+  max-width: calc(100% - 90px - 365px);
+  flex-shrink: 5;
+  @media(max-width: 1440px) {
+    width: calc(calc(100% - 90px) * 0.725);
+    max-width: calc(calc(100% - 90px) * 0.725);
+  }
 }
 
 .messenger-content-personal-messages__header{
-  height: 85px;
+  height: 78px;
   display: flex;
   align-items: center;
-  padding: 0 29px;
+  padding: 0 45px;
   &.messenger-content-personal-messages__header_header {
-    background: var(--header-color);
+    background: var(--left-bar-color);
     align-items: flex-start;
   }
 }
 .messenger-content-personal-messages__name-container{
-  margin-left: 16px;
+  margin-left: 18px;
 }
 .messenger-content-personal-messages__name{
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 20px;
+  line-height: 27px;
   color: var(--font-color);
   text-align: left;
 }
@@ -30,7 +34,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 19px;
-  color: var(--folder-color);
+  color: var(--sub-text-font-color);
   text-align: left;
 }
 .settings-button {

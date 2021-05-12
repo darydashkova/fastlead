@@ -6,8 +6,7 @@
         }"
     >
         <div v-if="message.type === 'text'" class="base-message__container">
-            <div class="base-message__message">
-                <span v-html="message.message.replace(/\n/g, '<br>')"></span>
+            <div class="base-message__message base-message__message_flex" v-html="wrapEmoji(message.message.replace(/\n/g, '<br>'))">
             </div>
             <div class="base-message__state">
                 {{validTime(message.time)}}
@@ -50,8 +49,9 @@
 </template>
 
 <script>
-    import {useDate} from "../../composition/useDate";
+    import { useDate } from "../../composition/useDate";
     import { computed } from 'vue'
+    import { useEmoji } from "../../composition/useEmoji";
     export default {
         props: {
             message: [{
@@ -65,9 +65,12 @@
         },
         setup(props) {
             const { validTime } = useDate()
+            const { wrapEmoji } = useEmoji()
+
             return {
                 message: computed(() => props.message),
                 validTime,
+                wrapEmoji
             }
         }
 
@@ -104,6 +107,11 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+        }
+        &.base-message__message_flex {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
         }
     }
     .base-message__image {

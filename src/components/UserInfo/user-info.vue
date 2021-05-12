@@ -5,7 +5,7 @@
                 <img :src="user.avatar" alt="" class="user-info__ava">
             </div>
             <div class="user-info__login">
-                Rtr
+                {{user.login}}
             </div>
         </div>
 

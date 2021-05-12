@@ -118,6 +118,17 @@
                 height: $diagonal;
             }
         }
+        &.base-circle-icon__52 {
+            $diagonal: 52px;
+            /*diagonal === диагональ круга(картинки)*/
+            width: $diagonal;
+            height: $diagonal;
+            display: inline-block;
+            .base-circle-icon__image{
+                width: $diagonal;
+                height: $diagonal;
+            }
+        }
         &.base-circle-icon_ml-negative {
             margin-left: -4px;
             &:first-of-type {
@@ -128,7 +139,7 @@
     .base-circle-icon__selector {
         width: 22px;
         height: 22px;
-        background: #B7B7BE;
+        background: #9797BB;
         border-radius: 5px;
         padding: 1.5px;
         display: flex;
@@ -136,7 +147,7 @@
         align-items: center;
     }
     .base-circle-icon__inside-selector {
-        background: #FFFFFF;
+        background: #FBFBFE;
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -146,8 +157,5 @@
     }
     .base-circle-icon__selector_active {
         background: var(--green-color);
-        .base-circle-icon__inside-selector {
-            background: var(--messages-color);
-        }
     }
 </style>

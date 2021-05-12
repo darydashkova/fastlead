@@ -20,8 +20,10 @@
 .messenger-content__middle-bar {
   position: relative;
 
-  width: 27.5%;
   height: 100%;
-  max-width: 365px;
+  width: 365px;
   background: var(--messenger-middle-bar-bg);
+  @media(max-width: 1440px) {
+    width: 27.5%;
+  }
 }

@@ -17,9 +17,9 @@ export function useUser() {
                 user.data = {...r.user}
                 user.data.avatar = user.data.avatar + (again? `?anti-cash=${new Date().getTime()}`: '')
             })
-            // .catch(err => {
-            //     router.push('/login')
-            // })
+            .catch(err => {
+                router.push('/login')
+            })
     }
 
     return {

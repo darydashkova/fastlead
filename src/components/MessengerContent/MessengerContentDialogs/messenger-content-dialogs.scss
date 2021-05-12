@@ -5,16 +5,20 @@
 
 .messenger-content-dialogs__parameters-container {
     text-align: left;
-    margin-top: 20px;
-    padding: 0 16px 7.4px;
-    border-bottom: 1px solid var(--search-input-color);
+    margin-top: 23px;
+    padding: 0 16px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .messenger-content-dialogs__parameters-button {
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
-    line-height: 21px;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
     color: var(--font-color);
     position: relative;
 }

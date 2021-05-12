@@ -32,13 +32,13 @@
     import { useCustomScroll } from "../../../composition/useCustomScroll";
     import { useMessages } from "../../../composition/useMessages";
     import {useDate} from "../../../composition/useDate";
-
     export default {
         components: {BaseMessage, BaseGroupedImages},
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { messages, setListRef } = useMessages();
             const { validDate } = useDate();
+
 
             onMounted( () => {
                 init();
@@ -100,7 +100,6 @@
                 return finalArr;
             })
 
-
             return {
                 container,
                 content,
@@ -127,7 +126,7 @@
         height: calc(100% - 20px);
         width: 100%;
         overflow-y: auto;
-        padding: 15px 29px;
+        padding: 15px 45px;
         margin: 10px 0;
     }
     .messages-container-list__date {

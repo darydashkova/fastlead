@@ -70,6 +70,7 @@
             <template v-else>
                 <template v-if="selectedDialog">
                     <BaseCircleIcon
+                            class="base-circle-icon__52"
                             :src="messages.avatar"
                     ></BaseCircleIcon>
                     <div class="messenger-content-personal-messages__name-container">

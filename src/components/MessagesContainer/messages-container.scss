@@ -1,6 +1,5 @@
 .messages-container {
-  //85px - шапка + 1px hr, 15px - отступ снизу для ввода сообщений
-  height: calc(100% - 86px + 15px);
+  height: calc(100% - 79px);
   width: 100%;
   position: relative;
   display: flex;
@@ -8,8 +7,8 @@
 }
 .messages-container__input{
   position: relative;
-  padding: 15px 40px 3px 29px;
+  padding: 15px 40px 14px 29px;
   width: 100%;
   max-width: 100%;
-  background: var(--footer-color);
+  background: var(--messages-input-wrapper-bg);
 }

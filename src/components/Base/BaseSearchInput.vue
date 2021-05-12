@@ -57,6 +57,9 @@
         &.base-search-input_m {
             margin: 24px 0 34px;
         }
+        &.base-search-input_pdt-5 {
+            padding-top: 5px;
+        }
     }
     .base-search-input__input{
         -webkit-appearance: none;
@@ -66,7 +69,7 @@
         border:none;
         outline: none;
 
-        border-radius: 16.9474px;
+        border-radius: 24px;
         width: 100%;
         padding: 8px 28px 8px 59px;
         position: relative;
@@ -75,8 +78,8 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 21px;
-        color: var(--font-color);
-        background: var(--search-input-color);
+        color: var(--foreign-messages-font-color);
+        background: var(--messenger-search-input-bg);
         &::placeholder {
             font-style: normal;
             font-weight: normal;

@@ -1,16 +1,17 @@
 <template>
     <div class="messenger-content-dialogs">
         <BaseSearchInput
+                class="base-search-input_pdt-5"
                 placeholder="Поиск"
                 @toggleSearch="toggleSearch"
                 @handler="searchHandler"
         ></BaseSearchInput>
         <template v-if="openedSearch">
-            <div class="messenger-content-dialogs__parameters-container" @click="toggleSearchParameters(!openedSearchParameters)">
-                <span class="messenger-content-dialogs__parameters-button pointer">
+            <div class="messenger-content-dialogs__parameters-container pointer" @click="toggleSearchParameters(!openedSearchParameters)">
+                <span class="messenger-content-dialogs__parameters-button">
                     {{parameters.find(i => i.value === selectedParameter).name}}
                 </span>
-                <svg class="messenger-content-dialogs__parameters-icon pointer"
+                <svg class="messenger-content-dialogs__parameters-icon"
                      :class="{'messenger-content-dialogs__parameters-icon_reverse': openedSearchParameters}"
                      width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 1L6.12399 6L11 1" stroke="#EDEDEF" stroke-width="1.2" stroke-linecap="round"/>
@@ -53,28 +54,23 @@
             <div class="messenger-content-dialogs__loader" v-if="isLoadingDialogs">
                 <BaseLoader></BaseLoader>
             </div>
-            <template v-else>
-                <BaseDialogsFolderTuning
-                        :folder="folders.find(i => i.folder_id === selectedFolder)"
-                ></BaseDialogsFolderTuning>
-                <MessengerContentDialog :need-loading-more="true">
-                    <BaseDialog
-                            v-for="dialog in dialogs"
-                            :key="dialog.dialog_id*1000 + dialog.last_message.message_id"
-                            :chatInfo="dialog"
-                            :class="{
-                                'base-dialog_active': selectedDialog === dialog.dialog_id,
-                            }"
-                            :isNeedSelecting="true"
-                            :isSelected="selectedGroupDialogs.find(i => i === dialog.dialog_id)"
+            <MessengerContentDialog v-else :need-loading-more="true">
+                <BaseDialog
+                        v-for="dialog in dialogs"
+                        :key="dialog.dialog_id*1000 + dialog.last_message.message_id"
+                        :chatInfo="dialog"
+                        :class="{
+                            'base-dialog_active': selectedDialog === dialog.dialog_id,
+                        }"
+                        :isNeedSelecting="true"
+                        :isSelected="selectedGroupDialogs.find(i => i === dialog.dialog_id)"
 
-                            @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, item: 'dialog'})"
-                            @toggleSelecting="toggleSelectedGroupDialogs(dialog.dialog_id)"
-                            @click.ctrl.exact="toggleSelectedGroupDialogs(dialog.dialog_id)"
-                            @click.exact="select(dialog.dialog_id)"
-                    ></BaseDialog>
-                </MessengerContentDialog>
-            </template>
+                        @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, item: 'dialog'})"
+                        @toggleSelecting="toggleSelectedGroupDialogs(dialog.dialog_id)"
+                        @click.ctrl.exact="toggleSelectedGroupDialogs(dialog.dialog_id)"
+                        @click.exact="select(dialog.dialog_id)"
+                ></BaseDialog>
+            </MessengerContentDialog>
 
         </template>
     </div>
@@ -82,7 +78,6 @@
 <script>
     import BaseSearchInput from '../../Base/BaseSearchInput';
     import BaseDialog from '../../Base/BaseDialog';
-    import BaseDialogsFolderTuning from '../../Base/BaseDialogsFolderTuning';
     import BaseFolderName from '../../Base/BaseFolderName';
     import BaseLoader from '../../Base/BaseLoader';
     import MessengerContentDialog from './MessengerContentDialog/MessengerContentDialog.vue'
@@ -95,7 +90,7 @@
     import { reactive, computed } from 'vue';
     import {useLoader} from "../../../composition/useLoader";
     export default {
-        components: { BaseSearchInput, BaseDialog, BaseDialogsFolderTuning, BaseFolderName, BaseLoader, MessengerContentDialog },
+        components: { BaseSearchInput, BaseDialog, BaseFolderName, BaseLoader, MessengerContentDialog },
         setup() {
             const { dialogs, selectDialog, selectedDialog, toggleSelectedGroupDialogs, selectedGroupDialogs } = useDialogs();
             const { selectedFolder, folders } = useFolder();
