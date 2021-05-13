@@ -5,6 +5,8 @@
                 placeholder="Поиск"
                 @toggleSearch="toggleSearch"
                 @handler="searchHandler"
+                :is-with-action="true"
+                @toggleModalCreateChat="toggleModalCreateChat"
         ></BaseSearchInput>
         <template v-if="openedSearch">
             <div class="messenger-content-dialogs__parameters-container pointer" @click="toggleSearchParameters(!openedSearchParameters)">
@@ -86,12 +88,14 @@
     import { useSearch } from "../../../composition/useSearch";
     import { reactive, computed } from 'vue';
     import {useLoader} from "../../../composition/useLoader";
+    import {useModals} from "../../../composition/useModals";
     export default {
         components: { BaseSearchInput, BaseDialog, BaseFolderName, BaseLoader, MessengerContentDialog },
         setup() {
             const { dialogs, selectDialog, selectedDialog, toggleSelectedGroupDialogs, selectedGroupDialogs } = useDialogs();
             const { selectedFolder, folders } = useFolder();
             const { search, selectedParameter, selectParameter, openedSearch, openedSearchParameters, toggleSearchParameters, toggleSearch } = useSearch();
+            const { toggleModalCreateChat } = useModals()
 
             const { isLoadingDialogs } = useLoader();
 
@@ -182,6 +186,7 @@
                 selectedGroupDialogs,
 
                 isLoadingDialogs,
+                toggleModalCreateChat,
 
             }
         }
