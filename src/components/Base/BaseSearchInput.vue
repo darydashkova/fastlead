@@ -102,7 +102,7 @@
     }
     .base-search-input__exit {
         position: absolute;
-        right: calc(15px + 34px + #{$padding});
+        right: calc(15px + #{$padding});
         cursor: pointer;
     }
     .base-search-input__add {
