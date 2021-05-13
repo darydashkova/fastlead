@@ -38,6 +38,11 @@ export function useStyle() {
             'font-color': '#F0F0FA', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#575773',
             'modal-send-images-name-color': '#F0F0FA',
+            'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
+            'messages-color': '#414159', //цвет чужого сообщения var(--messages-color)
+            'context-background-color': '#2E2E4E', //цвет бг контекстного меню
+
+
 
 
 
@@ -46,8 +51,6 @@ export function useStyle() {
 
             'header-color': '#141427', //цвет фона и хедера --> var(--)
 
-            'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
-            'messages-color': '#404054', //цвет чужого сообщения var(--messages-color)
             'search-input-color': '#757589', //цвет поисковой строки var(--search-input-color)
             'active-message-color': '#757589', //цвет выбранного диалога var(--active-message-color)
             'active-folder-color': '#EDEDEF', //цвет активной директории var(--active-folder-color)
@@ -63,7 +66,6 @@ export function useStyle() {
 
             'svg-settings-fill': '#F9F5F3', //цвет SVG в настройках профиля
 
-            'context-background-color': '#2B2B41', //цвет бг контекстного меню
 
             'create-folder-color': '#1D1D35', //цвет модального окна создания папки var(--create-folder-color)
             'create-folder-font-color': '#EDEDEF', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
@@ -137,6 +139,11 @@ export function useStyle() {
             'font-color': '#575773', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#9797BB',
             'modal-send-images-name-color': '#414159',
+            'main-color': '#F0F0FA', //цвет фона с перепиской --> var(--main-color)
+            'messages-color': '#FBFBFE', //цвет чужого сообщения var(--messages-color)
+            'context-background-color': '#DEDEEE', //цвет бг контекстного меню
+
+
 
 
 
@@ -146,8 +153,6 @@ export function useStyle() {
             'header-color': '#757589', //цвет фона и хедера --> var(--)
             'footer-color': '#B7B7BE',
 
-            'main-color': '#EDEDEF', //цвет фона с перепиской --> var(--main-color)
-            'messages-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
             'search-input-color': '#EDEDEF', //цвет поисковой строки var(--search-input-color)
             'active-message-color': '#EDEDEF', //цвет выбранного диалога var(--active-message-color)
             'active-folder-color': '#1D1D35', //цвет активной директории var(--active-folder-color)
@@ -163,7 +168,6 @@ export function useStyle() {
 
             'svg-settings-fill': '#B7B7BE', //цвет SVG в настройках профиля
 
-            'context-background-color': '#C3C3C3', //цвет бг контекстного меню
 
             'create-folder-color': '#FFFFFF', //цвет модального окна создания папки var(--create-folder-color)
             'create-folder-font-color': '#404054', //цвет текста в модальном окне создания папки var(--create-folder-font--color)

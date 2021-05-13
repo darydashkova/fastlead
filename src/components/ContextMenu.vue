@@ -11,12 +11,6 @@
                 <li class="base-context-menu__element" @click="moveChat(context.id)">
                     Переместить в папку
                 </li>
-<!--                <li class="base-context-menu__element">-->
-<!--                    Добавить тег-->
-<!--                </li>-->
-<!--                <li class="base-context-menu__element">-->
-<!--                    Заблокировать-->
-<!--                </li>-->
             </template>
             <template v-if="context.item === 'folder'">
                 <li class="base-context-menu__element" @click="toggleModalCreateFolder(true, context.id)">
@@ -95,14 +89,14 @@
         -moz-box-shadow: none;
         box-shadow: none;
         outline: none;
-        border: none;
         padding: 0;
 
         border-radius: 8px;
         position: absolute;
         z-index: 1200;
+        border: 1px solid var(--context-background-color);
         background: var(--context-background-color);
-        color: var(--sub-text-color);
+        color: var(--user-info-settings-default-svg-fill);
     }
     .base-context-menu__list {
         margin: 0;
@@ -119,7 +113,8 @@
         line-height: 21px;
         transition: .3s ease;
         &:hover {
-            color: var(--font-color);
+            background: var(--user-info-settings-hover-svg-fill);
+            color: var(--messenger-search-input-bg);
         }
     }
 </style>

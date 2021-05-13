@@ -37,69 +37,40 @@
   color: var(--sub-text-font-color);
   text-align: left;
 }
-.settings-button {
-  position: absolute;
-  top: 22px;
-  right: 41px;
-  cursor: pointer;
-  svg {
-    path {
-      fill: var(--font-color);
-    }
-  }
+.messenger-content-personal-messages__info-button {
+  position: relative;
+  margin-left: auto;
+  background: transparent;
 }
+.messenger-content-personal-messages__info-container {
 
-.dialogs-selections {
+  border-radius: 8px;
+  position: absolute;
+  z-index: 1200;
+  border: 1px solid var(--context-background-color);
+  background: var(--context-background-color);
+  color: var(--user-info-settings-default-svg-fill);
+
+  right: 0;
+  top: 100%;
+  width: 191px;
+}
+.messenger-content-personal-messages__info-list {
+  margin: 0;
+  padding: 6px 0;
+  text-align: left;
+}
+.messenger-content-personal-messages__info-element {
+  list-style-type: none;
+  padding: 10px 12px;
+  cursor: pointer;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 21px;
-  width: 100%;
-
-  color: #EDEDEF;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-}
-
-.dialogs-selections__checkbox {
-  background: #EDEDEF;
-  border: 0.954545px solid #EDEDEF;
-  border-radius: 3.18182px;
-  width: 14px;
-  height: 14px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-}
-.dialogs-selections__container {
-  width: 175px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.dialogs-selections__button {
-  padding: 8px 6px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  svg {
-    margin-right: 10px;
-  }
-
+  transition: .3s ease;
   &:hover {
-    background: var(--separator-color);
+    background: var(--user-info-settings-hover-svg-fill);
+    color: var(--messenger-search-input-bg);
   }
-  &.dialogs-selections__button_mr {
-    margin-right: 20px;
-  }
-}
-.dialogs-selections__actions-container {
-  display: flex;
-  align-items: center;
-
 }

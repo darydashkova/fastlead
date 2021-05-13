@@ -42,7 +42,6 @@
                             <BaseDialog
                                     :chatInfo="dialog"
                                     class="base-dialog_not-padding"
-                                    @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, item: 'dialog'})"
                                     @click="select(dialog.dialog_id)"
                             ></BaseDialog>
                         </div>
@@ -65,7 +64,6 @@
                         :isNeedSelecting="true"
                         :isSelected="selectedGroupDialogs.find(i => i === dialog.dialog_id)"
 
-                        @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, item: 'dialog'})"
                         @toggleSelecting="toggleSelectedGroupDialogs(dialog.dialog_id)"
                         @click.ctrl.exact="toggleSelectedGroupDialogs(dialog.dialog_id)"
                         @click.exact="select(dialog.dialog_id)"
@@ -84,7 +82,6 @@
 
     import { useDialogs } from "../../../composition/useDialogs";
     import { useFolder } from "../../../composition/useFolder";
-    import { useContextMenu } from "../../../composition/useContextMenu";
     import { useMessages } from "../../../composition/useMessages";
     import { useSearch } from "../../../composition/useSearch";
     import { reactive, computed } from 'vue';
@@ -97,8 +94,6 @@
             const { search, selectedParameter, selectParameter, openedSearch, openedSearchParameters, toggleSearchParameters, toggleSearch } = useSearch();
 
             const { isLoadingDialogs } = useLoader();
-
-            const { setContext } = useContextMenu();
 
             const { getMessagesFromDialog } = useMessages();
 
@@ -122,14 +117,6 @@
                     searchHandler(lastSearchValue);
                 }
                 toggleSearchParameters(false);
-            }
-
-
-            const openContextMenu = ($event, context) => {
-                setContext({
-                    top: $event.clientY,
-                    left: $event.clientX,
-                }, context)
             }
 
             const select = (dialog_id) => {
@@ -173,7 +160,6 @@
                 folders,
                 selectedFolder,
 
-                openContextMenu,
                 select,
 
                 dialogs,
