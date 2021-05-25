@@ -4,6 +4,7 @@ import ModalCreateChat from "../../components/Modals/ModalCreateChat.vue"
 import ModalAddToFolder from "../../components/Modals/ModalAddToFolder.vue"
 import ModalEditFolders from "../../components/Modals/ModalEditFolders.vue"
 import ModalMoveChat from "../../components/Modals/ModalMoveChat.vue"
+import ModalConfirmDelete from "../../components/Modals/ModalConfirmDelete.vue"
 
 import ContextMenu from "../../components/ContextMenu.vue"
 
@@ -19,6 +20,7 @@ import { useMessages } from "../../composition/useMessages";
 import { useModals } from "../../composition/useModals";
 
 import "../../components/emoji-component/css/emoji-mart.css";
+import {useModalConfirmDelete} from "../../composition/useModalConfirmDelete";
 
 export default {
     components: {
@@ -28,6 +30,7 @@ export default {
         ModalAddToFolder,
         ModalEditFolders,
         ModalMoveChat,
+        ModalConfirmDelete,
 
         ContextMenu,
     },
@@ -45,7 +48,8 @@ export default {
             openedModalAddToFolder,
             openedModalEditFolders,
             openedModalMoveChat
-        } = useModals()
+        } = useModals();
+        const { openedModalConfirmDelete } = useModalConfirmDelete();
 
         getUser();
         getAllFolders()
@@ -59,13 +63,14 @@ export default {
                     selectFolder(def);
                     getDialogs(def);
                 }
+                let dialog_id = localStorage.getItem('dialog_id');
+                if (dialog_id) {
+                    selectDialog(+dialog_id);
+                    getMessagesFromDialog(+dialog_id);
+                }
             })
 
-        let dialog_id = localStorage.getItem('dialog_id');
-        if (dialog_id) {
-            selectDialog(+dialog_id);
-            getMessagesFromDialog(+dialog_id);
-        }
+
 
         onMounted(() => {
             document.addEventListener('keyup', close);
@@ -88,6 +93,7 @@ export default {
             openedModalAddToFolder,
             openedModalEditFolders,
             openedModalMoveChat,
+            openedModalConfirmDelete,
         }
     },
 }

@@ -18,6 +18,8 @@
             <ModalChoiceActivationMethodMyself v-if="openedModalActivationMethodMyself"></ModalChoiceActivationMethodMyself>
             <ModalChoiceActivationMethodSuccess v-if="openedModalActivationMethodSuccess"></ModalChoiceActivationMethodSuccess>
             <ModalChoiceActivationMethodNotMyself v-if="openedModalActivationMethodNotMyself"></ModalChoiceActivationMethodNotMyself>
+
+            <ModalConfirmDelete v-if="openedModalConfirmDelete"></ModalConfirmDelete>
         </teleport>
         <SettingsContainer></SettingsContainer>
     </div>

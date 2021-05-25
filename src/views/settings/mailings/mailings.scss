@@ -1,6 +1,6 @@
 .settings-mailings__header {
-  height: 80px;
-  padding: 16px;
+  height: 78px;
+  padding: 16px 45px;
   position: relative;
   text-align: left;
   display: flex;
@@ -12,12 +12,10 @@
   font-weight: normal;
   font-size: 22px;
   line-height: 29px;
-  color: var(--create-folder-header-color);
+  color: var(--settings-header-color);
 }
 .settings-mailings__scroll-container {
-  //30px padding
-  //80px header
-  height: calc(100vh - 110px);
+  height: calc(100% - 79px);
   position: relative;
   ::-webkit-scrollbar {
     display: none;

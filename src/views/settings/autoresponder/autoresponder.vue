@@ -4,8 +4,8 @@
             <div>
                 {{headerName}}
             </div>
-            <BaseButton v-if="isCreating && !autoresponders.isOpenedEdit" class="base-button_settings-cancel base-button_p5-15" @click="toggleCreating(false)">Отмена</BaseButton>
-            <BaseButton v-else-if="isCreating && autoresponders.isOpenedEdit" class="base-button_settings-cancel base-button_p5-15" @click="cancelEdit">Отменить изменения</BaseButton>
+            <BaseButton v-if="isCreating && !autoresponders.isOpenedEdit" class="base-button_cancel base-button_p5-15" @click="toggleCreating(false)">Отмена</BaseButton>
+            <BaseButton v-else-if="isCreating && autoresponders.isOpenedEdit" class="base-button_cancel base-button_p5-15" @click="cancelEdit">Отменить изменения</BaseButton>
             <BaseButton v-else class="base-button_enter base-button_p5-15" @click="gotoCreate(null)">Создать новый</BaseButton>
         </div>
         <div class="settings-autoresponder__scroll-container">

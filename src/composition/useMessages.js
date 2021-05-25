@@ -9,12 +9,16 @@ const messages = reactive({
 const listRef = ref(null);
 
 export function useMessages() {
-    const { setRead } = useDialogs()
+    const { setRead, selectDialog } = useDialogs()
 
 
     const getMessagesFromDialog = async (dialog_id) => {
         await messagesActions.getDialog(dialog_id)
             .then(r => {
+                if (r.error) {
+                    selectDialog(null);
+                    return;
+                }
                 messages.data = {...r};
                 goBottom();
             })

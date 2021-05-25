@@ -68,7 +68,7 @@
             Действие выполняется один раз для каждого клиента
         </div>
         <div class="settings-autoresponder-create-parameters-card__button">
-            <BaseButton class="base-button_settings-cancel" @click.stop="edit">Редактировать</BaseButton>
+            <BaseButton class="base-button_cancel" @click.stop="edit">Редактировать</BaseButton>
             <BaseButton class="base-button_delete" @click.stop="del">Удалить</BaseButton>
         </div>
     </div>
@@ -217,17 +217,18 @@
         position: relative;
     }
     .settings-autoresponder-create-parameters-card__input {
-        padding: 6px 10px;
-        background: var(--settings-autoresponders-actions-input-bg-color);
         font-family: Segoe UI;
         font-style: normal;
-        font-weight: normal;
+        font-weight: 400;
         font-size: 16px;
         line-height: 21px;
-        color: var(--font-color);
-        border: 0.7px solid var(--separator-color);
-        border-radius: 3px;
         width: 100%;
+        padding: 6px 10px;
+        color: var(--modal-font-color);
+        background: var(--modal-element-hover-bg-color);
+        border: .7px solid var(--modal-input-border-color);
+        box-sizing: border-box;
+        border-radius: 3px;
         text-align: left;
         &.settings-autoresponder-create-parameters-card__input_selector {
             position: relative;

@@ -8,9 +8,9 @@
     .base-button {
         font-style: normal;
         font-weight: normal;
-        font-size: 18px;
-        line-height: 24px;
-        color: var(--create-folder-font-button);
+        font-size: 16px;
+        line-height: 21px;
+        color: #F0F0FA;
         padding: 11px 36px;
         border-radius: 5px;
         cursor: pointer;
@@ -19,16 +19,13 @@
         background: var(--green-color);
     }
     .base-button_cancel {
-        background: var(--cancel-button-color-in-modals);
+        background: var(--modal-button-cancel-color);
     }
     .base-button_delete {
         background: var(--red-color);
     }
-    .base-button_settings-cancel {
-        background: var(--mailings-cancel-button-color);
-    }
     .base-button_p5-15 {
-        padding: 5.5px 15.5px;
+        padding: 6px 20px;
     }
     .base-button_w-100 {
         width: 100%;

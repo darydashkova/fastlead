@@ -22,7 +22,8 @@
                         {{user.login}}
                     </div>
                     <div class="settings-account__last-element">
-                        <BaseButton class="base-button_enter base-button_p5-15" @click="toggleModalChangeAva(true)">Изменить</BaseButton>
+                        <div class="settings-account__action-button" @click="toggleModalChangeAva(true)">Изменить фото</div>
+
                     </div>
                 </div>
                 <div v-if="openedChangePass" class="settings-account__row settings-account__row_pd-32 settings-account__row_column">
@@ -77,7 +78,7 @@
                         Обновлен 8 месяцев назад
                     </div>
                     <div class="settings-account__last-element">
-                        <BaseButton class="base-button_enter base-button_p5-15" @click="toggleOpenedChangePass(true)">Изменить пароль</BaseButton>
+                        <div class="settings-account__action-button" @click="toggleOpenedChangePass(true)">Изменить пароль</div>
                     </div>
                 </div>
                 <div class="settings-account__row settings-account__row_pd-26 settings-account__row_column">
@@ -89,7 +90,7 @@
                                 Последняя активность
                             </div>
                         </div>
-                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
+                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
                             <div>
                                 <div class="settings-account__text">
                                     Windows - Краснодар, Россия
@@ -103,12 +104,10 @@
                             </div>
                         </div>
                         <div class="settings-account__last-element">
-                            <BaseButton v-if="!openedActivity"
-                                        @click="toggleOpenedActivity(true)"
-                                        class="base-button_enter base-button_p5-15"
-                            >
-                                История активности
-                            </BaseButton>
+                            <div class="settings-account__action-button"
+                                 v-if="!openedActivity"
+                                 @click="toggleOpenedActivity(true)"
+                            >История активности</div>
                             <BaseButton v-else
                                         @click="toggleOpenedActivity(false)"
                                         class="base-button_cancel base-button_p5-15"
@@ -121,7 +120,7 @@
                         <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
                             <div class="settings-account__first-element">
                             </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
                                 <div>
                                     <div class="settings-account__text">
                                         Windows - Краснодар, Россия
@@ -138,7 +137,7 @@
                         <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
                             <div class="settings-account__first-element">
                             </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
                                 <div>
                                     <div class="settings-account__text">
                                         Windows - Краснодар, Россия
@@ -155,7 +154,7 @@
                         <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
                             <div class="settings-account__first-element">
                             </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
                                 <div>
                                     <div class="settings-account__text">
                                         Windows - Краснодар, Россия
@@ -184,7 +183,10 @@
                             Сегодня в 20:30 - создал рассылку
                         </div>
                         <div class="settings-account__last-element">
-                            <BaseButton v-if="!openedActions" class="base-button_enter base-button_p5-15" @click="toggleOpenedActions(true)">История действий</BaseButton>
+                            <div class="settings-account__action-button"
+                                 v-if="!openedActions"
+                                 @click="toggleOpenedActions(true)"
+                            >История действий</div>
                             <BaseButton v-else class="base-button_cancel base-button_p5-15" @click="toggleOpenedActions(false)">Свернуть</BaseButton>
                         </div>
                     </div>

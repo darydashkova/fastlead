@@ -21,7 +21,8 @@ mp3.type = 'audio/mpeg';
 audio.append(ogg);
 audio.append(mp3);
 
-const socket = new WebSocket('ws://192.168.10.14:2346')
+const socket = new WebSocket(`ws://${window.location.hostname}:3000`)
+
 
 export function useSocket() {
     const { dialogs, setDialogs, selectedDialog } = useDialogs();
@@ -31,8 +32,9 @@ export function useSocket() {
     socket.onopen = () => {
         socketSend('auth', {UserId: getCookie('UserId'), SessionKey: getCookie('SessionKey') })
     }
-
+    function isOpen(ws) { return ws.readyState === ws.OPEN }
     const socketSend = (action, data) => {
+        if (!isOpen(socket)) return;
         let command = {
             command: action,
         }

@@ -11,7 +11,7 @@ export function useStyle() {
 
             'red-color': '#EB5757',
             'yellow-color': '#F2C94C',
-            'placeholder-color': '#B7B7BE',
+
             'folder-color': '#757589',
             'webkit-scroll-color': '#B7B7BE',
             'font-my-message-color': '#EDEDEF',
@@ -22,6 +22,7 @@ export function useStyle() {
             ...common,
             'left-bar-color': '#141427', //цвет панели с папками --> var(--left-bar-color)
             'default-svg-fill': '#575773',
+            'hover-svg-fill': '#FBFBFE',
             'hover-folder-bg': '#1D1D35',
             'messenger-middle-bar-bg': '#414159',
             'separator-color': '#2E2E4E', //цвет разделительной линии var(--separator-color)
@@ -37,7 +38,39 @@ export function useStyle() {
 
             'font-color': '#F0F0FA', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#575773',
+            'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
+            'messages-color': '#414159', //цвет чужого сообщения var(--messages-color)
+            'context-background-color': '#2E2E4E', //цвет бг контекстного меню
+            'placeholder-color': '#575773',
+
+            'modal-bg-color': '#1D1D35',
+            'modal-element-hover-bg-color': '#2E2E4E',
+            'modal-font-color': '#FBFBFE', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
+            'modal-sub-font-color': '#9797BB', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
+            'modal-base-text-default-color': '#EDEDEF',
+            'modal-hint-font-color': '#575773',
+            'modal-button-cancel-color': '#414159', //цвет "Отмены" во всех модалках
+            'modal-input-border-color': '#414159',
             'modal-send-images-name-color': '#F0F0FA',
+
+
+            'button-cancel-color': '#2E2E4E', //цвет bg cancel кнопки
+            'settings-nav-color': '#141427', //цвет nav'а в настройках
+
+            'settings-left-bar-hover': '#1D1D35',
+            'settings-main-color': '#1D1D35',
+            'settings-header-color': '#F0F0FA',
+            'settings-whatsapp-color': '#141427', //цвет ватсаппа
+            'settings-whatsapp-name-color': '#F0F0FA', //цвет названия ватсаппа
+            'settings-whatsapp-sub-color': '#9797BB',
+
+            'settings-whatsapp-del-icon-fill': '#EB5757',
+            'settings-whatsapp-default-icon-fill': '#B7B7BE',
+            'settings-whatsapp-del-icon-bg': '#1D1D35',
+
+
+
+
 
 
 
@@ -46,8 +79,6 @@ export function useStyle() {
 
             'header-color': '#141427', //цвет фона и хедера --> var(--)
 
-            'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
-            'messages-color': '#404054', //цвет чужого сообщения var(--messages-color)
             'search-input-color': '#757589', //цвет поисковой строки var(--search-input-color)
             'active-message-color': '#757589', //цвет выбранного диалога var(--active-message-color)
             'active-folder-color': '#EDEDEF', //цвет активной директории var(--active-folder-color)
@@ -63,7 +94,6 @@ export function useStyle() {
 
             'svg-settings-fill': '#F9F5F3', //цвет SVG в настройках профиля
 
-            'context-background-color': '#2B2B41', //цвет бг контекстного меню
 
             'create-folder-color': '#1D1D35', //цвет модального окна создания папки var(--create-folder-color)
             'create-folder-font-color': '#EDEDEF', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
@@ -73,10 +103,6 @@ export function useStyle() {
 
             'cancel-button-color-in-modals': '#4A4A5D', //цвет "Отмены" во всех модалках
 
-            'button-cancel-color': '#4A4A5D', //цвет bg cancel кнопки
-
-            'hover-svg-fill': '#EDEDEF', //цвет ховера fill в модалках
-
             'create-chat-border-color': '#404054', //цвет бордера и ховера папки
 
             'calendar-bg': '#0F0F1B', //цвет календаря
@@ -84,8 +110,6 @@ export function useStyle() {
             'ranged-buttons-color': '#404054',
 
 
-            'settings-nav-color': '#404054', //цвет nav'а в настройках
-            'settings-main-color': '#1D1D35',
             'settings-nav-border-color': '#757589',
             'settings-active-link-color': '#757589',
 
@@ -102,12 +126,7 @@ export function useStyle() {
             'calendar-font-color': '#B7B7BE',
             'calendar-active-font-color': '#FFFFFF',
 
-            'settings-whatsapp-color': '#141427', //цвет ватсаппа
-            'settings-whatsapp-name-color': '#B7B7BE', //цвет названия ватсаппа
 
-            'settings-whatsapp-del-icon-fill': '#EB5757',
-            'settings-whatsapp-default-icon-fill': '#B7B7BE',
-            'settings-whatsapp-del-icon-bg': '#1D1D35',
 
             'settings-autoresponders-actions-dropdown-font-color': '#B7B7BE',
             'settings-autoresponders-actions-input-bg-color': '#141427',
@@ -121,6 +140,7 @@ export function useStyle() {
             ...common,
             'left-bar-color': '#DEDEEE', //цвет панели с папками --> var(--left-bar-color)
             'default-svg-fill': '#9797BB', //дефолтный fill всех свг
+            'hover-svg-fill': '#575773',
             'hover-folder-bg': '#F0F0FA',
             'messenger-middle-bar-bg': '#FBFBFE',
             'separator-color': '#DEDEEE', //цвет разделительной линии var(--separator-color)
@@ -136,7 +156,39 @@ export function useStyle() {
 
             'font-color': '#575773', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#9797BB',
+            'main-color': '#F0F0FA', //цвет фона с перепиской --> var(--main-color)
+            'messages-color': '#FBFBFE', //цвет чужого сообщения var(--messages-color)
+            'context-background-color': '#DEDEEE', //цвет бг контекстного меню
+            'placeholder-color': '#9797BB',
+
+            'modal-bg-color': '#F0F0FA',
+            'modal-element-hover-bg-color': '#FBFBFE',
+            'modal-font-color': '#575773', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
+            'modal-sub-font-color': '#9797BB', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
+            'modal-base-text-default-color': '#9797BB',
+            'modal-hint-font-color': '#9797BB',
+            'modal-button-cancel-color': '#9797BB', //цвет "Отмены" во всех модалках
+            'modal-input-border-color': '#DEDEEE',
             'modal-send-images-name-color': '#414159',
+
+
+
+            'button-cancel-color': '#FBFBFE', //цвет bg cancel кнопки
+            'settings-nav-color': '#DEDEEE', //цвет nav'а в настройках192
+
+            'settings-left-bar-hover': '#FBFBFE',
+            'settings-main-color': '#F0F0FA', //цвет контейнера в настройках
+            'settings-header-color': '#414159',
+            'settings-whatsapp-color': '#DEDEEE', //цвет ватсаппа
+            'settings-whatsapp-name-color': '#414159',
+            'settings-whatsapp-sub-color': '#9797BB',
+
+            'settings-whatsapp-del-icon-fill': '#FFFFFF',
+            'settings-whatsapp-default-icon-fill': '#FFFFFF',
+            'settings-whatsapp-del-icon-bg': '#EB5757',
+
+
+
 
 
 
@@ -146,8 +198,6 @@ export function useStyle() {
             'header-color': '#757589', //цвет фона и хедера --> var(--)
             'footer-color': '#B7B7BE',
 
-            'main-color': '#EDEDEF', //цвет фона с перепиской --> var(--main-color)
-            'messages-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
             'search-input-color': '#EDEDEF', //цвет поисковой строки var(--search-input-color)
             'active-message-color': '#EDEDEF', //цвет выбранного диалога var(--active-message-color)
             'active-folder-color': '#1D1D35', //цвет активной директории var(--active-folder-color)
@@ -163,19 +213,16 @@ export function useStyle() {
 
             'svg-settings-fill': '#B7B7BE', //цвет SVG в настройках профиля
 
-            'context-background-color': '#C3C3C3', //цвет бг контекстного меню
 
             'create-folder-color': '#FFFFFF', //цвет модального окна создания папки var(--create-folder-color)
-            'create-folder-font-color': '#404054', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
+            'create-folder-font-color': '#575773', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
             'create-folder-header-color': '#000000', //цвет заголовка в модальном окне создания папки var(--create-folder-font--color)
             'create-folder-border-color': '#757589', //цвет бордеров в модальном окне создания папки var(--create-folder-font--color)
             'create-folder-font-button': '#F3F3F3', //цвет текста в кнопке
 
             'cancel-button-color-in-modals': '#757589', //цвет "Отмены" во всех модалках
 
-            'button-cancel-color': '#EDEDEF', //цвет bg cancel кнопки
 
-            'hover-svg-fill': '#757589', //цвет ховера fill в модалках
 
             'create-chat-border-color': '#EDEDEF', //цвет бордера и ховера папки
 
@@ -183,8 +230,6 @@ export function useStyle() {
 
             'ranged-buttons-color': '#B7B7BE',
 
-            'settings-nav-color': '#EDEDEF', //цвет nav'а в настройках192
-            'settings-main-color': '#FFFFFF', //цвет контейнера в настройках
             'settings-nav-border-color': '#FFFFFF',
             'settings-active-link-color': '#FFFFFF',
 
@@ -201,12 +246,7 @@ export function useStyle() {
             'calendar-font-color': '#7D7D90',
             'calendar-active-font-color': '#404054',
 
-            'settings-whatsapp-color': '#EDEDEF', //цвет ватсаппа
-            'settings-whatsapp-name-color': '#404054',
 
-            'settings-whatsapp-del-icon-fill': '#FFFFFF',
-            'settings-whatsapp-default-icon-fill': '#FFFFFF',
-            'settings-whatsapp-del-icon-bg': '#EB5757',
 
             'settings-autoresponders-actions-dropdown-font-color': '#EDEDEF',
             'settings-autoresponders-actions-input-bg-color': '#FFFFFF',

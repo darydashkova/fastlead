@@ -55,27 +55,6 @@
         &:hover {
             background: var(--hover-folder-bg);
         }
-        &.base-folder_active {
-            background: var(--hover-folder-bg);
-            .base-folder__icon {
-                path {
-                    fill: url(#paint0_linear);
-                }
-            }
-            .base-folder__text {
-                background: var(--green-color);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-        }
-        &.base-folder_create{
-            background: var(--footer-color);
-            margin-bottom: 0;
-            padding-top: 12px;
-            .base-folder__text {
-                color: var(--folder-create-button-color);
-            }
-        }
     }
     .base-folder__unread-count {
         background: var(--green-color);
@@ -86,10 +65,35 @@
         font-weight: 600;
         font-size: 12px;
         line-height: 16px;
-        color: #FFFFFF;
 
         position: absolute;
         top: 24px;
         right: 28px;
+        span {
+            background: #FFFFFF;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+    .base-folder_active {
+        background: var(--hover-folder-bg);
+        .base-folder__icon {
+            path {
+                fill: url(#paint0_linear);
+            }
+        }
+        .base-folder__text {
+            background: var(--green-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .base-folder__unread-count {
+            background: #FFFFFF;
+            span {
+                background:  var(--green-color);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
     }
 </style>

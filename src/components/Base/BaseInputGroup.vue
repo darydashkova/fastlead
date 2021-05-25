@@ -78,18 +78,20 @@
         }
     }
     .base-input-group__input {
-        padding: 6px 10px;
-        background: transparent;
         font-family: Segoe UI;
         font-style: normal;
-        font-weight: normal;
+        font-weight: 400;
         font-size: 16px;
         line-height: 21px;
-        color: var(--font-color);
-        border: 0.7px solid var(--separator-color);
-        border-radius: 3px;
         width: 100%;
+        color: var(--modal-font-color);
+        background: var(--modal-element-hover-bg-color);
+        border: .7px solid var(--modal-input-border-color);
+        box-sizing: border-box;
+        border-radius: 3px;
         text-align: left;
+
+        padding: 6px 10px;
         &::placeholder {
             color: var(--default-svg-fill);
         }

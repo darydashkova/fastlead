@@ -4,7 +4,7 @@
             <div>
                 {{headerName}}
             </div>
-            <BaseButton v-if="isCreating" class="base-button_settings-cancel base-button_p5-15" @click="toggleCreating(false)">Отмена</BaseButton>
+            <BaseButton v-if="isCreating" class="base-button_cancel base-button_p5-15" @click="toggleCreating(false)">Отмена</BaseButton>
             <BaseButton v-else class="base-button_enter base-button_p5-15" @click="gotoCreate(null)">Создать новую</BaseButton>
         </div>
         <div class="settings-mailings__scroll-container">

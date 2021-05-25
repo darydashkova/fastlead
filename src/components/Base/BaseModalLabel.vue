@@ -27,7 +27,7 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         &.base-modal-label_error {
-            background: #EB5757;
+            background: var(--red-color);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }

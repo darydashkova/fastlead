@@ -22,6 +22,9 @@
                 </BaseButton>
             </div>
         </div>
+        <teleport to="body">
+            <FullScreenLoader v-if="loading"></FullScreenLoader>
+        </teleport>
     </div>
 </template>
 
@@ -29,14 +32,16 @@
     import BaseButton from '../Base/BaseButton.vue'
     import BaseModalHint from '../Base/BaseModalHint.vue'
     import BaseModalHeader from '../Base/BaseModalHeader.vue'
+    import FullScreenLoader from '../FullScreenLoader.vue'
 
-    import { useModals } from "../../composition/useModals";
     import {useWhatsapp} from "../../composition/useWhatsapp";
+    import {useModalsWhatsapps} from "../../composition/useModalsWhatsapps";
+    import {ref} from 'vue'
 
     export default {
-        components: { BaseButton, BaseModalHint, BaseModalHeader },
+        components: { BaseButton, BaseModalHint, BaseModalHeader, FullScreenLoader },
         setup() {
-            const { toggleModalSyncWhatsapp, selectedWhatsappToAction } = useModals();
+            const { toggleModalSyncWhatsapp, selectedWhatsappToAction } = useModalsWhatsapps()
 
             const { syncWhatsapp, getWhatsapps } = useWhatsapp();
 
@@ -44,13 +49,17 @@
                 toggleModalSyncWhatsapp(false);
             }
 
+            const loading = ref(false);
+
             const save = () => {
+                loading.value = true;
                 syncWhatsapp(selectedWhatsappToAction.value.whatsapp_id)
                     .then((r) => {
                         if (r.error) {
 
                             return;
                         }
+                        loading.value = false;
                         getWhatsapps();
                         toggleModalSyncWhatsapp(false);
                     })
@@ -59,6 +68,7 @@
             return {
                 save,
                 close,
+                loading,
             }
         }
     }

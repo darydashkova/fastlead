@@ -1,55 +1,76 @@
 .settings-nav {
+  position: relative;
   height: 100%;
   background: var(--settings-nav-color);
-  width: 293px;
+  width: 90px;
+  overflow-x: hidden;
+  transition: width .2s ease;
+
+  z-index: 10;
+  &:hover {
+    width: 323px;
+  }
 }
-.settings-nav__header {
-  height: 80px;
-  padding: 17px 43px;
-  position: relative;
+.settings-nav__container {
+  width: 323px;
+  height: 100%;
+}
+.settings-nav__link {
   text-align: left;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--settings-nav-border-color);
-  &:before {
-    content: '';
-    position: absolute;
-    left: 17px;
-    width: 9px;
-    height: 9px;
-    border-bottom: 1.5px solid #757589;
-    border-left: 1.5px solid #757589;
-    transform: rotate(45deg);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--user-info-settings-default-svg-fill);
+  text-decoration: none;
+  transition: .2s ease;
+  height: 56px;
+  svg path {
+      transition: .2s ease;
   }
-  a {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 29px;
-    color: var(--create-folder-header-color);
-    text-decoration: none;
+  &.settings-nav__link_default {
+    svg {
+      margin: 0 45px 0 34px;
+      path {
+        fill: var(--user-info-settings-default-svg-fill);
+      }
+    }
+    &:hover {
+      color: var(--font-color);
+      background: var(--settings-left-bar-hover);
+      svg path {
+        fill: var(--user-info-settings-hover-svg-fill);
+      }
+    }
+  }
+  &.settings-nav__link_header {
+    height: 78px;
+    border-bottom: 1px solid var(--separator-color);
+    svg {
+      margin: 0 45px 0 41px;
+      path {
+        stroke: var(--user-info-settings-default-svg-fill);
+      }
+    }
+    &:hover {
+      color: var(--font-color);
+      background: var(--settings-left-bar-hover);
+      svg path {
+        stroke: var(--user-info-settings-hover-svg-fill);
+      }
+    }
+  }
+  &.router-link-exact-active {
+    color: var(--font-color);
+    background: var(--settings-left-bar-hover);
+    svg path {
+      fill: url(#paint0_linear);
+    }
   }
 }
 .settings-nav__list {
   text-align: left;
 }
-.settings-nav__element {
-  padding: 12px 44px;
-  &.router-link-exact-active {
-    background: var(--settings-active-link-color);
-  }
-}
-.settings-nav__link-container {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
-  color: var(--create-folder-header-color);
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-}
-.settings-nav__link {
-  color: var(--create-folder-header-color);
-  text-decoration: none;
-}
+

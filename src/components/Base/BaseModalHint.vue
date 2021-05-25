@@ -11,7 +11,7 @@
         font-size: 16px;
         line-height: 21px;
 
-        color: #404054;
+        color: var(--modal-hint-font-color);
         margin-top: 26px;
         &.base-modal-hint_padding-20 {
             padding: 0 20px;

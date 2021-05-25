@@ -19,9 +19,14 @@
                 </svg>
             </div>
         </div>
-        <img v-else class="base-circle-icon__image" :src="src" alt=""
+        <div v-else class="base-circle-icon__image"
+            :style="{
+                'background': `url(${src}) no-repeat`,
+                'background-size': 'cover',
+                'background-position': 'center center',
+            }"
              @mouseover="moveIn"
-        >
+        ></div>
     </div>
 </template>
 
@@ -141,7 +146,7 @@
         height: 22px;
         background: #9797BB;
         border-radius: 5px;
-        padding: 1.5px;
+        padding: 1.6px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -152,8 +157,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 18.5px;
-        height: 18.5px;
+        width: 100%;
+        height: 100%;
     }
     .base-circle-icon__selector_active {
         background: var(--green-color);
