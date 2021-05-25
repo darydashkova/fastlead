@@ -5,7 +5,7 @@
             <BaseModalHeader>
                 Добавить в папку
             </BaseModalHeader>
-            <BaseModalText class="base-modal-text_padding-20 base-modal-text_mt-10 base-modal-text_white">
+            <BaseModalText class="base-modal-text_padding-20 base-modal-text_mt-10 base-modal-text_default">
                 "Новая папка"
             </BaseModalText>
             <BaseSearchInput
@@ -206,7 +206,7 @@
     }
     .modal-add-to-folder__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
@@ -224,6 +224,18 @@
         overflow-y: auto;
         height: 100%;
     }
+    .modal-add-to-folder__checkbox {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 20px;
+        border-radius: 50%;
+        background: var(--user-info-settings-default-svg-fill);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: .2s ease;
+    }
     .modal-add-to-folder__dialog {
         display: flex;
         align-items: center;
@@ -231,11 +243,15 @@
         position: relative;
         padding: 5px 20px;
         cursor: pointer;
+        transition: .2s ease;
         &:last-of-type {
             margin-bottom: 0;
         }
         &:hover {
             background: var(--messages-color);
+            .modal-add-to-folder__checkbox {
+                background: var(--user-info-settings-hover-svg-fill);
+            }
         }
         &.modal-add-to-folder__dialog_non-hover {
             &:hover {
@@ -243,6 +259,11 @@
             }
         }
     }
+    .modal-add-to-folder__checkbox_active {
+        background: var(--green-color);
+    }
+
+
     .modal-add-to-folder__name {
         margin-left: 10px;
 
@@ -256,26 +277,13 @@
         width: 18px;
         height: 18px;
         border-radius: 50%;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         display: flex;
         align-items: center;
         justify-content: center;
 
     }
-    .modal-add-to-folder__checkbox {
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        right: 20px;
-        border-radius: 50%;
-        background: var(--font-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &.modal-add-to-folder__checkbox_active {
-            background: var(--green-color);
-        }
-    }
+
 
     .modal-add-to-folder__buttons {
         padding: 0 20px;

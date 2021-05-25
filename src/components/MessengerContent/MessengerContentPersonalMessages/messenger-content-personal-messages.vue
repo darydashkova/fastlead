@@ -59,6 +59,7 @@
     import {useFolder} from "../../../composition/useFolder";
     import {useModals} from "../../../composition/useModals";
     import { ref } from 'vue'
+    import {useModalConfirmDelete} from "../../../composition/useModalConfirmDelete";
     export default {
         components: { BaseCircleIcon, MessagesContainer, DialogSelections },
         setup() {
@@ -70,15 +71,21 @@
 
             const { toggleModalMoveChat, setSelectedDialogsToMove, setCloseCallbackMoveModal } = useModals()
 
+            const { toggleModalConfirmDelete, setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete } = useModalConfirmDelete()
+
             const openedActions = ref(false);
             const toggleOpenedActions = (boolean) => {
                 openedActions.value = boolean;
             }
             const del = async () => {
-                await deleteDialog(selectedGroupDialogs.value);
-
-                getDialogs(selectedFolder.value);
-                toggleAllSelectedGroupDialogs(false);
+                let callback = async () => {
+                    await deleteDialog(selectedGroupDialogs.value);
+                    getDialogs(selectedFolder.value);
+                    toggleAllSelectedGroupDialogs(false);
+                }
+                setTextModalConfirmDelete(`Вы точно хотите удалить ${selectedGroupDialogs.value.length} чата?`)
+                setSaveCallbackModalConfirmDelete(callback);
+                toggleModalConfirmDelete(true);
             }
 
             const move = () => {
@@ -89,12 +96,15 @@
                 toggleModalMoveChat(true);
             }
             const delDialog = () => {
-                deleteDialog([selectedDialog.value])
+                let callback = () => deleteDialog([selectedDialog.value])
                     .then(() => {
                         selectDialog(null);
                         getDialogs(selectedFolder.value);
-                        toggleOpenedActions(false)
                     })
+                setTextModalConfirmDelete(`Вы точно хотите удалить чат с ${messages.value.name}?`)
+                setSaveCallbackModalConfirmDelete(callback);
+                toggleOpenedActions(false)
+                toggleModalConfirmDelete(true);
             }
             const moveChat = () => {
                 setSelectedDialogsToMove([selectedDialog.value]);

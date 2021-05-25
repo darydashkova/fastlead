@@ -4,7 +4,7 @@
             <BaseModalHeader>
                 Новое сообщение
             </BaseModalHeader>
-            <BaseModalText class="base-modal-text_padding-20 base-modal-text_mt-29 base-modal-text_white">
+            <BaseModalText class="base-modal-text_padding-20 base-modal-text_mt-29 base-modal-text_default">
                 Создать сообщение
             </BaseModalText>
             <div class="base-new-message__container">

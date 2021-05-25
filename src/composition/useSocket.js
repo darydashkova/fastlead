@@ -21,7 +21,7 @@ mp3.type = 'audio/mpeg';
 audio.append(ogg);
 audio.append(mp3);
 
-const socket = new WebSocket(`wss://${window.location.hostname}:3000`)
+const socket = new WebSocket(`ws://${window.location.hostname}:3000`)
 
 
 export function useSocket() {

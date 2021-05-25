@@ -9,6 +9,7 @@ const openedModalMoveChat = ref(false);
 const openedModalChangeAva = ref(false);
 const openedModalNewMessage = ref(false);
 
+
 const selectedFolderToEdit = ref(null);
 const selectedDialogsToFolder = reactive({data: []});
 
@@ -16,6 +17,7 @@ const fromModals = reactive({
     fromAddToFolderToCreateChat: false,
     fromCreateChatToCreateFolder: false,
 })
+
 
 let onCloseCallbackCreateChat = () => null;
 const setCloseCallbackCreateChat = (cb) => {
@@ -62,6 +64,7 @@ export function useModals() {
     const toggleModalNewMessage = (value) => {
         openedModalNewMessage.value = value;
     }
+
 
     const setSelectedDialogs = (dialogs) => {
         selectedDialogsToFolder.data = [...dialogs];

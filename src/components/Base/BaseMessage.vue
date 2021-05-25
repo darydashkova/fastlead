@@ -6,8 +6,7 @@
         }"
     >
         <div v-if="message.type === 'text'" class="base-message__container">
-            <div class="base-message__message base-message__message_flex" v-html="wrapEmoji(message.message.replace(/\n/g, '<br>'))">
-            </div>
+            <div class="base-message__message " v-html="wrapEmoji(message.message.replace(/\n/g, '<br>'))"></div>
             <div class="base-message__state">
                 {{validTime(message.time)}}
                 <template v-if="message.is_me">
@@ -107,11 +106,6 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-        }
-        &.base-message__message_flex {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
         }
     }
     .base-message__image {

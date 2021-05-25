@@ -1,6 +1,8 @@
 <template>
     <div class="base-modal-text">
-        <slot></slot>
+        <span>
+            <slot></slot>
+        </span>
     </div>
 </template>
 
@@ -8,11 +10,14 @@
     .base-modal-text {
         font-style: normal;
         font-weight: normal;
-        font-size: 16px;
-        line-height: 21px;
-        background: var(--green-color);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-size: 18px;
+        line-height: 24px;
+        span {
+            background: var(--green-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         &.base-modal-text_mb-6 {
             margin-bottom: 6px;
         }
@@ -34,15 +39,29 @@
         &.base-modal-text_mt-10 {
             margin-top: 10px;
         }
-        &.base-modal-text_white {
-            background: var(--create-folder-header-color);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        &.base-modal-text_hovered {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            transition: .2s ease;
+            &:hover {
+                background: var(--modal-element-hover-bg-color);
+            }
+        }
+        &.base-modal-text_default {
+            span {
+                background: var(--modal-base-text-default-color);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
         }
         &.base-modal-text_error {
-            background: #EB5757;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            span {
+                background: var(--red-color);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
         }
     }
 </style>

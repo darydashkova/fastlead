@@ -15,12 +15,16 @@
 
 <style lang="scss">
     .settings-container {
-        height: calc(100vh - 30px);
+        height: 100%;
         display: flex;
+        position: relative;
     }
     .settings-content {
         height: 100%;
         background: var(--settings-main-color);
-        width: calc(100% - 293px);
+        width: calc(100% - 90px);
+        position: absolute;
+        left: 90px;
+        top: 0;
     }
 </style>

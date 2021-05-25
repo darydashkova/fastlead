@@ -82,7 +82,7 @@
     }
     .modal-choice-activation-method__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
@@ -94,9 +94,11 @@
         font-size: 16px;
         line-height: 21px;
 
-        color: var(--create-folder-header-color);
+        color: var(--modal-base-text-default-color);
+
+        transition: .2s ease;
         &.modal-choice-activation-method__choice_active {
-            background: var(--create-chat-border-color);
+            background: var(--modal-element-hover-bg-color);
         }
         &.modal-choice-activation-method__choice_mt-47 {
             margin-top: 47px;

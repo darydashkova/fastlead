@@ -16,7 +16,7 @@
                 <svg class="messenger-content-dialogs__parameters-icon"
                      :class="{'messenger-content-dialogs__parameters-icon_reverse': openedSearchParameters}"
                      width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L6.12399 6L11 1" stroke="#EDEDEF" stroke-width="1.2" stroke-linecap="round"/>
+                    <path d="M1 1L6.12399 6L11 1" stroke="var(--font-color)" stroke-width="1.2" stroke-linecap="round"/>
                 </svg>
             </div>
             <MessengerContentDialog :need-loading-more="false"
@@ -45,6 +45,7 @@
                                     :chatInfo="dialog"
                                     class="base-dialog_not-padding"
                                     @click="select(dialog.dialog_id)"
+                                    @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, itemName: 'dialog', item: dialog.name})"
                             ></BaseDialog>
                         </div>
                     </div>
@@ -66,6 +67,7 @@
                         :isNeedSelecting="true"
                         :isSelected="selectedGroupDialogs.find(i => i === dialog.dialog_id)"
 
+                        @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, itemName: 'dialog', item: dialog.name})"
                         @toggleSelecting="toggleSelectedGroupDialogs(dialog.dialog_id)"
                         @click.ctrl.exact="toggleSelectedGroupDialogs(dialog.dialog_id)"
                         @click.exact="select(dialog.dialog_id)"
@@ -89,13 +91,16 @@
     import { reactive, computed } from 'vue';
     import {useLoader} from "../../../composition/useLoader";
     import {useModals} from "../../../composition/useModals";
+    import {useContextMenu} from "../../../composition/useContextMenu";
     export default {
         components: { BaseSearchInput, BaseDialog, BaseFolderName, BaseLoader, MessengerContentDialog },
         setup() {
             const { dialogs, selectDialog, selectedDialog, toggleSelectedGroupDialogs, selectedGroupDialogs } = useDialogs();
             const { selectedFolder, folders } = useFolder();
             const { search, selectedParameter, selectParameter, openedSearch, openedSearchParameters, toggleSearchParameters, toggleSearch } = useSearch();
-            const { toggleModalCreateChat } = useModals()
+            const { toggleModalCreateChat } = useModals();
+
+            const { setContext } = useContextMenu();
 
             const { isLoadingDialogs } = useLoader();
 
@@ -157,13 +162,19 @@
                 }, 500)
             }
 
-
+            const openContextMenu = ($event, context) => {
+                setContext({
+                    top: $event.clientY,
+                    left: $event.clientX,
+                }, context)
+            }
             return {
                 scrollTo,
 
                 folders,
                 selectedFolder,
 
+                openContextMenu,
                 select,
 
                 dialogs,

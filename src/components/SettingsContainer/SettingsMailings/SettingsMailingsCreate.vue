@@ -845,8 +845,8 @@
         margin-top: auto;
     }
     .settings-mailings-create__steps {
-        background: var(--messages-color);
-        border: 0.74px solid var(--settings-active-background-color);
+        background: var(--settings-nav-color);
+        border: 0.74px solid var(--settings-nav-color);
         box-sizing: border-box;
         border-radius: 3px;
 
@@ -865,7 +865,10 @@
         font-weight: normal;
         font-size: 22px;
         line-height: 29px;
-        color: var(--settings-active-background-color);
+        color: var(--search-input-placeholder-color);
+        background: var(--settings-nav-color);
+
+        transition: .2s ease;
 
         &:last-of-type {
             &:before {
@@ -873,16 +876,16 @@
                 border-left: 0px solid transparent;
                 border-top: 17px solid transparent;
                 border-bottom: 17px solid transparent;
-                border-right: 9px solid var(--messages-color);
+                border-right: 9px solid var(--settings-nav-color);
                 position: absolute;
                 left: -9px;
             }
         }
-        &.settings-mailings-create__step_active {
-            color: var(--settings-active-font-color);
-            background: var(--settings-active-background-color);
+        &.settings-autoresponder-create__step_active {
+            color: var(--font-color);
+            background: var(--settings-main-color);
             &:before {
-                border-right: 9px solid var(--settings-active-background-color);
+                border-right: 9px solid var(--settings-main-color);
             }
         }
     }

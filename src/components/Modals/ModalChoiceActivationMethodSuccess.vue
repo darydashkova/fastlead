@@ -43,7 +43,7 @@
     }
     .modal-choice-activation-method-success__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 40px 30px;
 
@@ -52,6 +52,6 @@
         font-size: 18px;
         line-height: 24px;
         text-align: center;
-        color: var(--hover-svg-fill);
+        color: var(--modal-base-text-default-color);
     }
 </style>
