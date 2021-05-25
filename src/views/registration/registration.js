@@ -35,12 +35,12 @@ export default {
                 password: password.value,
             })
                 .then(r => {
-                    loading.value = false;
                     if (r.error) {
                         error.value = r.error;
                     } else {
                         router.push('/login')
                     }
+                    loading.value = false;
                 })
         }
 

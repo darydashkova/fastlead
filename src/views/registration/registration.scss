@@ -4,15 +4,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--header-color);
+  background: var(--left-bar-color);
 }
 .registration__form {
-  width: 400px;
-  border-radius: 9px;
-  padding: 8px 15px;
+  width: 427px;
+  border-radius: 23px;
+  padding: 30px 15px;
   display: flex;
   flex-direction: column;
-  background: var(--messages-color);
+  background: var(--modal-bg-color);
 }
 .registration__input {
   -webkit-appearance: none;
@@ -20,25 +20,35 @@
   -moz-box-shadow: none;
   box-shadow: none;
   outline: none;
-  border: 1px solid transparent;
 
-
-  border-radius: 9px;
+  border-radius: 8px;
   width: 100%;
-  margin: 5px 0;
-  padding: 7px 15px;
-  font-size: 16px;
+  margin-bottom: 12px;
+  padding: 8px 15px;
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+
   color: var(--font-color);
-  background: var(--search-input-color);
+  border: 0.7px solid var(--modal-input-border-color);
+  background: var(--modal-element-hover-bg-color);
+
   &::placeholder {
     color: var(--placeholder-color);
+  }
+  &:last-of-type {
+    margin-bottom: 0;
   }
 }
 .registration__header {
   padding: 0;
-  margin: 0;
+  margin: 0 0 22px;
+  font-style: normal;
+  font-weight: 600;
   font-size: 30px;
-  line-height: 48px;
+  line-height: 42px;
   color: var(--font-color);
 }
 .registration__button {
@@ -49,44 +59,45 @@
   outline: none;
   border: none;
 
-  padding: 7px 15px;
+  padding: 7px;
+  font-style: normal;
+  font-weight: normal;
   font-size: 20px;
   line-height: 27px;
-  margin: 15px 0;
-  border-radius: 9px;
+  margin: 32px 0 0;
+  border-radius: 8px;
   cursor: pointer;
-  transition: .3s ease;
+  transition: .2s ease;
 
-  background: var(--main-color);
-  color: var(--font-color);
-  &:hover {
-    background: var(--active-folder-color);
-    color: var(--messages-color);
-  }
+  background: var(--green-color);
+  color: #EDEDEF;
   &:disabled {
-    background: #c3c3c3;
-    color: var(--font-color);
-    cursor: no-drop;
+    background: var(--modal-button-cancel-color);
+    cursor: not-allowed;
   }
 }
 .registration__hint {
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   font-size: 14px;
-  line-height: 19px;
+  line-height: 18px;
   text-decoration: none;
   background: var(--green-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin: 0 0 15px;
+  margin-top: 5px;
+  text-align: left;
 }
 .registration__error {
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   font-size: 14px;
-  line-height: 19px;
+  line-height: 18px;
   text-decoration: none;
   background: var(--red-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  margin-top: 5px;
+  text-align: left;
 }
