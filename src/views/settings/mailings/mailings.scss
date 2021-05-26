@@ -1,6 +1,6 @@
 .settings-mailings__header {
   height: 78px;
-  padding: 16px 45px;
+  padding: 0 45px;
   position: relative;
   text-align: left;
   display: flex;
@@ -13,6 +13,23 @@
   font-size: 22px;
   line-height: 29px;
   color: var(--settings-header-color);
+}
+.settings-mailings__sub-header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+}
+.settings-mailings__sub-title {
+  background: var(--search-input-placeholder-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: .2s background;
+  &.settings-mailings__sub-title_active {
+    background: var(--green-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 .settings-mailings__scroll-container {
   height: calc(100% - 79px);

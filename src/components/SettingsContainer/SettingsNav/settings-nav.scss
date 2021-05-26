@@ -45,6 +45,16 @@
       }
     }
   }
+  &.settings-nav__link_none {
+    svg {
+      margin: 0 45px 0 34px;
+      path {
+        fill: var(--user-info-settings-default-svg-fill);
+      }
+    }
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   &.settings-nav__link_header {
     height: 78px;
     border-bottom: 1px solid var(--separator-color);

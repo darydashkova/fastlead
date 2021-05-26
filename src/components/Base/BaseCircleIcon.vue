@@ -1,9 +1,12 @@
 <template>
     <div class="base-circle-icon"
-        :class="{'base-circle-icon_active': isActive,}"
-         @mouseleave="moveOut"
+        :class="{
+            'base-circle-icon_active': isActive,
+            'base-circle-icon_need-selecting': isNeedSelecting,
+            'base-circle-icon_selected': isSelected,
+        }"
     >
-        <div v-if="isSelector || isSelected" class="base-circle-icon__selector"
+        <div v-if="isNeedSelecting" class="base-circle-icon__selector"
              :class="{'base-circle-icon__selector_active': isSelected}"
             @click.stop="toggleSelecting"
         >
@@ -19,13 +22,12 @@
                 </svg>
             </div>
         </div>
-        <div v-else class="base-circle-icon__image"
+        <div class="base-circle-icon__image"
             :style="{
                 'background': `url(${src}) no-repeat`,
                 'background-size': 'cover',
                 'background-position': 'center center',
             }"
-             @mouseover="moveIn"
         ></div>
     </div>
 </template>
@@ -140,6 +142,24 @@
                 margin-left: 0;
             }
         }
+        &.base-circle-icon_need-selecting {
+            &:hover {
+                .base-circle-icon__selector {
+                    display: flex;
+                }
+                .base-circle-icon__image {
+                    display: none;
+                }
+            }
+        }
+        &.base-circle-icon_selected {
+            .base-circle-icon__selector {
+                display: flex;
+            }
+            .base-circle-icon__image {
+                display: none;
+            }
+        }
     }
     .base-circle-icon__selector {
         width: 22px;
@@ -147,9 +167,9 @@
         background: #9797BB;
         border-radius: 5px;
         padding: 1.6px;
-        display: flex;
         justify-content: center;
         align-items: center;
+        display: none;
     }
     .base-circle-icon__inside-selector {
         background: #FBFBFE;
