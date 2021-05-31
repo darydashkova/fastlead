@@ -31,5 +31,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        &.base-modal-label_relative {
+            position: relative;
+        }
     }
 </style>

@@ -67,12 +67,12 @@
     }
     .base-input-group__label {
         font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 24px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 21px;
         color: var(--font-color);
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
         &.base-input-group__label_error {
             color: var(--red-color);
         }
@@ -80,9 +80,9 @@
     .base-input-group__input {
         font-family: Segoe UI;
         font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 21px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 19px;
         width: 100%;
         color: var(--modal-font-color);
         background: var(--modal-element-hover-bg-color);
@@ -94,9 +94,6 @@
         padding: 6px 10px;
         &::placeholder {
             color: var(--default-svg-fill);
-        }
-        &.settings-autoresponder-create__input_selector {
-            position: relative;
         }
     }
 </style>

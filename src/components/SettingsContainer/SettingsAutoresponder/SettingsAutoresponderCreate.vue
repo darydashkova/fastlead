@@ -327,7 +327,6 @@
 </template>
 
 <script>
-    import BaseRangedButtons from '../../Base/BaseRangedButtons.vue'
     import BaseButton from '../../Base/BaseButton.vue'
     import BaseCircleIcon from '../../Base/BaseCircleIcon.vue'
     import BaseCalendar from '../../Base/BaseCalendar.vue'
@@ -354,7 +353,6 @@
             }
         },
         components: {
-            BaseRangedButtons,
             BaseButton,
             BaseCircleIcon,
             BaseCalendar,
@@ -887,13 +885,6 @@
         }
     }
 
-    .settings-autoresponder-create__message-container {
-        //30px отступ и 34px высота степов
-        height: calc(100% - 30px - 34px);
-        ::-webkit-scrollbar {
-            display: none;
-        }
-    }
     .settings-autoresponder-create__select-list {
         position: absolute;
         width: 100%;

@@ -140,10 +140,6 @@
         components: {
             Picker, ModalSendImages
         },
-        data() {
-            return {
-            }
-        },
         setup() {
             const { selectedDialog } = useDialogs();
             const { socketSend } = useSocket();
@@ -168,7 +164,8 @@
                     div.querySelectorAll('img').forEach(img => {
                         img.replaceWith(img.getAttribute('data-text'))
                     })
-                    div.innerHTML = div.innerHTML.replace(/<br>/g, '')
+                    div.innerHTML = div.innerHTML.replace(/<br>/g, '');
+                    div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
                     socketSend('send_message', {type: 'text', data: div.innerHTML, dialog_id: selectedDialog.value})
                     value.value = '';
                     textarea.value.innerHTML = '';
@@ -213,9 +210,8 @@
                 },
                 paste: ($event) => {
                     let paste = ($event.clipboardData || window.clipboardData).getData('text');
-                    pasteHtmlAtCaret(wrapTab(wrapEmoji(paste)));
+                    pasteHtmlAtCaret(wrapEmoji(wrapTab(paste)));
                     value.value = textarea.value.innerHTML
-                    console.log(value.value);
 
                     $event.preventDefault();
                 }
@@ -371,6 +367,8 @@
         &[contentEditable=true]:empty:not(:focus):before{
             content:attr(placeholder);
             color: var(--placeholder-color);
+
+            pointer-events: none;
         }
     }
     .messages-container-input__icon {

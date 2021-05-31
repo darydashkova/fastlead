@@ -59,7 +59,7 @@ const routes = [
         path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue')
       },
       {
-        path: 'templates-messages', component: () => import('../views/settings/templates-messages/templates-messages.vue')
+        path: 'message-templates', component: () => import('../views/settings/message-templates/message-templates.vue')
       }
     ]
   },

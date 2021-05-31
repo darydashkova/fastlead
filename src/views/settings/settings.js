@@ -13,10 +13,12 @@ import ModalChoiceActivationMethodMyself from "../../components/Modals/ModalChoi
 import ModalChoiceActivationMethodSuccess from "../../components/Modals/ModalChoiceActivationMethodSuccess.vue"
 import ModalChoiceActivationMethodNotMyself from "../../components/Modals/ModalChoiceActivationMethodNotMyself.vue"
 import ModalConfirmDelete from "../../components/Modals/ModalConfirmDelete.vue"
+import ModalCreateMessageTemplate from "../../components/Modals/ModalCreateMessageTemplate.vue"
 
 import {useModals} from "../../composition/useModals";
 import {useModalsWhatsapps} from "../../composition/useModalsWhatsapps";
 import {useModalConfirmDelete} from "../../composition/useModalConfirmDelete";
+import {useModalMessageTemplate} from "../../composition/useModalMessageTemplate";
 
 export default {
     components: {
@@ -36,6 +38,7 @@ export default {
         ModalChoiceActivationMethodNotMyself,
 
         ModalConfirmDelete,
+        ModalCreateMessageTemplate
     },
     setup() {
         const {
@@ -56,6 +59,7 @@ export default {
             openedModalSyncWhatsapp,
         } = useModalsWhatsapps()
         const { openedModalConfirmDelete } = useModalConfirmDelete()
+        const { openedModalCreateMessageTemplate } = useModalMessageTemplate()
 
         return {
             openedModalCreateFolder,
@@ -74,6 +78,7 @@ export default {
             openedModalSyncWhatsapp,
 
             openedModalConfirmDelete,
+            openedModalCreateMessageTemplate,
         }
     }
 }

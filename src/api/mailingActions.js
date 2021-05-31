@@ -43,6 +43,52 @@ export default {
             csrf_token: localStorage.getItem('x-csrf'),
         }
         return api.fetch('POST', 'update/mass-sending', body)
+    },
+
+
+
+    getDynamicMailings: () => {
+        return api.fetch('GET', 'get/dynamic-mass-sending/all');
+    },
+    createDynamicMailing: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'create/dynamic-mass-sending', body)
+    },
+
+    deleteDynamicMailings: (data) => {
+        let body = {
+            dynamic_mass_sending_ids: data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'delete/dynamic-mass-sending', body)
+    },
+
+    stopDynamicMailings: (data) => {
+        let body = {
+            dynamic_mass_sending_ids: data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'dynamic-mass-sending/stop', body)
+    },
+    restoreDynamicMailings: (data) => {
+        let body = {
+            dynamic_mass_sending_ids: data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'dynamic-mass-sending/start', body)
+    },
+    getSingleDynamicMailing: (id) => {
+        return api.fetch('GET', `get/dynamic-mass-sending?mass_sending_id=${id}`)
+    },
+    updateDynamicMailing: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'update/dynamic-mass-sending', body)
     }
 
 }

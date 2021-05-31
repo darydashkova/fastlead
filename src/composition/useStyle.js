@@ -67,6 +67,8 @@ export function useStyle() {
             'settings-whatsapp-del-icon-fill': '#EB5757',
             'settings-whatsapp-default-icon-fill': '#B7B7BE',
             'settings-whatsapp-del-icon-bg': '#1D1D35',
+            'ranged-buttons-color': '#141427',
+            'calendar-bg': '#0F0F1B', //цвет календаря
 
 
 
@@ -105,9 +107,7 @@ export function useStyle() {
 
             'create-chat-border-color': '#404054', //цвет бордера и ховера папки
 
-            'calendar-bg': '#0F0F1B', //цвет календаря
 
-            'ranged-buttons-color': '#404054',
 
 
             'settings-nav-border-color': '#757589',
@@ -186,6 +186,8 @@ export function useStyle() {
             'settings-whatsapp-del-icon-fill': '#FFFFFF',
             'settings-whatsapp-default-icon-fill': '#FFFFFF',
             'settings-whatsapp-del-icon-bg': '#EB5757',
+            'ranged-buttons-color': '#DEDEEE',
+            'calendar-bg': '#EDEDEF', //цвет календаря
 
 
 
@@ -226,9 +228,7 @@ export function useStyle() {
 
             'create-chat-border-color': '#EDEDEF', //цвет бордера и ховера папки
 
-            'calendar-bg': '#EDEDEF', //цвет календаря
 
-            'ranged-buttons-color': '#B7B7BE',
 
             'settings-nav-border-color': '#FFFFFF',
             'settings-active-link-color': '#FFFFFF',

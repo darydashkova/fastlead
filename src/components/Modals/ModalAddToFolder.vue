@@ -1,4 +1,4 @@
-<template>
+я<template>
     <div class="modal-add-to-folder" @mousedown.self="toggleModalAddToFolder(false)"
          :class="{'z-index': fromModals.fromCreateChatToCreateFolder}">
         <div class="modal-add-to-folder__body">
@@ -281,7 +281,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
 
 

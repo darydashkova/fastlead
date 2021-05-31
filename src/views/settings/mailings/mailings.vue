@@ -5,13 +5,13 @@
                 {{headerName}}
                 <div class="settings-mailings__sub-header">
                     <span class="settings-mailings__sub-title pointer"
-                          :class="{'settings-mailings__sub-title_active' : !isMassMailingsTable}"
-                          @click="toggleMassMailingsTable(false)"
+                          :class="{'settings-mailings__sub-title_active' : !isDynamicMailingsTable}"
+                          @click="toggleDynamicMailingsTable(false)"
                     >Пользовательские</span>
                     <span class="settings-mailings__sub-title"> / </span>
                     <span class="settings-mailings__sub-title pointer"
-                          :class="{'settings-mailings__sub-title_active' : isMassMailingsTable}"
-                          @click="toggleMassMailingsTable(true)"
+                          :class="{'settings-mailings__sub-title_active' : isDynamicMailingsTable}"
+                          @click="toggleDynamicMailingsTable(true)"
                     >Массовые</span>
                 </div>
             </div>
@@ -28,6 +28,9 @@
                         :selectedMailingToEdit="selectedMailingToEdit"
                         @gotoTable="toggleCreating(false)"
                 ></SettingsMailingsCreate>
+
+                <SettingsDynamicMailingsTable v-else-if="isDynamicMailingsTable"
+                ></SettingsDynamicMailingsTable>
                 <SettingsMailingsTable v-else
                                        @gotoCreate="gotoCreate"
                 ></SettingsMailingsTable>
@@ -45,7 +48,8 @@
 
 <script>
     import BaseButton from '../../../components/Base/BaseButton.vue'
-    import SettingsMailingsTable from '../../../components/SettingsContainer/SettingsMailings/SettingsMailingsTable.vue'
+    import SettingsMailingsTable from '../../../components/SettingsContainer/SettingsMailings/settings-mailings-table.vue'
+    import SettingsDynamicMailingsTable from '../../../components/SettingsContainer/SettingsMailings/settings-dynamic-mailings-table.vue'
     import SettingsMailingsCreate from '../../../components/SettingsContainer/SettingsMailings/SettingsMailingsCreate.vue'
 
     import ModalChoiceMailingType from "../../../components/Modals/ModalChoiceMailingType";
@@ -55,7 +59,7 @@
     import {useMailings} from "../../../composition/useMailings";
     import {useCustomScroll} from "../../../composition/useCustomScroll";
     export default {
-        components: { BaseButton, SettingsMailingsTable, SettingsMailingsCreate, ModalChoiceMailingType },
+        components: { BaseButton, SettingsMailingsTable, SettingsMailingsCreate, SettingsDynamicMailingsTable, ModalChoiceMailingType },
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { getSingleMailing } = useMailings()
@@ -69,9 +73,9 @@
                 isCreating.value = boolean;
             }
 
-            const isMassMailingsTable = ref(false);
-            const toggleMassMailingsTable = (boolean) => {
-                isMassMailingsTable.value = boolean;
+            const isDynamicMailingsTable = ref(false);
+            const toggleDynamicMailingsTable = (boolean) => {
+                isDynamicMailingsTable.value = boolean;
             }
 
             const isOpenedModalChoiceMailingType = ref(false);
@@ -122,8 +126,8 @@
                  gotoCreate,
                  selectedMailingToEdit,
 
-                 isMassMailingsTable,
-                 toggleMassMailingsTable,
+                 isDynamicMailingsTable,
+                 toggleDynamicMailingsTable,
 
                  isOpenedModalChoiceMailingType,
                  toggleModalChoiceMailingType,

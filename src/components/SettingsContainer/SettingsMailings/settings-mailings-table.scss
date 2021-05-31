@@ -1,0 +1,55 @@
+.settings-mailings-table {
+  width: 100%;
+  border-spacing: 0;
+  th {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 21px;
+    color: var(--font-color);
+    text-align: left;
+    padding: 17px;
+    &:first-of-type {
+      padding-left: 45px;
+    }
+    &:last-of-type {
+      padding-right: 45px;
+      text-align: right;
+    }
+    border-bottom: 1px solid var(--separator-color);
+  }
+  td {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--search-input-placeholder-color);
+    text-align: left;
+    padding: 17px;
+    &:first-of-type {
+      padding-left: 45px;
+    }
+    &:last-of-type {
+      text-align: right;
+      padding-right: 45px;
+    }
+    border-bottom: 1px solid var(--separator-color);
+  }
+}
+.settings-mailings-table__actions-container {
+  display: flex;
+  justify-content: flex-end;
+  .settings-mailings-table__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+
+    margin-right: 3px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+}

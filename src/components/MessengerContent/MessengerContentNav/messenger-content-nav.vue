@@ -28,6 +28,7 @@
                         :class="{
                             'base-folder_active': selectedFolder === folder.folder_id,
                         }"
+                        :is-default="folder.is_default"
                         @click="choseFolder(folder.folder_id)"
                         @contextmenu.prevent="folder.is_default? null : openContextMenu($event, {id: folder.folder_id, itemName: 'folder', item: folder.name,})"
                 >

@@ -19,7 +19,7 @@ import { useDialogs } from "../../composition/useDialogs";
 import { useMessages } from "../../composition/useMessages";
 import { useModals } from "../../composition/useModals";
 
-import "../../components/emoji-component/css/emoji-mart.css";
+
 import {useModalConfirmDelete} from "../../composition/useModalConfirmDelete";
 
 export default {

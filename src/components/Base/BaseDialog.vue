@@ -121,7 +121,7 @@
                 width: 3px;
                 background: var(--green-color);
                 left: 0;
-                top: calc((78px - 46px) / 2);
+                top: calc((82px - 46px) / 2);
             }
         }
         &.base-dialog_not-padding {

@@ -1,4 +1,4 @@
-.settings-templates-messages__header {
+.settings-message-templates__header {
   height: 78px;
   padding: 0 45px;
   position: relative;
@@ -14,27 +14,27 @@
   line-height: 29px;
   color: var(--settings-header-color);
 }
-.settings-templates-messages__sub-header {
+.settings-message-templates__sub-header {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 19px;
 }
-.settings-templates-messages__scroll-container {
+.settings-message-templates__scroll-container {
   height: calc(100% - 79px);
   position: relative;
   ::-webkit-scrollbar {
     display: none;
   }
 }
-.settings-templates-messages__content {
+.settings-message-templates__content {
   width: 100%;
   overflow-y: auto;
   padding: 18px 45px 0;
   display: flex;
   flex-wrap: wrap;
 }
-.settings-templates-messages__element {
+.settings-message-templates__element {
   width: 271px;
   height: 215px;
   border-radius: 9px;
@@ -46,7 +46,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.settings-templates-messages__message {
+.settings-message-templates__message {
   width: 100%;
   height: 100px;
   position: relative;
@@ -61,7 +61,7 @@
     background: linear-gradient(180deg, rgba(0,0,0,0), var(--settings-whatsapp-color));
   }
 }
-.settings-templates-messages__message-scroll {
+.settings-message-templates__message-scroll {
   color: var(--placeholder-color);
   text-align: left;
   font-style: normal;
@@ -75,7 +75,7 @@
   }
   overflow-y: auto;
 }
-.settings-templates-messages__name {
+.settings-message-templates__name {
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -91,11 +91,11 @@
   }
 }
 
-.settings-templates-messages__action-container {
+.settings-message-templates__action-container {
   display: flex;
   align-items: center;
 }
-.settings-templates-messages__action {
+.settings-message-templates__action {
   border-radius: 3px;
   width: 29px;
   height: 29px;

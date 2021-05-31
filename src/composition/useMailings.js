@@ -5,13 +5,14 @@ import { reactive, computed } from 'vue';
 const mailings = reactive({
     data: [],
 })
+const dynamicMailinigs = reactive({
+    data: [],
+})
 
 export function useMailings() {
-
     const createMailing = async (data) => {
         return await mailingActions.createMailing(data);
     }
-
     const getMailings = async () => {
         return await mailingActions.getMailings()
             .then(r => {
@@ -19,7 +20,6 @@ export function useMailings() {
                 return r.mass_sendings;
             })
     }
-
     const deleteMailing = async (ids) => {
         return await mailingActions.deleteMailings(ids)
     }
@@ -38,6 +38,34 @@ export function useMailings() {
         return await mailingActions.updateMailing(data);
     }
 
+    const createDynamicMailing = async (data) => {
+        return await mailingActions.createDynamicMailing(data);
+    }
+    const getDynamicMailings = async () => {
+        return await mailingActions.getDynamicMailings()
+            .then(r => {
+                dynamicMailinigs.data = [...r.mass_sendings];
+                return r.mass_sendings;
+            })
+    }
+    const deleteDynamicMailing = async (ids) => {
+        return await mailingActions.deleteDynamicMailings(ids)
+    }
+
+    const stopDynamicMailing = async (ids) => {
+        return await mailingActions.stopDynamicMailings(ids)
+    }
+
+    const restoreDynamicMailing = async (ids) => {
+        return await mailingActions.restoreDynamicMailings(ids)
+    }
+    const getSingleDynamicMailing = async (id) => {
+        return await mailingActions.getSingleDynamicMailing(id);
+    }
+    const updateDynamicMailing = async (data) => {
+        return await mailingActions.updateDynamicMailing(data);
+    }
+
     return {
         createMailing,
         getMailings,
@@ -47,6 +75,15 @@ export function useMailings() {
         getSingleMailing,
         updateMailing,
 
+        createDynamicMailing,
+        getDynamicMailings,
+        deleteDynamicMailing,
+        restoreDynamicMailing,
+        stopDynamicMailing,
+        getSingleDynamicMailing,
+        updateDynamicMailing,
+
         mailings: computed(() => mailings.data),
+        dynamicMailings: computed(() => dynamicMailings.data),
     }
 }

@@ -5,34 +5,18 @@
                 Выбор рассылки
             </BaseModalHeader>
             <div class="modal-choice-mailing-type__choice pointer modal-choice-mailing-type__choice_mt-47"
-                 :class="{'modal-choice-mailing-type__choice_active': choice === 1}"
-                 @click="choice = 1">
+                 @click="save(1)">
                 Создать пользовательскую рассылку
                 <div class="modal-choice-mailing-type__sub-title">
                     до 500 пользователей
                 </div>
             </div>
             <div class="modal-choice-mailing-type__choice pointer"
-                 :class="{'modal-choice-mailing-type__choice_active': choice === 2}"
-                 @click="choice = 2">
+                 @click="save(2)">
                 Создать массовую рассылку
                 <div class="modal-choice-mailing-type__sub-title">
                     свыше 500 пользователей
                 </div>
-            </div>
-            <div class="modal-choice-mailing-type__buttons">
-                <BaseButton
-                        class="base-button_enter"
-                        @click="save"
-                >
-                    Далее
-                </BaseButton>
-                <BaseButton
-                        class="base-button_cancel"
-                        @click.self="close"
-                >
-                    Отмена
-                </BaseButton>
             </div>
         </div>
     </div>
@@ -51,17 +35,12 @@
             const close = () => {
                 emit('close')
             }
-            const save = () => {
-                if (choice.value) {
-                    (choice.value === 1) && emit('save', 1);
-                    (choice.value === 2) && emit('save', 2);
-                }
+            const save = (choice) => {
+                emit('save', choice);
             }
-            const choice = ref(null);
             return {
                 save,
                 close,
-                choice,
             }
         }
     }
@@ -98,11 +77,11 @@
         font-size: 16px;
         line-height: 21px;
 
-        color: var(--modal-base-text-default-color);
-
+        color: var(--font-color);
         transition: .2s ease;
-        &.modal-choice-mailing-type__choice_active {
+        &:hover {
             background: var(--modal-element-hover-bg-color);
+
         }
         &.modal-choice-mailing-type__choice_mt-47 {
             margin-top: 47px;
@@ -111,6 +90,11 @@
     .modal-choice-mailing-type__sub-title {
         color: var(--modal-hint-font-color);
         margin-top: 5px;
+
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 140%;
     }
     .modal-choice-mailing-type__buttons {
         padding: 0 20px;

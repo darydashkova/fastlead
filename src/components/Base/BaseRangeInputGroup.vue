@@ -115,37 +115,38 @@
     .base-range-input-group__label {
         font-style: normal;
         font-weight: normal;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: 16px;
+        line-height: 21px;
         color: var(--font-color);
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
         &.base-range-input-group__label_error {
             color: var(--red-color);
         }
     }
     .base-range-input-group__input {
-        padding: 6px 10px;
-        background: transparent;
         font-family: Segoe UI;
         font-style: normal;
         font-weight: normal;
-        font-size: 16px;
-        line-height: 21px;
-        color: var(--font-color);
-        border: 0.7px solid var(--separator-color);
-        border-radius: 3px;
+        font-size: 14px;
+        line-height: 19px;
         width: 100%;
+        padding: 2px;
+        color: var(--modal-font-color);
+        background: var(--modal-element-hover-bg-color);
+        border: .7px solid var(--modal-input-border-color);
+        box-sizing: border-box;
+        border-radius: 3px;
         text-align: left;
+        padding: 8px 10px;
         &::placeholder {
-            color: var(--default-svg-fill);
+            color: var(--search-input-placeholder-color);
         }
         &.base-range-input-group__input_selector {
             position: relative;
         }
     }
     .base-range-input-group__button {
-        background: #757589;
         border-radius: 2px;
         width: 16px;
         height: 16px;
@@ -158,17 +159,17 @@
         cursor: pointer;
         svg {
             path {
-                stroke: var(--date-in-message-color);
+                stroke: var(--user-info-settings-default-svg-fill);
             }
         }
         &:first-of-type {
             margin-bottom: 2px;
         }
         &.base-range-input-group__button_active {
-            background: var(--folder-color);
+            background: var(--modal-element-hover-bg-color);
             svg {
                 path{
-                    stroke: var(--date-in-message-color);
+                    stroke: var(--user-info-settings-default-svg-fill);
                 }
             }
         }

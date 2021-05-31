@@ -191,6 +191,7 @@
     }
     .modal-move-chat__icon_default {
         path {
+            transition: .2s ease;
             fill: var(--default-svg-fill);
         }
     }
@@ -201,6 +202,7 @@
         justify-content: space-between;
         padding: 8px 20px;
         margin-bottom: 4px;
+        transition: .2s ease;
         &:last-of-type {
             margin-bottom: 0;
         }

@@ -5,7 +5,7 @@
 <script>
   import {useAuth} from "./composition/useAuth";
   import {useStyle} from "./composition/useStyle";
-
+  import "./components/emoji-component/css/emoji-mart.css";
   export default {
     setup() {
       const {getCsrf} = useAuth()
