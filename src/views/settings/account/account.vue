@@ -26,61 +26,6 @@
 
                     </div>
                 </div>
-                <div v-if="openedChangePass" class="settings-account__row settings-account__row_pd-32 settings-account__row_column">
-                    <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
-                        <div class="settings-account__first-element">
-                            <div class="settings-account__text">
-                                Пароль
-                            </div>
-                        </div>
-                        <div>
-                            <input type="password" class="settings-account_input" v-model="password.prev">
-                        </div>
-                        <div class="settings-account__last-element">
-                            <BaseButton class="base-button_enter base-button_p5-15" @click="tryToChangePass">Готово</BaseButton>
-                        </div>
-                    </div>
-                    <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
-                        <div class="settings-account__first-element">
-                            <div class="settings-account__text">
-                                Новый пароль
-                            </div>
-                        </div>
-                        <div class="settings-account__password"
-                             :class="{'settings-account__password_error-length': password.error_length}"
-                        >
-                            <input type="password" class="settings-account_input" v-model="password.new">
-                        </div>
-                        <div class="settings-account__last-element">
-                            <BaseButton class="base-button_cancel base-button_p5-15" @click="toggleOpenedChangePass(false)">Отмена</BaseButton>
-                        </div>
-                    </div>
-                    <div class="settings-account__row settings-account__row_none">
-                        <div class="settings-account__first-element">
-                            <div class="settings-account__text">
-                                Повторите пароль
-                            </div>
-                        </div>
-                        <div class="settings-account__password"
-                             :class="{'settings-account__password_error-confirm': password.error_confirm}"
-                        >
-                            <input type="password" class="settings-account_input" v-model="password.new_again">
-                        </div>
-                    </div>
-                </div>
-                <div v-else class="settings-account__row settings-account__row_pd-32">
-                    <div class="settings-account__first-element">
-                        <div class="settings-account__text">
-                            Пароль
-                        </div>
-                    </div>
-                    <div class="settings-account__sub-text">
-                        Обновлен 8 месяцев назад
-                    </div>
-                    <div class="settings-account__last-element">
-                        <div class="settings-account__action-button" @click="toggleOpenedChangePass(true)">Изменить пароль</div>
-                    </div>
-                </div>
                 <div class="settings-account__row settings-account__row_pd-26 settings-account__row_column">
                     <div class="settings-account__row settings-account__row_none"
                          :class="{'settings-account__row_mb-24': openedActivity}"
@@ -169,6 +114,72 @@
                             </div>
                         </div>
                     </template>
+                </div>
+                <div v-if="openedChangePass" class="settings-account__row settings-account__row_pd-32 settings-account__row_column">
+                    <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
+                        <div class="settings-account__first-element">
+                            <div class="settings-account__text">
+                                Пароль
+                            </div>
+                        </div>
+                        <div class="settings-account__sub-text">
+                            Обновлен 8 месяцев назад
+                        </div>
+                        <div class="settings-account__last-element">
+                            <BaseButton class="base-button_enter base-button_p5-15" @click="tryToChangePass">Готово</BaseButton>
+                        </div>
+                    </div>
+                    <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
+                        <div class="settings-account__first-element">
+                            <div class="settings-account__text">
+                                Старый пароль
+                            </div>
+                        </div>
+                        <div>
+                            <input type="password" class="settings-account_input" v-model="password.prev">
+                        </div>
+
+                        <div class="settings-account__last-element">
+                            <BaseButton class="base-button_cancel base-button_p5-15" @click="toggleOpenedChangePass(false)">Отмена</BaseButton>
+                        </div>
+                    </div>
+                    <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
+                        <div class="settings-account__first-element">
+                            <div class="settings-account__text">
+                                Новый пароль
+                            </div>
+                        </div>
+                        <div class="settings-account__password"
+                             :class="{'settings-account__password_error-length': password.error_length}"
+                        >
+                            <input type="password" class="settings-account_input" v-model="password.new">
+                        </div>
+                    </div>
+                    <div class="settings-account__row settings-account__row_none">
+                        <div class="settings-account__first-element">
+                            <div class="settings-account__text">
+                                Повторите пароль
+                            </div>
+                        </div>
+                        <div class="settings-account__password"
+                             :class="{'settings-account__password_error-confirm': password.error_confirm}"
+                        >
+                            <input type="password" class="settings-account_input" v-model="password.new_again">
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="settings-account__row settings-account__row_pd-32">
+                    <div class="settings-account__first-element">
+                        <div class="settings-account__text">
+                            Пароль
+                        </div>
+                    </div>
+                    <div class="settings-account__sub-text">
+                        Обновлен 8 месяцев назад
+                    </div>
+                    <div class="settings-account__last-element">
+                        <div class="settings-account__action-button" @click="toggleOpenedChangePass(true)">Изменить пароль</div>
+                    </div>
                 </div>
                 <div class="settings-account__row settings-account__row_pd-32 settings-account__row_column">
                     <div class="settings-account__row settings-account__row_none"
