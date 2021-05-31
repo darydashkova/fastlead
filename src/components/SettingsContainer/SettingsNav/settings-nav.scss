@@ -3,7 +3,7 @@
   height: 100%;
   background: var(--settings-nav-color);
   width: 90px;
-  overflow-x: hidden;
+  overflow: hidden;
   transition: width .2s ease;
 
   z-index: 10;
@@ -80,7 +80,16 @@
     }
   }
 }
+.settings-nav__list-container {
+  height: calc(100% - 78px);
+  position: relative;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
 .settings-nav__list {
+  height: 100%;
+  overflow-y: auto;
   text-align: left;
 }
 
