@@ -5,41 +5,69 @@
             <BaseModalHeader>
                 Создать чат
             </BaseModalHeader>
-            <div class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
+            <div class="modal-create-chat__choice-buttons">
+                <div class="modal-create-chat__choice pointer" @click="choice = 1"
+                    :class="{'modal-create-chat__choice_active': choice === 1}"
+                >
+                    Добавить номер
+                </div>
+                <div class="modal-create-chat__choice pointer" @click="choice = 2"
+                    :class="{'modal-create-chat__choice_active': choice === 2}"
+                >
+                    Залить базу
+                </div>
+            </div>
+            <div v-if="choice === 1" class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
                 <BaseModalLabel for-id="modal-create-chat__input" :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
                 <input id="modal-create-chat__input" type="text" class="modal-create-chat__input" v-model="name">
             </div>
+            <div v-else-if="choice === 2" class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
+                <BaseModalLabel  :class="{'base-modal-label_error': errors.phone}">Файл с базой</BaseModalLabel>
+                <div class="modal-create-chat__input pointer"
+                    :class="{
+                        'modal-create-chat__input_placeholder': !name.length,
+                    }"
+                >{{name? name : 'Загрузить файл'}}</div>
+            </div>
             <div class="modal-create-chat__height-container">
-                <BaseModalText class="base-modal-text_padding-20 pointer"
-                               :class="{'base-modal-text_error': errors.whatsapp}"
-                               @click="toggleOpenedWhatsApps"
-                >
-                    <span>{{selectedWhatsapp === null? 'Выберите WhatsApp ' : selectedWhatsapp.phone+' '}}</span>
-                    <svg class="modal-create-chat__select-whatsapp" :class="{'modal-create-chat__select-whatsapp_reverse': openedWhatsApps}" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L6 6L11 1" :stroke="errors.whatsapp? '#EB5757' : '#46CB52'"/>
-                    </svg>
-                </BaseModalText>
+                <div class="modal-create-chat__input-group-margin-container">
+                    <div class="modal-create-chat__input-group modal-create-chat__input-group_padding-20 pointer" @click="toggleOpenedWhatsApps">
+                        <BaseModalLabel for-id="modal-create-chat__input" :class="{'base-modal-label_error': errors.whatsapp}">Номер телефона</BaseModalLabel>
+                        <div class="modal-create-chat__input">{{selectedWhatsapp === null? 'Выберите WhatsApp ' : selectedWhatsapp.phone+' '}}</div>
+                    </div>
+                </div>
+
                 <transition name="height-transition">
-                    <div class="modal-create-chat__whatsapp-list" v-show="openedWhatsApps">
-                        <div class="modal-create-chat__whatsapp"
-                             v-for="whatsapp in whatsapps"
-                             :key="whatsapp.whatsapp_id+'whatsappId'"
-                             @click="selectWhatsapp(whatsapp)"
-                        >
-                            {{whatsapp.phone}}
+                    <div class="modal-create-chat__whatsapp-container" v-show="openedWhatsApps"
+                         :class="{
+                        'modal-create-chat__whatsapp-container_two-el': whatsapps.length === 2,
+                        'modal-create-chat__whatsapp-container_scroll': whatsapps.length > 2
+                    }"
+                    >
+                        <div v-show="whatsapps.length > 3" class="scroll" ref="containerWhatsapps" @click.self="scrollToWhatsapps">
+                            <div class="scroll__bar" ref="scrollbarWhatsapps"></div>
+                        </div>
+                        <div class="modal-create-chat__whatsapp-list" ref="contentWhatsapps">
+                            <div class="modal-create-chat__whatsapp"
+                                 v-for="whatsapp in whatsapps"
+                                 :key="whatsapp.whatsapp_id+'whatsappId'"
+                                 @click="selectWhatsapp(whatsapp)"
+                            >
+                                {{whatsapp.phone}}
+                            </div>
                         </div>
                     </div>
                 </transition>
-                <BaseModalHint class="base-modal-hint_padding-20">
+                <BaseModalHint class="base-modal-hint_padding-20 base-modal-hint_mt">
                     Выберите или создайте папки, в которых нужно показывать этот чат
                 </BaseModalHint>
                 <BaseModalText class="base-modal-text_padding-20 base-modal-text_mb-6 base-modal-text_mt-29">
                     Мои папки
                 </BaseModalText>
                 <div class="modal-create-chat__my-folders"
-                     :class="{'modal-create-chat__my-folders_scroll': folders.length > 3}"
+                     :class="{'modal-create-chat__my-folders_scroll': folders.length > 2}"
                 >
-                    <div v-show="folders.length > 3" class="scroll" ref="container" @click.self="scrollTo">
+                    <div v-show="folders.length > 2" class="scroll" ref="container" @click.self="scrollTo">
                         <div class="scroll__bar" ref="scrollbar"></div>
                     </div>
                     <div class="modal-create-chat__folder-content" ref="content">
@@ -80,7 +108,6 @@
                         @click="createFolder"
                 >+Создать новую папку</BaseModalText>
             </div>
-
             <div class="modal-create-chat__buttons">
                 <BaseButton
                         class="base-button_enter"
@@ -95,6 +122,7 @@
                     Отмена
                 </BaseButton>
             </div>
+
         </div>
     </div>
 </template>
@@ -120,7 +148,8 @@
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseModalHeader },
         setup(props) {
             const { folders, selectFolder, getAllFolders } = useFolder();
-            const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
+            const { container, content, scrollbar, scrollTo, init } = useCustomScroll();
+            const newCustomScroll = useCustomScroll()
             const { toggleModalCreateChat, toggleModalCreateFolder, fromModals, setCloseCallbackCreateChat, onCloseCallbackCreateChat } = useModals();
             const { getWhatsapps, whatsapps } = useWhatsapp()
             const { createDialog, getDialogs, selectDialog } = useDialogs();
@@ -147,6 +176,8 @@
                 whatsapp: false,
                 phone: false,
             })
+
+            const choice = ref(1);
 
             const close = () => {
                 fromModals.fromAddToFolderToCreateChat = false;
@@ -192,6 +223,7 @@
             }
 
             onMounted( () => {
+                newCustomScroll.init();
                 init();
                 getWhatsapps();
 
@@ -210,12 +242,18 @@
                 content,
                 scrollbar,
                 scrollTo,
+                containerWhatsapps: newCustomScroll.container,
+                contentWhatsapps: newCustomScroll.content,
+                scrollbarWhatsapps: newCustomScroll.scrollbar,
+                scrollToWhatsapps: newCustomScroll.scrollTo,
 
                 name,
 
                 folders,
                 selectLocalFolder,
                 selectedFolder,
+
+                choice,
 
                 toggleModalCreateChat,
 
@@ -261,11 +299,15 @@
         padding: 20px 0;
         text-align: left;
     }
+    .modal-create-chat__input-group-margin-container {
+        width: 100%;
+        margin-bottom: 18px;
+    }
     .modal-create-chat__input-group {
         width: 100%;
         display: flex;
         flex-direction: column;
-        margin: 31px 0 29px;
+        margin: 41px 0 0;
         &.modal-create-chat__input-group_padding-20 {
             padding: 0 20px;
         }
@@ -285,16 +327,20 @@
         border: 0.7px solid var(--modal-input-border-color);
         box-sizing: border-box;
         border-radius: 3px;
+        &.chat__input_placeholder {
+            color: var(--search-input-placeholder-color);
+        }
     }
     .modal-create-chat__my-folders {
         position: relative;
-    }
-    .modal-create-chat__my-folders_scroll {
-        height: calc(53px * 3);
-        ::-webkit-scrollbar {
-            display: none;
+        &.modal-create-chat__my-folders_scroll {
+            height: calc(53px * 2);
+            ::-webkit-scrollbar {
+                display: none;
+            }
         }
     }
+
     .modal-create-chat__folder-content {
         overflow-y: auto;
         height: 100%;
@@ -351,23 +397,32 @@
         font-size: 12px;
         line-height: 16px;
     }
-    .modal-create-chat__select-whatsapp {
-        transition: .3s ease;
-    }
-    .modal-create-chat__select-whatsapp_reverse {
-        transform: rotate(180deg);
-    }
-    .modal-create-chat__whatsapp-list {
+    .modal-create-chat__whatsapp-container {
+        position: relative;
         background: var(--context-background-color);
         color: var(--user-info-settings-default-svg-fill);
-        margin: 7px 20px 0;
+        margin: 0 20px;
         text-align: left;
-        overflow: hidden;
-        height: 110px;
         border-radius: 6px;
+        height: 37px;
+        overflow: hidden;
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        &.modal-create-chat__whatsapp-container_two-el {
+            height: calc(37px * 2);
+        }
+        &.modal-create-chat__my-folders_scroll {
+            height: calc(37px * 3);
+        }
+
+    }
+    .modal-create-chat__whatsapp-list {
+        overflow-y: auto;
+        height: 100%;
     }
     .height-transition-enter-active, .height-transition-leave-active {
-        transition: height .3s ease;
+        transition: .3s ease;
     }
     .height-transition-enter-from, .height-transition-leave-to {
         height: 0;
@@ -390,5 +445,42 @@
     .modal-create-chat__height-container {
         max-height: 360px;
         overflow: hidden;
+    }
+    .modal-create-chat__choice-buttons {
+        background: var(--modal-element-borders-color);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        height: 51px;
+        margin-top: 27px;
+    }
+    .modal-create-chat__choice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--left-bar-color);
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 21px;
+        color: var(--search-input-placeholder-color);
+        transition: .2s ease;
+        width: 100%;
+        height: 100%;
+        &:first-of-type {
+            margin-right: 1px;
+        }
+        &:last-of-type {
+            margin-left: 1px;
+        }
+        &.modal-create-chat__choice_active {
+            background: var(--modal-element-hover-bg-color);
+            color: var(--modal-font-color);
+        }
+
+
     }
 </style>

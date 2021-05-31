@@ -52,6 +52,7 @@ export function useStyle() {
             'modal-button-cancel-color': '#414159', //цвет "Отмены" во всех модалках
             'modal-input-border-color': '#414159',
             'modal-send-images-name-color': '#F0F0FA',
+            'modal-element-borders-color': '#2E2E4E',
 
 
             'button-cancel-color': '#2E2E4E', //цвет bg cancel кнопки
@@ -170,6 +171,7 @@ export function useStyle() {
             'modal-button-cancel-color': '#9797BB', //цвет "Отмены" во всех модалках
             'modal-input-border-color': '#DEDEEE',
             'modal-send-images-name-color': '#414159',
+            'modal-element-borders-color': '#9797BB',
 
 
 
