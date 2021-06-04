@@ -34,7 +34,7 @@
     export default {
         setup() {
             const { contextPosition, isContextOpened, unsetContext, context } = useContextMenu();
-            const { selectedFolder, deleteFolder, selectFolder, getAllFolders } = useFolder();
+            const { selectedFolder, deleteFolder, selectFolder, getAllFolders, selectedParentFolder, getAllFoldersInFolder } = useFolder();
             const { deleteDialog, getDialogs, selectDialog } = useDialogs();
             const { toggleModalCreateFolder, toggleModalMoveChat, setSelectedDialogsToMove } = useModals();
             const { setTextModalConfirmDelete, setSaveCallbackModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
@@ -59,8 +59,12 @@
             const delFolder = () => {
                 let callback = () => deleteFolder([context.value.id])
                     .then(() => {
+                        if (selectedParentFolder.value) {
+                            getAllFoldersInFolder(selectedParentFolder.value, true);
+                        } else {
+                            getAllFolders();
+                        }
                         selectFolder(null);
-                        getAllFolders();
                     })
                 setTextModalConfirmDelete(`Вы точно хотите удалить папку "${context.value.item}"?`)
                 setSaveCallbackModalConfirmDelete(callback);

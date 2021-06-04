@@ -86,8 +86,8 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 21px;
-        color: var(--foreign-messages-font-color);
-        background: var(--messenger-search-input-bg);
+        color: var(--modal-font-color);
+        background: var(--modal-element-hover-bg-color);
         &::placeholder {
             font-style: normal;
             font-weight: normal;

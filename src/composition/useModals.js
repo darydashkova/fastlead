@@ -18,6 +18,10 @@ const fromModals = reactive({
     fromCreateChatToCreateFolder: false,
 })
 
+let onCloseCallbackCreateFolder = () => null;
+const setCloseCallbackCreateFolder = (cb) => {
+    onCloseCallbackCreateFolder = cb;
+}
 
 let onCloseCallbackCreateChat = () => null;
 const setCloseCallbackCreateChat = (cb) => {
@@ -37,6 +41,7 @@ const setCloseCallbackNewMessage = (cb) => {
 const selectedDialogsToMove = reactive({
     data: [],
 });
+const createFolderParentId = ref(null);
 
 export function useModals() {
     const toggleModalCreateFolder = (value, folder) => {
@@ -84,6 +89,7 @@ export function useModals() {
     return {
         toggleModalCreateFolder,
         openedModalCreateFolder,
+        createFolderParentId,
 
         toggleModalCreateChat,
         openedModalCreateChat,
@@ -123,6 +129,9 @@ export function useModals() {
 
         setCloseCallbackNewMessage,
         onCloseCallbackNewMessage,
+
+        setCloseCallbackCreateFolder,
+        onCloseCallbackCreateFolder,
 
     }
 }

@@ -20,7 +20,12 @@
                     </svg>
                     <span>ЗАГРУЗИТЬ</span>
                 </label>
-                <input @change="changePhoto" type="file" id="add-photo-ava" style="display: none">
+                <input @change="changePhoto"
+                       type="file"
+                       id="add-photo-ava"
+                       style="display: none"
+                       accept="image/*"
+                >
             </div>
             <div class="modal-change-ava__delete pointer" @click="del">
                 Удалить

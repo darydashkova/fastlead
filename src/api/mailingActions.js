@@ -81,7 +81,7 @@ export default {
         return api.fetch('POST', 'dynamic-mass-sending/start', body)
     },
     getSingleDynamicMailing: (id) => {
-        return api.fetch('GET', `get/dynamic-mass-sending?mass_sending_id=${id}`)
+        return api.fetch('GET', `get/dynamic-mass-sending?dynamic_mass_sending_id=${id}`)
     },
     updateDynamicMailing: (data) => {
         let body = {

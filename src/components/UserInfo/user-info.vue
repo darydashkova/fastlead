@@ -2,7 +2,9 @@
     <div class="user-info">
         <div class="user-info__container">
             <div class="user-info__ava-container">
-                <img :src="user.avatar" alt="" class="user-info__ava">
+                <div class="user-info__ava"
+                    :style="{'background': `url(${user.avatar}) center center / cover no-repeat`}"
+                ></div>
             </div>
             <div class="user-info__login">
                 {{user.login}}

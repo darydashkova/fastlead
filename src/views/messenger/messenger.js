@@ -36,7 +36,7 @@ export default {
     },
     setup() {
         const { user, getUser } = useUser();
-        const { getAllFolders, selectFolder, folders } = useFolder();
+        const { getAllFolders, selectFolder, folders, getAllFoldersInFolder } = useFolder();
         const { isContextOpened } = useContextMenu();
         const { socket } = useSocket();
         const { selectDialog, getDialogs, toggleAllSelectedGroupDialogs } = useDialogs();
@@ -58,6 +58,7 @@ export default {
                 if (folder_id) {
                     selectFolder(+folder_id);
                     getDialogs(+folder_id);
+                    getAllFoldersInFolder(+folder_id, true);
                 } else {
                     let def = +folders.value.find(i => i.is_default).folder_id;
                     selectFolder(def);

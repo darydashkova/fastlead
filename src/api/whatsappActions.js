@@ -41,5 +41,8 @@ export default {
     },
     getWhatsappQr: (id) => {
         return api.fetch('GET', `get/whatsapp/qr?whatsapp_id=${id}`)
-    }
+    },
+    getWhatsappActivities: () => {
+        return api.fetch('GET', `get/whatsapp-activities/all`)
+    },
 }

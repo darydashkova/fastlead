@@ -1,5 +1,5 @@
 import accountActions from "../api/accountActions";
-import imageActions from "../api/imageActions";
+import imageActions from "../api/filesActions";
 
 export function useAccount() {
     const changePass = async (password) => {

@@ -101,7 +101,7 @@
             }
 
             const edit = (id) => {
-                emit('gotoCreate', id);
+                emit('gotoCreate', id, 1);
             }
 
             onMounted(() => {
