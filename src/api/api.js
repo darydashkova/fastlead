@@ -1,4 +1,7 @@
-const url = '/api/';
+const dotenv = require('dotenv');
+dotenv.config();
+
+const url = `https://${process.env.API_URL}`;
 
 export const api = {
     fetch : async (method, endpoint, body = null, token = false, withCredential = false) => {

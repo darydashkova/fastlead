@@ -4,8 +4,8 @@
             <div>
                 Шаблоны сообщений
             </div>
-            <BaseButton v-if="false" class="base-button_cancel base-button_p5-15">Отмена</BaseButton>
-            <BaseButton v-else class="base-button_enter base-button_p5-15" @click="create">Создать новый</BaseButton>
+            <BaseButton v-if="false" class="base-button_cancel base-button_p6-40">Отмена</BaseButton>
+            <BaseButton v-else class="base-button_enter base-button_p6-40" @click="create">Создать новый</BaseButton>
         </div>
         <div class="settings-message-templates__scroll-container">
             <div class="scroll" ref="container" @click.self="scrollTo">

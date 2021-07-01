@@ -1,5 +1,8 @@
 <template>
-    <table class="settings-autoresponder-table">
+    <div class="settings-autoresponder-table">
+        <div class="settings-autoresponder-table__table-container" >
+            <div class="settings-autoresponder-table__scroll-container">
+                <table class="settings-autoresponder-table__table">
         <tr>
             <th>Название</th>
             <th>Статус</th>
@@ -54,6 +57,9 @@
             </td>
         </tr>
     </table>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -113,60 +119,4 @@
     }
 </script>
 
-<style lang="scss">
-    .settings-autoresponder-table {
-        width: 100%;
-        border-spacing: 0;
-        th {
-            font-style: normal;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 21px;
-            color: var(--font-color);
-            text-align: left;
-            padding: 17px;
-            &:first-of-type {
-                padding-left: 45px;
-            }
-            &:last-of-type {
-                padding-right: 45px;
-                text-align: right;
-            }
-            border-bottom: 1px solid var(--separator-color);
-        }
-        td {
-            font-style: normal;
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 19px;
-            color: var(--search-input-placeholder-color);
-            text-align: left;
-            padding: 26px 16px;
-            &:first-of-type {
-                padding-left: 45px;
-            }
-            &:last-of-type {
-                text-align: right;
-                padding-right: 45px;
-            }
-            border-bottom: 1px solid var(--separator-color);
-        }
-    }
-    .settings-autoresponder-table__actions-container {
-        display: flex;
-        justify-content: flex-end;
-        .settings-autoresponder-table__action {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-
-            margin-right: 3px;
-            &:last-of-type {
-                margin-right: 0;
-            }
-        }
-
-    }
-</style>
+<style lang="scss" src="./settings-autoresponder-table.scss"></style>

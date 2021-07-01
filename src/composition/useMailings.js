@@ -5,7 +5,7 @@ import { reactive, computed } from 'vue';
 const mailings = reactive({
     data: [],
 })
-const dynamicMailinigs = reactive({
+const dynamicMailings = reactive({
     data: [],
 })
 
@@ -41,11 +41,14 @@ export function useMailings() {
     const createDynamicMailing = async (data) => {
         return await mailingActions.createDynamicMailing(data);
     }
+
+
+
     const getDynamicMailings = async () => {
         return await mailingActions.getDynamicMailings()
             .then(r => {
-                dynamicMailinigs.data = [...r.mass_sendings];
-                return r.mass_sendings;
+                dynamicMailings.data = [...r.dynamic_mass_sendings];
+                return r.dynamic_mass_sendings;
             })
     }
     const deleteDynamicMailing = async (ids) => {

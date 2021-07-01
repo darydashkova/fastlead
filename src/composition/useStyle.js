@@ -70,70 +70,23 @@ export function useStyle() {
             'settings-whatsapp-del-icon-bg': '#1D1D35',
             'ranged-buttons-color': '#141427',
             'calendar-bg': '#0F0F1B', //цвет календаря
+            'search-input-color': '#575773', //цвет поисковой строки var(--search-input-color)
 
 
 
-
-
-
-
-
-
-
-            'header-color': '#141427', //цвет фона и хедера --> var(--)
-
-            'search-input-color': '#757589', //цвет поисковой строки var(--search-input-color)
-            'active-message-color': '#757589', //цвет выбранного диалога var(--active-message-color)
-            'active-folder-color': '#EDEDEF', //цвет активной директории var(--active-folder-color)
             'sub-text-color': '#B7B7BE', //цвет шрифта(вторичный) var(--sub-text-color),
             'date-in-message-color': '#EDEDEF', //цвет текста в отображении даты
-
-            'message-action-icon-color': '#B7B7BE', //цвет иконок
-            'folder-create-button-color': '#404054', //цвет создания папки и текста
-            'folder-create-plus-color': '#1D1D35', //цвет линий плюсика в svg
             'stripe-instead-ava': '#FFFFFF', //цвет полосок вместо авы
-
-            'user-name-color': '#FFFFFF', //имя профиля в левой панели
-
-            'svg-settings-fill': '#F9F5F3', //цвет SVG в настройках профиля
-
-
-            'create-folder-color': '#1D1D35', //цвет модального окна создания папки var(--create-folder-color)
-            'create-folder-font-color': '#EDEDEF', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
-            'create-folder-header-color': '#FFFFFF', //цвет заголовка в модальном окне создания папки var(--create-folder-font--color)
-            'create-folder-border-color': '#757589', //цвет бордеров в модальном окне создания папки var(--create-folder-font--color)
-            'create-folder-font-button': '#EDEDEF', //цвет текста в кнопке
-
-            'cancel-button-color-in-modals': '#4A4A5D', //цвет "Отмены" во всех модалках
-
-            'create-chat-border-color': '#404054', //цвет бордера и ховера папки
-
-
-
-
-            'settings-nav-border-color': '#757589',
-            'settings-active-link-color': '#757589',
-
             'mailings-cancel-button-color': '#4A4A5D',
-
-            'settings-dropdown-font-color': '#B7B7BE', //цвет текста в выпадающих менюшках
-            'settings-active-font-color': '#EDEDEF',
-            'settings-active-background-color': '#757589',
-            'settings-dropdown-border-color': '#404054',
-
-            'settings-recipients-active-font-color': '#EDEDEF',
 
             'calendar-border-color': '#1D1D35',
             'calendar-font-color': '#B7B7BE',
             'calendar-active-font-color': '#FFFFFF',
 
 
-
-            'settings-autoresponders-actions-dropdown-font-color': '#B7B7BE',
             'settings-autoresponders-actions-input-bg-color': '#141427',
 
             'base-checkbox-group-font-color': '#757589',
-
 
             'empty-photo-bg': 'rgba(29, 29, 53, 0.88)',
         }
@@ -190,67 +143,17 @@ export function useStyle() {
             'settings-whatsapp-del-icon-bg': '#EB5757',
             'ranged-buttons-color': '#DEDEEE',
             'calendar-bg': '#EDEDEF', //цвет календаря
+            'search-input-color': '#F0F0FA', //цвет поисковой строки var(--search-input-color)
 
-
-
-
-
-
-
-
-
-            'header-color': '#757589', //цвет фона и хедера --> var(--)
-            'footer-color': '#B7B7BE',
-
-            'search-input-color': '#EDEDEF', //цвет поисковой строки var(--search-input-color)
-            'active-message-color': '#EDEDEF', //цвет выбранного диалога var(--active-message-color)
-            'active-folder-color': '#1D1D35', //цвет активной директории var(--active-folder-color)
             'sub-text-color': '#757589', //цвет шрифта(вторичный) var(--sub-text-color)
             'date-in-message-color': '#1D1D35', //цвет текста в отображении даты
-
-            'message-action-icon-color': '#FFFFFF', //цвет иконок
-            'folder-create-button-color': '#FFFFFF', //цвет создания папки и текста
-            'folder-create-plus-color': '#B7B7BE', //цвет линий плюсика в svg
             'stripe-instead-ava': '#757589', //цвет полосок вместо авы
-
-            'user-name-color': '#404054', //имя профиля в левой панели
-
-            'svg-settings-fill': '#B7B7BE', //цвет SVG в настройках профиля
-
-
-            'create-folder-color': '#FFFFFF', //цвет модального окна создания папки var(--create-folder-color)
-            'create-folder-font-color': '#575773', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
-            'create-folder-header-color': '#000000', //цвет заголовка в модальном окне создания папки var(--create-folder-font--color)
-            'create-folder-border-color': '#757589', //цвет бордеров в модальном окне создания папки var(--create-folder-font--color)
-            'create-folder-font-button': '#F3F3F3', //цвет текста в кнопке
-
-            'cancel-button-color-in-modals': '#757589', //цвет "Отмены" во всех модалках
-
-
-
-            'create-chat-border-color': '#EDEDEF', //цвет бордера и ховера папки
-
-
-
-            'settings-nav-border-color': '#FFFFFF',
-            'settings-active-link-color': '#FFFFFF',
-
             'mailings-cancel-button-color': '#B7B7BE',
-
-            'settings-dropdown-font-color': '#757589',
-            'settings-active-font-color': '#FFFFFF',
-            'settings-active-background-color': '#B7B7BE',
-            'settings-dropdown-border-color': '#B7B7BE',
-
-            'settings-recipients-active-font-color': '#404054',
 
             'calendar-border-color': '#B7B7BE',
             'calendar-font-color': '#7D7D90',
             'calendar-active-font-color': '#404054',
 
-
-
-            'settings-autoresponders-actions-dropdown-font-color': '#EDEDEF',
             'settings-autoresponders-actions-input-bg-color': '#FFFFFF',
 
             'base-checkbox-group-font-color': '#404054',

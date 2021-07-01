@@ -207,7 +207,7 @@
     }
     .modal-send-images__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px;
         text-align: left;

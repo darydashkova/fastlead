@@ -30,6 +30,9 @@ export function useWhatsapp() {
     const getWhatsappQr = async (id) => {
         return await whatsappActions.getWhatsappQr(id);
     }
+    const getWhatsappActivities = async () => {
+        return await whatsappActions.getWhatsappActivities();
+    }
 
     return {
         whatsapps: computed(() => whatsapps.data),
@@ -40,5 +43,6 @@ export function useWhatsapp() {
         syncWhatsapp,
         activateWhatsapp,
         getWhatsappQr,
+        getWhatsappActivities,
     }
 }

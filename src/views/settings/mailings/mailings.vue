@@ -15,8 +15,8 @@
                     >Массовые</span>
                 </div>
             </div>
-            <BaseButton v-if="isCreating" class="base-button_cancel base-button_p5-15" @click="toggleCreating(false)">Отмена</BaseButton>
-            <BaseButton v-else class="base-button_enter base-button_p5-15" @click="toggleModalChoiceMailingType(true)">Создать новую</BaseButton>
+            <BaseButton v-if="isCreating" class="base-button_cancel base-button_p6-40" @click="toggleCreating(false)">Отмена</BaseButton>
+            <BaseButton v-else class="base-button_enter base-button_p6-40" @click="toggleModalChoiceMailingType(true)">Создать новую</BaseButton>
         </div>
         <div class="settings-mailings__scroll-container">
             <div class="scroll" ref="container" @click.self="scrollTo">
@@ -24,7 +24,7 @@
             </div>
             <div class="settings-mailings__content" ref="content">
                 <SettingsDynamicMailingsCreate
-                        v-if="isCreating && isMassCreating"
+                        v-if="isCreating && isCreatingMass"
                         :selectedMailingToEdit="selectedMailingToEdit"
                         @gotoTable="toggleCreating(false)"
                 ></SettingsDynamicMailingsCreate>
@@ -34,10 +34,13 @@
                         @gotoTable="toggleCreating(false)"
                 ></SettingsMailingsCreate>
 
-                <SettingsDynamicMailingsTable v-else-if="isDynamicMailingsTable"
+                <SettingsDynamicMailingsTable
+                        v-else-if="isDynamicMailingsTable"
+                        @gotoCreate="gotoCreate"
                 ></SettingsDynamicMailingsTable>
-                <SettingsMailingsTable v-else
-                                       @gotoCreate="gotoCreate"
+                <SettingsMailingsTable
+                        v-else
+                        @gotoCreate="gotoCreate"
                 ></SettingsMailingsTable>
             </div>
         </div>
@@ -65,10 +68,10 @@
     import {useMailings} from "../../../composition/useMailings";
     import {useCustomScroll} from "../../../composition/useCustomScroll";
     export default {
-        components: { BaseButton, SettingsMailingsTable, SettingsMailingsCreate, SettingsDynamicMailingsTable, SettingsDynamicMailingsCreate, ModalChoiceMailingType },
+        components: { BaseButton, SettingsMailingsTable, SettingsMailingsCreate, SettingsDynamicMailingsCreate, SettingsDynamicMailingsTable, ModalChoiceMailingType },
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-            const { getSingleMailing } = useMailings()
+            const { getSingleMailing, getSingleDynamicMailing } = useMailings()
 
             onMounted( () => {
                 init();
@@ -97,23 +100,34 @@
             }
 
             const gotoCreate = (id = null, choiceNumber) => {
-             if (id) {
-                 getSingleMailing(id)
-                     .then(r => {
-                         selectedMailingToEdit.value = r;
-                         toggleCreating(true)
-                     })
-             } else {
-                 if (choiceNumber === 1) {
-                     toggleIsCreatingMass(false)
-                     toggleModalChoiceMailingType(false)
-                 } else if (choiceNumber === 2) {
-                     toggleIsCreatingMass(true)
-                     toggleModalChoiceMailingType(false)
-                 }
-                 selectedMailingToEdit.value = null;
-                 toggleCreating(true)
-             }
+                if (id) {
+                    if (choiceNumber === 1) {
+                        getSingleMailing(id)
+                            .then(r => {
+                                selectedMailingToEdit.value = r;
+                                toggleIsCreatingMass(false)
+                                toggleCreating(true)
+                            })
+                    } else if (choiceNumber === 2) {
+                        getSingleDynamicMailing(id)
+                            .then(r => {
+                                selectedMailingToEdit.value = r;
+                                toggleIsCreatingMass(true)
+                                toggleCreating(true)
+                            })
+                    }
+
+                } else {
+                    if (choiceNumber === 1) {
+                        toggleIsCreatingMass(false)
+                        toggleModalChoiceMailingType(false)
+                    } else if (choiceNumber === 2) {
+                        toggleIsCreatingMass(true)
+                        toggleModalChoiceMailingType(false)
+                    }
+                    selectedMailingToEdit.value = null;
+                    toggleCreating(true)
+                }
             }
             const selectedMailingToEdit = ref(null);
 
@@ -129,7 +143,7 @@
 
              return {
                  isCreating,
-                 isMassCreating,
+                 isCreatingMass,
                  toggleCreating,
                  headerName,
                  gotoCreate,

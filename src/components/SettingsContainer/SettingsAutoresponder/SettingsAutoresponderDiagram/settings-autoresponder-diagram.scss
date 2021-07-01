@@ -1,0 +1,163 @@
+.settings-autoresponder-diagram {
+  background: var(--left-bar-color);
+  width: 100%;
+  height: calc(100% - 34px - 26px);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.settings-autoresponder-diagram__container {
+  width: 100%;
+  height: 100%;
+  background: var(--left-bar-color);
+  position: relative;
+}
+.settings-autorespondeer-diagram__sidebar {
+  position: absolute;
+  width: 234px;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  right: 0;
+  top: 0;
+  background: var(--button-cancel-color);
+}
+.settings-autoresponder-diagram__create-button {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  cursor: pointer;
+  circle {
+    transition: .2s ease;
+  }
+  &:hover {
+    circle {
+      fill: url(#paint0_linear);
+    }
+  }
+}
+
+
+
+
+
+.settings-autoresponder-card {
+  background: var(--hover-folder-bg);
+  border: 1px solid var(--search-input-placeholder-color);
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 18px;
+
+  width: 334px;
+  height: 100%;
+}
+.settings-autoresponder-card__container {
+  margin-bottom: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &:last-of-type {
+    margin-bottom: 0;
+    height: 139px;
+  }
+}
+.settings-autoresponder-card__header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+
+  color: var(--font-color);
+}
+.settings-autoresponder-card__message {
+  border-radius: 7px;
+  background: var(--modal-element-hover-bg-color);
+  padding: 12px;
+  height: 139px;
+  width: 188px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--font-color);
+  &::placeholder {
+    color: var(--search-input-placeholder-color)
+  }
+}
+.settings-autoresponder-card__actions-container {
+  display: flex;
+  align-items: center;
+}
+.settings-autoresponder-card__link-name {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  width: 123px;
+  justify-content: flex-end;
+  background: var(--hover-folder-bg);
+
+  span {
+    margin-right: 12px;
+
+    background: var(--search-input-placeholder-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    &.settings-autoresponder-card__link-name_active {
+      background: var(--green-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+
+}
+.settings-autoresponder-card__link {
+  border-radius: 50%;
+  width: 11px;
+  height: 11px;
+  background: var(--search-input-placeholder-color);
+  position: relative;
+}
+.settings-autoresponder-card__burger {
+
+}
+
+
+.settings-autoresponder-start-card {
+  border-radius: 35px;
+  width: 86px;
+  height: 33px;
+  background: var(--green-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.settings-autoresponder-start-card__inner {
+  background: var(--hover-folder-bg);
+  border-radius: 35px;
+  width: 82px;
+  height: 29px;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 21px;
+
+
+    background: var(--green-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

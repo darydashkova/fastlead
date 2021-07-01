@@ -46,6 +46,40 @@
     width: 45%;
   }
 }
+.settings-mailings-create__avatar-container {
+  width: 100%;
+  display: flex;
+  margin-top: 32px;
+  cursor: pointer;
+  &.settings-mailings-create__avatar-container_disabled {
+    cursor: default;
+    .settings-mailings-create__avatar-hint {
+      color: var(--modal-input-border-color)!important;
+    }
+  }
+}
+.settings-mailings-create__avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.settings-mailings-create__avatar-header {
+  margin-left: 18px;
+  width: 190px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.settings-mailings-create__avatar-hint {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 140%;
+  color: var(--search-input-placeholder-color);
+  text-align: left;
+}
 .settings-mailings-create__label {
   font-style: normal;
   font-weight: normal;
@@ -60,6 +94,9 @@
   &.settings-mailings-create__label_relative {
     position: relative;
   }
+  &.settings-mailings-create__label_disabled {
+    color: var(--modal-input-border-color);
+  }
 }
 .settings-mailings-create__iconed-input {
   width: 100%;
@@ -72,6 +109,7 @@
       max-width: 100%;
     }
   }
+
 }
 .settings-mailings-create__input {
   font-family: Segoe UI;
@@ -87,19 +125,26 @@
   box-sizing: border-box;
   border-radius: 3px;
   text-align: left;
+  cursor: pointer;
   &::placeholder {
     color: var(--search-input-placeholder-color);
   }
   &.settings-autoresponder-create__input_selector {
     position: relative;
   }
+  &:disabled {
+    color: var(--modal-input-border-color);
+    border: .7px solid var(--modal-input-border-color);
+    cursor: default;
+    .settings-mailings-create__select-item {
+      cursor: default!important;
+    }
+  }
 }
 .settings-mailings-create__select-item {
   display: flex;
   align-items: center;
   position: relative;
-  color: var(--font-color);
-
 }
 .settings-mailings-create__select-icon {
   margin-right: 15px;

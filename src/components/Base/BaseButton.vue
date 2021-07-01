@@ -12,20 +12,26 @@
         line-height: 21px;
         color: #F0F0FA;
         padding: 11px 36px;
-        border-radius: 5px;
+        border-radius: 6px;
         cursor: pointer;
     }
     .base-button_enter {
         background: var(--green-color);
     }
     .base-button_cancel {
-        background: var(--modal-button-cancel-color);
+        background: #575773;
     }
     .base-button_delete {
         background: var(--red-color);
     }
     .base-button_p5-15 {
         padding: 6px 20px;
+    }
+    .base-button_p6-40 {
+        padding: 6px 40px;
+    }
+    .base-button_p5-10 {
+        padding: 5px 10px;
     }
     .base-button_w-100 {
         width: 100%;

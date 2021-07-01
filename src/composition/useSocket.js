@@ -21,7 +21,12 @@ mp3.type = 'audio/mpeg';
 audio.append(ogg);
 audio.append(mp3);
 
-const socket = new WebSocket(`ws://${window.location.hostname}:3000`)
+const dotenv = require('dotenv');
+dotenv.config();
+
+const url = `ws://${process.env.API_URL}:${process.env.SOCKET_PORT}`;
+
+const socket = new WebSocket(url)
 
 
 export function useSocket() {

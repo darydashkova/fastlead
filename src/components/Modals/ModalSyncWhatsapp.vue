@@ -93,7 +93,7 @@
     }
     .modal-sync-whatsapp__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;

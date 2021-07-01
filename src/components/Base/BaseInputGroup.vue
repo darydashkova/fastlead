@@ -2,7 +2,10 @@
     <div class="base-input-group">
         <label class="base-input-group__label"
                :for="id"
-               :class="{'base-input-group__label_error': error}"
+               :class="{
+                   'base-input-group__label_error': error,
+                   'base-input-group__label_disabled': disabled
+               }"
         >
             <slot></slot>
         </label>
@@ -11,6 +14,7 @@
                :id="id"
                :placeholder="placeholder"
                :value="value"
+               :disabled="disabled"
                @input="input"
         >
     </div>
@@ -25,6 +29,7 @@
             dynamicId: [String, Number],
             placeholder: String,
             error: Boolean,
+            disabled: Boolean,
         },
 
         setup(props, { emit }) {
@@ -35,6 +40,7 @@
                 id: props.dynamicId,
                 placeholder: props.placeholder,
                 error: computed(() => props.error),
+                disabled: computed(() => props.disabled),
             }
         }
     }
@@ -44,6 +50,9 @@
     .base-input-group {
         text-align: left;
         width: 100%;
+        &.base-input-group_m-32 {
+            margin-top: 32px;
+        }
         &.base-input-group_m-48 {
             margin-top: 48px;
         }
@@ -76,6 +85,9 @@
         &.base-input-group__label_error {
             color: var(--red-color);
         }
+        &.base-input-group__label_disabled {
+            color: var(--modal-input-border-color);
+        }
     }
     .base-input-group__input {
         font-family: Segoe UI;
@@ -94,6 +106,10 @@
         padding: 6px 10px;
         &::placeholder {
             color: var(--default-svg-fill);
+        }
+        &:disabled {
+            color: var(--modal-input-border-color);
+            border: .7px solid var(--modal-input-border-color);
         }
     }
 </style>

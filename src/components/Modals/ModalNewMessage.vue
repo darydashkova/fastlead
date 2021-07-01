@@ -79,7 +79,7 @@
     }
     .modal-new-message__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
@@ -93,7 +93,7 @@
     }
     .base-new-message__textarea {
         background: transparent;
-        border: 0.7px solid var(--create-folder-border-color);
+        border: 0.7px solid var(--modal-input-border-color);
         box-sizing: border-box;
         border-radius: 5px;
         width: 100%;
@@ -104,7 +104,7 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 21px;
-        color: var(--create-folder-header-color);
+        color: var(--modal-font-color);
     }
     .base-new-message__container {
         padding: 0 20px;

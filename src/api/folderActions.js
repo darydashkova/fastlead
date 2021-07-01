@@ -4,6 +4,9 @@ export default {
     getAllFolders: () => {
         return api.fetch('GET', 'get/folder/all')
     },
+    getAllFoldersInFolder: (id) => {
+        return api.fetch('GET', `get/folder/all?parent_folder_id=${id}`)
+    },
     createFolder: (data) => {
       let lData = {
           ...data,

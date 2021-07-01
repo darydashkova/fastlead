@@ -8,11 +8,17 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "dotenv": "^10.0.0",
     "emoji-regex": "^9.2.2",
+    "gojs": "^2.1.41",
     "maska": "^1.4.1",
+    "mxgraph": "^4.2.2",
     "register-service-worker": "^1.7.1",
+    "vis-network": "^9.0.4",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
+    "vue-vis-network": "^1.0.2",
+    "vue-visjs": "^0.6.0",
     "vuedraggable": "^4.0.1",
     "wheel-indicator": "^1.3.0"
   },

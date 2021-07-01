@@ -271,7 +271,7 @@
         font-weight: normal;
         font-size: 18px;
         line-height: 24px;
-        color: var(--create-folder-font-color);
+        color: var(--modal-font-color);
     }
     .modal-add-to-folder__inner-checkbox {
         width: 18px;

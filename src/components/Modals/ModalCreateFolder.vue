@@ -48,7 +48,7 @@
                         @click="lCreateFolder"
                         class="base-button_enter"
                 >
-                    Добавить
+                    {{editingFolder.name? 'Сохранить' : 'Добавить'}}
                 </BaseButton>
                 <BaseButton
                         @click="close"
@@ -77,8 +77,21 @@
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseCircleIcon, BaseModalHeader },
         setup() {
-            const { createFolder, getAllFolders, folders, selectFolder, updateFolder } = useFolder();
-            const { toggleModalCreateFolder, toggleModalAddToFolder, selectedFolderToEdit, selectedDialogsToFolder, setSelectedDialogs, fromModals, setCloseCallback, selectedDialogsInEdit, setSelectedDialogsInEdit } = useModals();
+            const { createFolder, getAllFolders, folders, selectFolder, updateFolder, foldersInSelectedFolder } = useFolder();
+            const {
+                toggleModalCreateFolder,
+                toggleModalAddToFolder,
+                selectedFolderToEdit,
+                selectedDialogsToFolder,
+                setSelectedDialogs,
+                fromModals,
+                selectedDialogsInEdit,
+                createFolderParentId,
+                setSelectedDialogsInEdit,
+                setCloseCallbackCreateFolder,
+                onCloseCallbackCreateFolder
+
+            } = useModals();
             const { getDialogs, dischargeDialog, moveDialog } = useDialogs();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
 
@@ -94,6 +107,9 @@
             const editingFolder = computed(() => {
                 if (selectedFolderToEdit.value) {
                     let f = folders.value.find(i => i.folder_id === selectedFolderToEdit.value);
+                    if (!f) {
+                        f = foldersInSelectedFolder.value.find(i => i.folder_id === selectedFolderToEdit.value);
+                    }
                     name.value = f.name;
                     getDialogs(selectedFolderToEdit.value)
                         .then(r => {
@@ -112,8 +128,15 @@
 
             const lCreateFolder = () => {
                 error.value = false;
-                // selectedDialogsInEdit
-                const closeModalAfterFetch = () => {
+                const closeModalAfterFetch = (isParent) => {
+                    if (isParent) {
+                        onCloseCallbackCreateFolder();
+                        setCloseCallbackCreateFolder(() => null);
+                        toggleModalCreateFolder(false);
+                        createFolderParentId.value = null;
+
+                        return;
+                    }
                     getAllFolders()
                         .then(r => {
                             let id = r.find(i => i.name === name.value).folder_id
@@ -125,35 +148,41 @@
                             toggleModalCreateFolder(false);
                         })
                 }
-                if (name.value) {
-                    if (editingFolder.value.name) {
-                        let toDischarge = selectedDialogsInEdit.value.filter(item => {
-                            return selectedDialogsToFolder.value.find(i => i.dialog_id !== item.dialog_id);
-                        })
-                        let toMoveIn = selectedDialogsToFolder.value.filter(item => {
-                            return selectedDialogsInEdit.value.find(i => i.dialog_id !== item.dialog_id);
-                        })
-                        const afterUpdateName = async () => {
-                            toDischarge.length && await dischargeDialog({dialog_ids: toDischarge.map(i => i.dialog_id)})
-                            toMoveIn.length && await moveDialog({dialog_ids: toMoveIn.map(i => i.dialog_id), folder_id: editingFolder.value.folder_id})
-                            closeModalAfterFetch();
-                        }
-                        (editingFolder.value.name !== name.value) && updateFolder({name: name.value, folder_id: editingFolder.value.folder_id})
-                        afterUpdateName();
-                    } else {
-                        createFolder({
-                            name: name.value,
-                            dialog_ids: selectedDialogsToFolder.value.map(i => i.dialog_id),
-                        }).then(r => {
-                            if (r.error) {
-                                error.value = true;
-                            } else {
-                                closeModalAfterFetch()
-                            }
-                        })
-                    }
-                } else {
+                if (!name.value) {
                     error.value = true;
+                    return;
+                }
+                if (editingFolder.value.name) {
+                    let toDischarge = selectedDialogsInEdit.value.filter(item => {
+                        return selectedDialogsToFolder.value.find(i => i.dialog_id !== item.dialog_id);
+                    })
+                    let toMoveIn = selectedDialogsToFolder.value.filter(item => {
+                        return selectedDialogsInEdit.value.find(i => i.dialog_id !== item.dialog_id);
+                    })
+                    const afterUpdateName = async () => {
+                        toDischarge.length && await dischargeDialog({dialog_ids: toDischarge.map(i => i.dialog_id)})
+                        toMoveIn.length && await moveDialog({dialog_ids: toMoveIn.map(i => i.dialog_id), folder_id: editingFolder.value.folder_id})
+                        closeModalAfterFetch();
+                    }
+                    (editingFolder.value.name !== name.value)
+                        && updateFolder({name: name.value, folder_id: editingFolder.value.folder_id})
+                    afterUpdateName();
+                } else {
+                    let obj = {
+                        name: name.value,
+                        dialog_ids: selectedDialogsToFolder.value.map(i => i.dialog_id),
+                    }
+                    if (createFolderParentId.value) {
+                        obj.parent_folder_id = createFolderParentId.value;
+                    }
+                    createFolder(obj)
+                        .then(r => {
+                        if (r.error) {
+                            error.value = true;
+                            return;
+                        }
+                        closeModalAfterFetch(createFolderParentId.value);
+                    })
                 }
             }
 

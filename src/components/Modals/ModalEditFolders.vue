@@ -15,7 +15,8 @@
                 </div>
                 <div class="modal-edit-folders__container" ref="content">
                     <template v-for="folder in folders">
-                        <div v-if="!folder.is_default" class="modal-edit-folders__folder" @click="!folder.is_default && toggleModalCreateFolder(true, folder.folder_id)">
+                        <div v-if="!folder.is_default && folder.editing_possible" class="modal-edit-folders__folder"
+                             @click="toggleModalCreateFolder(true, folder.folder_id)">
                             <div class="modal-edit-folders__folder-container">
                                 <div class="modal-edit-folders__name">
                                     {{folder.name}}
@@ -44,7 +45,7 @@
                 </div>
             </div>
             <BaseModalText class="base-modal-text_padding-20 base-modal-text_mt-29 base-modal-text_uppercase base-modal-text_hovered pointer"
-                @click="toggleModalCreateFolder(true)"
+                @click="createNewFolder"
             >
                 +Создать новую папку
             </BaseModalText>
@@ -94,8 +95,14 @@
             ModalConfirmDelete,
         },
         setup() {
-            const { folders, deleteFolder, getAllFolders } = useFolder();
-            const { toggleModalEditFolders, toggleModalCreateFolder} = useModals();
+            const { folders,
+                deleteFolder,
+                getAllFolders,
+                selectedParentFolder,
+                foldersInSelectedFolder ,
+                getAllFoldersInFolder,
+            } = useFolder();
+            const { toggleModalEditFolders, toggleModalCreateFolder, setCloseCallbackCreateFolder, createFolderParentId } = useModals();
             const { toggleModalConfirmDelete, openedModalConfirmDelete, setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete } = useModalConfirmDelete()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll();
 
@@ -130,8 +137,19 @@
                 deleteFolder(deletingIds.data)
                     .then(() => {
                         toggleModalEditFolders(false);
-                        getAllFolders()
+                        if (selectedParentFolder.value) {
+                            getAllFoldersInFolder(selectedParentFolder.value, true);
+                        } else {
+                            getAllFolders();
+                        }
                     })
+            }
+            const createNewFolder = () => {
+                if (selectedParentFolder.value) {
+                    setCloseCallbackCreateFolder(() => getAllFoldersInFolder(selectedParentFolder.value, true))
+                    createFolderParentId.value = selectedParentFolder.value;
+                }
+                toggleModalCreateFolder(true);
             }
 
             onMounted(() => {
@@ -144,8 +162,9 @@
                 scrollbar,
                 scrollTo,
                 
-                folders,
+                folders: selectedParentFolder.value? foldersInSelectedFolder : folders,
                 toggleModalEditFolders,
+                createNewFolder,
 
                 addToDel,
                 removeFromDel,

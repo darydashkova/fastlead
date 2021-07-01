@@ -4,9 +4,9 @@
             <div>
                 {{headerName}}
             </div>
-            <BaseButton v-if="isCreating && !autoresponders.isOpenedEdit" class="base-button_cancel base-button_p5-15" @click="toggleCreating(false)">Отмена</BaseButton>
-            <BaseButton v-else-if="isCreating && autoresponders.isOpenedEdit" class="base-button_cancel base-button_p5-15" @click="cancelEdit">Отменить изменения</BaseButton>
-            <BaseButton v-else class="base-button_enter base-button_p5-15" @click="gotoCreate(null)">Создать новый</BaseButton>
+            <BaseButton v-if="isCreating && !autoresponders.isOpenedEdit" class="base-button_cancel base-button_p6-40" @click="toggleCreating(false)">Отмена</BaseButton>
+            <BaseButton v-else-if="isCreating && autoresponders.isOpenedEdit" class="base-button_cancel base-button_p6-40" @click="cancelEdit">Отменить изменения</BaseButton>
+            <BaseButton v-else class="base-button_enter base-button_p6-40" @click="gotoCreate(null)">Создать новый</BaseButton>
         </div>
         <div class="settings-autoresponder__scroll-container">
             <div class="scroll" ref="container" @click.self="scrollTo">
@@ -30,7 +30,7 @@
 
 <script>
     import BaseButton from '../../../components/Base/BaseButton.vue'
-    import SettingsAutoresponderTable from '../../../components/SettingsContainer/SettingsAutoresponder/SettingsAutoresponderTable.vue'
+    import SettingsAutoresponderTable from '../../../components/SettingsContainer/SettingsAutoresponder/settings-autoresponder-table.vue'
     import SettingsAutoresponderCreate from '../../../components/SettingsContainer/SettingsAutoresponder/SettingsAutoresponderCreate.vue'
 
     import {ref, computed, onMounted} from 'vue';

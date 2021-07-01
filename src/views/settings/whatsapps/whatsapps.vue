@@ -4,7 +4,7 @@
             <div>
                 WhatsApp аккаунты
             </div>
-            <BaseButton class="base-button_enter base-button_p5-15" @click="create">Добавить новый</BaseButton>
+            <BaseButton class="base-button_enter base-button_p6-40" @click="create">Добавить новый</BaseButton>
         </div>
         <div class="settings-whatsapps__scroll-container">
             <div class="scroll" ref="container" @click.self="scrollTo">
@@ -13,7 +13,6 @@
             <div class="settings-whatsapps__content" ref="content">
                 <div class="settings-whatsapps__element" v-for="whatsapp in whatsapps"
                      :key="whatsapp.whatsapp_id+'SettingsWhatsapp'">
-
                     <div class="settings-whatsapps__name">
                         <span>
                             {{whatsapp.name}}
