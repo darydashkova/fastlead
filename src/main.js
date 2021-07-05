@@ -4,11 +4,11 @@ import './registerServiceWorker';
 import router from './router';
 import Maska from 'maska'
 
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
 
-console.log(process.env.API_URL);
-console.log(process.env.SOCKET_PORT);
+// console.log(process.env.API_URL);
+// console.log(process.env.SOCKET_PORT);
 
 
 const app = createApp(App)

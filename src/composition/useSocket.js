@@ -21,12 +21,12 @@ mp3.type = 'audio/mpeg';
 audio.append(ogg);
 audio.append(mp3);
 
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
 
-const url = `ws://${process.env.API_URL}:${process.env.SOCKET_PORT}`;
-
-const socket = new WebSocket(url)
+// const url = `ws://${process.env.API_URL}:${process.env.SOCKET_PORT}`;
+const socket = new WebSocket(`wss://api.fastlead.app:3000`)
+// const socket = new WebSocket(url)
 
 
 export function useSocket() {

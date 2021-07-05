@@ -1,8 +1,8 @@
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
 
-const url = `https://${process.env.API_URL}`;
-
+// const url = `https://${process.env.API_URL}`;
+const url = `https://api.fastlead.app/`;
 export const api = {
     fetch : async (method, endpoint, body = null, token = false, withCredential = false) => {
         let fetchArgs = {
