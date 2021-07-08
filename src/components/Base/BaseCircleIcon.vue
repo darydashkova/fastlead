@@ -1,9 +1,12 @@
 <template>
     <div class="base-circle-icon"
-        :class="{'base-circle-icon_active': isActive,}"
-         @mouseleave="moveOut"
+        :class="{
+            'base-circle-icon_active': isActive,
+            'base-circle-icon_need-selecting': isNeedSelecting,
+            'base-circle-icon_selected': isSelected,
+        }"
     >
-        <div v-if="isSelector || isSelected" class="base-circle-icon__selector"
+        <div v-if="isNeedSelecting" class="base-circle-icon__selector"
              :class="{'base-circle-icon__selector_active': isSelected}"
             @click.stop="toggleSelecting"
         >
@@ -19,9 +22,13 @@
                 </svg>
             </div>
         </div>
-        <img v-else class="base-circle-icon__image" :src="src" alt=""
-             @mouseover="moveIn"
-        >
+        <div class="base-circle-icon__image"
+            :style="{
+                'background': `url(${src}) no-repeat`,
+                'background-size': 'cover',
+                'background-position': 'center center',
+            }"
+        ></div>
     </div>
 </template>
 
@@ -135,16 +142,34 @@
                 margin-left: 0;
             }
         }
+        &.base-circle-icon_need-selecting {
+            &:hover {
+                .base-circle-icon__selector {
+                    display: flex;
+                }
+                .base-circle-icon__image {
+                    display: none;
+                }
+            }
+        }
+        &.base-circle-icon_selected {
+            .base-circle-icon__selector {
+                display: flex;
+            }
+            .base-circle-icon__image {
+                display: none;
+            }
+        }
     }
     .base-circle-icon__selector {
         width: 22px;
         height: 22px;
         background: #9797BB;
         border-radius: 5px;
-        padding: 1.5px;
-        display: flex;
+        padding: 1.6px;
         justify-content: center;
         align-items: center;
+        display: none;
     }
     .base-circle-icon__inside-selector {
         background: #FBFBFE;
@@ -152,8 +177,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 18.5px;
-        height: 18.5px;
+        width: 100%;
+        height: 100%;
     }
     .base-circle-icon__selector_active {
         background: var(--green-color);

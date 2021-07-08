@@ -22,8 +22,98 @@
                         {{user.login}}
                     </div>
                     <div class="settings-account__last-element">
-                        <BaseButton class="base-button_enter base-button_p5-15" @click="toggleModalChangeAva(true)">Изменить</BaseButton>
+                        <div class="settings-account__action-button" @click="toggleModalChangeAva(true)">Изменить фото</div>
+
                     </div>
+                </div>
+                <div class="settings-account__row settings-account__row_pd-26 settings-account__row_column">
+                    <div class="settings-account__row settings-account__row_none"
+                         :class="{'settings-account__row_mb-24': openedActivity}"
+                    >
+                        <div class="settings-account__first-element">
+                            <div class="settings-account__text">
+                                Последняя активность
+                            </div>
+                        </div>
+                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
+                            <div>
+                                <div class="settings-account__text">
+                                    Windows - Краснодар, Россия
+                                </div>
+                                <div class="settings-account__sub-text">
+                                    сегодня в 16:53 - Браузер Yandex Browser
+                                </div>
+                            </div>
+                            <div class="settings-account__online-text">
+                                online
+                            </div>
+                        </div>
+                        <div class="settings-account__last-element">
+                            <div class="settings-account__action-button"
+                                 v-if="!openedActivity"
+                                 @click="toggleOpenedActivity(true)"
+                            >История активности</div>
+                            <BaseButton v-else
+                                        @click="toggleOpenedActivity(false)"
+                                        class="base-button_cancel base-button_p5-15"
+                            >
+                                Свернуть
+                            </BaseButton>
+                        </div>
+                    </div>
+                    <template v-if="openedActivity">
+                        <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
+                            <div class="settings-account__first-element">
+                            </div>
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
+                                <div>
+                                    <div class="settings-account__text">
+                                        Windows - Краснодар, Россия
+                                    </div>
+                                    <div class="settings-account__sub-text">
+                                        сегодня в 16:53 - Браузер Yandex Browser
+                                    </div>
+                                </div>
+                                <div class="settings-account__online-text">
+                                    online
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
+                            <div class="settings-account__first-element">
+                            </div>
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
+                                <div>
+                                    <div class="settings-account__text">
+                                        Windows - Краснодар, Россия
+                                    </div>
+                                    <div class="settings-account__sub-text">
+                                        сегодня в 16:53 - Браузер Yandex Browser
+                                    </div>
+                                </div>
+                                <div class="settings-account__online-text">
+                                    online
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
+                            <div class="settings-account__first-element">
+                            </div>
+                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
+                                <div>
+                                    <div class="settings-account__text">
+                                        Windows - Краснодар, Россия
+                                    </div>
+                                    <div class="settings-account__sub-text">
+                                        сегодня в 16:53 - Браузер Yandex Browser
+                                    </div>
+                                </div>
+                                <div class="settings-account__online-text">
+                                    online
+                                </div>
+                            </div>
+                        </div>
+                    </template>
                 </div>
                 <div v-if="openedChangePass" class="settings-account__row settings-account__row_pd-32 settings-account__row_column">
                     <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
@@ -32,11 +122,25 @@
                                 Пароль
                             </div>
                         </div>
-                        <div>
-                            <input type="password" class="settings-account_input" v-model="password.prev">
+                        <div class="settings-account__sub-text">
+                            Обновлен 8 месяцев назад
                         </div>
                         <div class="settings-account__last-element">
                             <BaseButton class="base-button_enter base-button_p5-15" @click="tryToChangePass">Готово</BaseButton>
+                        </div>
+                    </div>
+                    <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
+                        <div class="settings-account__first-element">
+                            <div class="settings-account__text">
+                                Старый пароль
+                            </div>
+                        </div>
+                        <div>
+                            <input type="password" class="settings-account_input" v-model="password.prev">
+                        </div>
+
+                        <div class="settings-account__last-element">
+                            <BaseButton class="base-button_cancel base-button_p5-15" @click="toggleOpenedChangePass(false)">Отмена</BaseButton>
                         </div>
                     </div>
                     <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
@@ -49,9 +153,6 @@
                              :class="{'settings-account__password_error-length': password.error_length}"
                         >
                             <input type="password" class="settings-account_input" v-model="password.new">
-                        </div>
-                        <div class="settings-account__last-element">
-                            <BaseButton class="base-button_cancel base-button_p5-15" @click="toggleOpenedChangePass(false)">Отмена</BaseButton>
                         </div>
                     </div>
                     <div class="settings-account__row settings-account__row_none">
@@ -77,99 +178,8 @@
                         Обновлен 8 месяцев назад
                     </div>
                     <div class="settings-account__last-element">
-                        <BaseButton class="base-button_enter base-button_p5-15" @click="toggleOpenedChangePass(true)">Изменить пароль</BaseButton>
+                        <div class="settings-account__action-button" @click="toggleOpenedChangePass(true)">Изменить пароль</div>
                     </div>
-                </div>
-                <div class="settings-account__row settings-account__row_pd-26 settings-account__row_column">
-                    <div class="settings-account__row settings-account__row_none"
-                         :class="{'settings-account__row_mb-24': openedActivity}"
-                    >
-                        <div class="settings-account__first-element">
-                            <div class="settings-account__text">
-                                Последняя активность
-                            </div>
-                        </div>
-                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
-                            <div>
-                                <div class="settings-account__text">
-                                    Windows - Краснодар, Россия
-                                </div>
-                                <div class="settings-account__sub-text">
-                                    сегодня в 16:53 - Браузер Yandex Browser
-                                </div>
-                            </div>
-                            <div class="settings-account__online-text">
-                                online
-                            </div>
-                        </div>
-                        <div class="settings-account__last-element">
-                            <BaseButton v-if="!openedActivity"
-                                        @click="toggleOpenedActivity(true)"
-                                        class="base-button_enter base-button_p5-15"
-                            >
-                                История активности
-                            </BaseButton>
-                            <BaseButton v-else
-                                        @click="toggleOpenedActivity(false)"
-                                        class="base-button_cancel base-button_p5-15"
-                            >
-                                Свернуть
-                            </BaseButton>
-                        </div>
-                    </div>
-                    <template v-if="openedActivity">
-                        <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
-                            <div class="settings-account__first-element">
-                            </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
-                                <div>
-                                    <div class="settings-account__text">
-                                        Windows - Краснодар, Россия
-                                    </div>
-                                    <div class="settings-account__sub-text">
-                                        сегодня в 16:53 - Браузер Yandex Browser
-                                    </div>
-                                </div>
-                                <div class="settings-account__online-text">
-                                    online
-                                </div>
-                            </div>
-                        </div>
-                        <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
-                            <div class="settings-account__first-element">
-                            </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
-                                <div>
-                                    <div class="settings-account__text">
-                                        Windows - Краснодар, Россия
-                                    </div>
-                                    <div class="settings-account__sub-text">
-                                        сегодня в 16:53 - Браузер Yandex Browser
-                                    </div>
-                                </div>
-                                <div class="settings-account__online-text">
-                                    online
-                                </div>
-                            </div>
-                        </div>
-                        <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
-                            <div class="settings-account__first-element">
-                            </div>
-                            <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-489">
-                                <div>
-                                    <div class="settings-account__text">
-                                        Windows - Краснодар, Россия
-                                    </div>
-                                    <div class="settings-account__sub-text">
-                                        сегодня в 16:53 - Браузер Yandex Browser
-                                    </div>
-                                </div>
-                                <div class="settings-account__online-text">
-                                    online
-                                </div>
-                            </div>
-                        </div>
-                    </template>
                 </div>
                 <div class="settings-account__row settings-account__row_pd-32 settings-account__row_column">
                     <div class="settings-account__row settings-account__row_none"
@@ -184,7 +194,10 @@
                             Сегодня в 20:30 - создал рассылку
                         </div>
                         <div class="settings-account__last-element">
-                            <BaseButton v-if="!openedActions" class="base-button_enter base-button_p5-15" @click="toggleOpenedActions(true)">История действий</BaseButton>
+                            <div class="settings-account__action-button"
+                                 v-if="!openedActions"
+                                 @click="toggleOpenedActions(true)"
+                            >История действий</div>
                             <BaseButton v-else class="base-button_cancel base-button_p5-15" @click="toggleOpenedActions(false)">Свернуть</BaseButton>
                         </div>
                     </div>

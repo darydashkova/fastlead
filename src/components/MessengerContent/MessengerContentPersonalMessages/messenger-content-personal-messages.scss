@@ -47,17 +47,15 @@
   border-radius: 8px;
   position: absolute;
   z-index: 1200;
-  border: 1px solid var(--context-background-color);
   background: var(--context-background-color);
-  color: var(--user-info-settings-default-svg-fill);
 
   right: 0;
   top: 100%;
   width: 191px;
 }
 .messenger-content-personal-messages__info-list {
+  padding: 0;
   margin: 0;
-  padding: 6px 0;
   text-align: left;
 }
 .messenger-content-personal-messages__info-element {
@@ -69,8 +67,9 @@
   font-size: 16px;
   line-height: 21px;
   transition: .3s ease;
+  color: var(--user-info-settings-default-svg-fill);
   &:hover {
-    background: var(--user-info-settings-hover-svg-fill);
-    color: var(--messenger-search-input-bg);
+    background: var(--user-info-settings-hover-setting-bg);
+    color: var(--font-color);
   }
 }

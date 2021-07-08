@@ -4,19 +4,19 @@
             @blur="unsetContext"
     >
         <ul class="base-context-menu__list">
-            <template v-if="context.item === 'dialog'">
-                <li class="base-context-menu__element" @click="delDialog(context.id)">
+            <template v-if="context.itemName === 'dialog'">
+                <li class="base-context-menu__element" @click="delDialog()">
                     Удалить
                 </li>
-                <li class="base-context-menu__element" @click="moveChat(context.id)">
+                <li class="base-context-menu__element" @click="moveChat()">
                     Переместить в папку
                 </li>
             </template>
-            <template v-if="context.item === 'folder'">
-                <li class="base-context-menu__element" @click="toggleModalCreateFolder(true, context.id)">
+            <template v-if="context.itemName === 'folder'">
+                <li class="base-context-menu__element" @click="editFolder()">
                     Редактировать папку
                 </li>
-                <li class="base-context-menu__element" @click="delFolder(context.id)">
+                <li class="base-context-menu__element" @click="delFolder()">
                     Удалить
                 </li>
             </template>
@@ -30,39 +30,58 @@
     import {useDialogs} from "../composition/useDialogs";
     import {useFolder} from "../composition/useFolder";
     import {useModals} from "../composition/useModals";
+    import {useModalConfirmDelete} from "../composition/useModalConfirmDelete";
     export default {
         setup() {
             const { contextPosition, isContextOpened, unsetContext, context } = useContextMenu();
-            const { selectedFolder, deleteFolder, selectFolder, getAllFolders } = useFolder();
+            const { selectedFolder, deleteFolder, selectFolder, getAllFolders, selectedParentFolder, getAllFoldersInFolder } = useFolder();
             const { deleteDialog, getDialogs, selectDialog } = useDialogs();
             const { toggleModalCreateFolder, toggleModalMoveChat, setSelectedDialogsToMove } = useModals();
+            const { setTextModalConfirmDelete, setSaveCallbackModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
 
             onMounted(() => {
                 document.querySelector('.base-context-menu').focus()
             })
 
-            const delDialog = (id) => {
-                deleteDialog([id])
+            const delDialog = () => {
+                let callback = () => deleteDialog([context.value.id])
                     .then(() => {
                         selectDialog(null);
                         getDialogs(selectedFolder.value);
-                        document.querySelector('.base-context-menu').blur()
                     })
+                setTextModalConfirmDelete(`Вы точно хотите удалить чат с ${context.value.item}?`)
+                setSaveCallbackModalConfirmDelete(callback);
+                unsetContext();
+
+                toggleModalConfirmDelete(true);
             }
 
-            const delFolder = (id) => {
-                deleteFolder([id])
+            const delFolder = () => {
+                let callback = () => deleteFolder([context.value.id])
                     .then(() => {
+                        if (selectedParentFolder.value) {
+                            getAllFoldersInFolder(selectedParentFolder.value, true);
+                        } else {
+                            getAllFolders();
+                        }
                         selectFolder(null);
-                        getAllFolders();
-                        document.querySelector('.base-context-menu').blur()
                     })
+                setTextModalConfirmDelete(`Вы точно хотите удалить папку "${context.value.item}"?`)
+                setSaveCallbackModalConfirmDelete(callback);
+                unsetContext();
+
+                toggleModalConfirmDelete(true);
             }
 
-            const moveChat = (id) => {
-                setSelectedDialogsToMove([id]);
+            const moveChat = () => {
+                setSelectedDialogsToMove([context.value.id]);
                 toggleModalMoveChat(true);
-                document.querySelector('.base-context-menu').blur()
+                unsetContext();
+            }
+
+            const editFolder = () => {
+                toggleModalCreateFolder(true, context.value.id);
+                unsetContext();
             }
 
 
@@ -73,6 +92,7 @@
                 delDialog,
                 delFolder,
                 moveChat,
+                editFolder,
 
                 unsetContext,
                 toggleModalCreateFolder,
@@ -96,25 +116,27 @@
         z-index: 1200;
         border: 1px solid var(--context-background-color);
         background: var(--context-background-color);
-        color: var(--user-info-settings-default-svg-fill);
+        overflow: hidden;
+
     }
     .base-context-menu__list {
+        padding: 0;
         margin: 0;
-        padding: 6px 12px;
         text-align: left;
     }
     .base-context-menu__element {
         list-style-type: none;
-        margin: 10px 0;
+        padding: 10px 12px;
         cursor: pointer;
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
         line-height: 21px;
         transition: .3s ease;
+        color: var(--user-info-settings-default-svg-fill);
         &:hover {
-            background: var(--user-info-settings-hover-svg-fill);
-            color: var(--messenger-search-input-bg);
+            background: var(--user-info-settings-hover-setting-bg);
+            color: var(--font-color);
         }
     }
 </style>

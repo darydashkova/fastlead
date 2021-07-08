@@ -1,5 +1,9 @@
-const url = '/api/';
+// const dotenv = require('dotenv');
+// dotenv.config();
 
+// const url = `https://${process.env.API_URL}`;
+// const url = `https://api.fastlead.app/`;
+const url = `${process.env.VUE_APP_API_URL}/`;
 export const api = {
     fetch : async (method, endpoint, body = null, token = false, withCredential = false) => {
         let fetchArgs = {
@@ -9,6 +13,10 @@ export const api = {
         withCredential && (fetchArgs.credentials = 'include')
         fetchArgs.headers['Content-Type'] = 'application/json'
         fetchArgs.headers['Accept'] = 'application/json'
+        if (token && localStorage.getItem('token')) {
+            // fetchArgs.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+            fetchArgs.headers['Bearer'] = `${localStorage.getItem('token')}`
+        }
         body && (fetchArgs.body = JSON.stringify(body))
         return await fetch(url+endpoint, fetchArgs)
             .then(res => res.json())
@@ -32,6 +40,10 @@ export const api = {
         };
         withCredential && (fetchArgs.credentials = 'include')
         fetchArgs.headers['Accept'] = 'application/json'
+        if (token && localStorage.getItem('token')) {
+            // fetchArgs.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+            fetchArgs.headers['Bearer'] = `${localStorage.getItem('token')}`
+        }
         let formData = new FormData();
         formData.append('image', body);
         fetchArgs.body = formData;

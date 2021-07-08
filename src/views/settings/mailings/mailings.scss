@@ -1,23 +1,37 @@
 .settings-mailings__header {
-  height: 80px;
-  padding: 16px;
+  height: 78px;
+  padding: 0 45px;
   position: relative;
   text-align: left;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--separator-color);
 
   font-style: normal;
   font-weight: normal;
   font-size: 22px;
   line-height: 29px;
-  color: var(--create-folder-header-color);
+  color: var(--settings-header-color);
+}
+.settings-mailings__sub-header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+}
+.settings-mailings__sub-title {
+  background: var(--search-input-placeholder-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: .2s background;
+  &.settings-mailings__sub-title_active {
+    background: var(--green-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 .settings-mailings__scroll-container {
-  //30px padding
-  //80px header
-  height: calc(100vh - 110px);
+  height: calc(100% - 79px);
   position: relative;
   ::-webkit-scrollbar {
     display: none;

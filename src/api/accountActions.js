@@ -6,13 +6,13 @@ export default {
             ...new_password,
             csrf_token: localStorage.getItem('x-csrf'),
         }
-        return api.fetch('POST', 'set/user/password', body)
+        return api.fetch('POST', 'set/user/password', body, true)
     },
     changeAva: (uid) => {
         let body = {
             img_uid: uid,
             csrf_token: localStorage.getItem('x-csrf'),
         }
-        return api.fetch('POST', 'set/user/avatar', body)
+        return api.fetch('POST', 'set/user/avatar', body, true)
     }
 }

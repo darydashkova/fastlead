@@ -8,15 +8,12 @@ const routes = [
     redirect: '/login',
   },
   {
-    path: '',
-    component: () => import ('../views/messenger/messenger.vue')
-  },
-  {
     path: '/login',
     name: 'login',
     component: () => import ('../views/login/login.vue'),
     meta: {
       withoutAuth: true,
+      title: 'Fastlead - Авторизация'
     }
   },
   {
@@ -25,6 +22,16 @@ const routes = [
     component: () => import ('../views/registration/registration.vue'),
     meta: {
       withoutAuth: true,
+      title: 'Fastlead - Регистрация'
+    }
+  },
+  {
+    path: '/',
+    name: 'messenger',
+    component: () => import ('../views/messenger/messenger.vue'),
+    meta: {
+        requiresAuth: true,
+        title: 'Fastlead - Мессенджер'
     }
   },
   {
@@ -33,6 +40,7 @@ const routes = [
     component: () => import ('../views/messenger/messenger.vue'),
     meta: {
       requiresAuth: true,
+      title: 'Fastlead - Мессенджер'
     }
   },
   {
@@ -41,23 +49,30 @@ const routes = [
     component: () => import ('../views/settings/settings.vue'),
     meta: {
       requiresAuth: true,
+      title: 'Fastlead - Настройки'
     },
     children: [
       {
         path: '', redirect: '/settings/mailings'
       },
       {
-        path: 'mailings', component: () => import('../views/settings/mailings/mailings.vue')
+        path: 'mailings', component: () => import('../views/settings/mailings/mailings.vue'), meta: {requiresAuth: true, title: 'Fastlead - Рассылки'}
       },
       {
-        path: 'whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue')
+        path: 'whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: {requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты'}
       },
       {
-        path: 'account', component: () => import('../views/settings/account/account.vue')
+        path: 'account', component: () => import('../views/settings/account/account.vue'), meta: {requiresAuth: true, title: 'Fastlead - Настройки аккаунта'}
       },
       {
-        path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue')
-      }
+        path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue'), meta: {requiresAuth: true, title: 'Fastlead - Автоответчики'}
+      },
+      {
+        path: 'message-templates', component: () => import('../views/settings/message-templates/message-templates.vue'), meta: {requiresAuth: true, title: 'Fastlead - Шаблоны сообщений'}
+      },
+      {
+        path: 'integrations', component: () => import('../views/settings/integrations/integrations.vue'), meta: {requiresAuth: true, title: 'Fastlead - Интеграции'}
+      },
     ]
   },
 ]
@@ -73,20 +88,28 @@ function getCookie(name) {
   ));
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+function isAuth() {
+  return !!localStorage.getItem('token');
+}
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (getCookie('SessionKey')) {
+  // document.title = to.meta.title
+  // next()
+  if (to.meta.requiresAuth) {
+    if (isAuth()) {
+      document.title = to.meta.title
       next()
       return
     }
     next('/login')
-  } else {
-    if (to.matched.some(record => record.meta.withoutAuth)) {
-      if (getCookie('SessionKey')) {
-        outAuth();
-      }
-    }
+  }
+  else {
+    // if (to.meta.withoutAuth) {
+    //   if (isAuth()) {
+    //     outAuth();
+    //   }
+    // }
+    document.title = to.meta.title
     next()
   }
 })

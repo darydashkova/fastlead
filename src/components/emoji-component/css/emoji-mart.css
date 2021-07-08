@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   height: 200px;
-  background: transparent;
+  background: var(--messages-input-wrapper-bg);
   margin-bottom: 14px;
 }
 
@@ -156,10 +156,10 @@
   color: var(--font-color);
   display: block;
   width: 100%;
-  padding: 6px 20px;
+  padding: 8px 18px;
   border-radius: 6px;
   outline: 0;
-  background: var(--left-bar-color);
+  background: var(--main-color);
 }
 .emoji-mart-search input ::placeholder {
   font-style: normal;
@@ -167,7 +167,7 @@
   font-size: 16px;
   line-height: 21px;
 
-  color: #757589;
+  color: var(--placeholder-color);
 }
 .emoji-mart-search-results {
   height: 250px;

@@ -1,0 +1,120 @@
+.settings-autoresponder-table {
+  width: 100%;
+  height: 100%;
+  padding: 20px 45px;
+
+}
+.settings-autoresponder-table__table-container {
+  width: 100%;
+  height: 100%;
+  background: var(--settings-nav-color);
+  border-radius: 5px;
+  padding: 15px;
+}
+.settings-autoresponder-table__scroll-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: block!important;
+    width: 18px; /* ширина для вертикального скролла */
+    height: 18px; /* высота для горизонтального скролла */
+    background-color: var(--settings-main-color);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--search-input-placeholder-color);
+    box-shadow: inset 0 0 0 5px var(--settings-main-color);
+  }
+  &::-webkit-scrollbar-button:vertical:start:decrement {
+    background:
+            linear-gradient(120deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(240deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(0deg, var(--search-input-placeholder-color) 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: var(--settings-main-color);
+  }
+  &::-webkit-scrollbar-button:vertical:end:increment {
+    background:
+            linear-gradient(300deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(60deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(180deg, var(--search-input-placeholder-color) 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: var(--settings-main-color);
+  }
+  &::-webkit-scrollbar-button:horizontal:start:decrement {
+    background:
+            linear-gradient(30deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(150deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(270deg, var(--search-input-placeholder-color) 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: var(--settings-main-color);
+  }
+  &::-webkit-scrollbar-button:horizontal:end:increment {
+    background:
+            linear-gradient(210deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(330deg, var(--search-input-placeholder-color) 40%, rgba(0, 0, 0, 0) 41%),
+            linear-gradient(90deg, var(--search-input-placeholder-color) 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: var(--settings-main-color);
+  }
+}
+
+.settings-autoresponder-table__table {
+  width: 100%;
+  max-height: 100%;
+  border-spacing: 0;
+  min-width: 1068px;
+  background: transparent;
+  overflow: hidden;
+  th {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 21px;
+    color: var(--font-color);
+    text-align: left;
+    padding: 17px;
+    &:first-of-type {
+      padding-left: 45px;
+    }
+    &:last-of-type {
+      padding-right: 45px;
+      text-align: right;
+    }
+    border-bottom: 1px solid var(--separator-color);
+  }
+  td {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--search-input-placeholder-color);
+    text-align: left;
+    padding: 26px 16px;
+    &:first-of-type {
+      padding-left: 45px;
+    }
+    &:last-of-type {
+      text-align: right;
+      padding-right: 45px;
+    }
+    border-bottom: 1px solid var(--separator-color);
+  }
+}
+.settings-autoresponder-table__actions-container {
+  display: flex;
+  justify-content: flex-end;
+  .settings-autoresponder-table__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--settings-main-color);
+    border-radius: 3px;
+
+    margin-right: 3px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+}

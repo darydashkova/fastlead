@@ -57,7 +57,7 @@
                 </div>
 
             </div>
-            <BaseModalText @click="add" class="base-modal-text_mt-29 base-modal-text_uppercase pointer">
+            <BaseModalText @click="add" class="base-modal-text_mt-29 base-modal-text_uppercase base-modal-text_hovered pointer">
                 +Добавить фото
             </BaseModalText>
             <input type="file" style="display: none;" id="modal-send-images__input-file" @change="change">
@@ -207,7 +207,7 @@
     }
     .modal-send-images__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px;
         text-align: left;

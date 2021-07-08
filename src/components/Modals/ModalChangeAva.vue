@@ -14,17 +14,20 @@
                     'background-position': 'center center',
                 }"
             >
-                <label v-if="isDeleting" for="add-photo-ava" class="modal-change-ava__file">
+                <label for="add-photo-ava" class="modal-change-ava__file">
                     <svg width="78" height="63" viewBox="0 0 78 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.262695 19.1167V53.0774C0.262695 58.2611 4.47245 62.4708 9.65609 62.4708H67.8386C73.0223 62.4708 77.232 58.2611 77.232 53.0774V19.1167C77.232 14.1843 73.2265 10.1788 68.2941 10.1788H55.7906L55.4921 8.87503C54.2826 3.64426 49.6801 0 44.308 0H33.171C27.8146 0 23.2121 3.64426 21.9869 8.87503L21.6884 10.1788H9.20056C4.26824 10.1788 0.262695 14.2001 0.262695 19.1167ZM23.2278 14.0273C24.1232 14.0273 24.8929 13.4146 25.0971 12.535L25.7411 9.73897C26.5579 6.2675 29.6053 3.84847 33.171 3.84847H44.308C47.8737 3.84847 50.9211 6.2675 51.7379 9.73897L52.3819 12.535C52.5861 13.3989 53.3558 14.0273 54.2512 14.0273H68.2784C71.0902 14.0273 73.3678 16.3049 73.3678 19.1167V53.0774C73.3678 56.1405 70.886 58.6223 67.8229 58.6223H9.65609C6.59303 58.6223 4.11116 56.1405 4.11116 53.0774V19.1167C4.11116 16.3049 6.38882 14.0273 9.20056 14.0273H23.2278Z" fill="#EDEDEF"/>
-                        <path d="M13.2849 24.8182C14.7076 24.8182 15.861 23.6649 15.861 22.2421C15.861 20.8194 14.7076 19.666 13.2849 19.666C11.8621 19.666 10.7087 20.8194 10.7087 22.2421C10.7087 23.6649 11.8621 24.8182 13.2849 24.8182Z" fill="#EDEDEF"/>
-                        <path d="M38.7475 52.5908C47.654 52.5908 54.9111 45.3337 54.9111 36.4272C54.9111 27.5208 47.654 20.2637 38.7475 20.2637C29.8411 20.2637 22.584 27.5051 22.584 36.4272C22.584 45.3494 29.8411 52.5908 38.7475 52.5908ZM38.7475 24.1121C45.5334 24.1121 51.0626 29.6414 51.0626 36.4272C51.0626 43.2131 45.5334 48.7423 38.7475 48.7423C31.9617 48.7423 26.4324 43.2131 26.4324 36.4272C26.4324 29.6414 31.9617 24.1121 38.7475 24.1121Z" fill="#EDEDEF"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.262695 19.1167V53.0774C0.262695 58.2611 4.47245 62.4708 9.65609 62.4708H67.8386C73.0223 62.4708 77.232 58.2611 77.232 53.0774V19.1167C77.232 14.1843 73.2265 10.1788 68.2941 10.1788H55.7906L55.4921 8.87503C54.2826 3.64426 49.6801 0 44.308 0H33.171C27.8146 0 23.2121 3.64426 21.9869 8.87503L21.6884 10.1788H9.20056C4.26824 10.1788 0.262695 14.2001 0.262695 19.1167ZM23.2278 14.0273C24.1232 14.0273 24.8929 13.4146 25.0971 12.535L25.7411 9.73897C26.5579 6.2675 29.6053 3.84847 33.171 3.84847H44.308C47.8737 3.84847 50.9211 6.2675 51.7379 9.73897L52.3819 12.535C52.5861 13.3989 53.3558 14.0273 54.2512 14.0273H68.2784C71.0902 14.0273 73.3678 16.3049 73.3678 19.1167V53.0774C73.3678 56.1405 70.886 58.6223 67.8229 58.6223H9.65609C6.59303 58.6223 4.11116 56.1405 4.11116 53.0774V19.1167C4.11116 16.3049 6.38882 14.0273 9.20056 14.0273H23.2278ZM13.2849 24.8185C14.7077 24.8185 15.861 23.6651 15.861 22.2424C15.861 20.8196 14.7077 19.6663 13.2849 19.6663C11.8622 19.6663 10.7088 20.8196 10.7088 22.2424C10.7088 23.6651 11.8622 24.8185 13.2849 24.8185ZM54.9112 36.4265C54.9112 45.3329 47.6541 52.5901 38.7476 52.5901C29.8412 52.5901 22.5841 45.3487 22.5841 36.4265C22.5841 27.5043 29.8412 20.2629 38.7476 20.2629C47.6541 20.2629 54.9112 27.52 54.9112 36.4265ZM51.0627 36.4265C51.0627 29.6406 45.5335 24.1114 38.7476 24.1114C31.9618 24.1114 26.4326 29.6406 26.4326 36.4265C26.4326 43.2124 31.9618 48.7416 38.7476 48.7416C45.5335 48.7416 51.0627 43.2124 51.0627 36.4265Z" fill="#F0F0FA"/>
                     </svg>
                     <span>ЗАГРУЗИТЬ</span>
                 </label>
-                <input @change="changePhoto" type="file" id="add-photo-ava" style="display: none">
+                <input @change="changePhoto"
+                       type="file"
+                       id="add-photo-ava"
+                       style="display: none"
+                       accept="image/*"
+                >
             </div>
-            <div class="modal-change-ava__delete pointer" @click="isDeleting = true">
+            <div class="modal-change-ava__delete pointer" @click="del">
                 Удалить
             </div>
             <div class="modal-change-ava__buttons">
@@ -64,6 +67,9 @@
             const close = () => {
                 toggleModalChangeAva(false);
             }
+            const del = () => {
+                photoUrl.value = '/img/icon_inactive.png';
+            }
 
             const isDeleting = ref(false);
 
@@ -85,7 +91,7 @@
                 let afterSave = () => {
                     close();
                 }
-                if (photoUrl.value === user.value.avatar) {
+                if (photoUrl.value === user.value.avatar || photoUrl.value === '/img/icon_inactive.png') {
                     afterSave()
                 } else {
                     changeAva(photo.value)
@@ -106,6 +112,7 @@
                 isDeleting,
                 photoUrl,
                 changePhoto,
+                del,
             }
         }
     }
@@ -130,7 +137,7 @@
     }
     .modal-change-ava__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
@@ -148,13 +155,19 @@
         height: 317px;
         border-radius: 6px;
         background: black;
+
+        &:hover {
+            .modal-change-ava__file {
+                opacity: 1;
+            }
+        }
     }
     .modal-change-ava__delete {
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
         line-height: 21px;
-        color: #EB5757;
+        color: var(--red-color);
         text-decoration: underline;
         padding: 0 20px;
     }
@@ -168,6 +181,8 @@
         border-radius: 6px;
         background: var(--empty-photo-bg);
         cursor: pointer;
+        opacity: 0;
+        transition: .2s ease;
         span {
             margin-top: 16px;
             font-style: normal;
@@ -175,7 +190,7 @@
             font-size: 16px;
             line-height: 21px;
             text-transform: uppercase;
-            color: #EDEDEF;
+            color: #F0F0FA;
         }
 
     }

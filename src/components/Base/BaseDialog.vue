@@ -47,7 +47,7 @@
                 </template>
                 <template v-else>
                     <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_count">
-                        {{chatInfo.unread}}
+                            {{chatInfo.unread}}
                     </div>
                     <div v-else class="base-dialog__status base-dialog__status_none"></div>
                 </template>
@@ -103,7 +103,7 @@
     .base-dialog{
         cursor: pointer;
         width: 100%;
-        height: 78px;
+        height: 82px;
         display: flex;
         align-items: center;
         padding: 0 16px;
@@ -121,7 +121,7 @@
                 width: 3px;
                 background: var(--green-color);
                 left: 0;
-                top: calc((78px - 46px) / 2);
+                top: calc((82px - 46px) / 2);
             }
         }
         &.base-dialog_not-padding {
@@ -190,6 +190,7 @@
         font-weight: 600;
         font-size: 12px;
         line-height: 16px;
+
         color: #FFFFFF;
     }
     .base-dialog__name {

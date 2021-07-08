@@ -68,6 +68,12 @@
         &.base-search-input_pdt-5 {
             padding-top: 5px;
         }
+        &.base-search-input_middle-bar {
+            .base-search-input__input {
+                background: var(--search-input-color)!important;
+            }
+        }
+
     }
     .base-search-input__input{
         -webkit-appearance: none;
@@ -86,14 +92,15 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 21px;
-        color: var(--foreign-messages-font-color);
-        background: var(--messenger-search-input-bg);
+        color: var(--modal-font-color);
+        background: var(--modal-element-hover-bg-color);
         &::placeholder {
             font-style: normal;
             font-weight: normal;
             font-size: 16px;
             color: var(--search-input-placeholder-color);
         }
+
     }
     .base-search-input__loupe{
         position: absolute;

@@ -1,6 +1,6 @@
 .settings-account__header {
-  height: 80px;
-  padding: 16px;
+  height: 78px;
+  padding: 16px 45px;
   position: relative;
   text-align: left;
   display: flex;
@@ -12,12 +12,12 @@
   font-weight: normal;
   font-size: 22px;
   line-height: 29px;
-  color: var(--create-folder-header-color);
+  color: var(--settings-header-color);
 }
 .settings-account__scroll-container {
   //30px padding
   //80px header
-  height: calc(100vh - 110px);
+  height: calc(100vh - 79px);
   position: relative;
   ::-webkit-scrollbar {
     display: none;
@@ -31,9 +31,9 @@
 .settings-account__text {
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
-  color: var(--settings-recipients-active-font-color);
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--font-color);
 
   display: flex;
   align-items: center;
@@ -42,9 +42,9 @@
 .settings-account__sub-text {
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
-  color: var(--folder-color);
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--search-input-placeholder-color);
 
   display: flex;
   align-items: center;
@@ -53,11 +53,9 @@
 .settings-account__online-text {
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
-  background: var(--green-color);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--font-color);
 
   display: flex;
   align-items: center;
@@ -66,13 +64,13 @@
 .settings-account__row {
   width: 100%;
   display: flex;
-  padding: 13px 16px;
+  padding: 13px 45px;
   border-bottom: 1px solid var(--separator-color);
   &.settings-account__row_pd-26 {
-    padding: 26px 16px;
+    padding: 26px 45px;
   }
   &.settings-account__row_pd-32 {
-    padding: 32px 16px;
+    padding: 32px 45px;
   }
   &.settings-account__row_none {
     padding: 0;
@@ -81,8 +79,8 @@
   &.settings-account__row_jsb {
     justify-content: space-between;
   }
-  &.settings-account__row_w-489 {
-    width: 489px;
+  &.settings-account__row_w-400 {
+    width: 400px;
   }
   &.settings-account__row_column {
     flex-direction: column;
@@ -101,20 +99,23 @@
   margin-left: auto;
   display: flex;
   align-items: center;
-  width: 210px;
-  min-width: 210px;
+  width: 150px;
+  min-width: 150px;
+  justify-content: flex-end;
   .base-button {
-    width: 100%;
+    width: 113px;
   }
 }
 .settings-account_input {
   padding: 6px 10px;
-  background: transparent;
   font-family: Segoe UI;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 21px;
+
+
+  background: var(--modal-element-hover-bg-color);
   color: var(--font-color);
   border: 0.7px solid var(--separator-color);
   border-radius: 3px;
@@ -158,5 +159,30 @@
   }
   .settings-account_input {
     border: 0.7px solid var(--red-color);
+  }
+}
+.settings-account__action-button {
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
+  padding: 1px 0;
+  cursor: pointer;
+
+  background: var(--green-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--green-color);
   }
 }

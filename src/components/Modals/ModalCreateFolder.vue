@@ -7,21 +7,20 @@
             </BaseModalHeader>
             <div class="modal-create-folder__input-group modal-create-folder__input-group_padding-20">
                 <BaseModalLabel for-id="modal-create-folder__input" :class="{'base-modal-label_error': error}">Название папки</BaseModalLabel>
-                <input id="modal-create-folder__input" type="text" class="modal-create-folder__input" v-model="name">
+                <input id="modal-create-folder__input" type="text" class="modal-create-folder__input" v-model="name" maxlength="19">
             </div>
-            <div class="modal-create-folder__selected">
-                <BaseModalText>Выбранные чаты</BaseModalText>
-                <div class="modal-create-folder__number">
+            <div class="modal-create-folder__input-group modal-create-folder__input-group_padding-20">
+                <BaseModalLabel >Выбранные чаты</BaseModalLabel>
+                <div class="modal-create-folder__input">
                     {{selectedDialogsToFolder.length}}
                 </div>
             </div>
-            <div class="modal-create-folder__add-chat">
-                <BaseModalText class="base-modal-text_uppercase pointer"
-                    @click="toggleModalAddToFolder(true)"
-                >Добавить чат</BaseModalText>
-            </div>
+            <BaseModalText class="base-modal-text_uppercase base-modal-text_mt-10 base-modal-text_padding-20 base-modal-text_hovered pointer"
+                @click="toggleModalAddToFolder(true)"
+            >+Добавить чат</BaseModalText>
 
-            <div class="modal-create-folder__dialogs"
+            <div v-show="selectedDialogsToFolder.length"
+                    class="modal-create-folder__dialogs"
                  :class="{'modal-create-folder__dialogs_scroll': selectedDialogsToFolder.length > 4}"
             >
                 <div v-show="selectedDialogsToFolder.length > 4" class="scroll" ref="container" @click.self="scrollTo">
@@ -49,7 +48,7 @@
                         @click="lCreateFolder"
                         class="base-button_enter"
                 >
-                    Добавить
+                    {{editingFolder.name? 'Сохранить' : 'Добавить'}}
                 </BaseButton>
                 <BaseButton
                         @click="close"
@@ -78,8 +77,21 @@
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseCircleIcon, BaseModalHeader },
         setup() {
-            const { createFolder, getAllFolders, folders, selectFolder, updateFolder } = useFolder();
-            const { toggleModalCreateFolder, toggleModalAddToFolder, selectedFolderToEdit, selectedDialogsToFolder, setSelectedDialogs, fromModals, setCloseCallback, selectedDialogsInEdit, setSelectedDialogsInEdit } = useModals();
+            const { createFolder, getAllFolders, folders, selectFolder, updateFolder, foldersInSelectedFolder } = useFolder();
+            const {
+                toggleModalCreateFolder,
+                toggleModalAddToFolder,
+                selectedFolderToEdit,
+                selectedDialogsToFolder,
+                setSelectedDialogs,
+                fromModals,
+                selectedDialogsInEdit,
+                createFolderParentId,
+                setSelectedDialogsInEdit,
+                setCloseCallbackCreateFolder,
+                onCloseCallbackCreateFolder
+
+            } = useModals();
             const { getDialogs, dischargeDialog, moveDialog } = useDialogs();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
 
@@ -95,6 +107,9 @@
             const editingFolder = computed(() => {
                 if (selectedFolderToEdit.value) {
                     let f = folders.value.find(i => i.folder_id === selectedFolderToEdit.value);
+                    if (!f) {
+                        f = foldersInSelectedFolder.value.find(i => i.folder_id === selectedFolderToEdit.value);
+                    }
                     name.value = f.name;
                     getDialogs(selectedFolderToEdit.value)
                         .then(r => {
@@ -113,8 +128,15 @@
 
             const lCreateFolder = () => {
                 error.value = false;
-                // selectedDialogsInEdit
-                const closeModalAfterFetch = () => {
+                const closeModalAfterFetch = (isParent) => {
+                    if (isParent) {
+                        onCloseCallbackCreateFolder();
+                        setCloseCallbackCreateFolder(() => null);
+                        toggleModalCreateFolder(false);
+                        createFolderParentId.value = null;
+
+                        return;
+                    }
                     getAllFolders()
                         .then(r => {
                             let id = r.find(i => i.name === name.value).folder_id
@@ -126,35 +148,41 @@
                             toggleModalCreateFolder(false);
                         })
                 }
-                if (name.value) {
-                    if (editingFolder.value.name) {
-                        let toDischarge = selectedDialogsInEdit.value.filter(item => {
-                            return selectedDialogsToFolder.value.find(i => i.dialog_id !== item.dialog_id);
-                        })
-                        let toMoveIn = selectedDialogsToFolder.value.filter(item => {
-                            return selectedDialogsInEdit.value.find(i => i.dialog_id !== item.dialog_id);
-                        })
-                        const afterUpdateName = async () => {
-                            toDischarge.length && await dischargeDialog({dialog_ids: toDischarge.map(i => i.dialog_id)})
-                            toMoveIn.length && await moveDialog({dialog_ids: toMoveIn.map(i => i.dialog_id), folder_id: editingFolder.value.folder_id})
-                            closeModalAfterFetch();
-                        }
-                        (editingFolder.value.name !== name.value) && updateFolder({name: name.value, folder_id: editingFolder.value.folder_id})
-                        afterUpdateName();
-                    } else {
-                        createFolder({
-                            name: name.value,
-                            dialog_ids: selectedDialogsToFolder.value.map(i => i.dialog_id),
-                        }).then(r => {
-                            if (r.error) {
-                                error.value = true;
-                            } else {
-                                closeModalAfterFetch()
-                            }
-                        })
-                    }
-                } else {
+                if (!name.value) {
                     error.value = true;
+                    return;
+                }
+                if (editingFolder.value.name) {
+                    let toDischarge = selectedDialogsInEdit.value.filter(item => {
+                        return selectedDialogsToFolder.value.find(i => i.dialog_id !== item.dialog_id);
+                    })
+                    let toMoveIn = selectedDialogsToFolder.value.filter(item => {
+                        return selectedDialogsInEdit.value.find(i => i.dialog_id !== item.dialog_id);
+                    })
+                    const afterUpdateName = async () => {
+                        toDischarge.length && await dischargeDialog({dialog_ids: toDischarge.map(i => i.dialog_id)})
+                        toMoveIn.length && await moveDialog({dialog_ids: toMoveIn.map(i => i.dialog_id), folder_id: editingFolder.value.folder_id})
+                        closeModalAfterFetch();
+                    }
+                    (editingFolder.value.name !== name.value)
+                        && updateFolder({name: name.value, folder_id: editingFolder.value.folder_id})
+                    afterUpdateName();
+                } else {
+                    let obj = {
+                        name: name.value,
+                        dialog_ids: selectedDialogsToFolder.value.map(i => i.dialog_id),
+                    }
+                    if (createFolderParentId.value) {
+                        obj.parent_folder_id = createFolderParentId.value;
+                    }
+                    createFolder(obj)
+                        .then(r => {
+                        if (r.error) {
+                            error.value = true;
+                            return;
+                        }
+                        closeModalAfterFetch(createFolderParentId.value);
+                    })
                 }
             }
 
@@ -211,8 +239,8 @@
         position: relative;
         padding: 20px 0;
 
-        background: var(--create-folder-color);
-        color: var(--create-folder-font-color);
+        background: var(--modal-bg-color);
+        color: var(--modal-font-color);
     }
     .modal-create-folder__input-group {
         width: 100%;
@@ -223,19 +251,6 @@
             padding: 0 20px;
         }
     }
-    .modal-create-folder__label {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 21px;
-        background: var(--green-color);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        &.modal-create-folder__label_uppercase {
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-    }
     .modal-create-folder__input {
         font-family: Segoe UI;
         font-style: normal;
@@ -243,11 +258,14 @@
         font-size: 16px;
         line-height: 21px;
         margin-top: 6px;
-        color: var(--create-folder-header-color);
         width: 100%;
-        border-bottom: 1px solid var(--separator-color);
-        padding: 2px;
-        background: transparent;
+        padding: 6px 10px;
+
+        color: var(--modal-font-color);
+        background: var(--modal-element-hover-bg-color);
+        border: 0.7px solid var(--modal-input-border-color);
+        box-sizing: border-box;
+        border-radius: 3px;
     }
 
     .modal-create-folder__footer {
@@ -255,28 +273,10 @@
         display: flex;
         justify-content: space-between;
     }
-    .modal-create-folder__selected {
-        margin-top: 27px;
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
-    }
-    .modal-create-folder__number {
-        font-family: Segoe UI;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 21px;
-
-        color: var(--search-input-color);
-    }
-    .modal-create-folder__add-chat {
-        margin: 14px 0 33px;
-        padding: 0 20px;
-    }
     .modal-create-folder__dialogs {
         padding: 0 20px;
         position: relative;
+        margin-top: 33px;
         &.modal-create-folder__dialogs_scroll {
             height: calc(56px * 4);
             ::-webkit-scrollbar {
@@ -305,7 +305,7 @@
         font-weight: normal;
         font-size: 18px;
         line-height: 24px;
-        color: var(--create-folder-font-color);
+        color: var(--modal-font-color);
     }
     .modal-create-folder__dialog-delete {
         position: absolute;

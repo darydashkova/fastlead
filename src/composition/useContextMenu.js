@@ -9,6 +9,7 @@ const isContextOpened = ref(false);
 
 const context = reactive({
     id: null,
+    itemName: '',
     item: '',
 });
 
@@ -18,8 +19,8 @@ export function useContextMenu() {
         contextPosition.top = position.top + 'px';
         contextPosition.left = position.left + 'px';
         context.id = ctx.id;
+        context.itemName = ctx.itemName;
         context.item = ctx.item;
-
         isContextOpened.value = true;
     }
 

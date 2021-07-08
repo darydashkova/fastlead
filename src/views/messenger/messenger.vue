@@ -6,6 +6,7 @@
             <ModalCreateFolder v-if="openedModalCreateFolder"></ModalCreateFolder>
             <ModalCreateChat v-if="openedModalCreateChat"></ModalCreateChat>
             <ModalAddToFolder v-if="openedModalAddToFolder"></ModalAddToFolder>
+            <ModalConfirmDelete v-if="openedModalConfirmDelete"></ModalConfirmDelete>
         </teleport>
         <ContextMenu v-if="isContextOpened"></ContextMenu>
 

@@ -8,27 +8,30 @@
     .base-button {
         font-style: normal;
         font-weight: normal;
-        font-size: 18px;
-        line-height: 24px;
-        color: var(--create-folder-font-button);
+        font-size: 16px;
+        line-height: 21px;
+        color: #F0F0FA;
         padding: 11px 36px;
-        border-radius: 5px;
+        border-radius: 6px;
         cursor: pointer;
     }
     .base-button_enter {
         background: var(--green-color);
     }
     .base-button_cancel {
-        background: var(--cancel-button-color-in-modals);
+        background: #575773;
     }
     .base-button_delete {
         background: var(--red-color);
     }
-    .base-button_settings-cancel {
-        background: var(--mailings-cancel-button-color);
-    }
     .base-button_p5-15 {
-        padding: 5.5px 15.5px;
+        padding: 6px 20px;
+    }
+    .base-button_p6-40 {
+        padding: 6px 40px;
+    }
+    .base-button_p5-10 {
+        padding: 5px 10px;
     }
     .base-button_w-100 {
         width: 100%;

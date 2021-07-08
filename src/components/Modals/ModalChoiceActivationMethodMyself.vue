@@ -105,7 +105,7 @@
     }
     .modal-choice-activation-method-myself__body {
         width: 364px;
-        background: #FFFFFF;
+        background: #F0F0FA;
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
@@ -116,7 +116,7 @@
         font-size: 22px;
         line-height: 29px;
 
-        color: #404054;
+        color: #414159;
         padding: 0 20px;
     }
     .modal-choice-activation-method-myself__qr {
@@ -138,11 +138,11 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 140%;
-        color: #757589;
+        color: #9797BB;
     }
     .modal-choice-activation-method-myself__rule {
         span {
-            color: #404054;
+            color: #575773;
             font-weight: 600;
         }
     }

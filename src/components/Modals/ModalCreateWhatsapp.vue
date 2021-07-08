@@ -76,6 +76,7 @@
             onMounted(() => {
                 if (selectedWhatsappToAction.value) {
                     phone.value = selectedWhatsappToAction.value.phone;
+                    name.value = selectedWhatsappToAction.value.name;
                 }
             })
 
@@ -92,6 +93,7 @@
                 }
                 let infoToSend = {
                     phone: phone.value,
+                    name: name.value,
                 }
                 if (selectedWhatsappToAction.value) {
                     infoToSend.whatsapp_id = selectedWhatsappToAction.value.whatsapp_id;
@@ -152,7 +154,7 @@
     }
     .modal-create-whatsapp__body {
         width: 364px;
-        background: var(--create-folder-color);
+        background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
@@ -173,11 +175,14 @@
         font-size: 16px;
         line-height: 21px;
         margin-top: 6px;
-        color: var(--create-folder-header-color);
         width: 100%;
-        border-bottom: 1px solid var(--separator-color);
-        padding: 2px;
-        background: transparent;
+        padding: 6px 10px;
+
+        color: var(--modal-font-color);
+        background: var(--modal-element-hover-bg-color);
+        border: 0.7px solid var(--modal-input-border-color);
+        box-sizing: border-box;
+        border-radius: 3px;
     }
     .modal-create-whatsapp__buttons {
         padding: 0 20px;

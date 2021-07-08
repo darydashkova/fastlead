@@ -1,0 +1,16 @@
+.settings-integrations__header {
+  height: 78px;
+  padding: 16px 45px;
+  position: relative;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--separator-color);
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 29px;
+  color: var(--settings-header-color);
+}

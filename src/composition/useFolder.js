@@ -6,6 +6,12 @@ const selectedFolder = ref(null);
 const folders = reactive({
     data: [],
 })
+
+const selectedParentFolder = ref(null);
+const foldersInSelectedFolder = reactive({
+    data: [],
+})
+
 const offsetFolderDialogsPosition = ref(0);
 
 export function useFolder() {
@@ -17,6 +23,22 @@ export function useFolder() {
 
     const setOffsetFolderDialogsPosition = (offset) => {
         offsetFolderDialogsPosition.value = offset;
+    }
+    const getAllFoldersInFolder = async (id, isNeedGlobal) => {
+        return await folderActions.getAllFoldersInFolder(id)
+            .then(r => {
+                if (r.folders.length && isNeedGlobal) {
+                    foldersInSelectedFolder.data = [...r.folders];
+                    selectParentFolder(id);
+                }
+                return r.folders
+            })
+    }
+    const selectParentFolder = (id) => {
+        selectedParentFolder.value = id;
+        if (!id) {
+            selectFolder(id);
+        }
     }
     const getAllFolders = async () => {
         return await folderActions.getAllFolders()
@@ -39,15 +61,21 @@ export function useFolder() {
 
     return {
         folders: computed(() => folders.data),
+        foldersInSelectedFolder: computed(() => foldersInSelectedFolder.data),
+
         getAllFolders,
         createFolder,
         deleteFolder,
-        selectedFolder: computed(() => selectedFolder.value),
+        selectedFolder,
+        selectedParentFolder,
         selectFolder,
         offsetFolderDialogsPosition,
         setOffsetFolderDialogsPosition,
 
         updateFolder,
+
+        selectParentFolder,
+        getAllFoldersInFolder,
 
     }
 }
