@@ -38,10 +38,10 @@ export default {
         const { user, getUser } = useUser();
         const { getAllFolders, selectFolder, folders, getAllFoldersInFolder } = useFolder();
         const { isContextOpened } = useContextMenu();
-        const { socket } = useSocket();
+        const { socket, refreshSocket } = useSocket();
         const { selectDialog, getDialogs, toggleAllSelectedGroupDialogs } = useDialogs();
         const { getMessagesFromDialog } = useMessages();
-
+        refreshSocket();
         const {
             openedModalCreateFolder,
             openedModalCreateChat,

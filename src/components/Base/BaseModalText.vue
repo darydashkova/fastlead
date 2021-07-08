@@ -30,6 +30,12 @@
         &.base-modal-text_mt-45 {
             margin-top: 45px;
         }
+        &.base-modal-text_mt-69 {
+            margin-top: 69px;
+        }
+        &.base-modal-text_mt-96 {
+            margin-top: 96px;
+        }
         &.base-modal-text_uppercase {
             text-transform: uppercase;
         }
@@ -60,6 +66,25 @@
                 background: var(--red-color);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+            }
+
+        }
+        &.base-modal-text_small {
+            font-size: 16px;
+            line-height: 21px;
+        }
+        &.base-modal-text_underline {
+            span {
+                position: relative;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: .7px;
+                    background: var(--green-color);
+                    top: 100%;
+                    left: 0;
+                }
             }
 
         }

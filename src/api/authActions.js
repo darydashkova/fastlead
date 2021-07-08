@@ -8,9 +8,7 @@ export default {
             })
     },
     tryAuth: (data) => {
-        let localData = data;
-        localData.csrf_token = localStorage.getItem('x-csrf');
-        return api.fetch('POST', 'auth', localData)
+        return api.fetch('POST', 'get/user/token', data)
     },
     tryRegistr: (data) => {
         let localData = data;

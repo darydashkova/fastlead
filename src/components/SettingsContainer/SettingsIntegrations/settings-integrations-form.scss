@@ -1,0 +1,200 @@
+.settings-integrations-form {
+  height: calc(100% - 79px - 106px);
+  position: relative;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+.settings-integrations-form__body {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.settings-integrations-form__field {
+  padding: 36px 45px;
+  border-bottom: 1px solid var(--separator-color);
+  width: 100%;
+}
+.settings-integrations-form__header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+
+  color: var(--font-color);
+  text-align: left;
+  &.settings-integrations-form__header_mb-30 {
+    margin-bottom: 30px;
+  }
+}
+.settings-integrations-form__subheader {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+
+  color: #9797BB;
+  text-align: left;
+  margin-top: 6px;
+}
+.settings-integrations-form__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  &.settings-integrations-form__row_al-end {
+    align-items: flex-end;
+  }
+  &.settings-integrations-form__row_mt-26 {
+    margin-top: 26px;
+  }
+}
+
+.settings-integrations-form__label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+
+  color: var(--settings-label-color);
+  text-align: left;
+  margin-bottom: 5px;
+
+}
+.settongs-integrations-form__input-group {
+  width: 25%;
+  &.settongs-integrations-form__input-group_w-100 {
+    width: 100%;
+  }
+  &.settongs-integrations-form__input-group_mr-13 {
+    margin-right: 13px;
+  }
+}
+.settings-integrations-form__input {
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  width: 100%;
+  padding: 8px 10px;
+  color: var(--modal-font-color);
+  background: var(--modal-element-hover-bg-color);
+  border: .7px solid var(--modal-input-border-color);
+  box-sizing: border-box;
+  border-radius: 3px;
+  text-align: left;
+  width: 100%;
+  &.settings-integrations-form__input_dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  &.settings-integrations-form__input_search {
+    padding: 8px 10px 8px 42px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  &.settings-integrations-form__input_clear {
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+  }
+}
+.settings-integrations-form__icon {
+  position: absolute;
+  left: 11px;
+}
+.settings-integrations-form__add {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: left;
+  margin-top: 26px;
+  span {
+    background: var(--green-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    padding: 1px 0;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      width: 100%;
+      background: var(--green-color);
+    }
+  }
+}
+.settings-integrations-form__contributors {
+  background: #141427;
+  border-radius: 8px;
+  width: 100%;
+  border-spacing: 0;
+  margin-top: 13px;
+  th, td {
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+
+    border-bottom: 1px solid #1D1D35;
+    padding: 18px;
+    text-align: center;
+    &:first-of-type {
+      text-align: left;
+    }
+    &:last-of-type {
+      text-align: right;
+    }
+  }
+  th {
+    font-size: 14px;
+    line-height: 19px;
+
+    font-variant: small-caps;
+
+    color: #9797BB;
+  }
+  td {
+    font-size: 16px;
+    line-height: 21px;
+    color: #F0F0FA;
+  }
+}
+.settings-integrations-form__roles {
+  width: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.settings-integrations-form__role {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  transition: .3s ease;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  &:hover {
+    background: #2E2E4E;
+  }
+}
+.settings-integrations-form__footer {
+  padding: 31px 20px 0;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}

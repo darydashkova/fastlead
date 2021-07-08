@@ -72,6 +72,8 @@ export function useStyle() {
             'calendar-bg': '#0F0F1B', //цвет календаря
             'search-input-color': '#575773', //цвет поисковой строки var(--search-input-color)
 
+            'settings-label-color': '#EDEDEF',
+
 
 
             'sub-text-color': '#B7B7BE', //цвет шрифта(вторичный) var(--sub-text-color),
@@ -144,6 +146,8 @@ export function useStyle() {
             'ranged-buttons-color': '#DEDEEE',
             'calendar-bg': '#EDEDEF', //цвет календаря
             'search-input-color': '#F0F0FA', //цвет поисковой строки var(--search-input-color)
+
+            'settings-label-color': '#575773',
 
             'sub-text-color': '#757589', //цвет шрифта(вторичный) var(--sub-text-color)
             'date-in-message-color': '#1D1D35', //цвет текста в отображении даты

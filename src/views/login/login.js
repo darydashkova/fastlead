@@ -40,6 +40,7 @@ export default {
                     if (r.error) {
                         error.value = r.error;
                     } else {
+                        localStorage.setItem('token', r.token);
                         router.push('/messenger')
                     }
                     loading.value = false;
