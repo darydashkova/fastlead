@@ -13,6 +13,7 @@
             <template v-else>
                 <template v-if="selectedDialog">
                     <BaseCircleIcon
+                            v-if="messages.avatar"
                             class="base-circle-icon__52"
                             :src="messages.avatar"
                     ></BaseCircleIcon>

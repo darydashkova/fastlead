@@ -44,6 +44,14 @@ const routes = [
     }
   },
   {
+    path: '/authorization/:token',
+    name: 'authorization',
+    component: () => import ('../views/authorization/authorization.vue'),
+    meta: {
+      title: 'Fastlead - Авторизация'
+    }
+  },
+  {
     path: '/settings',
     name: 'settings',
     component: () => import ('../views/settings/settings.vue'),

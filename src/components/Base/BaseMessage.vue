@@ -12,7 +12,7 @@
         <div v-if="message.type === 'img'" class="base-message__container base-message__container_full">
             <div class="base-message__message base-message__message_full">
                 <div class="base-message__image"
-                     :style="{'background': `url(${message.img}) no-repeat`, 'background-size': 'cover', 'background-position': 'center center' }"
+                     :style="{'background': `url(${convertedSrc}) center center / cover no-repeat`}"
                 >
                     <div class="base-message__state base-message__state_image" style="color: white;">
                         {{validTime(message.time)}}
@@ -37,6 +37,7 @@
     import { useDate } from "../../composition/useDate";
     import { computed } from 'vue'
     import { useEmoji } from "../../composition/useEmoji";
+    import {useImages} from "../../composition/useImages";
     export default {
         props: {
             message: [{
@@ -51,6 +52,7 @@
         setup(props) {
             const { validTime } = useDate()
             const { wrapEmoji } = useEmoji()
+            const { getImage } = useImages()
 
             const fullTextMessage = computed(() => {
                 if (props.message.type === 'text') {
@@ -72,11 +74,30 @@
                 }
             })
 
+            const convertedSrc = computed(() => {
+                if (props.message.type === 'img') {
+                    let newUrl = '';
+                    const getImg = async() => {
+                        await getImage(props.message.img)
+                            .then(r => {
+                                let url = URL.createObjectURL(r);
+                                newUrl = `${url}`;
+                            })
+                    }
+                    getImg();
+
+                    return newUrl;
+                } else {
+                    return '';
+                }
+            })
+
             return {
                 message: computed(() => props.message),
                 validTime,
                 wrapEmoji,
                 fullTextMessage,
+                convertedSrc,
             }
         }
 

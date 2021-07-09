@@ -56,6 +56,7 @@
     import { useModals } from "../../composition/useModals";
     import { useUser } from "../../composition/useUser";
     import {useAccount} from "../../composition/useAccount";
+    import {useImages} from "../../composition/useImages";
 
     export default {
         components: { BaseButton, BaseModalText, BaseModalHeader },
@@ -63,6 +64,7 @@
             const { toggleModalChangeAva } = useModals();
             const { user, getUser } = useUser();
             const { changeAva } = useAccount();
+            const { getImage } = useImages()
 
             const close = () => {
                 toggleModalChangeAva(false);
@@ -103,7 +105,11 @@
             }
 
             onMounted(() => {
-                photoUrl.value = user.value.avatar;
+                getImage(user.value.avatar)
+                    .then(r => {
+                        let url = URL.createObjectURL(r);
+                        photoUrl.value = `${url}`;
+                    })
             })
 
             return {

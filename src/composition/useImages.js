@@ -1,5 +1,6 @@
 import {reactive, computed} from 'vue';
 import filesActions from "../api/filesActions";
+import imagesActions from "../api/imagesActions";
 
 const imagesToSend = reactive({
     data: [],
@@ -19,11 +20,17 @@ export function useImages() {
         imagesToSend.data = [...array]
     }
 
+    const getImage = async (url) => {
+        return await imagesActions.getImage(url)
+    }
+
     return {
         createImage,
         imagesToSend: computed(() => imagesToSend.data),
         deleteImage,
         addImage,
         replaceImages,
+
+        getImage,
     }
 }

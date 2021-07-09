@@ -4,16 +4,14 @@ import { useRouter } from 'vue-router'
 import {useAuth} from "./useAuth";
 
 const user = reactive({
-    data: {
-        'avatar': '/img/icon_inactive.png'
-    },
+    data: {},
 })
 
 export function useUser() {
     const router = useRouter();
 
-    const getUser = (again = false) => {
-        userActions.tryGetUser()
+    const getUser = async (again = false) => {
+        return await userActions.tryGetUser()
             .then(r => {
                 if (r.error) {
                     router.push('/login');
@@ -22,6 +20,7 @@ export function useUser() {
                 user.data = {...r.user}
                 localStorage.setItem('UserId', r.user.user_id);
                 user.data.avatar = user.data.avatar + (again? `?anti-cash=${new Date().getTime()}`: '')
+                return r;
             })
             .catch(err => {
                 router.push('/login')

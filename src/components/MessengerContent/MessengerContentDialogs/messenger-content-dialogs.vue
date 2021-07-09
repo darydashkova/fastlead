@@ -38,8 +38,8 @@
                     </BaseFolderName>
                     <div class="messenger-search-group__dialogs">
                         <div class="messenger-search-group__dialog"
-                             v-for="dialog in folderGroup.dialogs"
-                             :key="dialog.dialog_id*1000 + dialog.last_message.message_id"
+                             v-for="(dialog, index) in folderGroup.dialogs"
+                             :key="dialog.dialog_id*1000 + (dialog.last_message? dialog.last_message.message_id : index * 1321)"
                         >
                             <BaseDialog
                                     :chatInfo="dialog"
@@ -58,8 +58,8 @@
             </div>
             <MessengerContentDialog v-else :need-loading-more="true">
                 <BaseDialog
-                        v-for="dialog in dialogs"
-                        :key="dialog.dialog_id*1000 + dialog.last_message.message_id"
+                        v-for="(dialog, index) in dialogs"
+                        :key="dialog.dialog_id*1000 + (dialog.last_message? dialog.last_message.message_id : index * 1321)"
                         :chatInfo="dialog"
                         :class="{
                             'base-dialog_active': selectedDialog === dialog.dialog_id,

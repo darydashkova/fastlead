@@ -37,6 +37,7 @@
 <script>
     import {useDate} from "../../composition/useDate";
     import { computed } from 'vue'
+    import {useImages} from "../../composition/useImages";
     export default {
         props: {
             images: [{
@@ -50,6 +51,7 @@
         },
         setup(props) {
             const { validTime } = useDate();
+            const { getImage } = useImages()
             const localMessage = computed(() => {
                 if (props.images.length > 4) {
                     let arr = props.images.filter((item, index) => index < 4);
@@ -60,8 +62,20 @@
                     return props.images;
                 }
             })
+
+            const convertedImages = computed(() => {
+                return localMessage.value.map(async (item) => {
+                    let newItem = {...item};
+                    await getImage(item.img)
+                        .then(r => {
+                            let url = URL.createObjectURL(r);
+                            newItem.img = `${url}`;
+                        })
+                    return newItem;
+                })
+            })
             return {
-                images: localMessage,
+                images: convertedImages,
                 validTime,
             }
         }

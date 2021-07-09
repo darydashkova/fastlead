@@ -3,7 +3,7 @@
         <div class="user-info__container">
             <div class="user-info__ava-container">
                 <div class="user-info__ava"
-                    :style="{'background': `url(${user.avatar}) center center / cover no-repeat`}"
+                    :style="{'background': `url(${src}) center center / cover no-repeat`}"
                 ></div>
             </div>
             <div class="user-info__login">
