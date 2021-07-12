@@ -21,26 +21,18 @@ mp3.type = 'audio/mpeg';
 audio.append(ogg);
 audio.append(mp3);
 
-// const dotenv = require('dotenv');
-// dotenv.config();
 
 // const url = `ws://${process.env.API_URL}:${process.env.SOCKET_PORT}`;
-// let socket = null;
 
 // const socket = new WebSocket(url)
 // let socket = new WebSocket(`wss://api.fastlead.app:2053`)
-let socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}`)
+let socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
 
 export function useSocket() {
     const { dialogs, setDialogs, selectedDialog } = useDialogs();
     const { addMessage } = useMessages()
     const { selectedFolder, getAllFolders, folders } = useFolder();
     const socketInit = () => {
-        socket.onopen = () => {
-            token: localStorage.getItem('token')
-            // UserId: getCookie('UserId'), SessionKey: getCookie('SessionKey')
-            socketSend('auth', { UserId: +localStorage.getItem('UserId'), token: localStorage.getItem('token')})
-        }
         socket.onmessage = (message) => {
             let mes = JSON.parse(message.data)
             if (mes.dialog_id) {
@@ -86,7 +78,7 @@ export function useSocket() {
 
     const refreshSocket = () => {
         // socket = new WebSocket(`ws://${window.location.hostname}:3000`)
-        socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}`)
+        socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
         // socket = new WebSocket(`wss://api.fastlead.app:2053`)
         socketInit();
     }
