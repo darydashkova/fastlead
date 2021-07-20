@@ -258,7 +258,7 @@
     import ModalTimeRangepicker from '../../Modals/ModalTimeRangepicker.vue'
     import ModalSelectWhatsappActivities from '../../Modals/ModalSelectWhatsappActivities.vue'
     import ModalCreateFolderDynamicMailings from '../../Modals/ModalCreateFolderDynamicMailings.vue'
-    import ModalMoveChatDynamicMailings from '../../Modals/ModalMoveChatDynamicMailings.vue'
+    import ModalMoveChatDynamicMailings from '../../Modals/dynamic-mailings/ModalMoveChatDynamicMailings.vue'
     import SettingsMailingsCreateInput from './settings-mailings-create-input'
     import { ref, reactive, computed, onMounted } from 'vue'
     import { useModals } from "../../../composition/useModals";

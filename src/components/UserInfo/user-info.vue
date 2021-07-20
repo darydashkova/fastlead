@@ -2,7 +2,7 @@
     <div class="user-info">
         <div class="user-info__container">
             <div class="user-info__ava-container">
-                <div class="user-info__ava"
+                <div class="user-info__ava" v-if="src"
                     :style="{'background': `url(${src}) center center / cover no-repeat`}"
                 ></div>
             </div>

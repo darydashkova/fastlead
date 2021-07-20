@@ -1,21 +1,16 @@
 <template>
-    <div class="modal-choice-activation-method-success" @mousedown.self="close">
-        <div class="modal-choice-activation-method-success__body">
-            WhatsApp аккаунт успешно <br> активирован
+    <div class="modal-create-instagram-success" @mousedown.self="close">
+        <div class="modal-create-instagram-success__body">
+            Instagram аккаунт успешно <br> активирован
         </div>
     </div>
 </template>
 
 <script>
-    import {useWhatsapp} from "../../composition/useWhatsapp";
-    import {useModalsWhatsapps} from "../../composition/useModalsWhatsapps";
     export default {
-        setup() {
-            const { toggleModalChoiceActivationMethodSuccess } = useModalsWhatsapps()
-            const { getWhatsapps } = useWhatsapp()
+        setup(props, {emit}) {
             const close = () => {
-                getWhatsapps();
-                toggleModalChoiceActivationMethodSuccess(false);
+                emit('close');
             }
             return {
                 close,
@@ -25,7 +20,7 @@
 </script>
 
 <style lang="scss">
-    .modal-choice-activation-method-success {
+    .modal-create-instagram-success {
         width: 100vw;
         height: 100vh;
         background: rgba(0, 0, 0, 0.34);
@@ -41,7 +36,7 @@
             z-index: 1400;
         }
     }
-    .modal-choice-activation-method-success__body {
+    .modal-create-instagram-success__body {
         width: 364px;
         background: var(--modal-bg-color);
         border-radius: 9px;

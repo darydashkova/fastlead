@@ -35,7 +35,7 @@
 
 <script>
     import { useDate } from "../../composition/useDate";
-    import { computed } from 'vue'
+    import { computed, ref, onMounted } from 'vue'
     import { useEmoji } from "../../composition/useEmoji";
     import {useImages} from "../../composition/useImages";
     export default {
@@ -73,22 +73,14 @@
                     return str + subst + `</div>`;
                 }
             })
-
-            const convertedSrc = computed(() => {
+            const convertedSrc = ref(null);
+            onMounted(() => {
                 if (props.message.type === 'img') {
-                    let newUrl = '';
-                    const getImg = async() => {
-                        await getImage(props.message.img)
-                            .then(r => {
-                                let url = URL.createObjectURL(r);
-                                newUrl = `${url}`;
-                            })
-                    }
-                    getImg();
-
-                    return newUrl;
-                } else {
-                    return '';
+                    getImage(props.message.img)
+                        .then(r => {
+                            let url = URL.createObjectURL(r);
+                            convertedSrc.value = `${url}`;
+                        })
                 }
             })
 

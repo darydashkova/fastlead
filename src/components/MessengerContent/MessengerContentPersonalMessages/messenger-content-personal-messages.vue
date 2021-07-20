@@ -15,6 +15,7 @@
                     <BaseCircleIcon
                             v-if="messages.avatar"
                             class="base-circle-icon__52"
+                            :key="messages.avatar"
                             :src="messages.avatar"
                     ></BaseCircleIcon>
                     <div class="messenger-content-personal-messages__name-container">

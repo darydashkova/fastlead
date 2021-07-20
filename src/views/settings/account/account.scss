@@ -125,7 +125,7 @@
     color: var(--default-svg-fill);
   }
 }
-.settings-account__password_error-confirm {
+.settings-account__password_error-confirm, .settings-account__password_error-old, .settings-account__password_error-length {
   position: relative;
   &:before {
     content: 'Пароли не совпадают';
@@ -143,22 +143,14 @@
     border: 0.7px solid var(--red-color);
   }
 }
+.settings-account__password_error-old {
+  &:before {
+    content: 'Неверный пароль';
+  }
+}
 .settings-account__password_error-length {
-  position: relative;
   &:before {
     content: 'Пароль должен содержать не менее 8 символов';
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 11px;
-    line-height: 15px;
-
-    position: absolute;
-    top: 100%;
-    color: var(--red-color);
-  }
-  .settings-account_input {
-    border: 0.7px solid var(--red-color);
   }
 }
 .settings-account__action-button {

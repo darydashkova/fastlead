@@ -72,5 +72,7 @@
   .pointer {
     cursor: pointer;
   }
+
+
 </style>
 <style lang="scss" src="./fonts.scss"></style>

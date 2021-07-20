@@ -1,8 +1,3 @@
-// const dotenv = require('dotenv');
-// dotenv.config();
-
-// const url = `https://${process.env.API_URL}`;
-// const url = `https://api.fastlead.app/`;
 const url = `${process.env.VUE_APP_API_URL}/`;
 export const api = {
     fetchDefaultArgs: (method, endpoint, body = null, token = false, withCredential = false) => {

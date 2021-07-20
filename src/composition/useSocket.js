@@ -4,13 +4,6 @@ import {api} from "../api/api";
 import {useMessages} from "./useMessages";
 import {useFolder} from "./useFolder";
 
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
 const audio = document.createElement('audio');
 let ogg = document.createElement('source');
 ogg.src = '/audio/notification.ogg';
@@ -22,10 +15,7 @@ audio.append(ogg);
 audio.append(mp3);
 
 
-// const url = `ws://${process.env.API_URL}:${process.env.SOCKET_PORT}`;
 
-// const socket = new WebSocket(url)
-// let socket = new WebSocket(`wss://api.fastlead.app:2053`)
 let socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
 
 export function useSocket() {
@@ -77,9 +67,9 @@ export function useSocket() {
     }
 
     const refreshSocket = () => {
-        // socket = new WebSocket(`ws://${window.location.hostname}:3000`)
-        socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
-        // socket = new WebSocket(`wss://api.fastlead.app:2053`)
+        if (!isOpen(socket)) {
+            socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
+        }
         socketInit();
     }
 

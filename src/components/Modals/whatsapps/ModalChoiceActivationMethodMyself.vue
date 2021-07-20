@@ -28,14 +28,14 @@
 </template>
 
 <script>
-    import BaseButton from '../Base/BaseButton.vue'
-    import BaseModalText from '../Base/BaseModalText.vue'
-    import BaseModalHeader from '../Base/BaseModalHeader.vue'
-    import BaseLoader from '../Base/BaseLoader.vue'
+    import BaseButton from '../../Base/BaseButton.vue'
+    import BaseModalText from '../../Base/BaseModalText.vue'
+    import BaseModalHeader from '../../Base/BaseModalHeader.vue'
+    import BaseLoader from '../../Base/BaseLoader.vue'
 
     import { ref } from "vue";
-    import {useWhatsapp} from "../../composition/useWhatsapp";
-    import {useModalsWhatsapps} from "../../composition/useModalsWhatsapps";
+    import {useWhatsapp} from "../../../composition/useWhatsapp";
+    import {useModalsWhatsapps} from "../../../composition/useModalsWhatsapps";
 
     export default {
         components: { BaseButton, BaseModalText, BaseModalHeader, BaseLoader },
