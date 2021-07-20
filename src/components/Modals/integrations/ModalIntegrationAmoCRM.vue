@@ -4,14 +4,6 @@
             <BaseModalHeader>
                 Подключение к amoCRM
             </BaseModalHeader>
-            <div class="modal-integration-amo-crm__input-group modal-integration-amo-crm__input-group_padding-20">
-                <BaseModalLabel for-id="modal-integration-amo-crm__input" :class="{'base-modal-label_error': error}">Ссылка на аккаунт amoCRM</BaseModalLabel>
-                <input id="modal-integration-amo-crm__input" type="text" class="modal-integration-amo-crm__input"
-                       v-model="link">
-                <BaseModalHint class="base-modal-hint_small base-modal-hint_m-0">
-                    Например https://myaccount.amocrm.ru
-                </BaseModalHint>
-            </div>
             <BaseModalText class="base-modal-text_padding-20 base-modal-text_small base-modal-text_underline base-modal-text_mt-96 pointer">Как подключить интеграцию с amoCRM ?</BaseModalText>
             <div class="modal-integration-amo-crm__buttons">
                 <BaseButton
@@ -43,21 +35,16 @@
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseModalHeader },
         setup(props, {emit}) {
-            const link = ref('');
-            const error = ref(false);
-
             const close = () => {
                 emit('close')
             }
 
             const save = () => {
-                emit('save', link.value);
+                emit('save');
             }
 
 
             return {
-                link,
-                error,
                 save,
                 close,
             }

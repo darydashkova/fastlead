@@ -110,12 +110,8 @@
                 isOpened: false,
                 toggleOpened: boolean => amo.isOpened = boolean,
 
-                connect: (url) => {
-                    connectAmocrm(url)
-                        .then(r => {
-                            console.log(r)
-                            amo.toggleOpened(false);
-                        })
+                connect: () => {
+                    connectAmocrm()
                 }
             })
 

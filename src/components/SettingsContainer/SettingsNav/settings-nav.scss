@@ -27,11 +27,11 @@
   text-decoration: none;
   transition: .2s ease;
   height: 56px;
-  svg path {
+  .settings-nav__icon path {
       transition: .2s ease;
   }
   &.settings-nav__link_default {
-    svg {
+    .settings-nav__icon {
       margin: 0 45px 0 34px;
       path {
         fill: var(--user-info-settings-default-svg-fill);
@@ -40,13 +40,13 @@
     &:hover {
       color: var(--font-color);
       background: var(--settings-left-bar-hover);
-      svg path {
+      .settings-nav__icon path {
         fill: var(--user-info-settings-hover-svg-fill);
       }
     }
   }
   &.settings-nav__link_none {
-    svg {
+    .settings-nav__icon {
       margin: 0 45px 0 34px;
       path {
         fill: var(--user-info-settings-default-svg-fill);
@@ -58,7 +58,7 @@
   &.settings-nav__link_header {
     height: 78px;
     border-bottom: 1px solid var(--separator-color);
-    svg {
+    .settings-nav__icon {
       margin: 0 45px 0 41px;
       path {
         stroke: var(--user-info-settings-default-svg-fill);
@@ -67,17 +67,20 @@
     &:hover {
       color: var(--font-color);
       background: var(--settings-left-bar-hover);
-      svg path {
+      .settings-nav__icon path {
         stroke: var(--user-info-settings-hover-svg-fill);
       }
     }
   }
-  &.router-link-exact-active {
+  &.router-link-exact-active, &.settings-nav__link_active {
     color: var(--font-color)!important;
     background: var(--settings-left-bar-hover)!important;
-    svg path {
+    .settings-nav__icon path {
       fill: url(#paint0_linear)!important;
     }
+  }
+  &.settings-nav__link_jst-between {
+    justify-content: space-between;
   }
 }
 .settings-nav__list-container {
@@ -87,9 +90,22 @@
     display: none;
   }
 }
+.settings-nav__row {
+  display: flex;
+  align-items: center;
+}
 .settings-nav__list {
   height: 100%;
   overflow-y: auto;
   text-align: left;
 }
-
+.settings-nav__dropdown {
+  max-height: 500px;
+  overflow: hidden;
+}
+.max-height-transition-enter-active, .max-height-transition-leave-active {
+  transition: max-height .3s ease!important;
+}
+.max-height-transition-enter-from, .max-height-transition-leave-to {
+  max-height: 0!important;
+}

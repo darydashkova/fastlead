@@ -16,7 +16,7 @@ audio.append(mp3);
 
 
 
-let socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
+let socket;
 
 export function useSocket() {
     const { dialogs, setDialogs, selectedDialog } = useDialogs();
@@ -54,7 +54,10 @@ export function useSocket() {
         }
     }
 
-    function isOpen(ws) { return ws.readyState === ws.OPEN }
+    function isOpen(ws) {
+        if (!ws) return false;
+        return ws.readyState === ws.OPEN
+    }
     const socketSend = (action, data) => {
         if (!isOpen(socket)) return;
         let command = {

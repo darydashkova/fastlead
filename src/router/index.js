@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import {useAuth} from "../composition/useAuth";
-const { outAuth } = useAuth()
 
 const routes = [
   {
@@ -27,12 +26,7 @@ const routes = [
   },
   {
     path: '/',
-    name: 'messenger',
-    component: () => import ('../views/messenger/messenger.vue'),
-    meta: {
-        requiresAuth: true,
-        title: 'Fastlead - Мессенджер'
-    }
+    redirect: '/messenger',
   },
   {
     path: '/messenger',
@@ -82,7 +76,15 @@ const routes = [
         path: 'message-templates', component: () => import('../views/settings/message-templates/message-templates.vue'), meta: {requiresAuth: true, title: 'Fastlead - Шаблоны сообщений'}
       },
       {
-        path: 'integrations', component: () => import('../views/settings/integrations/integrations.vue'), meta: {requiresAuth: true, title: 'Fastlead - Интеграции'}
+        path: 'integrations', component: () => import('../views/settings/integrations/integrations.vue'), meta: {requiresAuth: true, title: 'Fastlead - Интеграции'},
+        children: [
+          {
+            path: '', component: () => import('../views/settings/integrations/Default'), meta: {requiresAuth: true, title: 'Fastlead - Интеграции'},
+          },
+          {
+            path: 'amo/connect', component: () => import ('../views/settings/integrations/AmoConnect'), meta: {requiresAuth: true, title: 'Fastlead - Интеграции'},
+          }
+        ]
       },
     ]
   },
@@ -104,22 +106,18 @@ function isAuth() {
 }
 
 router.beforeEach((to, from, next) => {
-  // document.title = to.meta.title
-  // next()
   if (to.meta.requiresAuth) {
     if (isAuth()) {
       document.title = to.meta.title
       next()
       return
     }
-    next('/login')
-  }
-  else {
-    // if (to.meta.withoutAuth) {
-    //   if (isAuth()) {
-    //     outAuth();
-    //   }
-    // }
+    next('/login');
+  } else {
+    if (to.meta.withoutAuth && isAuth()) {
+      next('/messenger');
+      return;
+    }
     document.title = to.meta.title
     next()
   }
