@@ -1,26 +1,19 @@
 <template>
-    <div class="modal-integration-bitrix" @mousedown.self="close">
-        <div class="modal-integration-bitrix__body">
+    <div class="modal-integration-amo-crm" @mousedown.self="close">
+        <div class="modal-integration-amo-crm__body">
             <BaseModalHeader>
-                Подключение к Битрикс24
+                Подключение к amoCRM
             </BaseModalHeader>
-            <div class="modal-integration-bitrix__step modal-integration-bitrix__step_mt-22">
-                <BaseModalHint class="base-modal-hint_modal-font base-modal-hint_m-0">Шаг 1</BaseModalHint>
-                <BaseModalHint class="base-modal-hint_mt-5">Установите приложение в маркетплейсе Битрикс24.</BaseModalHint>
-            </div>
-            <div class="modal-integration-bitrix__step">
-                <BaseModalHint class="base-modal-hint_modal-font base-modal-hint_m-0">Шаг 2</BaseModalHint>
-                <BaseModalHint class="base-modal-hint_mt-5">Вставьте ссылку на аккаунт Битрикс24 в поле ниже.</BaseModalHint>
-            </div>
-            <div class="modal-integration-bitrix__input-group modal-integration-bitrix__input-group_padding-20">
-                <BaseModalLabel for-id="modal-integration-bitrix__input" :class="{'base-modal-label_error': error}">Ссылка на аккаунт Битрикс24</BaseModalLabel>
-                <input id="modal-integration-bitrix__input" type="text" class="modal-integration-bitrix__input" v-model="link">
+            <div class="modal-integration-amo-crm__input-group modal-integration-amo-crm__input-group_padding-20">
+                <BaseModalLabel for-id="modal-integration-amo-crm__input" :class="{'base-modal-label_error': error}">Ссылка на аккаунт amoCRM</BaseModalLabel>
+                <input id="modal-integration-amo-crm__input" type="text" class="modal-integration-amo-crm__input"
+                       v-model="link">
                 <BaseModalHint class="base-modal-hint_small base-modal-hint_m-0">
-                    Например https://myaccount.bitrix24.ru
+                    Например https://myaccount.amocrm.ru
                 </BaseModalHint>
             </div>
-            <BaseModalText class="base-modal-text_padding-20 base-modal-text_small base-modal-text_underline base-modal-text_mt-69 pointer">Как подключить интеграцию с Битрикс24 ?</BaseModalText>
-            <div class="modal-integration-bitrix__buttons">
+            <BaseModalText class="base-modal-text_padding-20 base-modal-text_small base-modal-text_underline base-modal-text_mt-96 pointer">Как подключить интеграцию с amoCRM ?</BaseModalText>
+            <div class="modal-integration-amo-crm__buttons">
                 <BaseButton
                         class="base-button_enter"
                         @click="save"
@@ -39,11 +32,11 @@
 </template>
 
 <script>
-    import BaseButton from '../Base/BaseButton.vue'
-    import BaseModalLabel from '../Base/BaseModalLabel.vue'
-    import BaseModalText from '../Base/BaseModalText.vue'
-    import BaseModalHint from '../Base/BaseModalHint.vue'
-    import BaseModalHeader from '../Base/BaseModalHeader.vue'
+    import BaseButton from '../../Base/BaseButton.vue'
+    import BaseModalLabel from '../../Base/BaseModalLabel.vue'
+    import BaseModalText from '../../Base/BaseModalText.vue'
+    import BaseModalHint from '../../Base/BaseModalHint.vue'
+    import BaseModalHeader from '../../Base/BaseModalHeader.vue'
 
     import { onMounted, ref, reactive } from "vue";
 
@@ -58,8 +51,9 @@
             }
 
             const save = () => {
-
+                emit('save', link.value);
             }
+
 
             return {
                 link,
@@ -72,7 +66,7 @@
 </script>
 
 <style lang="scss">
-    .modal-integration-bitrix {
+    .modal-integration-amo-crm {
         width: 100vw;
         height: 100vh;
         background: rgba(0, 0, 0, 0.34);
@@ -88,30 +82,23 @@
             z-index: 1400;
         }
     }
-    .modal-integration-bitrix__body {
+    .modal-integration-amo-crm__body {
         width: 364px;
         background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
     }
-    .modal-integration-bitrix__step {
-        padding: 0 20px;
-        margin-bottom: 38px;
-        &.modal-integration-bitrix__step_mt-22 {
-            margin-top: 22px;
-        }
-    }
-    .modal-integration-bitrix__input-group {
+    .modal-integration-amo-crm__input-group {
         width: 100%;
         display: flex;
         flex-direction: column;
         margin: 41px 0 0;
-        &.modal-integration-bitrix__input-group_padding-20 {
+        &.modal-integration-amo-crm__input-group_padding-20 {
             padding: 0 20px;
         }
     }
-    .modal-integration-bitrix__input {
+    .modal-integration-amo-crm__input {
         font-family: Segoe UI;
         font-style: normal;
         font-weight: normal;
@@ -130,11 +117,11 @@
             color: var(--search-input-placeholder-color);
         }
     }
-    .modal-integration-bitrix__buttons {
+    .modal-integration-amo-crm__buttons {
         padding: 0 20px;
         width: 100%;
         display: flex;
         justify-content: space-between;
-        margin-top: 47px;
+        margin-top: 40px;
     }
 </style>

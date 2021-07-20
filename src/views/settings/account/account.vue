@@ -14,7 +14,7 @@
                     <div class="settings-account__first-element">
                         <BaseCircleIcon
                                 class="base-circle-icon_big"
-                                :key="`userAvatarInSettingsAccount`"
+                                :key="user.avatar"
                                 :src="user.avatar"
                         ></BaseCircleIcon>
                     </div>
@@ -135,7 +135,9 @@
                                 Старый пароль
                             </div>
                         </div>
-                        <div>
+                        <div class="settings-account__password"
+                             :class="{'settings-account__password_error-old': password.error_old}"
+                        >
                             <input type="password" class="settings-account_input" v-model="password.prev">
                         </div>
 
@@ -268,6 +270,7 @@
                 new_again: '',
                 error_length: false,
                 error_confirm: false,
+                error_old: false,
             })
 
             const tryToChangePass = () => {
@@ -281,10 +284,12 @@
                     changePass({
                         new_password: password.new,
                         new_password_confirm: password.new_again,
+                        old_password: password.prev,
                     })
                         .then((r) => {
                             if (r.error) {
                                 password.error_length = true;
+                                password.error_old = true;
                             } else {
                                 toggleOpenedChangePass(false);
                             }

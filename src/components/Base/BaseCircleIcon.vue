@@ -33,7 +33,8 @@
 </template>
 
 <script>
-    import { computed, ref } from "vue";
+    import { computed, ref, watchEffect, toRefs } from "vue";
+    import {useImages} from "../../composition/useImages";
     export default {
         props: {
             isActive: Boolean,
@@ -42,7 +43,9 @@
             isSelected: Boolean,
         },
         setup(props, {emit}) {
+            const { getImage } = useImages()
             const isSelector = ref(false);
+
             const moveIn = () => {
                 if (props.isNeedSelecting) {
                     isSelector.value = true;
@@ -57,10 +60,21 @@
             const toggleSelecting = () => {
                 emit('toggleSelecting')
             }
+            const src = ref(null);
+
+            if (props.src) {
+                getImage(props.src)
+                    .then(r => {
+                        let url = URL.createObjectURL(r);
+                        src.value = `${url}`;
+                    })
+            }
+
+
 
             return {
                 isActive: props.isActive,
-                src: computed(() => props.src),
+                src,
 
                 isSelector,
                 moveIn,

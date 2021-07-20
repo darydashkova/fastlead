@@ -4,11 +4,12 @@
             'base-grouped-images_my' : images.is_me,
             'base-grouped-images_not-my' : !images.is_me,
         }"
+         v-if="!loading"
     >
         <div class="base-grouped-images__container">
             <div class="base-grouped-images__message base-grouped-images__message_full">
                 <div class="base-grouped-images__image"
-                     v-for="img in images"
+                     v-for="img in imgs"
                      :key="img.message_id"
                      :style="{'background': `url(${img.img}) no-repeat`, 'background-size': 'cover', 'background-position': 'center center' }"
                 >
@@ -36,7 +37,8 @@
 
 <script>
     import {useDate} from "../../composition/useDate";
-    import { computed } from 'vue'
+    import { computed, onMounted, ref } from 'vue'
+    import {useImages} from "../../composition/useImages";
     export default {
         props: {
             images: [{
@@ -50,18 +52,34 @@
         },
         setup(props) {
             const { validTime } = useDate();
-            const localMessage = computed(() => {
+            const { getImage } = useImages()
+            const imgs = ref(null);
+            const loading = ref(true);
+            let k = 0;
+            onMounted(() => {
                 if (props.images.length > 4) {
                     let arr = props.images.filter((item, index) => index < 4);
                     //количество картинок минус 3
                     arr[3].count = props.images.length - 3;
-                    return arr;
+                    imgs.value = arr;
                 } else {
-                    return props.images;
+                    imgs.value = props.images;
                 }
+                imgs.value.forEach(item => {
+                    getImage(item.img)
+                        .then(r => {
+                            let url = URL.createObjectURL(r);
+                            item.img = `${url}`;
+                            k++;
+                            if (k === props.images.length) {
+                                loading.value = false;
+                            }
+                        })
+                })
             })
             return {
-                images: localMessage,
+                imgs,
+                loading,
                 validTime,
             }
         }

@@ -12,7 +12,7 @@
         <div v-if="message.type === 'img'" class="base-message__container base-message__container_full">
             <div class="base-message__message base-message__message_full">
                 <div class="base-message__image"
-                     :style="{'background': `url(${message.img}) no-repeat`, 'background-size': 'cover', 'background-position': 'center center' }"
+                     :style="{'background': `url(${convertedSrc}) center center / cover no-repeat`}"
                 >
                     <div class="base-message__state base-message__state_image" style="color: white;">
                         {{validTime(message.time)}}
@@ -35,8 +35,9 @@
 
 <script>
     import { useDate } from "../../composition/useDate";
-    import { computed } from 'vue'
+    import { computed, ref, onMounted } from 'vue'
     import { useEmoji } from "../../composition/useEmoji";
+    import {useImages} from "../../composition/useImages";
     export default {
         props: {
             message: [{
@@ -51,6 +52,7 @@
         setup(props) {
             const { validTime } = useDate()
             const { wrapEmoji } = useEmoji()
+            const { getImage } = useImages()
 
             const fullTextMessage = computed(() => {
                 if (props.message.type === 'text') {
@@ -71,12 +73,23 @@
                     return str + subst + `</div>`;
                 }
             })
+            const convertedSrc = ref(null);
+            onMounted(() => {
+                if (props.message.type === 'img') {
+                    getImage(props.message.img)
+                        .then(r => {
+                            let url = URL.createObjectURL(r);
+                            convertedSrc.value = `${url}`;
+                        })
+                }
+            })
 
             return {
                 message: computed(() => props.message),
                 validTime,
                 wrapEmoji,
                 fullTextMessage,
+                convertedSrc,
             }
         }
 

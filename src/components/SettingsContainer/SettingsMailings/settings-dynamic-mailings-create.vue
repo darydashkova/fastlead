@@ -258,7 +258,7 @@
     import ModalTimeRangepicker from '../../Modals/ModalTimeRangepicker.vue'
     import ModalSelectWhatsappActivities from '../../Modals/ModalSelectWhatsappActivities.vue'
     import ModalCreateFolderDynamicMailings from '../../Modals/ModalCreateFolderDynamicMailings.vue'
-    import ModalMoveChatDynamicMailings from '../../Modals/ModalMoveChatDynamicMailings.vue'
+    import ModalMoveChatDynamicMailings from '../../Modals/dynamic-mailings/ModalMoveChatDynamicMailings.vue'
     import SettingsMailingsCreateInput from './settings-mailings-create-input'
     import { ref, reactive, computed, onMounted } from 'vue'
     import { useModals } from "../../../composition/useModals";
@@ -269,6 +269,7 @@
     import {useModalTimeRangepicker} from "../../../composition/useModalTimeRangepicker";
     import {useWhatsapp} from "../../../composition/useWhatsapp";
     import {useFiles} from "../../../composition/useFiles";
+    import {useImages} from "../../../composition/useImages";
     export default {
         props: {
             selectedMailingToEdit: {
@@ -298,6 +299,8 @@
             const { createFile } = useFiles()
             const { createDynamicMailing, updateDynamicMailing } = useMailings();
             const { validDate, validTime } = useDate();
+            const { getImage } = useImages()
+
             const isSecondStep = ref(false);
             const gotoStep = (boolean) => {
                 isSecondStep.value = boolean;
@@ -548,7 +551,11 @@
                     };
                     toEdit.time_start && (infoToSend.time_start = toEdit.time_start);
                     toEdit.send_day && (infoToSend.send_day = toEdit.send_day);
-                    avatar.src = toEdit.avatar;
+                    getImage(toEdit.avatar)
+                        .then(r => {
+                            let url = URL.createObjectURL(r);
+                            avatar.src = `${url}`;
+                        })
                     activities.selectedActivity = toEdit.activity_id;
                     recipients.file = {
                         name: `${toEdit.send_count} номеров`

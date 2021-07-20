@@ -1,4 +1,4 @@
-.settings-whatsapps__header {
+.settings-instagrams__header {
   height: 78px;
   padding: 16px 45px;
   position: relative;
@@ -14,14 +14,14 @@
   line-height: 29px;
   color: var(--settings-header-color);
 }
-.settings-whatsapps__scroll-container {
+.settings-instagrams__scroll-container {
   height: calc(100% - 79px);
   position: relative;
   ::-webkit-scrollbar {
     display: none;
   }
 }
-.settings-whatsapps__content {
+.settings-instagrams__content {
   width: 100%;
   max-height: 100%;
   overflow-y: auto;
@@ -29,9 +29,9 @@
   display: flex;
   flex-wrap: wrap;
 }
-.settings-whatsapps__element {
+.settings-instagrams__element {
   width: 257px;
-  height: 208px;
+  height: 150px;
   border-radius: 9px;
   background: var(--settings-whatsapp-color);
   margin: 0 8px 27px;
@@ -41,7 +41,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.settings-whatsapps__name {
+.settings-instagrams__name {
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -63,38 +63,35 @@
     align-items: center;
   }
 }
-.settings-whatsapps__phone {
+.settings-instagrams__phone {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 21px;
   color: var(--settings-whatsapp-sub-color);
   text-align: left;
-  margin: 19px 0 12px;
-  &:last-of-type {
-    margin: 0 0 26px;
-  }
-  &.settings-whatsapps__phone_active {
+  margin: 0 0 auto;
+  &.settings-instagrams__phone_active {
     background: var(--green-color);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  &.settings-whatsapps__phone_warning {
+  &.settings-instagrams__phone_warning {
     background: var(--yellow-color);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  &.settings-whatsapps__phone_error {
+  &.settings-instagrams__phone_error {
     background: var(--red-color);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
-.settings-whatsapps__action-container {
+.settings-instagrams__action-container {
   display: flex;
   align-items: center;
 }
-.settings-whatsapps__action {
+.settings-instagrams__action {
   border-radius: 3px;
   width: 29px;
   height: 29px;

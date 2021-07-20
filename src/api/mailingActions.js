@@ -48,14 +48,14 @@ export default {
 
 
     getDynamicMailings: () => {
-        return api.fetch('GET', 'get/dynamic-mass-sending/all');
+        return api.fetch('GET', 'get/dynamic-mass-sending/all', null, true);
     },
     createDynamicMailing: (data) => {
         let body = {
             ...data,
             csrf_token: localStorage.getItem('x-csrf'),
         }
-        return api.fetch('POST', 'create/dynamic-mass-sending', body)
+        return api.fetch('POST', 'create/dynamic-mass-sending', body, true)
     },
 
     deleteDynamicMailings: (data) => {
@@ -63,7 +63,7 @@ export default {
             dynamic_mass_sending_ids: data,
             csrf_token: localStorage.getItem('x-csrf'),
         }
-        return api.fetch('POST', 'delete/dynamic-mass-sending', body)
+        return api.fetch('POST', 'delete/dynamic-mass-sending', body, true)
     },
 
     stopDynamicMailings: (data) => {
@@ -71,24 +71,24 @@ export default {
             dynamic_mass_sending_ids: data,
             csrf_token: localStorage.getItem('x-csrf'),
         }
-        return api.fetch('POST', 'dynamic-mass-sending/stop', body)
+        return api.fetch('POST', 'dynamic-mass-sending/stop', body, true)
     },
     restoreDynamicMailings: (data) => {
         let body = {
             dynamic_mass_sending_ids: data,
             csrf_token: localStorage.getItem('x-csrf'),
         }
-        return api.fetch('POST', 'dynamic-mass-sending/start', body)
+        return api.fetch('POST', 'dynamic-mass-sending/start', body, true)
     },
     getSingleDynamicMailing: (id) => {
-        return api.fetch('GET', `get/dynamic-mass-sending?dynamic_mass_sending_id=${id}`)
+        return api.fetch('GET', `get/dynamic-mass-sending?dynamic_mass_sending_id=${id}`, null, true)
     },
     updateDynamicMailing: (data) => {
         let body = {
             ...data,
             csrf_token: localStorage.getItem('x-csrf'),
         }
-        return api.fetch('POST', 'update/dynamic-mass-sending', body)
+        return api.fetch('POST', 'update/dynamic-mass-sending', body, true)
     }
 
 }

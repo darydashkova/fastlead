@@ -11,46 +11,49 @@
             <div class="base-dialog__row">
                     <div class="base-dialog__name" v-html="wrapEmoji(chatInfo.name)"></div>
                 <div class="base-dialog__date">
-                    {{validDate(chatInfo.last_message.time)}}
+                    {{chatInfo.last_message? validDate(chatInfo.last_message.time) : ''}}
                 </div>
             </div>
             <div class="base-dialog__row">
-                    <div class="base-dialog__text" v-html="chatInfo.last_message.type === 'text'? wrapEmoji(chatInfo.last_message.message) : 'Вложение'"></div>
-                <template v-if="chatInfo.last_message.is_me">
-                    <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_unreadable">
-                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.87103 12.0154L6.18244 14.5716L13.096 6.05078" stroke="url(#paint0_linear)" stroke-width="1.5" stroke-linecap="round"/>
-                            <defs>
-                                <linearGradient id="paint0_linear" x1="-1.35783" y1="17.9379" x2="12.3055" y2="1.91598" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#00BF6D"/>
-                                    <stop offset="1" stop-color="#98D730"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <div v-else class="base-dialog__status base-dialog__status_readable">
-                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.71429 12.0154L6.0257 14.5716L12.9393 6.05078" stroke="url(#paint0_linear)" stroke-width="1.5" stroke-linecap="round"/>
-                            <path d="M11.0085 14.5716L10.5731 15.1823L11.1469 15.5914L11.5909 15.0442L11.0085 14.5716ZM18.5045 6.52333C18.7655 6.20168 18.7163 5.72936 18.3946 5.46838C18.073 5.20739 17.6007 5.25658 17.3397 5.57823L18.5045 6.52333ZM9.03791 14.0877L10.5731 15.1823L11.4439 13.9609L9.90874 12.8663L9.03791 14.0877ZM11.5909 15.0442L18.5045 6.52333L17.3397 5.57823L10.4261 14.0991L11.5909 15.0442Z" fill="url(#paint1_linear)"/>
-                            <defs>
-                                <linearGradient id="paint0_linear" x1="-1.51456" y1="17.9379" x2="12.1487" y2="1.91598" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#00BF6D"/>
-                                    <stop offset="1" stop-color="#98D730"/>
-                                </linearGradient>
-                                <linearGradient id="paint1_linear" x1="5.97909" y1="17.9379" x2="19.8091" y2="4.5377" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#00BF6D"/>
-                                    <stop offset="1" stop-color="#98D730"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                </template>
-                <template v-else>
-                    <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_count">
+                    <div class="base-dialog__text" v-html="chatInfo.last_message? (chatInfo.last_message.type === 'text'? wrapEmoji(chatInfo.last_message.message) : 'Вложение') : ''"></div>
+                <template v-if="chatInfo.last_message">
+                    <template v-if="chatInfo.last_message.is_me">
+                        <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_unreadable">
+                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.87103 12.0154L6.18244 14.5716L13.096 6.05078" stroke="url(#paint0_linear)" stroke-width="1.5" stroke-linecap="round"/>
+                                <defs>
+                                    <linearGradient id="paint0_linear" x1="-1.35783" y1="17.9379" x2="12.3055" y2="1.91598" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#00BF6D"/>
+                                        <stop offset="1" stop-color="#98D730"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div v-else class="base-dialog__status base-dialog__status_readable">
+                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.71429 12.0154L6.0257 14.5716L12.9393 6.05078" stroke="url(#paint0_linear)" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M11.0085 14.5716L10.5731 15.1823L11.1469 15.5914L11.5909 15.0442L11.0085 14.5716ZM18.5045 6.52333C18.7655 6.20168 18.7163 5.72936 18.3946 5.46838C18.073 5.20739 17.6007 5.25658 17.3397 5.57823L18.5045 6.52333ZM9.03791 14.0877L10.5731 15.1823L11.4439 13.9609L9.90874 12.8663L9.03791 14.0877ZM11.5909 15.0442L18.5045 6.52333L17.3397 5.57823L10.4261 14.0991L11.5909 15.0442Z" fill="url(#paint1_linear)"/>
+                                <defs>
+                                    <linearGradient id="paint0_linear" x1="-1.51456" y1="17.9379" x2="12.1487" y2="1.91598" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#00BF6D"/>
+                                        <stop offset="1" stop-color="#98D730"/>
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear" x1="5.97909" y1="17.9379" x2="19.8091" y2="4.5377" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#00BF6D"/>
+                                        <stop offset="1" stop-color="#98D730"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div v-if="!chatInfo.is_read" class="base-dialog__status base-dialog__status_count">
                             {{chatInfo.unread}}
-                    </div>
-                    <div v-else class="base-dialog__status base-dialog__status_none"></div>
+                        </div>
+                        <div v-else class="base-dialog__status base-dialog__status_none"></div>
+                    </template>
                 </template>
+
             </div>
         </div>
     </div>
@@ -85,7 +88,8 @@
             const toggleSelecting = () => {
                 emit('toggleSelecting');
             }
-            const { wrapEmoji } = useEmoji()
+            const { wrapEmoji } = useEmoji();
+
 
             return {
                 wrapEmoji,

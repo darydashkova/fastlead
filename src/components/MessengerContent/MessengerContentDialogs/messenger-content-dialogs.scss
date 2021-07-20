@@ -54,12 +54,7 @@
     }
 }
 
-.height-transition-enter-active, .height-transition-leave-active {
-    transition: height .3s ease;
-}
-.height-transition-enter-from, .height-transition-leave-to {
-    height: 0;
-}
+
 
 .messenger-search-group {
     text-align: left;
@@ -77,5 +72,7 @@
 .messenger-content-dialogs__loader {
     margin-top: 20px;
 }
+
+
 
 

@@ -33,12 +33,12 @@
 </template>
 
 <script>
-    import BaseButton from '../Base/BaseButton.vue'
-    import BaseModalLabel from '../Base/BaseModalLabel.vue'
-    import BaseModalHeader from '../Base/BaseModalHeader.vue'
+    import BaseButton from '../../Base/BaseButton.vue'
+    import BaseModalLabel from '../../Base/BaseModalLabel.vue'
+    import BaseModalHeader from '../../Base/BaseModalHeader.vue'
 
     import { onMounted, ref, reactive, computed } from "vue";
-    import {useModalsWhatsapps} from "../../composition/useModalsWhatsapps";
+    import {useModalsWhatsapps} from "../../../composition/useModalsWhatsapps";
 
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalHeader },

@@ -44,6 +44,14 @@ const routes = [
     }
   },
   {
+    path: '/authorization/:token',
+    name: 'authorization',
+    component: () => import ('../views/authorization/authorization.vue'),
+    meta: {
+      title: 'Fastlead - Авторизация'
+    }
+  },
+  {
     path: '/settings',
     name: 'settings',
     component: () => import ('../views/settings/settings.vue'),
@@ -60,6 +68,9 @@ const routes = [
       },
       {
         path: 'whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: {requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты'}
+      },
+      {
+        path: 'instagrams', component: () => import('../views/settings/instagrams/instagrams.vue'), meta: {requiresAuth: true, title: 'Fastlead - Instagram аккаунты'}
       },
       {
         path: 'account', component: () => import('../views/settings/account/account.vue'), meta: {requiresAuth: true, title: 'Fastlead - Настройки аккаунта'}

@@ -70,15 +70,15 @@
 </template>
 
 <script>
-    import BaseButton from '../Base/BaseButton.vue'
-    import BaseModalText from '../Base/BaseModalText.vue'
-    import BaseModalHint from '../Base/BaseModalHint.vue'
-    import BaseModalHeader from '../Base/BaseModalHeader.vue'
+    import BaseButton from '../../Base/BaseButton.vue'
+    import BaseModalText from '../../Base/BaseModalText.vue'
+    import BaseModalHint from '../../Base/BaseModalHint.vue'
+    import BaseModalHeader from '../../Base/BaseModalHeader.vue'
 
 
     import {onMounted, ref, computed} from 'vue';
-    import {useCustomScroll} from "../../composition/useCustomScroll";
-    import {useModals} from "../../composition/useModals";
+    import {useCustomScroll} from "../../../composition/useCustomScroll";
+    import {useModals} from "../../../composition/useModals";
 
     export default {
         components: {
