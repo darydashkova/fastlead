@@ -19,6 +19,9 @@ export function useDialogs() {
     const getDialogs = async (folder_id, offset = 0) => {
         return await dialogsActions.getDialogsFromFolder(folder_id, offset)
             .then(r => {
+                if (r.error) {
+                    return;
+                }
                 if (offset > 0) {
                     dialogs.data = dialogs.data.concat(r.dialogues);
                 } else {

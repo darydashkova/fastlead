@@ -4,17 +4,21 @@
             <div>
                 Интеграции
             </div>
-            <BaseButton class="base-button_cancel base-button_p6-40">Помощь с настройкой</BaseButton>
+            <BaseButton @click="closeForm" v-if="openedForm" class="base-button_cancel base-button_p6-40">Отмена</BaseButton>
+            <BaseButton v-else class="base-button_cancel base-button_p6-40">Помощь с настройкой</BaseButton>
+
         </div>
         <SettingsIntegrationsForm
                 v-if="openedForm"
                 @getBitrix="getBitrixWrapper"
+                @getAmocrm="getAmocrmWrapper"
                 @close="closeForm"
                 :formData="formData"
         ></SettingsIntegrationsForm>
         <SettingsIntegrationsList
                 :bitrixProps="integrations.bitrix"
                 :amoProps="integrations.amo"
+                @getBitrix="getBitrixWrapper"
                 @openForm="openForm"
                 v-else
         ></SettingsIntegrationsList>
@@ -66,17 +70,21 @@
                         integrations.bitrix = {...r.bitrix_integration};
                     });
             }
+            const getAmocrmWrapper = () => {
+                getAmocrm()
+                    .then(r => {
+                        if (r.code === 404) {
+                            integrations.amo = {is_active: false};
+                            return;
+                        }
+                        integrations.amo = {...r.amocrm_integration};
+                    });
+            }
 
-            getAmocrm()
-                .then(r => {
-                    if (r.code === 404) {
-                        integrations.amo = {is_active: false};
-                        return;
-                    }
-                    integrations.amo = {...r.amocrm_integration};
-                });
+
 
             getBitrixWrapper();
+            getAmocrmWrapper();
 
             return {
                 openedForm,
@@ -87,6 +95,7 @@
                 formData,
 
                 getBitrixWrapper,
+                getAmocrmWrapper,
             }
         }
     }

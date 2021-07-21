@@ -179,71 +179,74 @@
                 }
                 (!body.name.length) && errors.value.push('name');
 
-                body.actions = autorespondersActions.data.map(i => {
-                    let newObj = {
-                        action_data: i.action_data,
-                        action_type: i.action_type,
-                        disable_dialog: i.disable_dialog,
-                    }
-                    i.else_action_type && (newObj.else_action_type = i.else_action_type);
-                    if (i.start_condition.length < 2) {
-                        if (i.start_condition[0].type) {
-                            newObj.start_condition =  [...i.start_condition]
-                        }
-                    } else {
-                        newObj.start_condition =  [...i.start_condition]
-                    }
-
-                    if (typeof i.else_action_data === "string" || i.else_action_data === "number") {
-                        newObj.else_action_data = i.else_action_data
-                    } else {
-                        i.else_action_data.data && (newObj.else_action_data = i.else_action_data)
-                    }
-                    return newObj;
-                });
-
-                let errsActions = autorespondersActions.data
-                    .filter(i => {
-                        return !i.action_type && ((typeof i.action_data === "string") || (typeof i.action_data === "number")? !i.action_data : !i.action_data.data)
-                    })
-                    .map(i => i.id);
-
-                (errsActions.length) && errors.value.push({
-                    name: 'actions',
-                    data: errsActions,
-                })
-
-
-                if (errors.value.length) {
-                    if (errors.value.find(i => i === 'recipients') || errors.value.find(i => i === 'name')) {
-                        gotoStep(false)
-                    } else if (errors.value.find(i => i.name === 'actions')) {
-                        gotoStep(true);
-                    }
-                    return;
-                }
-                if (props.selectedAutoresponderToEdit) {
-                    body.autoresponder_id = props.selectedAutoresponderToEdit.autoresponder_id;
-                    updateAutoresponder(body)
-                        .then((r) => {
-                            if (r.error) {
-                                errors.value.push('name');
-                                gotoStep(false)
-                                return;
-                            }
-                            emit('gotoTable')
-                        })
-                } else {
-                    createAutoresponder(body)
-                        .then((r) => {
-                            if (r.error) {
-                                errors.value.push('name');
-                                gotoStep(false)
-                                return;
-                            }
-                            emit('gotoTable')
-                        })
-                }
+                // body.actions = autorespondersActions.data.map(i => {
+                //     let newObj = {
+                //         action_data: i.action_data,
+                //         action_type: i.action_type,
+                //         disable_dialog: i.disable_dialog,
+                //     }
+                //     i.else_action_type && (newObj.else_action_type = i.else_action_type);
+                //     if (i.start_condition.length < 2) {
+                //         if (i.start_condition[0].type) {
+                //             newObj.start_condition =  [...i.start_condition]
+                //         }
+                //     } else {
+                //         newObj.start_condition =  [...i.start_condition]
+                //     }
+                //
+                //     if (typeof i.else_action_data === "string" || i.else_action_data === "number") {
+                //         newObj.else_action_data = i.else_action_data
+                //     } else {
+                //         i.else_action_data.data && (newObj.else_action_data = i.else_action_data)
+                //     }
+                //     return newObj;
+                // });
+                //
+                // let errsActions = autorespondersActions.data
+                //     .filter(i => {
+                //         return !i.action_type && ((typeof i.action_data === "string") || (typeof i.action_data === "number")? !i.action_data : !i.action_data.data)
+                //     })
+                //     .map(i => i.id);
+                //
+                // (errsActions.length) && errors.value.push({
+                //     name: 'actions',
+                //     data: errsActions,
+                // })
+                //
+                //
+                // if (errors.value.length) {
+                //     if (errors.value.find(i => i === 'recipients') || errors.value.find(i => i === 'name')) {
+                //         gotoStep(false)
+                //     } else if (errors.value.find(i => i.name === 'actions')) {
+                //         gotoStep(true);
+                //     }
+                //     return;
+                // }
+                // if (props.selectedAutoresponderToEdit) {
+                //     body.autoresponder_id = props.selectedAutoresponderToEdit.autoresponder_id;
+                //     updateAutoresponder(body)
+                //         .then((r) => {
+                //             if (r.error) {
+                //                 errors.value.push('name');
+                //                 gotoStep(false)
+                //                 return;
+                //             }
+                //             emit('gotoTable')
+                //         })
+                // } else {
+                //     createAutoresponder(body)
+                //         .then((r) => {
+                //             if (r.error) {
+                //                 errors.value.push('name');
+                //                 gotoStep(false)
+                //                 return;
+                //             }
+                //             emit('gotoTable')
+                //         })
+                // }
+                let diagramModel = diag.value.getJsonModel()
+                console.log(diagramModel)
+                console.log(diagramModel.find(i => i.value.isStart === true));
             };
 
 
