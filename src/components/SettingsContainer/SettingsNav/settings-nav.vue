@@ -176,7 +176,8 @@
 </template>
 
 <script>
-    import {useCustomScroll} from "../../../composition/useCustomScroll";
+    import { useCustomScroll } from "../../../composition/useCustomScroll";
+    import { useUserInfo } from "../../../composition/useUserInfo";
     import { onMounted, ref } from 'vue'
 
     export default {
