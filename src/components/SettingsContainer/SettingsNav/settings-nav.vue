@@ -1,12 +1,14 @@
 <template>
     <div class="settings-nav">
         <div class="settings-nav__container">
-            <router-link to="/messenger" class="settings-nav__link settings-nav__link_header">
-                <svg class="settings-nav__icon" width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 1L2 7.17855L8 13" stroke="#757589" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-                Вернуться в чаты
-            </router-link>
+            <span @click.prevent="toggleOpenedUserInfo(false)">
+                <router-link to="/messenger" class="settings-nav__link settings-nav__link_header">
+                    <svg class="settings-nav__icon" width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 1L2 7.17855L8 13" stroke="#757589" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    Вернуться в чаты
+                </router-link>
+            </span>
             <div class="settings-nav__list-container">
                 <div class="scroll" ref="container" @click.self="scrollTo">
                     <div class="scroll__bar" ref="scrollbar"></div>
@@ -180,6 +182,7 @@
     export default {
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
+            const { toggleOpenedUserInfo } = useUserInfo()
             onMounted(() => {
                 init();
             })
@@ -191,6 +194,7 @@
                 scrollTo,
 
                 openedAccounts,
+                toggleOpenedUserInfo,
             }
 
         }

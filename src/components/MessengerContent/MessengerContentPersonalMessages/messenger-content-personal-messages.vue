@@ -1,5 +1,5 @@
 <template>
-    <div class="messenger-content-personal-messages">
+    <div class="messenger-content-personal-messages" @click="toggleOpenedUserInfo(false)">
         <div class="messenger-content-personal-messages__header"
              :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length}"
         >
@@ -62,6 +62,7 @@
     import {useModals} from "../../../composition/useModals";
     import { ref } from 'vue'
     import {useModalConfirmDelete} from "../../../composition/useModalConfirmDelete";
+    import {useUserInfo} from "../../../composition/useUserInfo";
     export default {
         components: { BaseCircleIcon, MessagesContainer, DialogSelections },
         setup() {
@@ -72,6 +73,8 @@
             const { selectedDialog, selectedGroupDialogs, toggleAllSelectedGroupDialogs, dialogs, deleteDialog, getDialogs, selectDialog } = useDialogs()
 
             const { toggleModalMoveChat, setSelectedDialogsToMove, setCloseCallbackMoveModal } = useModals()
+
+            const { toggleOpenedUserInfo } = useUserInfo()
 
             const { toggleModalConfirmDelete, setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete } = useModalConfirmDelete()
 
@@ -127,6 +130,8 @@
                 moveChat,
                 openedActions,
                 toggleOpenedActions,
+
+                toggleOpenedUserInfo,
 
             }
         }

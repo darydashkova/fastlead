@@ -3,14 +3,14 @@
 </template>
 
 <script>
-  import {useAuth} from "./composition/useAuth";
-  import {useStyle} from "./composition/useStyle";
+  import { useAuth } from "./composition/useAuth";
+  import { useStyle } from "./composition/useStyle";
   import "./components/emoji-component/css/emoji-mart.css";
-  import {useUser} from "./composition/useUser";
+  import { useUser } from "./composition/useUser";
   export default {
     setup() {
-      const {getCsrf} = useAuth();
-      const {setStyle} = useStyle();
+      const { getCsrf } = useAuth();
+      const { setStyle } = useStyle();
       const { getUser } = useUser();
       setStyle(localStorage.getItem('style') === 'true')
       getCsrf();

@@ -15,7 +15,6 @@ audio.append(ogg);
 audio.append(mp3);
 
 
-
 let socket;
 
 export function useSocket() {
@@ -59,6 +58,10 @@ export function useSocket() {
         return ws.readyState === ws.OPEN
     }
     const socketSend = (action, data) => {
+        // console.log(action);
+        // console.log(data);
+        // console.log(socket);
+        // console.log(isOpen(socket));
         if (!isOpen(socket)) return;
         let command = {
             command: action,

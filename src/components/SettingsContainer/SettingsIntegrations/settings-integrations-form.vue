@@ -239,6 +239,7 @@
         props: {
             formData: Object
         },
+        emits: ['getBitrix', 'getAmocrm', 'close'],
         setup(props, {emit}) {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm } = useIntegrations()

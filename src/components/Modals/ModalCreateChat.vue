@@ -1,6 +1,12 @@
 <template>
-    <div class="modal-create-chat" @mousedown.self="close"
-    :class="{'z-index': fromModals.fromAddToFolderToCreateChat}">
+    <div
+            class="modal-create-chat"
+            @mousedown.self="close"
+            :class="{'z-index': fromModals.fromAddToFolderToCreateChat}"
+    >
+        <teleport to="body">
+            <FullScreenLoader v-if="showBaseLoader"></FullScreenLoader>
+        </teleport>
         <div class="modal-create-chat__body">
             <BaseModalHeader>
                 Создать чат
@@ -16,7 +22,8 @@
                         >
                             Добавить номер
                         </div>
-                        <div class="modal-create-chat__choice pointer" @click="choice = 2"
+                        <div class="modal-create-chat__choice pointer"
+                             @click="(choice = 2)"
                              :class="{'modal-create-chat__choice_active': choice === 2}"
                         >
                             Залить базу
@@ -51,21 +58,36 @@
                     </transition>
                     <template v-if="choice === 1">
                         <div v-if="CRM.selectedCRM === 1" class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
-                            <BaseModalLabel for-id="modal-create-chat__input" :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
+                            <BaseModalLabel for-id="modal-create-chat__input"
+                                            :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
                             <input id="modal-create-chat__input-phone" type="text" class="modal-create-chat__input" v-model="phone">
                         </div>
                         <div v-else class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
-                            <BaseModalLabel for-id="modal-create-chat__input" :class="{'base-modal-label_error': errors.login}">Логин</BaseModalLabel>
+                            <BaseModalLabel for-id="modal-create-chat__input"
+                                            :class="{'base-modal-label_error': errors.login}">Логин</BaseModalLabel>
                             <input id="modal-create-chat__input-login" type="text" class="modal-create-chat__input" v-model="login">
                         </div>
                     </template>
                     <div v-else-if="choice === 2" class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
-                        <BaseModalLabel  :class="{'base-modal-label_error': errors.phone}">Файл с базой</BaseModalLabel>
+                        <BaseModalLabel  :class="{'base-modal-label_error': errors.baseFile}">Файл с базой</BaseModalLabel>
                         <div class="modal-create-chat__input pointer"
                              :class="{
-                        'modal-create-chat__input_placeholder': !name.length,
-                    }"
-                        >{{name? name : 'Загрузить файл'}}</div>
+                                'modal-create-chat__input_placeholder': !uploadedFile,
+                             }"
+                        >
+                            <label for="fileBase" class="pointer">
+                                {{
+                                    uploadedFile ? uploadedFile.name : "Загрузить файл"
+                                }}
+                            </label>
+                            <input
+                                    class="modal-create-chat__input-file"
+                                    id="fileBase"
+                                    type="file"
+                                    accept=".csv,text/plain"
+                                    @change="selectFile"
+                            />
+                        </div>
                     </div>
                     <div v-show="CRM.selectedCRM === 1">
                         <div class="modal-create-chat__input-group-margin-container">
@@ -212,6 +234,7 @@
     import { useWhatsapp } from "../../composition/useWhatsapp";
     import {useDialogs} from "../../composition/useDialogs";
     import {useInstagram} from "../../composition/useInstagrams";
+    import {useFiles} from "../../composition/useFiles";
 
     export default {
         props: {
@@ -224,11 +247,57 @@
             const newCustomScrollWhatsApp = useCustomScroll()
             const newCustomScrollInstagram = useCustomScroll()
             const newCustomScrollFolder = useCustomScroll()
-            const { toggleModalCreateChat, toggleModalCreateFolder, fromModals, setCloseCallbackCreateChat, onCloseCallbackCreateChat } = useModals();
+            const {
+                toggleModalCreateChat,
+                toggleModalCreateFolder,
+                fromModals,
+                setCloseCallbackCreateChat,
+                onCloseCallbackCreateChat
+            } = useModals();
             const { getWhatsapps, whatsapps } = useWhatsapp()
             const { getInstagrams, instagrams } = useInstagram()
             const { createDialog, getDialogs, selectDialog } = useDialogs();
+            const { createFile, uploadBaseFromFile } = useFiles()
 
+            const toggleUploaderBase = ref(false);
+            const uploadedFile = ref(null);
+            const selectFile = ($event) => {
+                uploadedFile.value = $event.target.files[0];
+            };
+            const showBaseLoader = ref(false)
+
+            const uploadFileBase = async () => {
+                createFile(uploadedFile.value)
+                    .then(async (res) => {
+                        if (res.status === "ok") {
+                            const dialogType = CRM.selectedCRM;
+                            const params = {
+                                folder_id: !selectLocalFolder.value
+                                    ? 0
+                                    : selectLocalFolder.value,
+                                file_uid: res.files[0],
+                            };
+                            if (dialogType === 1) {
+                                params.whatsapp_id = selectedWhatsapp.value.whatsapp_id;
+                                params.type = "WhatsappDialog";
+                            }
+                            if (dialogType === 2) {
+                                params.instagram_id = selectedInstagram.value.instagram_id;
+                                params.type = "InstagramDialog";
+                            }
+
+                            showBaseLoader.value = true
+                            uploadBaseFromFile(params)
+                                .then(r => {
+                                    showBaseLoader.value = false;
+                                    if (r.error) {
+                                        return;
+                                    }
+                                    toggleModalCreateChat(false);
+                                })
+                        }
+                });
+            };
 
             const openedWhatsApps = ref(false);
             const toggleOpenedWhatsApps = () => {
@@ -276,6 +345,7 @@
                 phone: false,
                 login: false,
                 instagram: false,
+                baseFile: false,
             })
 
             const choice = ref(1);
@@ -296,6 +366,38 @@
                 errors.phone = false;
                 errors.login = false;
                 errors.instagram = false;
+
+                errors.baseFile = false
+
+                // загрузка файла
+                if (choice.value === 2) {
+                    if (!uploadedFile.value) {
+                        errors.baseFile = true;
+                        return;
+                    }
+
+                    if (CRM.selectedCRM === 1) {
+                        if (!selectedWhatsapp.value) {
+                            errors.whatsapp = true;
+                            return;
+                        }
+                    }
+                    if (CRM.selectedCRM === 2) {
+                        if (!selectedInstagram.value) {
+                            errors.instagram = true;
+                            return;
+                        }
+                    }
+
+                    // for del
+                    // return uploadFileBase(uploadedFile.value);
+                    const selectedSocialId = CRM.selectedCRM === 1
+                        ? selectedWhatsapp.value.whatsapp_id
+                        : selectedInstagram.value.instagram_id
+
+                    uploadFileBase();
+                    return;
+                }
 
                 if (CRM.selectedCRM === 1) {
                     if (!phone.value) {
@@ -421,6 +523,11 @@
                 fromModals,
                 close,
                 createFolder,
+
+                toggleUploaderBase,
+                uploadedFile,
+                selectFile,
+                showBaseLoader,
             }
         }
     }
@@ -632,6 +739,9 @@
     .modal-create-chat__main-scroll {
         overflow-y: auto;
         height: 100%;
+    }
+    .modal-create-chat__input-file {
+        display: none;
     }
 
 

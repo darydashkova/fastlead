@@ -23,11 +23,7 @@
             </div>
         </div>
         <div class="base-circle-icon__image"
-            :style="{
-                'background': `url(${src}) no-repeat`,
-                'background-size': 'cover',
-                'background-position': 'center center',
-            }"
+            :style="iconStyles(src)"
         ></div>
     </div>
 </template>
@@ -70,11 +66,21 @@
                     })
             }
 
+            const iconStyles = src => {
+                if (src === null) return;
+                return {
+                    'background': `url(${src}) no-repeat`,
+                    'background-size': 'cover',
+                    'background-position': 'center center',
+                }
+            }
+
 
 
             return {
                 isActive: props.isActive,
                 src,
+                iconStyles,
 
                 isSelector,
                 moveIn,

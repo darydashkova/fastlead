@@ -12,27 +12,34 @@ export default {
         const error = ref('');
 
         const login = ref('');
-        const password = ref('');
-        const passwordConfirm = ref('');
+        const phone = ref('');
+        const email = ref('');
+        const checkbox = ref(true);
 
         const registr = () => {
             if (!login.value.length) {
                 error.value = 'Введите логин';
                 return;
             }
-            if (!password.value.length) {
-                error.value = 'Введите пароль';
+            if (!phone.value.length) {
+                console.log(phone);
+                error.value = 'Введите телефон';
                 return;
             }
-            if (password.value !== passwordConfirm.value) {
-                error.value = 'Пароли не совпадают';
+            if (!email.value.length) {
+                error.value = 'Введите E-mail';
+                return;
+            }
+            if (!checkbox.value) {
+                error.value = 'Необходимо согласие на обработку персональных данных';
                 return;
             }
             loading.value = true;
             error.value = '';
             tryRegistr({
                 login: login.value,
-                password: password.value,
+                phone: phone.value,
+                email: email.value,
             })
                 .then(r => {
                     if (r.error) {
@@ -52,8 +59,9 @@ export default {
         }
         return {
             login,
-            password,
-            passwordConfirm,
+            phone,
+            email,
+            checkbox,
 
             registr,
             onlyEngChars,
