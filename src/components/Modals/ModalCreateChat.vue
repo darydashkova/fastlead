@@ -76,7 +76,7 @@
                                 'modal-create-chat__input_placeholder': !uploadedFile,
                              }"
                         >
-                            <label for="fileBase" class="pointer pointer_click">
+                            <label for="fileBase" class="pointer pointer_width">
                                 {{
                                     uploadedFile ? uploadedFile.name : "Загрузить файл"
                                 }}
@@ -392,7 +392,7 @@
                     }
 
                 }
-                let dataToSend = {
+                const dataToSend = {
                     folder_id: selectedFolder.value,
                 }
                
@@ -424,41 +424,37 @@
                         toggleModalCreateChat(false);
                     })
             }
-   const uploadFileBase = async () => {
-       var folderNum=selectedFolder.value;
-                createFile(uploadedFile.value)
-                    .then(async (res) => {
-                        if (res.status === "ok") {
-                            const dialogType = CRM.selectedCRM;
-                            const params = {
-                                folder_id: !folderNum
-                                    ? 0
-                                    : folderNum,
-                                file_uid: res.files[0],
-                               
-                            }; 
-                        
-                            if (dialogType === 1) {
-                                params.whatsapp_id = selectedWhatsapp.value.whatsapp_id;
-                                params.type = "WhatsappDialog";
+   const uploadFileBase =  () => {
+        createFile(uploadedFile.value)
+            .then( (res) => {
+                if (res.status === "ok") {
+                    const dialogType = CRM.selectedCRM;
+                    const params = {
+                        folder_id: !selectedFolder.value
+                            ? 0
+                            : selectedFolder.value,
+                        file_uid: res.files[0],      
+                    }; 
+                    if (dialogType === 1) {
+                        params.whatsapp_id = selectedWhatsapp.value.whatsapp_id;
+                        params.type = "WhatsappDialog";
+                    }
+                    if (dialogType === 2) {
+                        params.instagram_id = selectedInstagram.value.instagram_id;
+                        params.type = "InstagramDialog";
+                    }
+                    showBaseLoader.value = true
+                    uploadBaseFromFile(params)
+                        .then(r => {
+                            showBaseLoader.value = false;
+                            if (r.error) {
+                                return;
                             }
-                            if (dialogType === 2) {
-                                params.instagram_id = selectedInstagram.value.instagram_id;
-                                params.type = "InstagramDialog";
-                            }
-
-                            showBaseLoader.value = true
-                            uploadBaseFromFile(params)
-                                .then(r => {
-                                    showBaseLoader.value = false;
-                                    if (r.error) {
-                                        return;
-                                    }
-                                    toggleModalCreateChat(false);
-                                })
-                        }
-                });
-            };
+                            toggleModalCreateChat(false);
+                        })
+                }
+            });
+        };
             onMounted( () => {
                 newCustomScrollWhatsApp.init();
                 newCustomScrollInstagram.init();
@@ -555,7 +551,7 @@
         &.z-index {
             z-index: 1400;
         }
-        .pointer_click{
+        .pointer_width{
             width: 100%;
         }
     }
