@@ -60,7 +60,8 @@
                         <div v-if="CRM.selectedCRM === 1" class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
                             <BaseModalLabel for-id="modal-create-chat__input"
                                             :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
-                            <input id="modal-create-chat__input-phone" type="text" class="modal-create-chat__input" v-model="phone">
+                            <input id="modal-create-chat__input-phone" type="text" class="modal-create-chat__input" v-model="phone" placeholder="7 (123) 456-78-90"
+                 v-maska="'# (###) ###-##-##'">
                         </div>
                         <div v-else class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
                             <BaseModalLabel for-id="modal-create-chat__input"
@@ -75,7 +76,7 @@
                                 'modal-create-chat__input_placeholder': !uploadedFile,
                              }"
                         >
-                            <label for="fileBase" class="pointer">
+                            <label for="fileBase" class="pointer pointer_click">
                                 {{
                                     uploadedFile ? uploadedFile.name : "Загрузить файл"
                                 }}
@@ -266,38 +267,7 @@
             };
             const showBaseLoader = ref(false)
 
-            const uploadFileBase = async () => {
-                createFile(uploadedFile.value)
-                    .then(async (res) => {
-                        if (res.status === "ok") {
-                            const dialogType = CRM.selectedCRM;
-                            const params = {
-                                folder_id: !selectLocalFolder.value
-                                    ? 0
-                                    : selectLocalFolder.value,
-                                file_uid: res.files[0],
-                            };
-                            if (dialogType === 1) {
-                                params.whatsapp_id = selectedWhatsapp.value.whatsapp_id;
-                                params.type = "WhatsappDialog";
-                            }
-                            if (dialogType === 2) {
-                                params.instagram_id = selectedInstagram.value.instagram_id;
-                                params.type = "InstagramDialog";
-                            }
-
-                            showBaseLoader.value = true
-                            uploadBaseFromFile(params)
-                                .then(r => {
-                                    showBaseLoader.value = false;
-                                    if (r.error) {
-                                        return;
-                                    }
-                                    toggleModalCreateChat(false);
-                                })
-                        }
-                });
-            };
+         
 
             const openedWhatsApps = ref(false);
             const toggleOpenedWhatsApps = () => {
@@ -375,7 +345,6 @@
                         errors.baseFile = true;
                         return;
                     }
-
                     if (CRM.selectedCRM === 1) {
                         if (!selectedWhatsapp.value) {
                             errors.whatsapp = true;
@@ -396,6 +365,8 @@
                         : selectedInstagram.value.instagram_id
 
                     uploadFileBase();
+                     
+
                     return;
                 }
 
@@ -424,6 +395,7 @@
                 let dataToSend = {
                     folder_id: selectedFolder.value,
                 }
+               
                 if (CRM.selectedCRM === 1) {
                     dataToSend.phone = phone.value;
                     dataToSend.whatsapp_id = selectedWhatsapp.value.whatsapp_id;
@@ -452,7 +424,41 @@
                         toggleModalCreateChat(false);
                     })
             }
+   const uploadFileBase = async () => {
+       var folderNum=selectedFolder.value;
+                createFile(uploadedFile.value)
+                    .then(async (res) => {
+                        if (res.status === "ok") {
+                            const dialogType = CRM.selectedCRM;
+                            const params = {
+                                folder_id: !folderNum
+                                    ? 0
+                                    : folderNum,
+                                file_uid: res.files[0],
+                               
+                            }; 
+                        
+                            if (dialogType === 1) {
+                                params.whatsapp_id = selectedWhatsapp.value.whatsapp_id;
+                                params.type = "WhatsappDialog";
+                            }
+                            if (dialogType === 2) {
+                                params.instagram_id = selectedInstagram.value.instagram_id;
+                                params.type = "InstagramDialog";
+                            }
 
+                            showBaseLoader.value = true
+                            uploadBaseFromFile(params)
+                                .then(r => {
+                                    showBaseLoader.value = false;
+                                    if (r.error) {
+                                        return;
+                                    }
+                                    toggleModalCreateChat(false);
+                                })
+                        }
+                });
+            };
             onMounted( () => {
                 newCustomScrollWhatsApp.init();
                 newCustomScrollInstagram.init();
@@ -549,6 +555,9 @@
         &.z-index {
             z-index: 1400;
         }
+        .pointer_click{
+            width: 100%;
+        }
     }
     .modal-create-chat__body {
         width: 364px;
@@ -578,8 +587,8 @@
         line-height: 21px;
         margin-top: 6px;
         width: 100%;
+        display: flex;
         padding: 6px 10px;
-
         color: var(--modal-font-color);
         background: var(--modal-element-hover-bg-color);
         border: 0.7px solid var(--modal-input-border-color);
