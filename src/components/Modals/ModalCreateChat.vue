@@ -76,7 +76,7 @@
                                 'modal-create-chat__input_placeholder': !uploadedFile,
                              }"
                         >
-                            <label for="fileBase" class="pointer pointer_width">
+                            <label for="fileBase" class="pointer modal-create-chat__label_width">
                                 {{
                                     uploadedFile ? uploadedFile.name : "Загрузить файл"
                                 }}
@@ -424,9 +424,9 @@
                         toggleModalCreateChat(false);
                     })
             }
-   const uploadFileBase =  () => {
+   const uploadFileBase = () => {
         createFile(uploadedFile.value)
-            .then( (res) => {
+            .then( res => {
                 if (res.status === "ok") {
                     const dialogType = CRM.selectedCRM;
                     const params = {
@@ -551,7 +551,7 @@
         &.z-index {
             z-index: 1400;
         }
-        .pointer_width{
+        .modal-create-chat__label_width{
             width: 100%;
         }
     }
