@@ -76,7 +76,7 @@
                                 'modal-create-chat__input_placeholder': !uploadedFile,
                              }"
                         >
-                            <label for="fileBase" class="pointer modal-create-chat__label_width">
+                            <label for="fileBase" class="pointer modal-create-chat__input-label">
                                 {{
                                     uploadedFile ? uploadedFile.name : "Загрузить файл"
                                 }}
@@ -551,9 +551,7 @@
         &.z-index {
             z-index: 1400;
         }
-        .modal-create-chat__label_width{
-            width: 100%;
-        }
+
     }
     .modal-create-chat__body {
         width: 364px;
@@ -574,6 +572,7 @@
         &.modal-create-chat__input-group_padding-20 {
             padding: 0 20px;
         }
+     
     }
     .modal-create-chat__input {
         font-family: Segoe UI;
@@ -592,6 +591,9 @@
         border-radius: 3px;
         &.chat__input_placeholder {
             color: var(--search-input-placeholder-color);
+        }
+        &-label{
+            width: 100%;
         }
     }
     .modal-create-chat__my-folders {
