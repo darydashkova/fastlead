@@ -81,11 +81,9 @@ export function useDialogs() {
             selectedGroupDialogs.data = [];
         }
     }
-
     return {
         dialogs: computed(() => dialogs.data),
         selectedDialog,
-
         setRead,
         selectDialog,
         getDialogs,

@@ -10,6 +10,7 @@
             <input class="registration__input" type="tel"
                    v-model="phone"
                    placeholder="+7 (123) 456-78-90"
+                 v-maska="'+7 (###) ###-##-##'"
             >
             <input class="registration__input" type="email"
                    v-model="email"

@@ -37,7 +37,7 @@
 
 <script>
     import {useDate} from "../../composition/useDate";
-    import { computed, onMounted, ref } from 'vue'
+    import {  onMounted, ref } from 'vue'
     import {useImages} from "../../composition/useImages";
     export default {
         props: {

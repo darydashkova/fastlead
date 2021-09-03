@@ -1,4 +1,5 @@
 .messenger-content-personal-messages{
+  position: relative;
   width: calc(100% - 90px - 365px);
   max-width: calc(100% - 90px - 365px);
   flex-shrink: 5;
@@ -17,9 +18,33 @@
     background: var(--left-bar-color);
     align-items: flex-start;
   }
+  .selectedDialog-container{
+    position: relative;
+    img{
+      position: absolute;
+      top: 75%;
+      right: 10%;
+    }
+  }
 }
 .messenger-content-personal-messages__name-container{
   margin-left: 18px;
+  .messenger-content-personal-messages__name-icon{
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 21px;
+    padding-top: 6px;
+    display: flex;
+    color: var(--user-icon-name);
+    align-items:center;
+    .messenger-content-personal-messages__img{
+      margin-right: 6px;
+    }
+    .messenger-content-personal-messages__account{
+      display: flex;
+    }
+  }
+
 }
 .messenger-content-personal-messages__name{
   font-style: normal;
@@ -72,4 +97,25 @@
     background: var(--user-info-settings-hover-setting-bg);
     color: var(--font-color);
   }
+}
+.diasbled-dialog{
+  color: #575773;
+  .messenger-content-personal-messages__name,.messenger-content-personal-messages__name-icon{
+    color: #575773;
+  }
+}
+.messenger-content-personal-messages__disabled-block{
+  background-color: #2E2E4E;
+  position: absolute;
+  width: calc(100% - 92px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
+  top: 94px;
+  text-align: center;
+  padding: 20px 0px;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  color: #EDEDEF;
 }

@@ -1,8 +1,8 @@
 import authActions from '../api/authActions'
+import router from '../router';
 
 function deleteAllCookies() {
     let cookies = document.cookie.split(";");
-
     for (var i = 0; i < cookies.length; i++) {
         let cookie = cookies[i];
         let eqPos = cookie.indexOf("=");
@@ -27,17 +27,18 @@ export function useAuth() {
 
     const outAuth = () => {
         deleteAllCookies();
-        let style = localStorage.getItem('style');
+        const style = localStorage.getItem('style');
+        const csrf = localStorage.getItem('csrf');
         localStorage.clear();
         localStorage.setItem('style', style);
-        window.location.reload(true);
+        localStorage.setItem('csrf', csrf);
+        router.push('/login');
     }
 
     return {
         tryAuth,
         tryRegistr,
         getCsrf,
-
         outAuth,
     }
 }

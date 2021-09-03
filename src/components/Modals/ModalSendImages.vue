@@ -87,7 +87,6 @@
     import BaseButton from '../Base/BaseButton.vue'
     import BaseModalText from '../Base/BaseModalText.vue'
     import BaseModalHeader from '../Base/BaseModalHeader.vue'
-
     import {useImages} from "../../composition/useImages";
     import {useModalsImages} from "../../composition/useModalsImages";
     import {useSocket} from "../../composition/useSocket";
@@ -100,10 +99,9 @@
         setup() {
             const { toggleModalSendImages } = useModalsImages()
             const { socketSend } = useSocket()
-            const { selectedDialog } = useDialogs();
+            const { selectedDialog } = useDialogs()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { imagesToSend, createImage, addImage, deleteImage } = useImages()
-
             const close = () => {
                 toggleModalSendImages(false);
             }
@@ -135,7 +133,6 @@
             const del = (id) => {
                 deleteImage(id);
             }
-
             function conv_size(b){
                 let fsizekb = b / 1024,
                     fsizemb = fsizekb / 1024,
@@ -153,8 +150,6 @@
                 }
                 return fsize;
             }
-
-
             const save = () => {
                 imagesToSend.value.forEach(image => {
                     socketSend('send_message', {
@@ -163,7 +158,6 @@
                         dialog_id: selectedDialog.value
                     })
                 })
-
             }
             onMounted( () => {
                 init()
@@ -173,15 +167,12 @@
                 content,
                 scrollbar,
                 scrollTo,
-
-
                 save,
                 close,
                 add,
                 change,
                 del,
                 imagesToSend,
-
                 conv_size,
             }
         }

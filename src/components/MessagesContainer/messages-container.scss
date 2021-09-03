@@ -12,3 +12,7 @@
   max-width: 100%;
   background: var(--messages-input-wrapper-bg);
 }
+.messages-container-input__disabled{
+  color: var(--user-icon-name);
+  text-align: center;
+}

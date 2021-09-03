@@ -14,8 +14,10 @@
             onMounted(() => {
                 localStorage.setItem('token', route.params.token);
                 getUser()
-                    .then(() => {
-                        router.push('/messenger');
+                    .then((r) => {
+                        if (!r.error) {
+                            router.push('/messenger');
+                        }
                     })
             })
         }
