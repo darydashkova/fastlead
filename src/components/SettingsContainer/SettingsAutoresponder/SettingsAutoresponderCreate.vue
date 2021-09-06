@@ -167,16 +167,10 @@
                             value: item.value,
                         }
                 })
-                console.log('firstState', firstStateDiagramData);
-
                 let connectors =
                     diagram.filter(item => item.value.isConnect);
                 let links =
                     diagram.filter(item => !item.value && item.source.id && item.target.id);
-
-                console.log('connectors', connectors);
-                console.log('links', links);
-
                 connectors.forEach(item => {
                     let findedBlock = firstStateDiagramData.find(i => i.self_id === item.parent.id)
                     if (findedBlock) {

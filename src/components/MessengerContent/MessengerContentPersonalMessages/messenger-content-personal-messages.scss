@@ -20,7 +20,7 @@
   }
   .selectedDialog-container{
     position: relative;
-    img{
+    &__isOnline{
       position: absolute;
       top: 75%;
       right: 10%;
@@ -98,7 +98,7 @@
     color: var(--font-color);
   }
 }
-.diasbled-dialog{
+.messenger-content-personal-messages_disabled-dialog{
   color: #575773;
   .messenger-content-personal-messages__name,.messenger-content-personal-messages__name-icon{
     color: #575773;

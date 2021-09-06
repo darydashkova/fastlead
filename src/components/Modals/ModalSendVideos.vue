@@ -1,17 +1,17 @@
 <template>
-    <div class="modal-send-images" @mousedown.self="close">
-        <div class="modal-send-images__body">
+    <div class="modal-send-videos" @mousedown.self="close">
+        <div class="modal-send-videos__body">
             <BaseModalHeader v-if="videosToSend.length > 1" class="base-modal-header__pd-0">
                 Выбрано {{videosToSend.length}} видео
             </BaseModalHeader>
-            <div class="modal-send-images__single-image" v-if="(videosToSend.length + 1) === 1 && videosToSend[0]"
+            <div class="modal-send-videos__single-video" v-if="(videosToSend.length + 1) === 1 && videosToSend[0]"
                  :style="{
                     'background': `url(${videosToSend[0].src}) no-repeat`,
                     'background-size': 'cover',
                     'background-position': 'center center',
                 }"
             >
-                <div class="modal-send-images__actions-container">
+                <div class="modal-send-videos__actions-container">
                     <svg class="pointer" style="margin-right: 14px;" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8131 0.646414C17.0463 0.743075 17.2582 0.884749 17.4366 1.06334C17.6152 1.24174 17.7569 1.45359 17.8535 1.68678C17.9502 1.91996 17.9999 2.16992 17.9999 2.42235C17.9999 2.67478 17.9502 2.92473 17.8535 3.15792C17.7569 3.39111 17.6152 3.60296 17.4366 3.78136L14.8673 6.34993L12.15 3.63264L14.7185 1.06334C14.8969 0.884749 15.1088 0.743075 15.342 0.646414C15.5752 0.549753 15.8251 0.5 16.0776 0.5C16.33 0.5 16.58 0.549753 16.8131 0.646414ZM0 16.9286C0.000173417 16.1166 0.322878 15.338 0.897133 14.7639L11.1108 4.55031L13.95 7.38941L3.73627 17.603C3.16218 18.1773 2.38351 18.5 1.57151 18.5001H0V16.9286Z" fill="#EDEDEF"/>
                     </svg>
@@ -21,28 +21,28 @@
                 </div>
 
             </div>
-            <div class="modal-send-images__container" v-else>
+            <div class="modal-send-videos__container" v-else>
                 <div class="scroll" ref="container" @click.self="scrollTo">
                     <div class="scroll__bar" ref="scrollbar"></div>
                 </div>
-                <div class="modal-send-images__content" ref="content">
-                    <div class="modal-send-images__image-container" v-for="video in videosToSend" :key="video.id">
-                        <div class="modal-send-images__image"
+                <div class="modal-send-videos__content" ref="content">
+                    <div class="modal-send-videos__video-container" v-for="video in videosToSend" :key="video.id">
+                        <div class="modal-send-videos__video"
                              :style="{
                             'background': `url(${video.src}) no-repeat`,
                             'background-size': 'cover',
                             'background-position': 'center center',
                         }"
                         ></div>
-                        <div class="modal-send-images__info">
-                            <div class="modal-send-images__name">
+                        <div class="modal-send-videos__info">
+                            <div class="modal-send-videos__name">
                                 {{video.name}}
                             </div>
-                            <div class="modal-send-images__size">
+                            <div class="modal-send-videos__size">
                                 {{conv_size(video.size)}}
                             </div>
                         </div>
-                        <div class="modal-send-images__actions">
+                        <div class="modal-send-videos__actions">
                             <svg class="pointer" style="margin-right: 14px;" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8131 0.646414C17.0463 0.743075 17.2582 0.884749 17.4366 1.06334C17.6152 1.24174 17.7569 1.45359 17.8535 1.68678C17.9502 1.91996 17.9999 2.16992 17.9999 2.42235C17.9999 2.67478 17.9502 2.92473 17.8535 3.15792C17.7569 3.39111 17.6152 3.60296 17.4366 3.78136L14.8673 6.34993L12.15 3.63264L14.7185 1.06334C14.8969 0.884749 15.1088 0.743075 15.342 0.646414C15.5752 0.549753 15.8251 0.5 16.0776 0.5C16.33 0.5 16.58 0.549753 16.8131 0.646414ZM0 16.9286C0.000173417 16.1166 0.322878 15.338 0.897133 14.7639L11.1108 4.55031L13.95 7.38941L3.73627 17.603C3.16218 18.1773 2.38351 18.5 1.57151 18.5001H0V16.9286Z"
                                       fill="#9797BB"/>
@@ -62,7 +62,7 @@
             </BaseModalText>
             <input type="file" style="display: none;" id="modal-send-images__input-file" @change="changeVideo">
 
-            <div class="modal-send-images__buttons">
+            <div class="modal-send-videos__buttons">
                 <BaseButton
                         class="base-button_enter"
                         @click="save"
@@ -110,7 +110,6 @@
             }
             const changeVideo = ($event) => {
                 if ($event.target.files[0]) {
-                    console.log(videosToSend.value);
                     $event.target.files.forEach(item => {
                         let fr = new FileReader();
                         fr.addEventListener("load", function () {
@@ -181,7 +180,7 @@
 </script>
 
 <style lang="scss">
-    .modal-send-images {
+    .modal-send-videos {
         width: 100vw;
         height: 100vh;
         background: rgba(0, 0, 0, 0.34);
@@ -197,25 +196,25 @@
             z-index: 1400;
         }
     }
-    .modal-send-images__body {
+    .modal-send-videos__body {
         width: 364px;
         background: var(--modal-bg-color);
         border-radius: 9px;
         padding: 20px;
         text-align: left;
     }
-    .modal-send-images__buttons {
+    .modal-send-videos__buttons {
         width: 100%;
         display: flex;
         justify-content: space-between;
         margin-top: 58px;
     }
-    .modal-send-images__single-image {
+    .modal-send-videos__single-image {
         width: 100%;
         height: 191px;
         position: relative;
     }
-    .modal-send-images__container {
+    .modal-send-videos__container {
         margin-top: 26px;
         height: 203px;
         width: 100%;
@@ -224,12 +223,12 @@
             display: none;
         }
     }
-    .modal-send-images__content {
+    .modal-send-videos__content {
         height: 100%;
         width: 100%;
         overflow-y: auto;
     }
-    .modal-send-images__image-container {
+    .modal-send-videos__video-container {
         width: 100%;
         display: flex;
         margin-bottom: 23px;
@@ -237,15 +236,15 @@
             margin-bottom: 0;
         }
     }
-    .modal-send-images__image {
+    .modal-send-videos__video {
         border-radius: 7px;
         width: 90px;
         height: 90px;
     }
-    .modal-send-images__info {
+    .modal-send-videos__info {
         margin-left: 14px;
     }
-    .modal-send-images__name {
+    .modal-send-videos__name {
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
@@ -258,7 +257,7 @@
         white-space: nowrap;
         overflow: hidden;
     }
-    .modal-send-images__size {
+    .modal-send-videos__size {
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
@@ -272,11 +271,11 @@
         white-space: nowrap;
         overflow: hidden;
     }
-    .modal-send-images__actions {
+    .modal-send-videos__actions {
         margin-left: auto;
     }
 
-    .modal-send-images__actions-container {
+    .modal-send-videos__actions-container {
         position: absolute;
         top: 9px;
         right: 16px;

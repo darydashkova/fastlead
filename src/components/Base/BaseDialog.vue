@@ -9,7 +9,7 @@
         ></BaseCircleIcon>
         <div class="base-dialog__container">
             <div class="base-dialog__row">
-                    <div class="base-dialog__name" v-html="wrapEmoji(chatInfo.name)"></div>
+                    <div class="base-dialog__name" v-html="wrapEmoji(formatedPhone)"></div>
                 <div class="base-dialog__date">
                     {{chatInfo.last_message? validDate(chatInfo.last_message.time) : ''}}
                 </div>
@@ -84,16 +84,20 @@
         },
         setup(props, {emit}) {
             const { validDate } = useDate()
-            const phone = props.chatInfo.name;
+            const formatedPhone = computed(() => {
+            let phone = props.chatInfo.name;
             if(phone.match(/^\d+$/)){
                 let match = phone.match(/^(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})$/);
                 const num = match[1] + ' (' + match[2]+ ') '+ match[3] + '-'+ match[4]+ '-'+match[5];
-                props.chatInfo.name=num;
+                phone =num;
             }
+            return phone;
+            })
             const toggleSelecting = () => {
                 emit('toggleSelecting');
             }
             const { wrapEmoji } = useEmoji();
+
 
             return {
                 wrapEmoji,
@@ -102,6 +106,7 @@
                 isNeedSelecting: props.isNeedSelecting,
                 toggleSelecting,
                 isSelected: computed(() => props.isSelected),
+                formatedPhone,
             }
         }
     }

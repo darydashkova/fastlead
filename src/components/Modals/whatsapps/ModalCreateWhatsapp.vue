@@ -17,7 +17,7 @@
                        placeholder="+7 (123) 456-78-90"
                        v-maska="'+7 (###) ###-##-##'"
                 >
-                <div  class="whatsapp_error" v-if='errors.text'>{{errors.text}}</div>
+                <div  class="modal-create-whatsapp__input-phone-error" v-if='errors.text'>{{errors.text}}</div>
             </div>
             <div class="modal-create-whatsapp__buttons">
                 <BaseButton
@@ -185,7 +185,7 @@
         justify-content: space-between;
         margin-top: 44px;
     }
-    .whatsapp_error{
+    .modal-create-whatsapp__input-phone-error{
       background: var(--red-color);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;

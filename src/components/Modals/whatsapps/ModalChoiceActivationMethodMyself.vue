@@ -63,8 +63,9 @@
                 if (openedModalActivationMethodMyself.value) {
                     getWhatsappQr(id)
                         .then((r) => {
+                            setTimeout(() => getQr(id), 2000)
                             if (r.error) {
-                                setTimeout(() => getQr(id), 2000)
+                                
                                 return;
                             }
                             qrStyle.value['background'] = `url(data:image/png;base64,${r.img}) no-repeat`;

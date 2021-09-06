@@ -6,7 +6,7 @@ const messages = reactive({
     data: {}
 })
 
-const activePerem = ref(false);
+const activeperem = ref(false);
 
 const listRef = ref(null);
 
@@ -23,22 +23,22 @@ export function useMessages() {
                 goBottom();
                
                 if(messages.data.type === 'LocalDialog'){
-                    activePerem.value = messages.data.is_active;
+                    activeperem.value = messages.data.is_active;
                     }
                      if(messages.data.type === 'WhatsappDialog'){
                          if(messages.data.is_active&&messages.data.whatsapp.is_active){
-                            activePerem.value = true;  
+                            activeperem.value = true;  
                          }
                          else{
-                            activePerem.value = false; 
+                            activeperem.value = false; 
                          }
                     }
                      if(messages.data.type === 'InstagramDialog'){
                         if(messages.data.is_active&&messages.data.instagram.is_active){
-                            activePerem.value = true;  
+                            activeperem.value = true;  
                          }
                          else{
-                            activePerem.value = false; 
+                            activeperem.value = false; 
                          }
                     } 
             })
@@ -49,12 +49,11 @@ export function useMessages() {
     const addMessage = (message) => {
         let isExists=false;
         let messageId=null;
-        for(let i =(messages.data.message).length-1; i>0;i--){
-            if(message.message_uid==messages.data.message[i].message_uid){
-                isExists=true;
-                messageId=i;
-                break;
-            }
+        const uid = message.message_uid;
+        let FindeUid = messages.data.message.findIndex(message => message.message_uid == uid);
+        if(FindeUid){
+            isExists=true;
+            messageId=FindeUid;
         }
        if(!isExists){
           messages.data.message.push(message);  
@@ -83,6 +82,6 @@ export function useMessages() {
         setListRef,
         listRef,
         goBottom,
-        activePerem
+        activeperem
     }
 }

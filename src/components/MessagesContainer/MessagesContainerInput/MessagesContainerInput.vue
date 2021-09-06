@@ -17,12 +17,12 @@
                  @keypress="isEnter"
                  @paste="smiles.paste"
                  @copy="smiles.copy"
-                  v-if="activePerem"
+                  v-if="activeperem"
             ></div>
             <div class="messages-container-input__input messages-container-input__disabled"
                  value="Этот диалог неактивен"
                  isContentEditable="false"
-                 v-if="!activePerem"
+                 v-if="!activeperem"
             >Этот диалог неактивен</div>
             <button class="messages-container-input__icon messages-container-input__icon_smile pointer">
                 <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,12 +176,11 @@
             const { openedModalSendFiles, toggleModalSendFiles } = useModalsFiles();
             const { openedModalSendVideos, toggleModalSendVideos } = useModalsVideos();
             const { emojiIndex, emojiToHtml, wrapEmoji } = useEmoji();
-            const { addSendedMessage, messages, activePerem } = useMessages();
+            const { addSendedMessage, messages, activeperem } = useMessages();
             const { createFile, replaceFile, addFiles } = useFiles();
             const { createVideo, replaceVideo, addVideo } = useVideos()
             const value = ref('');
             const textarea = ref(null);
-
             const isEnter = ($event) => {
                 if ($event.keyCode === 13 && !$event.shiftKey) {
                     $event.preventDefault();
@@ -198,11 +197,13 @@
                 if (value.value) {
                     let div = document.createElement('div');
                     div.innerHTML = value.value;
+                    
                     div.querySelectorAll('img').forEach(img => {
                         img.replaceWith(img.getAttribute('data-text'))
                     })
                     div.innerHTML = div.innerHTML.replace(/<br>/g, '');
                     div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
+      
                     addSendedMessage({
                         is_me: true,
                         is_read: false,
@@ -409,7 +410,7 @@
                 openedModalSendImages,
                 openedModalSendVideos,
                 token,
-                activePerem
+                activeperem
             }
         }
     }

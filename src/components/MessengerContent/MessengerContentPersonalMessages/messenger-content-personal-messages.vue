@@ -1,7 +1,7 @@
 <template>
     <div class="messenger-content-personal-messages" @click="toggleOpenedUserInfo(false)">
         <div class="messenger-content-personal-messages__header"
-             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length, 'diasbled-dialog': !activePerem}"
+             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length, 'messenger-content-personal-messages_disabled-dialog': !activeperem}"
         >
             <DialogSelections
                     v-if="selectedGroupDialogs.length"
@@ -19,15 +19,19 @@
                             :key="messages.avatar"
                             :src="messages.avatar"
                     ></BaseCircleIcon>
-                    <img src="../../../assets/online.svg" class="messenger-content-personal-messages__date" v-if ='messages.is_online'>
+                    <img src="../../../assets/online.svg" class="selectedDialog-container__isOnline" v-if ='messages.is_online'>
                   </div>
                     <div class="messenger-content-personal-messages__name-container">
                         <div class="messenger-content-personal-messages__name">{{messages.name}}</div>
                         <div class="messenger-content-personal-messages__name-icon">
-                            <img src="../../../assets/whatsapp.svg" class="messenger-content-personal-messages__img" v-if="messages.type=='WhatsappDialog'" >
-                            <img src="../../../assets/instagram.svg" class="messenger-content-personal-messages__img" v-if="messages.type=='InstagramDialog' "> 
-                           <div v-if="messages.type=='WhatsappDialog'" class="messenger-content-personal-messages__account"> {{messages.whatsapp.name}}</div>
-                           <div v-if="messages.type=='InstagramDialog'" class="messenger-content-personal-messages__account"> {{messages.instagram.login}}</div>
+                            <template v-if="messages.type=='WhatsappDialog'" >
+                                <img src="../../../assets/whatsapp.svg" class="messenger-content-personal-messages__img" >
+                                <div class="messenger-content-personal-messages__account"> {{messages.whatsapp.name}}</div>
+                            </template>
+                            <template v-else-if="messages.type=='InstagramDialog'">
+                                <img src="../../../assets/instagram.svg" class="messenger-content-personal-messages__img"> 
+                                <div class="messenger-content-personal-messages__account"> {{messages.instagram.login}}</div>
+                            </template>
                             </div>
                     </div>
                     <button class="messenger-content-personal-messages__info-button pointer"
@@ -55,7 +59,7 @@
         </div>
         <template v-if="selectedDialog">
             <hr class="separator"/>
-            <div v-if="!activePerem" class="messenger-content-personal-messages__disabled-block">Диалог с "{{messages.name}}" неактивен</div>
+            <div v-if="!activeperem" class="messenger-content-personal-messages__disabled-block">Диалог с "{{messages.name}}" неактивен</div>
             <MessagesContainer
             ></MessagesContainer>
         </template>
@@ -66,7 +70,7 @@
     import BaseCircleIcon from '../../Base/BaseCircleIcon'
     import MessagesContainer from '../../MessagesContainer/messages-container.vue'
     import DialogSelections from './DialogSelections/dialogSelections.vue'
-    import { useMessages, activePerem } from "../../../composition/useMessages";
+    import { useMessages } from "../../../composition/useMessages";
     import { useDialogs } from "../../../composition/useDialogs";
     import {useFolder} from "../../../composition/useFolder";
     import {useModals} from "../../../composition/useModals";
@@ -78,7 +82,7 @@
         components: { BaseCircleIcon, MessagesContainer, DialogSelections },
 
         setup() {
-            let { messages, activePerem } = useMessages();
+            let { messages, activeperem } = useMessages();
             const { socketSend } = useSocket();
             const { selectedFolder } = useFolder();
             const { selectedDialog, selectedGroupDialogs, toggleAllSelectedGroupDialogs, dialogs, deleteDialog, getDialogs, selectDialog } = useDialogs()
@@ -141,7 +145,7 @@
                 toggleOpenedActions,
                 statusUser,
                 toggleOpenedUserInfo,
-                activePerem,
+                activeperem,
             }
         }
     }

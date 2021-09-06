@@ -27,13 +27,11 @@ export function useSocket() {
             let mes = JSON.parse(message.data);
             if (mes.command == 'MessageStatusUpdate') {
                 if (mes.message.is_read == true) {
-                    for (let i = (messages.value.message).length - 1; i > 0; i--) {
-                        if (mes.request_uid == messages.value.message[i].request_uid) {
-                            messages.value.message[i].is_read = true;
-                            break;
-                        }
+                    const messageUid = mes.message.message_uid;
+                    let FindeUid = messages.value.message.findIndex(message => message.message_uid == messageUid);
+                    if(FindeUid){
+                        messages.value.message[FindeUid].is_read = true;
                     }
-
                 }
             }
             if (mes.dialog_id) {
@@ -62,11 +60,10 @@ export function useSocket() {
                 }
             }
             if (mes.status == 'ok') {
-                for (let i = (messages.value.message).length - 1; i > 0; i--) {
-                    if (mes.request_uid == messages.value.message[i].request_uid) {
-                        messages.value.message[i].message_uid = mes.message_uid;
-                        break;
-                    }
+                const request = mes.request_uid;
+                let FindeUid = messages.value.message.findIndex(message => message.request_uid == request);
+                if(FindeUid){
+                    messages.value.message[FindeUid].message_uid = mes.message_uid;
                 }
             }
         }
