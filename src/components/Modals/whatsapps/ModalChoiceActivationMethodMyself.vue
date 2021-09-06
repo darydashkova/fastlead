@@ -65,7 +65,6 @@
                         .then((r) => {
                             setTimeout(() => getQr(id), 2000)
                             if (r.error) {
-                                
                                 return;
                             }
                             qrStyle.value['background'] = `url(data:image/png;base64,${r.img}) no-repeat`;
