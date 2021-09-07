@@ -49,27 +49,27 @@ export function useMessages() {
     const getRandomInRange = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
         }
-    const addMessage = (message) => {
-        let isExists=false;
-        let messageId=null;
-        const uid = message.message_uid;
-        let FindeUid = messages.data.message.findIndex(message => message.message_uid == uid);
-        if(FindeUid){
-            isExists=true;
-            messageId=FindeUid;
+        const addMessage = (message) => {
+            let isExists=false;
+            let messageId=null;
+            const uid = message.message_uid;
+            let FindeUid = messages.data.message.findIndex(message => message.message_uid == uid);
+            if(FindeUid){
+                isExists=true;
+                messageId=FindeUid;
+            }
+           if(!isExists){
+              messages.data.message.push(message);  
+           }
+           else{
+            messages.data.message[messageId]=message;
+           }
+            goBottom();
         }
-       if(!isExists){
-          messages.data.message.push(message);
-       }
-       else{
-        messages.data.message[messageId]=message;
-       }
-        goBottom();
-    }
-    const addSendedMessage = (message) => {
-        messages.data.message.push(message);   
-        goBottom();
-    }
+        const addSendedMessage = (message) => {
+            messages.data.message.push(message);   
+            goBottom();
+        }
     const goBottom = () => {
         setTimeout(() => {
             setRead()
