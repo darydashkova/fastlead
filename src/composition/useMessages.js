@@ -46,6 +46,9 @@ export function useMessages() {
     const setListRef = (value) => {
         listRef.value = value;
     }
+    const getRandomInRange = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
     const addMessage = (message) => {
         let isExists=false;
         let messageId=null;
@@ -56,7 +59,7 @@ export function useMessages() {
             messageId=FindeUid;
         }
        if(!isExists){
-          messages.data.message.push(message);  
+          messages.data.message.push(message);
        }
        else{
         messages.data.message[messageId]=message;
@@ -82,6 +85,7 @@ export function useMessages() {
         setListRef,
         listRef,
         goBottom,
-        activeperem
+        activeperem,
+        getRandomInRange
     }
 }

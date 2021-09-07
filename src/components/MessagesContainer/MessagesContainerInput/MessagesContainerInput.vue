@@ -176,7 +176,7 @@
             const { openedModalSendFiles, toggleModalSendFiles } = useModalsFiles();
             const { openedModalSendVideos, toggleModalSendVideos } = useModalsVideos();
             const { emojiIndex, emojiToHtml, wrapEmoji } = useEmoji();
-            const { addSendedMessage, messages, activeperem } = useMessages();
+            const { addSendedMessage, messages, activeperem, getRandomInRange } = useMessages();
             const { createFile, replaceFile, addFiles } = useFiles();
             const { createVideo, replaceVideo, addVideo } = useVideos()
             const value = ref('');
@@ -188,16 +188,11 @@
                     return false;
                 }
             }
-
-            const getRandomInRange = (min, max) => {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
             const send = () => {
                 const uidRandom = getRandomInRange(1, 10000);
                 if (value.value) {
                     let div = document.createElement('div');
                     div.innerHTML = value.value;
-                    
                     div.querySelectorAll('img').forEach(img => {
                         img.replaceWith(img.getAttribute('data-text'))
                     })

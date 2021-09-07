@@ -94,6 +94,7 @@
     import {useModalsFiles} from "../../composition/useModalsFiles";
     import {useSocket} from "../../composition/useSocket";
     import {useDialogs} from "../../composition/useDialogs";
+    import { useMessages } from "../../composition/useMessages";
     import {useCustomScroll} from "../../composition/useCustomScroll";
     import {onMounted} from "vue";
 
@@ -105,6 +106,7 @@
             const { selectedDialog } = useDialogs();
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll();
             const { filesToSend, createFile, addFiles, deleteFile } = useFiles();
+            const { addSendedMessage, getRandomInRange } = useMessages();
             let NewFilesToSend =  filesToSend.value.length + 1;
             const close = () => {
                 toggleModalSendFiles(false);
@@ -155,13 +157,26 @@
                 }
                 return fsize;
             }
+
             const save = () => {
+                const uidRandom = getRandomInRange(1, 10000);
+                    addSendedMessage({
+                        is_me: true,
+                        is_read: false,
+                        message_id:uidRandom+1,
+                        time: Math.floor(Date.now() / 1000),
+                        type: 'document',
+                        is_sending:true,
+                        request_uid:uidRandom,
+                    });
                 filesToSend.value.forEach(file => {
                     socketSend('send_message', {
                         type: 'document',
                         data: file.id,
                         dialog_id: selectedDialog.value,
-                        file_name: file.name
+                        file_name: file.name,
+                        request_uid:uidRandom, 
+                        message_uid : null
                     })
                 })
             }

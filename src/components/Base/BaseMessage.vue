@@ -162,7 +162,8 @@
                             convertedSrc.value = `${url}`;
                             link.setAttribute('href', convertedSrc.value);
                             link.setAttribute('download',message.file_name);
-                            link.click();      
+                            link.click();    
+                            
                         })
                 }
                       
