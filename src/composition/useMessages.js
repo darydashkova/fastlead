@@ -6,7 +6,7 @@ const messages = reactive({
     data: {}
 })
 
-const is_active = ref(false);
+const isActiveDialog = ref(false);
 const local = ref();
 const listRef = ref(null);
 
@@ -23,23 +23,23 @@ export function useMessages() {
                 goBottom();
                
                 if(messages.data.type === 'LocalDialog'){
-                    is_active.value = messages.data.is_active;
+                    isActiveDialog.value = messages.data.is_active;
                     local.value=true;
                     }
                      if(messages.data.type === 'WhatsappDialog'){
                          if(messages.data.is_active&&messages.data.whatsapp.is_active){
-                            is_active.value = true;  
+                            isActiveDialog.value = true;  
                          }
                          else{
-                            is_active.value = false; 
+                            isActiveDialog.value = false; 
                          }
                     }
                      if(messages.data.type === 'InstagramDialog'){
                         if(messages.data.is_active&&messages.data.instagram.is_active){
-                            is_active.value = true;  
+                            isActiveDialog.value = true;  
                          }
                          else{
-                            is_active.value = false; 
+                            isActiveDialog.value = false; 
                          }
                     } 
             })
@@ -93,7 +93,7 @@ export function useMessages() {
         setListRef,
         listRef,
         goBottom,
-        is_active,
+        isActiveDialog,
         getRandomInRange,
         local,
     }
