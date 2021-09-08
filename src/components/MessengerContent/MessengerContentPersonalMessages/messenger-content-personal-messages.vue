@@ -1,7 +1,7 @@
 <template>
     <div class="messenger-content-personal-messages" @click="toggleOpenedUserInfo(false)">
         <div class="messenger-content-personal-messages__header"
-             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length, 'messenger-content-personal-messages_disabled-dialog': !is_active}"
+             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length, 'messenger-content-personal-messages_disabled-dialog': !isActiveDialog}"
         >
             <DialogSelections
                     v-if="selectedGroupDialogs.length"
@@ -59,7 +59,7 @@
         </div>
         <template v-if="selectedDialog">
             <hr class="separator"/>
-            <div v-if="!is_active" class="messenger-content-personal-messages__disabled-block">Диалог с "{{messages.name}}" неактивен</div>
+            <div v-if="!isActiveDialog" class="messenger-content-personal-messages__disabled-block">Диалог с "{{messages.name}}" неактивен</div>
             <MessagesContainer
             ></MessagesContainer>
         </template>
@@ -82,7 +82,7 @@
         components: { BaseCircleIcon, MessagesContainer, DialogSelections },
 
         setup() {
-            let { messages, is_active } = useMessages();
+            let { messages, isActiveDialog } = useMessages();
             const { socketSend } = useSocket();
             const { selectedFolder } = useFolder();
             const { selectedDialog, selectedGroupDialogs, toggleAllSelectedGroupDialogs, dialogs, deleteDialog, getDialogs, selectDialog } = useDialogs()
@@ -145,7 +145,7 @@
                 toggleOpenedActions,
                 statusUser,
                 toggleOpenedUserInfo,
-                is_active,
+                isActiveDialog,
             }
         }
     }
