@@ -1,5 +1,5 @@
 <template>
-  <router-view/>
+  <router-view v-if="!isRequesting"/>
 </template>
 
 <script>
@@ -7,14 +7,22 @@
   import { useStyle } from "./composition/useStyle";
   import "./components/emoji-component/css/emoji-mart.css";
   import { useUser } from "./composition/useUser";
+  import { ref } from 'vue';
   export default {
     setup() {
       const { getCsrf } = useAuth();
       const { setStyle } = useStyle();
       const { getUser } = useUser();
+
+      const isRequesting = ref(true);
+
       setStyle(localStorage.getItem('style') === 'true')
       getCsrf();
-      getUser();
+      getUser()
+        .then(() => isRequesting.value = false);
+      return {
+        isRequesting,
+      }
     }
   }
 </script>

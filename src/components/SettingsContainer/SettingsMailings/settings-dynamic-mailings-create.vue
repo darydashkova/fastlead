@@ -361,7 +361,6 @@
                 }),
                 selectFile: ($event) => {
                     recipients.file = $event.target.files[0];
-                    console.log(recipients.file);
                 },
                 openSelectFile: () => {
                     document.getElementById('settings-dynamic-mailings-create__recipients').click();

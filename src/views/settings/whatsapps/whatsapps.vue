@@ -87,11 +87,8 @@
                     })
                 setTextModalConfirmDelete(`Вы точно хотите удалить whatsapp "${whatsapp.name}"?`)
                 setSaveCallbackModalConfirmDelete(callback);
-
                 toggleModalConfirmDelete(true);
-
             }
-
             const edit = (whatsapp) => {
                 selectedWhatsappToAction.value = whatsapp;
                 toggleModalCreateWhatsapp(true);
@@ -104,12 +101,11 @@
                 selectedWhatsappToAction.value = whatsapp;
                 toggleModalChoiceActivationMethod(true);
             }
-
             const create = () => {
                 selectedWhatsappToAction.value = null;
                 toggleModalCreateWhatsapp(true);
+              
             }
-
             return {
                 whatsapps,
                 toggleModalCreateWhatsapp,

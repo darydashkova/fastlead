@@ -14,8 +14,10 @@
                        type="text"
                        class="modal-create-whatsapp__input"
                        v-model="phone"
-                       v-maska="'+7##########'"
+                       placeholder="+7 (123) 456-78-90"
+                       v-maska="'+7 (###) ###-##-##'"
                 >
+                <div  class="modal-create-whatsapp__input-phone-error" v-if='errors.text'>{{errors.text}}</div>
             </div>
             <div class="modal-create-whatsapp__buttons">
                 <BaseButton
@@ -39,7 +41,6 @@
     import BaseButton from '../../Base/BaseButton.vue'
     import BaseModalLabel from '../../Base/BaseModalLabel.vue'
     import BaseModalHeader from '../../Base/BaseModalHeader.vue'
-
     import { onMounted, ref, reactive, computed } from "vue";
     import {useWhatsapp} from "../../../composition/useWhatsapp";
     import {useModalsWhatsapps} from "../../../composition/useModalsWhatsapps";
@@ -48,17 +49,13 @@
         components: { BaseButton, BaseModalLabel, BaseModalHeader },
         setup() {
             const { toggleModalCreateWhatsapp, selectedWhatsappToAction } = useModalsWhatsapps()
-
             const { createWhatsapp, getWhatsapps, updateWhatsapp } = useWhatsapp();
-
-
             const phone = ref('');
             const name = ref('');
             const errors = reactive({
                 name: false,
                 phone: false,
             })
-
             const close = () => {
                 toggleModalCreateWhatsapp(false);
             }
@@ -68,24 +65,23 @@
                     $event.preventDefault();
                 }
             }
-
             const header = computed(() => {
                 return selectedWhatsappToAction.value? 'Редактировать WhatsApp аккаунт' : 'Новый WhatsApp аккаунт'
             })
-
             onMounted(() => {
                 if (selectedWhatsappToAction.value) {
                     phone.value = selectedWhatsappToAction.value.phone;
                     name.value = selectedWhatsappToAction.value.name;
                 }
             })
-
             const save = () => {
                 errors.name = false;
                 errors.phone = false;
+                errors.text = '';
                 if (!phone.value) {
                     errors.phone = true;
                     return;
+
                 }
                 if (!name.value) {
                     errors.name = true;
@@ -106,29 +102,28 @@
                             getWhatsapps();
                             toggleModalCreateWhatsapp(false);
                         })
-                } else {
+                } 
+                else {
                     createWhatsapp(infoToSend)
                         .then((r) => {
                             if (r.error) {
-
+                                errors.text=r.error;
+                                errors.phone=true;
                                 return;
+                                
                             }
                             getWhatsapps();
                             toggleModalCreateWhatsapp(false);
                         })
                 }
-
-
             }
             return {
                 name,
                 phone,
-
                 save,
                 errors,
                 close,
                 onlyNumber,
-
                 header,
             }
         }
@@ -177,7 +172,6 @@
         margin-top: 6px;
         width: 100%;
         padding: 6px 10px;
-
         color: var(--modal-font-color);
         background: var(--modal-element-hover-bg-color);
         border: 0.7px solid var(--modal-input-border-color);
@@ -190,5 +184,12 @@
         display: flex;
         justify-content: space-between;
         margin-top: 44px;
+    }
+    .modal-create-whatsapp__input-phone-error{
+      background: var(--red-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 14px;
+      padding-top: 10px;  
     }
 </style>

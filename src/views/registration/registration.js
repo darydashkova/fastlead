@@ -22,7 +22,6 @@ export default {
                 return;
             }
             if (!phone.value.length) {
-                console.log(phone);
                 error.value = 'Введите телефон';
                 return;
             }

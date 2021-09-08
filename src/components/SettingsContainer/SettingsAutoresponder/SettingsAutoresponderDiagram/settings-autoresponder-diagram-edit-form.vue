@@ -239,7 +239,6 @@
                 deep: true,
                 immediate: true,
                 handler() {
-                    console.log(this.cellData);
                     this.cellValues = JSON.parse(JSON.stringify(this.cellData.value));
                 }
             }
