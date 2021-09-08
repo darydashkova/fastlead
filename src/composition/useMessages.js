@@ -58,17 +58,14 @@ export function useMessages() {
         return result;
         }
         const addMessage = (message) => {
-           
             let messageId=null;
             const uid = message.message_uid;
             let findeUid = messages.data.message.findIndex(message => message.message_uid == uid);
-         
             if(findeUid!=-1){
                 messageId=findeUid;
                 messages.data.message[messageId]=message;
             }
            else{
-            console.log('push')
               messages.data.message.push(message);  
            }
 
