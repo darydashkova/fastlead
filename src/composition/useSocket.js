@@ -28,9 +28,9 @@ export function useSocket() {
             if (mes.command == 'MessageStatusUpdate') {
                 if (mes.message.is_read == true) {
                     const messageUid = mes.message.message_uid;
-                    let FindeUid = messages.value.message.findIndex(message => message.message_uid == messageUid);
-                    if(FindeUid){
-                        messages.value.message[FindeUid].is_read = true;
+                    let findeUid = messages.value.message.findIndex(message => message.message_uid == messageUid);
+                    if(findeUid){
+                        messages.value.message[findeUid].is_read = true;
                     }
                 }
             }
@@ -61,9 +61,9 @@ export function useSocket() {
             }
             if (mes.status == 'ok') {
                 const request = mes.request_uid;
-                let FindeUid = messages.value.message.findIndex(message => message.request_uid == request);
-                if(FindeUid){
-                    messages.value.message[FindeUid].message_uid = mes.message_uid;
+                let findeUid = messages.value.message.findIndex(message => message.request_uid == request);
+                if(findeUid){
+                    messages.value.message[findeUid].message_uid = mes.message_uid;
                 }
             }
         }

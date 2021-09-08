@@ -6,8 +6,8 @@ const messages = reactive({
     data: {}
 })
 
-const activeperem = ref(false);
-
+const is_active = ref(false);
+const local = ref();
 const listRef = ref(null);
 
 export function useMessages() {
@@ -23,22 +23,23 @@ export function useMessages() {
                 goBottom();
                
                 if(messages.data.type === 'LocalDialog'){
-                    activeperem.value = messages.data.is_active;
+                    is_active.value = messages.data.is_active;
+                    local.value=true;
                     }
                      if(messages.data.type === 'WhatsappDialog'){
                          if(messages.data.is_active&&messages.data.whatsapp.is_active){
-                            activeperem.value = true;  
+                            is_active.value = true;  
                          }
                          else{
-                            activeperem.value = false; 
+                            is_active.value = false; 
                          }
                     }
                      if(messages.data.type === 'InstagramDialog'){
                         if(messages.data.is_active&&messages.data.instagram.is_active){
-                            activeperem.value = true;  
+                            is_active.value = true;  
                          }
                          else{
-                            activeperem.value = false; 
+                            is_active.value = false; 
                          }
                     } 
             })
@@ -46,29 +47,39 @@ export function useMessages() {
     const setListRef = (value) => {
         listRef.value = value;
     }
-    const getRandomInRange = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    const getRandomInRange = () => {
+        let result       = '';
+        const words        = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+        const max_position = words.length - 1;
+            for( let i = 0; i < 10; ++i ) {
+               let position = Math.floor ( Math.random() * max_position );
+                result = result + words.substring(position, position + 1);
+            }
+        return result;
         }
         const addMessage = (message) => {
-            let isExists=false;
+           
             let messageId=null;
             const uid = message.message_uid;
-            let FindeUid = messages.data.message.findIndex(message => message.message_uid == uid);
-            if(FindeUid){
-                isExists=true;
-                messageId=FindeUid;
+            let findeUid = messages.data.message.findIndex(message => message.message_uid == uid);
+         
+            if(findeUid!=-1){
+                messageId=findeUid;
+                messages.data.message[messageId]=message;
             }
-           if(!isExists){
+           else{
+            console.log('push')
               messages.data.message.push(message);  
            }
-           else{
-            messages.data.message[messageId]=message;
-           }
+
             goBottom();
         }
         const addSendedMessage = (message) => {
-            messages.data.message.push(message);   
-            goBottom();
+            if(!local.value){
+              messages.data.message.push(message);   
+            goBottom(); 
+            }
+            
         }
     const goBottom = () => {
         setTimeout(() => {
@@ -85,7 +96,8 @@ export function useMessages() {
         setListRef,
         listRef,
         goBottom,
-        activeperem,
-        getRandomInRange
+        is_active,
+        getRandomInRange,
+        local,
     }
 }

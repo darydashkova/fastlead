@@ -17,12 +17,12 @@
                  @keypress="isEnter"
                  @paste="smiles.paste"
                  @copy="smiles.copy"
-                  v-if="activeperem"
+                  v-if="is_active"
             ></div>
             <div class="messages-container-input__input messages-container-input__disabled"
                  value="Этот диалог неактивен"
                  isContentEditable="false"
-                 v-if="!activeperem"
+                 v-if="!is_active"
             >Этот диалог неактивен</div>
             <button class="messages-container-input__icon messages-container-input__icon_smile pointer">
                 <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,7 +176,7 @@
             const { openedModalSendFiles, toggleModalSendFiles } = useModalsFiles();
             const { openedModalSendVideos, toggleModalSendVideos } = useModalsVideos();
             const { emojiIndex, emojiToHtml, wrapEmoji } = useEmoji();
-            const { addSendedMessage, messages, activeperem, getRandomInRange } = useMessages();
+            const { addSendedMessage, messages, is_active, getRandomInRange } = useMessages();
             const { createFile, replaceFile, addFiles } = useFiles();
             const { createVideo, replaceVideo, addVideo } = useVideos()
             const value = ref('');
@@ -189,7 +189,7 @@
                 }
             }
             const send = () => {
-                const uidRandom = getRandomInRange(1, 10000);
+                const uidRandom = getRandomInRange();
                 if (value.value) {
                     let div = document.createElement('div');
                     div.innerHTML = value.value;
@@ -198,7 +198,6 @@
                     })
                     div.innerHTML = div.innerHTML.replace(/<br>/g, '');
                     div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
-      
                     addSendedMessage({
                         is_me: true,
                         is_read: false,
@@ -405,7 +404,7 @@
                 openedModalSendImages,
                 openedModalSendVideos,
                 token,
-                activeperem
+                is_active
             }
         }
     }

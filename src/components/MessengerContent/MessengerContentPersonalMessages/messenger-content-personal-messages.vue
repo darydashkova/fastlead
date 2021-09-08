@@ -1,7 +1,7 @@
 <template>
     <div class="messenger-content-personal-messages" @click="toggleOpenedUserInfo(false)">
         <div class="messenger-content-personal-messages__header"
-             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length, 'messenger-content-personal-messages_disabled-dialog': !activeperem}"
+             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length, 'messenger-content-personal-messages_disabled-dialog': !is_active}"
         >
             <DialogSelections
                     v-if="selectedGroupDialogs.length"
@@ -12,14 +12,14 @@
             ></DialogSelections>
             <template v-else>
                 <template v-if="selectedDialog">
-                  <div class="selectedDialog-container"> 
+                  <div class="selected-dialog-container"> 
                         <BaseCircleIcon
                             v-if="messages.avatar"
                             :class="base-circle-icon__52"
                             :key="messages.avatar"
                             :src="messages.avatar"
                     ></BaseCircleIcon>
-                    <img src="../../../assets/online.svg" class="selectedDialog-container__isOnline" v-if ='messages.is_online'>
+                    <img src="../../../assets/online.svg" class="selected-dialog-container__isOnline" v-if ='messages.is_online'>
                   </div>
                     <div class="messenger-content-personal-messages__name-container">
                         <div class="messenger-content-personal-messages__name">{{messages.name}}</div>
@@ -59,7 +59,7 @@
         </div>
         <template v-if="selectedDialog">
             <hr class="separator"/>
-            <div v-if="!activeperem" class="messenger-content-personal-messages__disabled-block">Диалог с "{{messages.name}}" неактивен</div>
+            <div v-if="!is_active" class="messenger-content-personal-messages__disabled-block">Диалог с "{{messages.name}}" неактивен</div>
             <MessagesContainer
             ></MessagesContainer>
         </template>
@@ -82,7 +82,7 @@
         components: { BaseCircleIcon, MessagesContainer, DialogSelections },
 
         setup() {
-            let { messages, activeperem } = useMessages();
+            let { messages, is_active } = useMessages();
             const { socketSend } = useSocket();
             const { selectedFolder } = useFolder();
             const { selectedDialog, selectedGroupDialogs, toggleAllSelectedGroupDialogs, dialogs, deleteDialog, getDialogs, selectDialog } = useDialogs()
@@ -145,7 +145,7 @@
                 toggleOpenedActions,
                 statusUser,
                 toggleOpenedUserInfo,
-                activeperem,
+                is_active,
             }
         }
     }
