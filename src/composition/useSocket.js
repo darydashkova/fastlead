@@ -62,7 +62,7 @@ export function useSocket() {
             if (mes.status == 'ok') {
                 const request = mes.request_uid;
                 let findeUid = messages.value.message.findIndex(message => message.request_uid == request);
-                if(findeUid){
+                if(findeUid!=-1){
                     messages.value.message[findeUid].message_uid = mes.message_uid;
                 }
             }

@@ -26,22 +26,30 @@
                     <div class="scroll__bar" ref="scrollbar"></div>
                 </div>
                 <div class="modal-send-videos__content" ref="content">
-                    <div class="modal-send-videos__video-container" v-for="video in videosToSend" :key="video.id">
-                        <div class="modal-send-videos__video"
-                             :style="{
-                            'background': `url(${video.src}) no-repeat`,
-                            'background-size': 'cover',
-                            'background-position': 'center center',
-                        }"
-                        ></div>
-                        <div class="modal-send-videos__info">
-                            <div class="modal-send-videos__name">
-                                {{video.name}}
+                    <div class="modal-send-videos__video-container">
+                        <div class="modal-send-videos__video-wrap-container">
+                            <div v-for="video in videosToSend" :key="video.id"    class="modal-send-videos__video-container_flex" :class="{'modal-send-videos__video-play-img' : videoStatus(videosToSend.length).value}">
+                                <div @click="videoPlayer"  :class="{'modal-send-videos__video-play-img' : videoStatus(videosToSend.length).value}">
+                                <video :src="video.src" class="modal-send-videos__video" :class="{'modal-send-videos__video-wrap' : videoStatus(videosToSend.length).value}">
+                                </video > 
+                                <div class="modal-send-videos__player"  >
+                                    <svg v-if="!statusSvg" :id="video.id + 'svg'"  class="modal-send-videos__video-container-play" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="16.5" cy="16.5" r="16.5" fill="#2E2E4E" fill-opacity="0.8"/>
+                                    <g clip-path="url(#clip0)">
+                                    <path d="M13.9242 8.91488C12.4934 8.09412 11.3333 8.7665 11.3333 10.4155V22.5842C11.3333 24.2348 12.4934 24.9063 13.9242 24.0864L24.5603 17.9866C25.9917 17.1656 25.9917 15.8354 24.5603 15.0145L13.9242 8.91488Z" fill="#EDEDEF"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0">
+                                    <rect width="15.871" height="15.871" fill="white" transform="translate(10.5481 8.56494)"/>
+                                    </clipPath>
+                                    </defs>
+                                    </svg>
+                                </div>
+                                </div>
                             </div>
-                            <div class="modal-send-videos__size">
-                                {{conv_size(video.size)}}
-                            </div>
+                        
                         </div>
+          
                         <div class="modal-send-videos__actions">
                             <svg class="pointer" style="margin-right: 14px;" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8131 0.646414C17.0463 0.743075 17.2582 0.884749 17.4366 1.06334C17.6152 1.24174 17.7569 1.45359 17.8535 1.68678C17.9502 1.91996 17.9999 2.16992 17.9999 2.42235C17.9999 2.67478 17.9502 2.92473 17.8535 3.15792C17.7569 3.39111 17.6152 3.60296 17.4366 3.78136L14.8673 6.34993L12.15 3.63264L14.7185 1.06334C14.8969 0.884749 15.1088 0.743075 15.342 0.646414C15.5752 0.549753 15.8251 0.5 16.0776 0.5C16.33 0.5 16.58 0.549753 16.8131 0.646414ZM0 16.9286C0.000173417 16.1166 0.322878 15.338 0.897133 14.7639L11.1108 4.55031L13.95 7.38941L3.73627 17.603C3.16218 18.1773 2.38351 18.5 1.57151 18.5001H0V16.9286Z"
@@ -60,7 +68,7 @@
             <BaseModalText @click="add" class="base-modal-text_mt-29 base-modal-text_uppercase base-modal-text_hovered pointer">
                 +Добавить видео
             </BaseModalText>
-            <input type="file" style="display: none;" id="modal-send-images__input-file" @change="changeVideo">
+            <input type="file" style="display: none;" id="modal-send-images__input-file" @change="changeVideo" accept="video/mp4,video/x-m4v,video/*">
 
             <div class="modal-send-videos__buttons">
                 <BaseButton
@@ -92,7 +100,7 @@
     import {useSocket} from "../../composition/useSocket";
     import {useDialogs} from "../../composition/useDialogs";
     import {useCustomScroll} from "../../composition/useCustomScroll";
-    import {onMounted} from "vue";
+    import {onMounted, ref} from "vue";
 
     export default {
         components: { BaseButton, BaseModalText, BaseModalHeader },
@@ -102,6 +110,8 @@
             const { selectedDialog } = useDialogs()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { videosToSend, createVideo, addVideo, deleteVideo } = useVideos()
+            const statusVideo = ref(false);
+            const statusSvg = ref(false);
             const close = () => {
                 toggleModalSendVideos(false);
             }
@@ -129,6 +139,17 @@
                         fr.readAsDataURL(item);
                     })
                 }
+                
+            }
+            const  videoWrap = ref(true);
+            const videoStatus = (num) =>{
+                if(num%2==0){
+                    videoWrap.value=false;
+                }
+                else {
+                     videoWrap.value=true;
+                }
+                return videoWrap;
             }
             const del = (id) => {
                 deleteImage(id);
@@ -162,6 +183,23 @@
             onMounted( () => {
                 init()
             })
+            const videoPlayer = (d) => {
+                const item = d.currentTarget.parentNode.getElementsByTagName('video')
+                const div = d.currentTarget.parentNode.getElementsByTagName('div')
+                //const mm =  d.currentTarget.parentNode.getElementByClassName('.modal-send-videos__video-container_flex')
+                const svg = d.currentTarget.parentNode.getElementsByTagName('svg');
+                  console.log(d.currentTarget)
+                if(!statusVideo.value){
+                    item[0].play();  
+                    statusVideo.value = true;
+                    svg[0].style.display = 'none';
+                }
+                else{
+                    item[0].pause();  
+                    statusVideo.value = false;
+                     svg[0].style.display = 'inherit';
+                }
+            }
             return {
                 container,
                 content,
@@ -172,8 +210,12 @@
                 add,
                 changeVideo,
                 del,
+                videoPlayer,
                 videosToSend,
                 conv_size,
+                statusVideo,
+                videoStatus,
+                videoWrap,
             }
         }
     }
@@ -209,6 +251,9 @@
         justify-content: space-between;
         margin-top: 58px;
     }
+    .modal-send-videos__video-container-play_disabled{
+        display: none;
+    }
     .modal-send-videos__single-image {
         width: 100%;
         height: 191px;
@@ -232,14 +277,24 @@
         width: 100%;
         display: flex;
         margin-bottom: 23px;
+        height: inherit;
         &:last-of-type {
             margin-bottom: 0;
         }
     }
     .modal-send-videos__video {
         border-radius: 7px;
-        width: 90px;
-        height: 90px;
+        width: 100%;
+        display: flex;
+        max-width: 100%;
+        height:auto;
+    }
+    .modal-send-videos__video-wrap:nth-last-child(2) {
+        width: 100%!important;
+        max-width: 100% !important;
+        max-height: 200px;
+        display: flex;
+        background-color: black;
     }
     .modal-send-videos__info {
         margin-left: 14px;
@@ -257,6 +312,11 @@
         white-space: nowrap;
         overflow: hidden;
     }
+    .modal-send-videos__video-wrap-container{
+        width: 100%;
+        flex-wrap: wrap;
+        display: flex;
+    }
     .modal-send-videos__size {
         font-style: normal;
         font-weight: normal;
@@ -273,6 +333,7 @@
     }
     .modal-send-videos__actions {
         margin-left: auto;
+        position: absolute;
     }
 
     .modal-send-videos__actions-container {
@@ -282,5 +343,33 @@
         background: rgba(46, 46, 78, 0.45);
         border-radius: 15px;
         padding: 5.5px 10px;
+    }
+    .modal-send-videos__video-container_flex{
+        display: flex;
+        width: 48%;
+        flex-wrap: wrap;
+        margin-bottom: 2%;
+        position: relative;
+    }
+    .modal-send-videos__video-container_flex:nth-child(2n){
+        margin-left: 2%;
+    }
+    .modal-send-videos__video-play-img:nth-last-child(1){
+    width: 100%!important;
+        max-width: 100% !important;
+    }
+    
+    .modal-send-videos__player{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50%;
+        display: flex;
+        max-width: 50%;
+        height: auto;
+        transform: translate(-50%, -50%);
+        left: 50%;
     }
 </style>

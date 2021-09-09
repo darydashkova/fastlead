@@ -30,13 +30,13 @@
                 </div>
                 <div class="modal-send-files__content" ref="content">
                     <div class="modal-send-files__file-container" v-for="file in filesToSend" :key="file.id">
-                        <div class="modal-send-files__file"
-                             :style="{
-                            'background': `url(${file.src}) no-repeat`,
-                            'background-size': 'cover',
-                            'background-position': 'center center',
-                        }"
-                        ></div>
+                        <div class=""
+                        ><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="#2E2E4E"/>
+                            <path d="M26.4998 20.6666H31.9498C31.6589 19.8957 31.2069 19.1957 30.624 18.6133L27.7207 15.7083C27.1376 15.1261 26.4374 14.6744 25.6665 14.3833V19.8333C25.6665 20.2935 26.0396 20.6666 26.4998 20.6666Z" fill="#F0F0FA"/>
+                            <path d="M32.3131 22.3333H26.4998C25.1191 22.3333 23.9998 21.214 23.9998 19.8333V14.02C23.8656 14.0108 23.7315 14 23.5956 14H19.8331C17.5331 14.0028 15.6692 15.8666 15.6665 18.1667V29.8334C15.6692 32.1334 17.5331 33.9973 19.8331 34H28.1665C30.4665 33.9973 32.3304 32.1334 32.3331 29.8333V22.7375C32.3331 22.6017 32.3223 22.4675 32.3131 22.3333Z" fill="#F0F0FA"/>
+                        </svg>
+                        </div>
                         <div class="modal-send-files__info">
                             <div class="modal-send-files__name">
                             {{file.name}} 
@@ -63,7 +63,7 @@
             <BaseModalText @click="add" class="base-modal-text_mt-29 base-modal-text_uppercase base-modal-text_hovered pointer">
                 +Добавить файл
             </BaseModalText>
-            <input type="file" style="display: none;" id="modal-send-files__input-file" @change="changeDocs">
+            <input type="file" style="display: none;" id="modal-send-files__input-file" @change="changeDocs"  accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">
 
             <div class="modal-send-files__buttons">
                 <BaseButton
@@ -112,7 +112,7 @@
                 toggleModalSendFiles(false);
             }
             const add = () => {
-                document.getElementById('modal-send-images__input-file').click();
+                document.getElementById('modal-send-files__input-file').click();
             }
             const changeDocs = ($event) => {
                 if ($event.target.files[0]) {
