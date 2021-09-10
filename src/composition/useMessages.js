@@ -9,6 +9,7 @@ const messages = reactive({
 const isActiveDialog = ref(false);
 const local = ref();
 const listRef = ref(null);
+const preloaderActive = ref(true);
 
 export function useMessages() {
     const { setRead, selectDialog } = useDialogs()
@@ -61,19 +62,20 @@ export function useMessages() {
             let messageId=null;
             const uid = message.message_uid;
             let findeUid = messages.data.message.findIndex(message => message.message_uid == uid);
-            if(findeUid!=-1){
+            if(findeUid != -1){
                 messageId=findeUid;
                 messages.data.message[messageId]=message;
             }
            else{
               messages.data.message.push(message);  
            }
-
+           preloaderActive.value = false
             goBottom();
         }
         const addSendedMessage = (message) => {
             if(!local.value){
               messages.data.message.push(message);   
+              preloaderActive.value = true;
             goBottom(); 
             }
             
@@ -96,5 +98,6 @@ export function useMessages() {
         isActiveDialog,
         getRandomInRange,
         local,
+        preloaderActive
     }
 }

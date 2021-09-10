@@ -122,7 +122,7 @@
                    style="display: none;"
                    id="messages-container-input__attachment-docs"
                    multiple
-                   accept="application/"
+                   accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
             >
             <input @change="attachment.changeVideo"
                    type="file"
