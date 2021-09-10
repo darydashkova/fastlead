@@ -29,22 +29,8 @@
                     <div class="modal-send-videos__video-container">
                         <div class="modal-send-videos__video-wrap-container">
                             <div v-for="video in videosToSend" :key="video.id"    class="modal-send-videos__video-container_flex" :class="{'modal-send-videos__video-play-img' : videoStatus(videosToSend.length).value}">
-                                <div @click="videoPlayer"  :class="{'modal-send-videos__video-play-img' : videoStatus(videosToSend.length).value}">
-                                    <video :src="video.src" class="modal-send-videos__video" :class="{'modal-send-videos__video-wrap' : videoStatus(videosToSend.length).value}">
-                                    </video > 
-                                    <div class="modal-send-videos__player">
-                                        <svg v-if="!statusSvg" :id="video.id + 'svg'"  class="modal-send-videos__video-container-play" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="16.5" cy="16.5" r="16.5" fill="#2E2E4E" fill-opacity="0.8"/>
-                                        <g clip-path="url(#clip0)">
-                                        <path d="M13.9242 8.91488C12.4934 8.09412 11.3333 8.7665 11.3333 10.4155V22.5842C11.3333 24.2348 12.4934 24.9063 13.9242 24.0864L24.5603 17.9866C25.9917 17.1656 25.9917 15.8354 24.5603 15.0145L13.9242 8.91488Z" fill="#EDEDEF"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0">
-                                        <rect width="15.871" height="15.871" fill="white" transform="translate(10.5481 8.56494)"/>
-                                        </clipPath>
-                                        </defs>
-                                        </svg>
-                                    </div>
+                                <div  :class="{'modal-send-videos__video-play-img' : videoStatus(videosToSend.length).value}">
+                                     <BaseVideoPlayer :video='video'></BaseVideoPlayer>
                                 </div>
                             </div>
                         
@@ -95,6 +81,7 @@
     import BaseButton from '../Base/BaseButton.vue'
     import BaseModalText from '../Base/BaseModalText.vue'
     import BaseModalHeader from '../Base/BaseModalHeader.vue'
+    import BaseVideoPlayer from '../Base/BaseVideoPlayer.vue'
     import {useVideos} from "../../composition/useVideos";
     import {useModalsVideos} from "../../composition/useModalsVideos";
     import {useSocket} from "../../composition/useSocket";
@@ -103,14 +90,14 @@
     import {onMounted, ref} from "vue";
 
     export default {
-        components: { BaseButton, BaseModalText, BaseModalHeader },
+        components: { BaseButton, BaseModalText, BaseModalHeader,BaseVideoPlayer },
         setup() {
             const { toggleModalSendVideos, videoPlayer } = useModalsVideos()
             const { socketSend } = useSocket()
             const { selectedDialog } = useDialogs()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { videosToSend, createVideo, addVideo, deleteVideo } = useVideos()
-            const statusSvg = ref(false);
+         
             const close = () => {
                 toggleModalSendVideos(false);
             }
@@ -270,6 +257,8 @@
         display: flex;
         max-width: 100%;
         height:auto;
+        max-height: 200px;
+        background-color: #000;
     }
     .modal-send-videos__video-wrap:nth-last-child(2) {
         width: 100%!important;

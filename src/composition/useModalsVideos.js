@@ -3,28 +3,27 @@ const openedModalSendVideos = ref(false);
 
 export function useModalsVideos() {
     const statusVideo = ref(false);
+    const statusSvg = ref(true);
     const toggleModalSendVideos = (value) => {
         openedModalSendVideos.value = value;
     }
     const videoPlayer = (d) => {
-        console.log(d.currentTarget)
-        const item = d.currentTarget.parentNode.getElementsByTagName('video')
-        const svg = d.currentTarget.parentNode.getElementsByTagName('svg');
         if(!statusVideo.value){
-            item[0].play();  
+           d.currentTarget.play();  
+           statusSvg.value= false;
             statusVideo.value = true;
-            svg[0].style.display = 'none';
         }
         else{
-            item[0].pause();  
+            d.currentTarget.pause();  
             statusVideo.value = false;
-             svg[0].style.display = 'inherit';
+            statusSvg.value= true;
         }
-        return statusVideo
+        return statusVideo, statusSvg
     }
     return {
         toggleModalSendVideos,
         openedModalSendVideos,
-        videoPlayer
+        videoPlayer,
+        statusSvg
     }
 }
