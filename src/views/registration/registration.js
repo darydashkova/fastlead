@@ -11,14 +11,14 @@ export default {
         const loading = ref(false);
         const error = ref('');
 
-        const login = ref('');
+        const name = ref('');
         const phone = ref('');
         const email = ref('');
         const checkbox = ref(true);
 
         const registr = () => {
-            if (!login.value.length) {
-                error.value = 'Введите логин';
+            if (!name.value.length) {
+                error.value = 'Введите имя';
                 return;
             }
             if (!phone.value.length) {
@@ -36,7 +36,7 @@ export default {
             loading.value = true;
             error.value = '';
             tryRegistr({
-                login: login.value,
+                name: name.value,
                 phone: phone.value,
                 email: email.value,
             })
@@ -50,20 +50,22 @@ export default {
                 })
         }
 
-        const onlyEngChars = ($event) => {
-            let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
-            if (keyCode < 48 || (keyCode > 57 && keyCode < 65) || keyCode > 122 || (keyCode > 90 && keyCode < 97)) { // 46 is dot
+        const onlyRusChars = ($event) => {
+            const regex = new RegExp("^[а-яёА-ЯЁ]+$");
+            const key = String.fromCharCode(!$event.charCode ? $event.which : $event.charCode);
+            if (!regex.test(key)) {
                 $event.preventDefault();
+                return false;
             }
         }
         return {
-            login,
+            name,
             phone,
             email,
             checkbox,
 
             registr,
-            onlyEngChars,
+            onlyRusChars,
             loading,
             error
         }
