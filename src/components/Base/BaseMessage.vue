@@ -233,7 +233,7 @@
                 res,
                 downloadDocs,
                 conv_size,
-                videoPlayer
+                
             }
         }
 
