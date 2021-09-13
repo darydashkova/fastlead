@@ -115,7 +115,7 @@
                    style="display: none;"
                    id="messages-container-input__attachment"
                    multiple
-                   accept="image/jpeg,image/png,image/gif"
+                   accept="image/jpeg,image/png,image/gif,image/JPEG,image/PNG,image/GIF"
             >
             <input @change="attachment.changeDocs"
                    type="file"
