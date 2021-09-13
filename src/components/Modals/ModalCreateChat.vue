@@ -59,8 +59,13 @@
                     <template v-if="choice === 1">
                         <div v-if="CRM.selectedCRM === 1" class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
                             <BaseModalLabel for-id="modal-create-chat__input"
+                                            :class="{'base-modal-label_error': errors.name}">Имя</BaseModalLabel>
+                            <input id="modal-create-chat__input-phone" type="text" class="modal-create-chat__input"  v-model="namePerson"> 
+                        </div>
+                         <div v-if="CRM.selectedCRM === 1" class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
+                            <BaseModalLabel for-id="modal-create-chat__input"
                                             :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
-                            <input id="modal-create-chat__input-phone" type="text" class="modal-create-chat__input" v-model="phone" placeholder="7 (123) 456-78-90"
+                            <input id="modal-create-chat__input-phone" type="text" class="modal-create-chat__input" v-model="phone"   placeholder="7 (123) 456-78-90"
                  v-maska="'# (###) ###-##-##'">
                         </div>
                         <div v-else class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
@@ -307,7 +312,8 @@
                     CRM.toggleOpenedCRM();
                 }
             })
-
+            const namePerson = ref('');
+          
             const phone = ref('');
             const login = ref('');
             const errors = reactive({
@@ -316,6 +322,7 @@
                 login: false,
                 instagram: false,
                 baseFile: false,
+                name: false, 
             })
 
             const choice = ref(1);
@@ -336,7 +343,7 @@
                 errors.phone = false;
                 errors.login = false;
                 errors.instagram = false;
-
+                errors.name = false;
                 errors.baseFile = false
 
                 // загрузка файла
@@ -397,9 +404,11 @@
                 }
                
                 if (CRM.selectedCRM === 1) {
+                  
                     dataToSend.phone = phone.value;
                     dataToSend.whatsapp_id = selectedWhatsapp.value.whatsapp_id;
                     dataToSend.type = 'WhatsappDialog';
+                    dataToSend.name = namePerson.value;
                 }
                 if (CRM.selectedCRM === 2) {
                     dataToSend.login = login.value;
@@ -530,6 +539,7 @@
                 uploadedFile,
                 selectFile,
                 showBaseLoader,
+                namePerson,
             }
         }
     }
@@ -599,7 +609,7 @@
     .modal-create-chat__my-folders {
         position: relative;
         &.modal-create-chat__my-folders_scroll {
-            height: calc(53px * 2);
+            height: calc(53px * 3);
             ::-webkit-scrollbar {
                 display: none;
             }
