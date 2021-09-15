@@ -116,7 +116,11 @@
 
                     </template>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     <!-- <router-link
+=======
+                  <!--  <router-link
+>>>>>>> Stashed changes
 =======
                   <!--  <router-link
 >>>>>>> Stashed changes
@@ -128,7 +132,11 @@
                         </svg>
                         Связь с поддержкой
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     </router-link> -->
+=======
+                    </router-link>-->
+>>>>>>> Stashed changes
 =======
                     </router-link>-->
 >>>>>>> Stashed changes
