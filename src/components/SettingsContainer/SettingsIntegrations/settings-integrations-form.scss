@@ -102,6 +102,9 @@
     border: none;
     border-radius: 0;
   }
+  &.settings-integrations-form__input_error {
+    border: .7px solid var(--red-color);
+  }
 }
 .settings-integrations-form__dropdown-inner {
   width: 100%;

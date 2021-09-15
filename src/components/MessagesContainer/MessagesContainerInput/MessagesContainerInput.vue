@@ -6,10 +6,9 @@
                 :showPreview="false"
                 style="width: 100%"
                 set="apple"
-
                 @select="smiles.addEmoji"
         />
-        <div class="messages-container-input__container">
+        <div class="messages-container-input__container"> 
             <div class="messages-container-input__input"
                  contenteditable="true"
                  placeholder="Введите ваше сообщение..."
@@ -17,7 +16,14 @@
                  @input="input"
                  @keypress="isEnter"
                  @paste="smiles.paste"
+                 @copy="smiles.copy"
+                  v-if="isActiveDialog"
             ></div>
+            <div class="messages-container-input__input messages-container-input__disabled"
+                 value="Этот диалог неактивен"
+                 isContentEditable="false"
+                 v-if="!isActiveDialog"
+            >Этот диалог неактивен</div>
             <button class="messages-container-input__icon messages-container-input__icon_smile pointer">
                 <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0333 4.61377C21.322 6.3318 22.0794 8.38905 22.2119 10.5319V17.6317C22.2107 18.8457 21.7275 20.0096 20.8682 20.868C20.009 21.7265 18.844 22.2093 17.6288 22.2105H11.228C9.07905 22.2116 6.97673 21.5844 5.18024 20.4062C3.38374 19.2281 1.97162 17.5504 1.11795 15.5802C0.264276 13.6099 0.00638099 11.4331 0.376055 9.3182C0.745728 7.20328 1.72681 5.24266 3.19835 3.67805C4.66989 2.11345 6.56756 1.01325 8.65741 0.513102C10.7473 0.0129532 12.9379 0.134715 14.9593 0.863377C16.9808 1.59204 18.7446 2.89575 20.0333 4.61377ZM19.5733 19.5743C20.089 19.0591 20.3787 18.3603 20.3787 17.6317V10.6189C20.2943 9.3768 19.9583 8.16477 19.3911 7.05627C18.8238 5.94778 18.0372 4.9659 17.0788 4.17016C15.4379 2.80377 13.3679 2.05811 11.2317 2.06393C10.8333 2.06445 10.4354 2.08953 10.0401 2.13902C8.0137 2.40652 6.13406 3.34018 4.69748 4.7928C3.2609 6.24543 2.34908 8.1344 2.10578 10.1619C1.95169 11.4474 2.07448 12.7509 2.46591 13.985C2.85735 15.2191 3.50837 16.3554 4.37534 17.3176C5.23814 18.2803 6.29434 19.0505 7.47509 19.578C8.65583 20.1055 9.93461 20.3784 11.228 20.379H17.6288C18.3581 20.379 19.0576 20.0895 19.5733 19.5743ZM11.2124 8.47407H7.54589C7.30279 8.47407 7.06964 8.37759 6.89774 8.20585C6.72584 8.03412 6.62927 7.80119 6.62927 7.55832C6.62927 7.31545 6.72584 7.08252 6.89774 6.91078C7.06964 6.73905 7.30279 6.64257 7.54589 6.64257H11.2124C11.4555 6.64257 11.6886 6.73905 11.8605 6.91078C12.0324 7.08252 12.129 7.31545 12.129 7.55832C12.129 7.80119 12.0324 8.03412 11.8605 8.20585C11.6886 8.37759 11.4555 8.47407 11.2124 8.47407ZM7.54589 10.3056C7.30279 10.3056 7.06964 10.4021 6.89774 10.5738C6.72584 10.7455 6.62927 10.9785 6.62927 11.2213C6.62927 11.4642 6.72584 11.6971 6.89774 11.8689C7.06964 12.0406 7.30279 12.1371 7.54589 12.1371H14.8789C15.122 12.1371 15.3551 12.0406 15.527 11.8689C15.6989 11.6971 15.7955 11.4642 15.7955 11.2213C15.7955 10.9785 15.6989 10.7455 15.527 10.5738C15.3551 10.4021 15.122 10.3056 14.8789 10.3056H7.54589ZM6.89774 14.2368C7.06964 14.0651 7.30279 13.9686 7.54589 13.9686H14.8789C15.122 13.9686 15.3551 14.0651 15.527 14.2368C15.6989 14.4085 15.7955 14.6415 15.7955 14.8843C15.7955 15.1272 15.6989 15.3601 15.527 15.5319C15.3551 15.7036 15.122 15.8001 14.8789 15.8001H7.54589C7.30279 15.8001 7.06964 15.7036 6.89774 15.5319C6.72584 15.3601 6.62927 15.1272 6.62927 14.8843C6.62927 14.6415 6.72584 14.4085 6.89774 14.2368Z"
@@ -53,39 +59,34 @@
                             Контакт
                         </div>
                     </div>
-                    <div class="messages-container-input__attachment">
+                    <div class="messages-container-input__attachment" @click.stop="attachment.addVideo">
                         <div class="messages-container-input__attachment-icon">
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M13.869 3H14.25C15.2442 3.00119 16.1973 3.39666 16.9003 4.09966C17.6033 4.80267 17.9988 5.7558 18 6.75V14.25C17.9988 15.2442 17.6033 16.1973 16.9003 16.9003C16.1973 17.6033 15.2442 17.9988 14.25 18H3.75C2.7558 17.9988 1.80267 17.6033 1.09966 16.9003C0.396661 16.1973 0.00119089 15.2442 0 14.25V6.75C0.00119089 5.7558 0.396661 4.80267 1.09966 4.09966C1.80267 3.39666 2.7558 3.00119 3.75 3H4.131L5.769 0.876C5.9801 0.604355 6.25026 0.384312 6.559 0.232541C6.86774 0.0807686 7.20697 0.00124728 7.551 0H10.449C10.793 0.00124728 11.1323 0.0807686 11.441 0.232541C11.7497 0.384312 12.0199 0.604355 12.231 0.876L13.869 3ZM7.2202 1.57761C7.11727 1.6283 7.02725 1.70179 6.957 1.7925L6.0255 3H11.9745L11.043 1.7925C10.9727 1.70187 10.8826 1.62844 10.7797 1.57776C10.6768 1.52709 10.5637 1.50049 10.449 1.5H7.551C7.43627 1.50038 7.32313 1.52693 7.2202 1.57761ZM15.841 15.841C16.2629 15.419 16.5 14.8467 16.5 14.25V6.75C16.5 6.15326 16.2629 5.58097 15.841 5.15901C15.419 4.73705 14.8467 4.5 14.25 4.5H3.75C3.15326 4.5 2.58097 4.73705 2.15901 5.15901C1.73705 5.58097 1.5 6.15326 1.5 6.75V14.25C1.5 14.8467 1.73705 15.419 2.15901 15.841C2.58097 16.2629 3.15326 16.5 3.75 16.5H14.25C14.8467 16.5 15.419 16.2629 15.841 15.841ZM6.49994 6.75839C7.23996 6.26392 8.10999 6 9 6C10.1931 6.00119 11.337 6.47568 12.1807 7.31933C13.0243 8.16299 13.4988 9.30689 13.5 10.5C13.5 11.39 13.2361 12.26 12.7416 13.0001C12.2471 13.7401 11.5443 14.3169 10.7221 14.6575C9.89981 14.9981 8.99501 15.0872 8.1221 14.9135C7.24918 14.7399 6.44736 14.3113 5.81802 13.682C5.18869 13.0526 4.7601 12.2508 4.58647 11.3779C4.41283 10.505 4.50195 9.60019 4.84254 8.77792C5.18314 7.95566 5.75991 7.25285 6.49994 6.75839ZM7.33329 12.9944C7.82664 13.3241 8.40666 13.5 9 13.5C9.79565 13.5 10.5587 13.1839 11.1213 12.6213C11.6839 12.0587 12 11.2956 12 10.5C12 9.90666 11.8241 9.32664 11.4944 8.83329C11.1648 8.33994 10.6962 7.95542 10.1481 7.72836C9.59987 7.5013 8.99667 7.44189 8.41473 7.55764C7.83279 7.6734 7.29824 7.95912 6.87868 8.37868C6.45912 8.79824 6.1734 9.33279 6.05765 9.91473C5.94189 10.4967 6.0013 11.0999 6.22836 11.6481C6.45543 12.1962 6.83994 12.6648 7.33329 12.9944Z"
                                       fill="#9797BB"/>
                             </svg>
-
                         </div>
                         <div>
-                            Камера
+                            Видео
                         </div>
                     </div>
-                    <div class="messages-container-input__attachment"
-                         @click.stop="attachment.addPhoto"
-                    >
+                    <div class="messages-container-input__attachment" @click.stop="attachment.addPhoto">
                         <div class="messages-container-input__attachment-icon">
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 0H14.25C15.2442 0.00119089 16.1973 0.396661 16.9003 1.09966C17.6033 1.80267 17.9988 2.7558 18 3.75V14.25C17.9988 15.2442 17.6033 16.1973 16.9003 16.9003C16.1973 17.6033 15.2442 17.9988 14.25 18H3.75C2.7558 17.9988 1.80267 17.6033 1.09966 16.9003C0.396661 16.1973 0.00119089 15.2442 0 14.25V3.75C0.00119089 2.7558 0.396661 1.80267 1.09966 1.09966C1.80267 0.396661 2.7558 0.00119089 3.75 0ZM14.25 1.5H3.75C3.15326 1.5 2.58097 1.73705 2.15901 2.15901C1.73705 2.58097 1.5 3.15326 1.5 3.75V10.9395L4.09875 8.3415C4.44698 7.99318 4.86042 7.71686 5.31546 7.52835C5.77049 7.33983 6.25821 7.2428 6.75075 7.2428C7.24329 7.2428 7.73101 7.33983 8.18604 7.52835C8.64108 7.71686 9.05452 7.99318 9.40275 8.3415L16.275 15.2137C16.4218 14.9136 16.4987 14.5841 16.5 14.25V3.75C16.5 3.15326 16.2629 2.58097 15.841 2.15901C15.419 1.73705 14.8467 1.5 14.25 1.5ZM2.15901 15.841C2.58097 16.2629 3.15326 16.5 3.75 16.5H14.25C14.5841 16.4987 14.9136 16.4218 15.2137 16.275L8.3415 9.402C8.13255 9.19292 7.88445 9.02705 7.61137 8.91389C7.33829 8.80073 7.0456 8.74248 6.75 8.74248C6.4544 8.74248 6.16171 8.80073 5.88863 8.91389C5.61555 9.02705 5.36745 9.19292 5.1585 9.402L1.5 13.0605V14.25C1.5 14.8467 1.73705 15.419 2.15901 15.841ZM13.4583 7.43261C13.0266 7.72105 12.5191 7.875 11.9999 7.875C11.3037 7.875 10.636 7.59844 10.1438 7.10615C9.65147 6.61387 9.37491 5.94619 9.37491 5.25C9.37491 4.73082 9.52886 4.22331 9.8173 3.79163C10.1057 3.35995 10.5157 3.0235 10.9954 2.82482C11.475 2.62614 12.0028 2.57415 12.512 2.67544C13.0212 2.77672 13.489 3.02673 13.8561 3.39384C14.2232 3.76096 14.4732 4.22869 14.5745 4.73789C14.6758 5.24709 14.6238 5.77489 14.4251 6.25454C14.2264 6.7342 13.89 7.14417 13.4583 7.43261ZM12.6249 4.3146C12.4399 4.19098 12.2224 4.125 11.9999 4.125C11.7015 4.125 11.4154 4.24353 11.2044 4.4545C10.9934 4.66548 10.8749 4.95163 10.8749 5.25C10.8749 5.4725 10.9409 5.69001 11.0645 5.87502C11.1881 6.06002 11.3638 6.20422 11.5694 6.28936C11.775 6.37451 12.0012 6.39679 12.2194 6.35338C12.4376 6.30998 12.6381 6.20283 12.7954 6.0455C12.9527 5.88816 13.0599 5.68771 13.1033 5.46948C13.1467 5.25125 13.1244 5.02505 13.0393 4.81948C12.9541 4.61391 12.8099 4.43821 12.6249 4.3146Z"
                                       fill="#9797BB"/>
                             </svg>
-
                         </div>
                         <div>
                             Фото
                         </div>
                     </div>
-                    <div class="messages-container-input__attachment">
+                    <div class="messages-container-input__attachment"  @click.stop="attachment.addDocs">
                         <div class="messages-container-input__attachment-icon">
                             <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M13.4617 4.15201L10.8487 1.53752C10.3622 1.04862 9.78364 0.661015 9.14641 0.397111C8.50918 0.133208 7.82595 -0.00175791 7.13624 1.72865e-05H3.75C2.7558 0.00120818 1.80267 0.396678 1.09966 1.09968C0.396661 1.80268 0.00119089 2.75582 0 3.75001V14.25C0.00119089 15.2442 0.396661 16.1973 1.09966 16.9003C1.80267 17.6033 2.7558 17.9988 3.75 18H11.25C12.2442 17.9988 13.1973 17.6033 13.9003 16.9003C14.6033 16.1973 14.9988 15.2442 15 14.25V7.86376C15.0018 7.17408 14.8668 6.49088 14.6028 5.85374C14.3388 5.21661 13.9509 4.63819 13.4617 4.15201ZM12.4012 5.21251C12.6303 5.44812 12.8272 5.7129 12.987 6.00001H9.74999C9.55108 6.00001 9.36031 5.92099 9.21966 5.78034C9.07901 5.63969 8.99999 5.44892 8.99999 5.25001V2.01302C9.28719 2.17271 9.5522 2.36939 9.78824 2.59801L12.4012 5.21251ZM13.5 14.25C13.5 14.8467 13.2629 15.419 12.841 15.841C12.419 16.2629 11.8467 16.5 11.25 16.5H3.75C3.15326 16.5 2.58096 16.2629 2.15901 15.841C1.73705 15.419 1.5 14.8467 1.5 14.25V3.75001C1.5 3.15328 1.73705 2.58098 2.15901 2.15903C2.58096 1.73707 3.15326 1.50002 3.75 1.50002H7.13624C7.25924 1.50002 7.37849 1.52402 7.49999 1.53527V5.25001C7.49999 5.84675 7.73704 6.41904 8.159 6.841C8.58096 7.26296 9.15325 7.50001 9.74999 7.50001H13.4647C13.476 7.62151 13.5 7.74001 13.5 7.86376V14.25Z"
                                       fill="#9797BB"/>
                             </svg>
-
                         </div>
                         <div>
                             Документ
@@ -116,11 +117,31 @@
                    multiple
                    accept="image/jpeg,image/png,image/gif"
             >
+            <input @change="attachment.changeDocs"
+                   type="file"
+                   style="display: none;"
+                   id="messages-container-input__attachment-docs"
+                   multiple
+                   accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+            >
+            <input @change="attachment.changeVideo"
+                   type="file"
+                   style="display: none;"
+                   id="messages-container-input__attachment-video"
+                   multiple
+                   accept="video/mp4,video/x-m4v,video/*"
+            >
         </div>
         <teleport to="body">
             <ModalSendImages
                     v-if="openedModalSendImages"
             ></ModalSendImages>
+             <ModalSendFiles
+                    v-if="openedModalSendFiles"
+            ></ModalSendFiles>
+            <ModalSendVideos
+                    v-if="openedModalSendVideos"
+            ></ModalSendVideos>
         </teleport>
     </div>
 </template>
@@ -129,24 +150,35 @@
     import { ref, reactive, computed } from 'vue'
     import { useDialogs } from "../../../composition/useDialogs";
     import { useSocket } from "../../../composition/useSocket";
-
     import { Picker } from "../../emoji-component/src";
     import ModalSendImages from "../../Modals/ModalSendImages";
+    import ModalSendFiles from "../../Modals/ModalSendFiles";
+    import ModalSendVideos from "../../Modals/ModalSendVideos";
     import {useModalsImages} from "../../../composition/useModalsImages";
+    import {useModalsFiles} from "../../../composition/useModalsFiles";
+    import {useModalsVideos} from "../../../composition/useModalsVideos";
     import {useImages} from "../../../composition/useImages";
     import {useEmoji} from "../../../composition/useEmoji";
+    import {useFiles} from "../../../composition/useFiles";
+    import {useVideos} from "../../../composition/useVideos";
+    import { useMessages } from "../../../composition/useMessages";
 
     export default {
         components: {
-            Picker, ModalSendImages
+            Picker, ModalSendImages, ModalSendFiles, ModalSendVideos
         },
         setup() {
+            const token = localStorage.getItem('token');//токены
             const { selectedDialog } = useDialogs();
-            const { socketSend } = useSocket();
+            const { socketSend, status } = useSocket();
             const { createImage, replaceImages, addImage } = useImages()
-            const { openedModalSendImages, toggleModalSendImages } = useModalsImages()
-            const { emojiIndex, emojiToHtml, wrapEmoji } = useEmoji()
-
+            const { openedModalSendImages, toggleModalSendImages } = useModalsImages();
+            const { openedModalSendFiles, toggleModalSendFiles } = useModalsFiles();
+            const { openedModalSendVideos, toggleModalSendVideos } = useModalsVideos();
+            const { emojiIndex, emojiToHtml, wrapEmoji } = useEmoji();
+            const { addSendedMessage, messages, isActiveDialog, getRandomInRange } = useMessages();
+            const { createFile, replaceFile, addFiles } = useFiles();
+            const { createVideo, replaceVideo, addVideo } = useVideos()
             const value = ref('');
             const textarea = ref(null);
             const isEnter = ($event) => {
@@ -156,17 +188,28 @@
                     return false;
                 }
             }
-
             const send = () => {
+                const uidRandom = getRandomInRange();
                 if (value.value) {
                     let div = document.createElement('div');
                     div.innerHTML = value.value;
                     div.querySelectorAll('img').forEach(img => {
                         img.replaceWith(img.getAttribute('data-text'))
                     })
-                    div.innerHTML = div.innerHTML.replace(/<br>/g, '');
+                   // div.innerHTML = div.innerHTML.replace(/<br>/g, '');
+                    div.innerHTML = div.innerHTML.replace(/\n/g, '');
                     div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
-                    socketSend('send_message', {type: 'text', data: div.innerHTML, dialog_id: selectedDialog.value})
+                    addSendedMessage({
+                        is_me: true,
+                        is_read: false,
+                        message: div.innerHTML,
+                        message_id: (Object.keys(messages.value.message)).length,
+                        time: Math.floor(Date.now() / 1000),
+                        type: 'text',
+                        is_sending:true,
+                        request_uid:uidRandom,
+                    });
+                    socketSend('send_message', {type: 'text', data: div.innerHTML, dialog_id: selectedDialog.value, request_uid:uidRandom, message_uid : null})
                     value.value = '';
                     textarea.value.innerHTML = '';
                 }
@@ -177,7 +220,7 @@
             const wrapTab = (text) => {
                 return text.replace(/\n/g, '<br>')
             }
-
+            
             const smiles = reactive({
                 isOpened: false,
                 toggle: () => {
@@ -205,16 +248,17 @@
                     } else {
                         pasteHtmlAtCaret(emojiToHtml(emoji))
                         value.value = textarea.value.innerHTML
+
                     }
 
                 },
                 paste: ($event) => {
-                    let paste = ($event.clipboardData || window.clipboardData).getData('text');
-                    pasteHtmlAtCaret(wrapEmoji(wrapTab(paste)));
-                    value.value = textarea.value.innerHTML
-
+                     let paste = ($event.clipboardData || window.clipboardData ).getData('text');
+                     pasteHtmlAtCaret(wrapEmoji(wrapTab(paste)));
+                     value.value = textarea.value.innerHTML
+    
                     $event.preventDefault();
-                }
+                },
             })
             const setCaretToPos = (elem, pos) => {
                 let range = document.createRange();
@@ -224,7 +268,6 @@
                 sel.removeAllRanges();
                 sel.addRange(range);
             }
-
             const pasteHtmlAtCaret = (html) => {
                 let sel, range;
                 if (window.getSelection) {
@@ -233,7 +276,6 @@
                     if (sel.getRangeAt && sel.rangeCount) {
                         range = sel.getRangeAt(0);
                         range.deleteContents();
-
                         let el = document.createElement("div");
                         el.innerHTML = html;
                         let frag = document.createDocumentFragment(), node, lastNode;
@@ -241,7 +283,6 @@
                             lastNode = frag.appendChild(node);
                         }
                         range.insertNode(frag);
-
                         // Preserve the selection
                         if (lastNode) {
                             range = range.cloneRange();
@@ -256,7 +297,6 @@
                     document.selection.createRange().pasteHTML(html);
                 }
             }
-
             const attachment = reactive({
                 isOpened: false,
                 toggle: () => {
@@ -267,6 +307,12 @@
                 },
                 addPhoto: () => {
                     document.getElementById('messages-container-input__attachment').click()
+                },
+                addDocs: () => {
+                    document.getElementById('messages-container-input__attachment-docs').click()
+                },
+                addVideo: () => {
+                    document.getElementById('messages-container-input__attachment-video').click()
                 },
                 change: ($event) => {
                     if ($event.target.files[0]) {
@@ -290,27 +336,78 @@
                             }, false);
                             fr.readAsDataURL(item);
                         })
-                    }
+                    } 
                 },
+                 changeDocs: ($event) => {
+                    if ($event.target.files[0]) {
+                        replaceFile([]);
+                        toggleModalSendFiles(true);
+                        $event.target.files.forEach(item => {
+                            let fr = new FileReader();
+                            fr.addEventListener("load", function () {
+                                createFile(item)
+                                    .then((r) => {
+                                        if (r.status === 'ok') {
+                                            addFiles({
+                                                name: item.name,
+                                                size: item.size,
+                                                type: item.type,
+                                                id: r.files[0],
+                                                src: fr.result,
+                                            })
+                                            
+                                        }
+                                      
+                                    })
+                            }, false);
+                            fr.readAsDataURL(item);
+                        })
+                    }
+                    
+                },
+                changeVideo: ($event) => {
+                    if ($event.target.files[0]) {
+                        replaceImages([]);
+                        toggleModalSendVideos(true);
+                        $event.target.files.forEach(item => {
+                            let fr = new FileReader();
+                            fr.addEventListener("load", function () {
+                                createVideo(item)
+                                    .then((r) => {
+                                        if (r.status === 'ok') {
+                                            addVideo({
+                                                name: item.name,
+                                                size: item.size,
+                                                type: item.type,
+                                                id: r.files[0],
+                                                src: fr.result,
+                                            }) 
+                                        }
+                                      
+                                    })
+                            }, false);
+                            fr.readAsDataURL(item);
+                        })
+                    }
+                },  
             })
 
-            return {
+            return {  
                 emojiIndex,
                 value,
                 textarea,
-
                 isEnter,
                 send,
                 input,
-
                 smiles,
                 attachment,
-
+                openedModalSendFiles,
                 openedModalSendImages,
-
+                openedModalSendVideos,
+                token,
+                isActiveDialog
             }
         }
-
     }
 </script>
 
@@ -359,8 +456,6 @@
         background: var(--main-color);
         color: var(--font-color);
         text-align: left;
-        &::placeholder {
-        }
         &::-webkit-scrollbar {
             display: none;
         }

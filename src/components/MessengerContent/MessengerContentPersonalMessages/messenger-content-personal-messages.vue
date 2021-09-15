@@ -1,7 +1,7 @@
 <template>
-    <div class="messenger-content-personal-messages">
+    <div class="messenger-content-personal-messages" @click="toggleOpenedUserInfo(false)">
         <div class="messenger-content-personal-messages__header"
-             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length}"
+             :class="{'messenger-content-personal-messages__header_header': selectedGroupDialogs.length, 'messenger-content-personal-messages_disabled-dialog': !isActiveDialog}"
         >
             <DialogSelections
                     v-if="selectedGroupDialogs.length"
@@ -12,15 +12,27 @@
             ></DialogSelections>
             <template v-else>
                 <template v-if="selectedDialog">
-                    <BaseCircleIcon
+                  <div class="selected-dialog-container"> 
+                        <BaseCircleIcon
                             v-if="messages.avatar"
-                            class="base-circle-icon__52"
+                            :class="base-circle-icon__52"
                             :key="messages.avatar"
                             :src="messages.avatar"
                     ></BaseCircleIcon>
+                    <img src="../../../assets/online.svg" class="selected-dialog-container__isOnline" v-if ='messages.is_online'>
+                  </div>
                     <div class="messenger-content-personal-messages__name-container">
                         <div class="messenger-content-personal-messages__name">{{messages.name}}</div>
-                        <div class="messenger-content-personal-messages__date">{{messages.is_online? 'В сети' : 'Не в сети'}}</div>
+                        <div class="messenger-content-personal-messages__name-icon">
+                            <template v-if="messages.type=='WhatsappDialog'" >
+                                <img src="../../../assets/whatsapp.svg" class="messenger-content-personal-messages__img" >
+                                <div class="messenger-content-personal-messages__account"> {{messages.whatsapp.name}}</div>
+                            </template>
+                            <template v-else-if="messages.type=='InstagramDialog'">
+                                <img src="../../../assets/instagram.svg" class="messenger-content-personal-messages__img"> 
+                                <div class="messenger-content-personal-messages__account"> {{messages.instagram.login}}</div>
+                            </template>
+                            </div>
                     </div>
                     <button class="messenger-content-personal-messages__info-button pointer"
                             @click="toggleOpenedActions(true)"
@@ -43,15 +55,17 @@
                     </button>
                 </template>
             </template>
+           
         </div>
         <template v-if="selectedDialog">
             <hr class="separator"/>
+            <div v-if="!isActiveDialog" class="messenger-content-personal-messages__disabled-block">Диалог с "{{messages.name}}" неактивен</div>
             <MessagesContainer
             ></MessagesContainer>
         </template>
     </div>
+    
 </template>
-
 <script>
     import BaseCircleIcon from '../../Base/BaseCircleIcon'
     import MessagesContainer from '../../MessagesContainer/messages-container.vue'
@@ -60,21 +74,21 @@
     import { useDialogs } from "../../../composition/useDialogs";
     import {useFolder} from "../../../composition/useFolder";
     import {useModals} from "../../../composition/useModals";
-    import { ref } from 'vue'
+    import { reactive, ref, onUpdated } from 'vue'
     import {useModalConfirmDelete} from "../../../composition/useModalConfirmDelete";
+    import {useUserInfo} from "../../../composition/useUserInfo";
+    import { useSocket } from "../../../composition/useSocket";
     export default {
         components: { BaseCircleIcon, MessagesContainer, DialogSelections },
+
         setup() {
-            const { messages } = useMessages();
-
+            let { messages, isActiveDialog } = useMessages();
+            const { socketSend } = useSocket();
             const { selectedFolder } = useFolder();
-
             const { selectedDialog, selectedGroupDialogs, toggleAllSelectedGroupDialogs, dialogs, deleteDialog, getDialogs, selectDialog } = useDialogs()
-
             const { toggleModalMoveChat, setSelectedDialogsToMove, setCloseCallbackMoveModal } = useModals()
-
+            const { toggleOpenedUserInfo } = useUserInfo()
             const { toggleModalConfirmDelete, setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete } = useModalConfirmDelete()
-
             const openedActions = ref(false);
             const toggleOpenedActions = (boolean) => {
                 openedActions.value = boolean;
@@ -89,7 +103,6 @@
                 setSaveCallbackModalConfirmDelete(callback);
                 toggleModalConfirmDelete(true);
             }
-
             const move = () => {
                 setSelectedDialogsToMove(selectedGroupDialogs.value);
                 setCloseCallbackMoveModal(() => {
@@ -113,21 +126,26 @@
                 toggleModalMoveChat(true);
                 toggleOpenedActions(false);
             }
-
+        
+             const statusUser = () => { // получение стауса пользователя
+               socketSend('get_dialog_status', {dialog_id: selectedDialog.value})  
+                messages.is_online= messages.value.is_online ;
+             };
+            setInterval(() => {  statusUser();}, 300000);
             return {
                 messages,
                 selectedDialog,
-
                 selectedGroupDialogs,
                 dialogs,
                 del,
                 move,
-
                 delDialog,
                 moveChat,
                 openedActions,
                 toggleOpenedActions,
-
+                statusUser,
+                toggleOpenedUserInfo,
+                isActiveDialog,
             }
         }
     }

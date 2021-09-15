@@ -94,6 +94,7 @@
                 connect: (url) => {
                     connectBitrix(url)
                         .then(r => {
+                            emit('getBitrix');
                             bitrix.toggleOpened(false);
                         })
                 }
@@ -101,7 +102,7 @@
             const amo = reactive({
                 action: () => {
                     if (props.amoProps.is_active) {
-                        emit('openForm', 'amocrm')
+                        emit('openForm', 'amo')
                         //open form
                     } else {
                         amo.toggleOpened(true);
@@ -110,12 +111,8 @@
                 isOpened: false,
                 toggleOpened: boolean => amo.isOpened = boolean,
 
-                connect: (url) => {
-                    connectAmocrm(url)
-                        .then(r => {
-                            console.log(r)
-                            amo.toggleOpened(false);
-                        })
+                connect: () => {
+                    connectAmocrm()
                 }
             })
 

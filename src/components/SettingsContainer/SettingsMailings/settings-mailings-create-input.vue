@@ -67,7 +67,8 @@
                 div.querySelectorAll('img').forEach(img => {
                     img.replaceWith(img.getAttribute('data-text'))
                 })
-                div.innerHTML = div.innerHTML.replace(/<br>/g, '');
+                div.innerHTML = div.innerHTML.replace(/\n/g, '');
+                div.innerHTML = div.innerHTML.replace(/<br>/g, '\n');
                 div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
                 emit('changeMessage', div.innerHTML);
             }

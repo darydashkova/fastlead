@@ -87,11 +87,11 @@
     import BaseButton from '../Base/BaseButton.vue'
     import BaseModalText from '../Base/BaseModalText.vue'
     import BaseModalHeader from '../Base/BaseModalHeader.vue'
-
     import {useImages} from "../../composition/useImages";
     import {useModalsImages} from "../../composition/useModalsImages";
     import {useSocket} from "../../composition/useSocket";
     import {useDialogs} from "../../composition/useDialogs";
+    import { useMessages } from "../../composition/useMessages";
     import {useCustomScroll} from "../../composition/useCustomScroll";
     import {onMounted} from "vue";
 
@@ -100,10 +100,10 @@
         setup() {
             const { toggleModalSendImages } = useModalsImages()
             const { socketSend } = useSocket()
-            const { selectedDialog } = useDialogs();
+            const { selectedDialog } = useDialogs()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { imagesToSend, createImage, addImage, deleteImage } = useImages()
-
+            const { addSendedMessage, getRandomInRange } = useMessages();
             const close = () => {
                 toggleModalSendImages(false);
             }
@@ -135,7 +135,6 @@
             const del = (id) => {
                 deleteImage(id);
             }
-
             function conv_size(b){
                 let fsizekb = b / 1024,
                     fsizemb = fsizekb / 1024,
@@ -153,18 +152,30 @@
                 }
                 return fsize;
             }
-
-
             const save = () => {
+                 const uidRandom = getRandomInRange(1, 10000);
+               
+                  addSendedMessage({
+                        is_me: true,
+                        is_read: false,
+                        message_id:uidRandom+1,
+                        time: Math.floor(Date.now() / 1000),
+                        type: 'img',
+                        is_sending:true,
+                        request_uid:uidRandom,
+                        img: imagesToSend.value[0]
+                    });
                 imagesToSend.value.forEach(image => {
                     socketSend('send_message', {
                         type: 'img',
                         data: image.id,
-                        dialog_id: selectedDialog.value
+                        dialog_id: selectedDialog.value,
+                        request_uid:uidRandom, 
+                        message_uid : null
                     })
                 })
-
-            }
+                 
+            } 
             onMounted( () => {
                 init()
             })
@@ -173,15 +184,12 @@
                 content,
                 scrollbar,
                 scrollTo,
-
-
                 save,
                 close,
                 add,
                 change,
                 del,
                 imagesToSend,
-
                 conv_size,
             }
         }

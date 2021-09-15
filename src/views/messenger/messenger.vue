@@ -9,7 +9,6 @@
             <ModalConfirmDelete v-if="openedModalConfirmDelete"></ModalConfirmDelete>
         </teleport>
         <ContextMenu v-if="isContextOpened"></ContextMenu>
-
         <MessengerContent></MessengerContent>
     </div>
 </template>

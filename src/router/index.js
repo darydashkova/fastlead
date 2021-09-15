@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import {useAuth} from "../composition/useAuth";
+import { useAuth } from "../composition/useAuth";
 const { outAuth } = useAuth()
 
 const routes = [
@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import ('../views/login/login.vue'),
+    component: () => import('../views/login/login.vue'),
     meta: {
       withoutAuth: true,
       title: 'Fastlead - Авторизация'
@@ -19,7 +19,7 @@ const routes = [
   {
     path: '/registration',
     name: 'registration',
-    component: () => import ('../views/registration/registration.vue'),
+    component: () => import('../views/registration/registration.vue'),
     meta: {
       withoutAuth: true,
       title: 'Fastlead - Регистрация'
@@ -28,16 +28,16 @@ const routes = [
   {
     path: '/',
     name: 'messenger',
-    component: () => import ('../views/messenger/messenger.vue'),
+    component: () => import('../views/messenger/messenger.vue'),
     meta: {
-        requiresAuth: true,
-        title: 'Fastlead - Мессенджер'
+      requiresAuth: true,
+      title: 'Fastlead - Мессенджер'
     }
   },
   {
     path: '/messenger',
     name: 'messenger',
-    component: () => import ('../views/messenger/messenger.vue'),
+    component: () => import('../views/messenger/messenger.vue'),
     meta: {
       requiresAuth: true,
       title: 'Fastlead - Мессенджер'
@@ -46,7 +46,8 @@ const routes = [
   {
     path: '/authorization/:token',
     name: 'authorization',
-    component: () => import ('../views/authorization/authorization.vue'),
+    component: () => import('../views/authorization/authorization.vue'),
+
     meta: {
       title: 'Fastlead - Авторизация'
     }
@@ -54,7 +55,7 @@ const routes = [
   {
     path: '/settings',
     name: 'settings',
-    component: () => import ('../views/settings/settings.vue'),
+    component: () => import('../views/settings/settings.vue'),
     meta: {
       requiresAuth: true,
       title: 'Fastlead - Настройки'
@@ -64,25 +65,33 @@ const routes = [
         path: '', redirect: '/settings/mailings'
       },
       {
-        path: 'mailings', component: () => import('../views/settings/mailings/mailings.vue'), meta: {requiresAuth: true, title: 'Fastlead - Рассылки'}
+        path: 'mailings', component: () => import('../views/settings/mailings/mailings.vue'), meta: { requiresAuth: true, title: 'Fastlead - Рассылки' }
       },
       {
-        path: 'whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: {requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты'}
+        path: 'whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: { requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты' }
       },
       {
-        path: 'instagrams', component: () => import('../views/settings/instagrams/instagrams.vue'), meta: {requiresAuth: true, title: 'Fastlead - Instagram аккаунты'}
+        path: 'instagrams', component: () => import('../views/settings/instagrams/instagrams.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
       },
       {
-        path: 'account', component: () => import('../views/settings/account/account.vue'), meta: {requiresAuth: true, title: 'Fastlead - Настройки аккаунта'}
+        path: 'account', component: () => import('../views/settings/account/account.vue'), meta: { requiresAuth: true, title: 'Fastlead - Настройки аккаунта' }
       },
       {
-        path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue'), meta: {requiresAuth: true, title: 'Fastlead - Автоответчики'}
+        path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчики' }
       },
       {
-        path: 'message-templates', component: () => import('../views/settings/message-templates/message-templates.vue'), meta: {requiresAuth: true, title: 'Fastlead - Шаблоны сообщений'}
+        path: 'message-templates', component: () => import('../views/settings/message-templates/message-templates.vue'), meta: { requiresAuth: true, title: 'Fastlead - Шаблоны сообщений' }
       },
       {
-        path: 'integrations', component: () => import('../views/settings/integrations/integrations.vue'), meta: {requiresAuth: true, title: 'Fastlead - Интеграции'}
+        path: 'integrations', component: () => import('../views/settings/integrations/integrations.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+        children: [
+          {
+            path: '', component: () => import('../views/settings/integrations/Default'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+          },
+          {
+            path: 'amo/connect', component: () => import('../views/settings/integrations/AmoConnect'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+          }
+        ]
       },
     ]
   },
@@ -95,7 +104,7 @@ const router = createRouter({
 
 function getCookie(name) {
   let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
   ));
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }

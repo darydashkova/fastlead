@@ -47,6 +47,7 @@
         <template v-else>
             <SettingsAutoresponderDiagram
                 ref="diag"
+                :blocks="blocks"
             ></SettingsAutoresponderDiagram>
         </template>
 
@@ -56,7 +57,7 @@
                     @gotoStep="gotoStep"
             ></BaseSteps>
             <BaseButton v-if="!isSecondStep" class="base-button_enter base-button_p5-15" @click="gotoStep(true)">Продолжить</BaseButton>
-            <BaseButton v-else-if="actions.isOpenedEdit" class="base-button_enter base-button_p5-15" @click="saveChanges()">Сохранить изменения</BaseButton>
+            <BaseButton v-else-if="isEdit" class="base-button_enter base-button_p5-15" @click="create">Сохранить изменения</BaseButton>
             <BaseButton v-else class="base-button_enter base-button_p5-15" @click="create">Создать</BaseButton>
         </div>
         <teleport to="body">
@@ -114,17 +115,7 @@
 
             const { validDate, validTime } = useDate();
 
-            const { autorespondersActions, createAutoresponder, updateAutoresponder } = useAutoresponders();
-
-            const autoresponderEdit = ref(null);
-
-            const saveChanges = () => {
-                autoresponderEdit.value.save();
-            }
-            const cancelEdit = () => {
-                autoresponderEdit.value.cancel();
-            }
-
+            const { createAutoresponder, updateAutoresponder } = useAutoresponders();
 
             const isSecondStep = ref(false);
 
@@ -157,12 +148,78 @@
                 name: '',
                 time_start: null,
             })
-
-            const addAction = () => {
-                autorespondersActions.actions.addAction();
-            }
+            const blocks = ref([]);
 
             const errors = ref([]);
+
+            const convertDiagramToData = (diagram) => {
+                let firstStateDiagramData = diagram
+                    .filter(item => {
+                        return !!(item.value.messageSettings || item.value.isStart)
+                    })
+                    .map(item => {
+                        return {
+                            pos: {
+                                x: item.geometry.x,
+                                y: item.geometry.y,
+                            },
+                            self_id: item.id,
+                            value: item.value,
+                        }
+                })
+                let connectors =
+                    diagram.filter(item => item.value.isConnect);
+                let links =
+                    diagram.filter(item => !item.value && item.source.id && item.target.id);
+                connectors.forEach(item => {
+                    let findedBlock = firstStateDiagramData.find(i => i.self_id === item.parent.id)
+                    if (findedBlock) {
+                        findedBlock.child_id = item.id;
+                    }
+                })
+                links.forEach(item => {
+                    let findedStart = firstStateDiagramData.find(i => i.child_id === item.source.id)
+                    let findedEnd = firstStateDiagramData.find(i => i.child_id === item.target.id)
+
+                    if (findedStart && findedEnd) {
+                        if (Array.isArray(findedStart.linkTo)) {
+                            findedStart.linkTo.push(item.target.id)
+                        } else {
+                            findedStart.linkTo = [item.target.id]
+                        }
+                    }
+                })
+
+                return firstStateDiagramData.map(item => {
+                    let returnObject = {
+                        pos: {
+                            x: item.pos.x,
+                            y: item.pos.y,
+                        },
+
+                    }
+                    if (item.linkTo) {
+                        returnObject.outputs = {
+                            start: item.linkTo && item.linkTo.map(i => {
+                                return firstStateDiagramData.findIndex(link => link.child_id === i)
+                            })
+                        };
+                    }
+
+                    if (item.value.isStart) {
+                        returnObject.type = 'AStartBlock';
+                        returnObject.start_type = "StartMessage";
+                        returnObject.processing_type = item.value.condition.processing_type;
+                        returnObject.keywords = item.value.condition.processing_text.split(' ');
+                    } else {
+                        returnObject.type = 'AMessagesBlock';
+                        returnObject.message = item.value.messageSettings.message;
+                        returnObject.processing_type = item.value.messageSettings.processing_type;
+                        returnObject.keywords = item.value.messageSettings.processing_text.split(' ');
+                    }
+                    return returnObject
+                })
+            }
 
             const create = () => {
                 let body = {
@@ -171,57 +228,14 @@
                 infoToSend.time_start && (body.time_start = +infoToSend.time_start);
 
                 errors.value = [];
-                body.send = {
-                    folder_ids: [...recipients.folder_ids]
-                }
-                if (!body.send.folder_ids.length) {
+                body.folder_ids = [...recipients.folder_ids]
+                if (!body.folder_ids.length) {
                     errors.value.push('recipients')
                 }
                 (!body.name.length) && errors.value.push('name');
 
-                body.actions = autorespondersActions.data.map(i => {
-                    let newObj = {
-                        action_data: i.action_data,
-                        action_type: i.action_type,
-                        disable_dialog: i.disable_dialog,
-                    }
-                    i.else_action_type && (newObj.else_action_type = i.else_action_type);
-                    if (i.start_condition.length < 2) {
-                        if (i.start_condition[0].type) {
-                            newObj.start_condition =  [...i.start_condition]
-                        }
-                    } else {
-                        newObj.start_condition =  [...i.start_condition]
-                    }
 
-                    if (typeof i.else_action_data === "string" || i.else_action_data === "number") {
-                        newObj.else_action_data = i.else_action_data
-                    } else {
-                        i.else_action_data.data && (newObj.else_action_data = i.else_action_data)
-                    }
-                    return newObj;
-                });
-
-                let errsActions = autorespondersActions.data
-                    .filter(i => {
-                        return !i.action_type && ((typeof i.action_data === "string") || (typeof i.action_data === "number")? !i.action_data : !i.action_data.data)
-                    })
-                    .map(i => i.id);
-
-                (errsActions.length) && errors.value.push({
-                    name: 'actions',
-                    data: errsActions,
-                })
-
-
-                if (errors.value.length) {
-                    if (errors.value.find(i => i === 'recipients') || errors.value.find(i => i === 'name')) {
-                        gotoStep(false)
-                    } else if (errors.value.find(i => i.name === 'actions')) {
-                        gotoStep(true);
-                    }
-                    return;
-                }
+                body.blocks = convertDiagramToData(diag.value.getJsonModel().graph)
                 if (props.selectedAutoresponderToEdit) {
                     body.autoresponder_id = props.selectedAutoresponderToEdit.autoresponder_id;
                     updateAutoresponder(body)
@@ -247,82 +261,23 @@
             };
 
 
-
-
             onMounted(() => {
                 if (props.selectedAutoresponderToEdit) {
                     let toEdit = props.selectedAutoresponderToEdit;
                     infoToSend.name = toEdit.name;
                     toEdit.time_start && (infoToSend.time_start = toEdit.time_start);
+                    if (toEdit.blocks.length) {
+                        blocks.value = toEdit.blocks;
+                    }
 
                     getAllFolders()
 
-                    if (toEdit.send.folder_ids) {
-                        recipients.folder_ids = [...toEdit.send.folder_ids];
+                    if (toEdit.folder_ids) {
+                        recipients.folder_ids = [...toEdit.folder_ids];
                     }
 
-                    if (toEdit.actions.length) {
-                        let newArrActions = toEdit.actions.map((item, superIndex) => {
-                            let actions = {
-                                disable_dialog: item.disable_dialog,
-                                action_type: item.action_type,
-                                else_action_type: item.else_action_type,
-                            }
-                            if (item.start_condition.length) {
-                                actions.start_condition = item.start_condition;
-                            } else {
-                                actions.start_condition = [
-                                    {
-                                        type: null,
-                                        data: {
-                                            count: 0,
-                                            text: ''
-                                        }
-                                    },
-                                ]
-                            }
-                            if (item.action_type === 'SendMessage') {
-                                actions.action_data = {
-                                    type: item.action_data.type,
-                                    data: item.action_data.message,
-                                }
-                            } else {
-                                actions.action_data = item.action_data
-                            }
-                            if (item.else_action_type === 'SendMessage') {
-                                actions.else_action_data = {
-                                    type: item.else_action_data.type,
-                                    data: item.else_action_data.message,
-                                }
-                            } else {
-                                (item.else_action_data === null)
-                                    ? (actions.else_action_data = {
-                                        type: null,
-                                        data: null,
-                                    })
-                                    : (actions.else_action_data = item.else_action_data)
-                            }
 
-                            actions.id = superIndex;
-
-                            return actions;
-                        });
-
-                        autorespondersActions.actions.setNewActions(newArrActions);
-                        autorespondersActions.actions.setIdsCount(newArrActions.length);
-
-                    } else {
-                        autorespondersActions.actions.setNewActions([]);
-                        autorespondersActions.actions.setIdsCount(0);
-                    }
-
-                } else {
-                    autorespondersActions.actions.setNewActions([]);
-                    autorespondersActions.actions.setIdsCount(0);
                 }
-
-
-
             })
 
 
@@ -355,28 +310,15 @@
                 validTime,
                 inputName,
 
-                actions: computed(() =>  autorespondersActions),
-                actionsData: computed({
-                    get() {
-                        return autorespondersActions.data;
-                    },
-                    set(newValue) {
-                        autorespondersActions.actions.setNewActions(newValue)
-                    }
-                }),
+                isEdit: computed(() => !!props.selectedAutoresponderToEdit),
 
-                saveChanges,
-                addAction,
-
-
-                autoresponderEdit,
-                cancelEdit,
 
                 toggleModalCalendar,
                 openedModalCalendar,
 
 
                 diag,
+                blocks,
 
 
             }

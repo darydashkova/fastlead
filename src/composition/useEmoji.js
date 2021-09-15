@@ -30,7 +30,7 @@ export function useEmoji() {
     }
     const emojiToHtml = (emoji) => {
         let style = `background-position: ${emoji.getPosition()}; width: 24px; height: 24px; display: inline-block; margin: 0 2px; vertical-align: middle;`
-        return `<img data-text="${emoji.native}" alt="${emoji.colons}"
+        return `<img data-text="${emoji.native}" alt="${emoji.native}"
                         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                         class="emoji-set-apple emoji-type-image emoji-type-image_small" style="${style}">`
     }

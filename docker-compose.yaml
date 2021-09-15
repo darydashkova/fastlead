@@ -7,5 +7,6 @@ services:
             args: 
                 - VUE_APP_API_URL=https://example.com
                 - VUE_APP_SOCKET_URL=wss://example.com:3000
+                - VUE_APP_AMOCRM_ID=adb03ea5-c2be-4347-9915-6118fa70e5a4
         network_mode: host
         restart: always
