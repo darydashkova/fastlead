@@ -82,6 +82,9 @@
   &.settings-account__row_w-400 {
     width: 400px;
   }
+  &.settings-account__row_w-300 {
+    width: 300px;
+  }
   &.settings-account__row_column {
     flex-direction: column;
   }
@@ -154,19 +157,19 @@
   }
 }
 .settings-account__action-button {
-    position: relative;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 21px;
-    align-items: center;
-    text-decoration: underline;
-    padding: 1px 0;
-    cursor: pointer;
-    display: block;
-    background: var(--green-color);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  align-items: center;
+  text-decoration: underline;
+  padding: 1px 0;
+  cursor: pointer;
+  display: block;
+  background: var(--green-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   &:after {
     content: "";
     position: absolute;
