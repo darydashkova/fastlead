@@ -37,7 +37,7 @@
 
                 В папку
             </div>
-            <div class="dialogs-selections__button dialogs-selections__button_mr">
+            <!-- <div class="dialogs-selections__button dialogs-selections__button_mr">
                 <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 4.18661V11.0834C0.000952715 11.8566 0.317329 12.598 0.879732 13.1447C1.44213 13.6915 2.20464 13.9991 3 14H9C9.79536 13.9991 10.5579 13.6915 11.1203 13.1447C11.6827 12.598 11.999 11.8566 12 11.0834V4.18661C12 3.87457 11.9141 3.56822 11.7513 3.2993C11.5885 3.03037 11.3548 2.80865 11.0742 2.65711L6.2916 0.073524C6.20241 0.0253056 6.10205 0 6 0C5.89795 0 5.79759 0.0253056 5.7084 0.073524L0.9258 2.65711C0.645243 2.80865 0.411465 3.03037 0.248686 3.2993C0.0859064 3.56822 4.62475e-05 3.87457 0 4.18661ZM6 3.20836C6.178 3.20836 6.35201 3.25968 6.50001 3.35582C6.64802 3.45197 6.76337 3.58862 6.83149 3.74851C6.89961 3.9084 6.91743 4.08433 6.88271 4.25406C6.84798 4.4238 6.76226 4.57971 6.6364 4.70208C6.51053 4.82445 6.35016 4.90778 6.17558 4.94155C6.001 4.97531 5.82004 4.95798 5.65559 4.89175C5.49113 4.82553 5.35057 4.71338 5.25168 4.56948C5.15278 4.42559 5.1 4.25642 5.1 4.08336C5.1 3.85129 5.19482 3.62873 5.3636 3.46464C5.53239 3.30054 5.76131 3.20836 6 3.20836Z"
                           fill="var(--font-color)"/>
@@ -52,8 +52,8 @@
                 </svg>
 
                 Заблокировать
-            </div>
-        </div>
+            </div>-->
+        </div> 
         <div class="dialogs-selections__actions-container dialogs-selections__actions-container_short">
             <div class="dialogs-selections__button dialogs-selections__button_mr" @click="del">
                 <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,12 +74,12 @@
                     <div class="dialog-selections__column-element" @click="move">
                         В папку
                     </div>
-                    <div class="dialog-selections__column-element">
+                    <!-- <div class="dialog-selections__column-element">
                         Добавить тег
                     </div>
                     <div class="dialog-selections__column-element">
                         Заблокировать
-                    </div>
+                    </div> -->
                 </div>
             </button>
 
