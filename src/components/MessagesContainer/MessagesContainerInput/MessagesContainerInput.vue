@@ -197,9 +197,11 @@
                     div.querySelectorAll('img').forEach(img => {
                         img.replaceWith(img.getAttribute('data-text'))
                     })
-                   // div.innerHTML = div.innerHTML.replace(/<br>/g, '');
-                    div.innerHTML = div.innerHTML.replace(/\n/g, '');
+                    div.innerHTML = div.innerHTML.replace(/<br>/g, '\n');
+                    div.innerHTML = div.innerHTML.replace(/\n\n/g, '\n');
                     div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
+                    console.log(div.innerHTML)
+                    console.log('div.innerHTML')
                     addSendedMessage({
                         is_me: true,
                         is_read: false,
@@ -210,6 +212,7 @@
                         is_sending:true,
                         request_uid:uidRandom,
                     });
+                    
                     socketSend('send_message', {type: 'text', data: div.innerHTML, dialog_id: selectedDialog.value, request_uid:uidRandom, message_uid : null})
                     value.value = '';
                     textarea.value.innerHTML = '';
