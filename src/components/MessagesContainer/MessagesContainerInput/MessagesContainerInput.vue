@@ -24,12 +24,24 @@
                  isContentEditable="false"
                  v-if="!isActiveDialog"
             >Этот диалог неактивен</div>
-            <button class="messages-container-input__icon messages-container-input__icon_smile pointer">
+              <svg 
+                 @click="send"
+                 class="messages-container-input__icon messages-container-input__icon_airplane"
+                 width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.4516 9.12261L3.47412 0.198642C2.59038 -0.177351 1.59196 -0.011949 0.868585 0.630081C0.145205 1.27222 -0.15735 2.2616 0.079088 3.2121L1.94627 10.719H11.0882C11.5089 10.719 11.85 11.0687 11.85 11.5C11.85 11.9313 11.5089 12.281 11.0882 12.281H1.94627L0.079088 19.7879C-0.15735 20.7385 0.145154 21.7278 0.868585 22.3699C1.59344 23.0133 2.59195 23.1766 3.47417 22.8014L24.4516 13.8774C25.4067 13.4712 26 12.5602 26 11.5C26 10.4399 25.4067 9.52885 24.4516 9.12261Z" fill="url(#paint0_linear)"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="-10.7531" y1="32.0864" x2="26.4121" y2="-8.96798" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#22A595"/>
+                        <stop offset="1" stop-color="#84D160"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <!-- <button class="messages-container-input__icon messages-container-input__icon_smile pointer">
                 <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0333 4.61377C21.322 6.3318 22.0794 8.38905 22.2119 10.5319V17.6317C22.2107 18.8457 21.7275 20.0096 20.8682 20.868C20.009 21.7265 18.844 22.2093 17.6288 22.2105H11.228C9.07905 22.2116 6.97673 21.5844 5.18024 20.4062C3.38374 19.2281 1.97162 17.5504 1.11795 15.5802C0.264276 13.6099 0.00638099 11.4331 0.376055 9.3182C0.745728 7.20328 1.72681 5.24266 3.19835 3.67805C4.66989 2.11345 6.56756 1.01325 8.65741 0.513102C10.7473 0.0129532 12.9379 0.134715 14.9593 0.863377C16.9808 1.59204 18.7446 2.89575 20.0333 4.61377ZM19.5733 19.5743C20.089 19.0591 20.3787 18.3603 20.3787 17.6317V10.6189C20.2943 9.3768 19.9583 8.16477 19.3911 7.05627C18.8238 5.94778 18.0372 4.9659 17.0788 4.17016C15.4379 2.80377 13.3679 2.05811 11.2317 2.06393C10.8333 2.06445 10.4354 2.08953 10.0401 2.13902C8.0137 2.40652 6.13406 3.34018 4.69748 4.7928C3.2609 6.24543 2.34908 8.1344 2.10578 10.1619C1.95169 11.4474 2.07448 12.7509 2.46591 13.985C2.85735 15.2191 3.50837 16.3554 4.37534 17.3176C5.23814 18.2803 6.29434 19.0505 7.47509 19.578C8.65583 20.1055 9.93461 20.3784 11.228 20.379H17.6288C18.3581 20.379 19.0576 20.0895 19.5733 19.5743ZM11.2124 8.47407H7.54589C7.30279 8.47407 7.06964 8.37759 6.89774 8.20585C6.72584 8.03412 6.62927 7.80119 6.62927 7.55832C6.62927 7.31545 6.72584 7.08252 6.89774 6.91078C7.06964 6.73905 7.30279 6.64257 7.54589 6.64257H11.2124C11.4555 6.64257 11.6886 6.73905 11.8605 6.91078C12.0324 7.08252 12.129 7.31545 12.129 7.55832C12.129 7.80119 12.0324 8.03412 11.8605 8.20585C11.6886 8.37759 11.4555 8.47407 11.2124 8.47407ZM7.54589 10.3056C7.30279 10.3056 7.06964 10.4021 6.89774 10.5738C6.72584 10.7455 6.62927 10.9785 6.62927 11.2213C6.62927 11.4642 6.72584 11.6971 6.89774 11.8689C7.06964 12.0406 7.30279 12.1371 7.54589 12.1371H14.8789C15.122 12.1371 15.3551 12.0406 15.527 11.8689C15.6989 11.6971 15.7955 11.4642 15.7955 11.2213C15.7955 10.9785 15.6989 10.7455 15.527 10.5738C15.3551 10.4021 15.122 10.3056 14.8789 10.3056H7.54589ZM6.89774 14.2368C7.06964 14.0651 7.30279 13.9686 7.54589 13.9686H14.8789C15.122 13.9686 15.3551 14.0651 15.527 14.2368C15.6989 14.4085 15.7955 14.6415 15.7955 14.8843C15.7955 15.1272 15.6989 15.3601 15.527 15.5319C15.3551 15.7036 15.122 15.8001 14.8789 15.8001H7.54589C7.30279 15.8001 7.06964 15.7036 6.89774 15.5319C6.72584 15.3601 6.62927 15.1272 6.62927 14.8843C6.62927 14.6415 6.72584 14.4085 6.89774 14.2368Z"
                           fill="var(--default-svg-fill)"/>
                 </svg>
-            </button>
+            </button> -->
             <button class="messages-container-input__icon messages-container-input__icon_smile pointer"
                 @click="smiles.toggle()"
             >
@@ -38,7 +50,7 @@
                           fill="var(--default-svg-fill)"/>
                 </svg>
             </button>
-            <button class="messages-container-input__icon messages-container-input__icon_include"
+            <!-- <button class="messages-container-input__icon messages-container-input__icon_include"
                     @blur="attachment.open(false)"
             >
                 <svg class="pointer" width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -93,23 +105,12 @@
                         </div>
                     </div>
                 </div>
-            </button>
-            <svg v-if="value"
-                 @click="send"
-                 class="messages-container-input__icon messages-container-input__icon_airplane"
-                 width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24.4516 9.12261L3.47412 0.198642C2.59038 -0.177351 1.59196 -0.011949 0.868585 0.630081C0.145205 1.27222 -0.15735 2.2616 0.079088 3.2121L1.94627 10.719H11.0882C11.5089 10.719 11.85 11.0687 11.85 11.5C11.85 11.9313 11.5089 12.281 11.0882 12.281H1.94627L0.079088 19.7879C-0.15735 20.7385 0.145154 21.7278 0.868585 22.3699C1.59344 23.0133 2.59195 23.1766 3.47417 22.8014L24.4516 13.8774C25.4067 13.4712 26 12.5602 26 11.5C26 10.4399 25.4067 9.52885 24.4516 9.12261Z" fill="url(#paint0_linear)"/>
-                <defs>
-                    <linearGradient id="paint0_linear" x1="-10.7531" y1="32.0864" x2="26.4121" y2="-8.96798" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#22A595"/>
-                        <stop offset="1" stop-color="#84D160"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-            <svg v-else class="messages-container-input__icon messages-container-input__icon_micro" width="19" height="23" viewBox="0 0 19 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            </button> -->
+          
+            <!-- <svg v-if="!value" class="messages-container-input__icon messages-container-input__icon_micro" width="19" height="23" viewBox="0 0 19 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5628 10.7322C14.5628 13.6373 12.1666 15.993 9.2115 15.993C6.25642 15.993 3.86015 13.6373 3.86015 10.7322V5.47131C3.86015 2.56621 6.25642 0.210449 9.2115 0.210449C12.1666 0.210449 14.5628 2.56621 14.5628 5.47131V10.7322ZM9.2115 1.96408C7.24157 1.96408 5.64394 3.5347 5.64394 5.47131V10.7322C5.64394 12.6688 7.24157 14.2394 9.2115 14.2394C11.1814 14.2394 12.779 12.6688 12.779 10.7322V5.47131C12.779 3.5347 11.1814 1.96408 9.2115 1.96408ZM16.4282 10.8119C16.4282 10.3277 16.8275 9.93512 17.32 9.93512C17.8126 9.93512 18.2119 10.3277 18.2119 10.812V11.6888C18.2119 15.7503 14.117 19.095 10.1038 19.5313V20.4569H11.8876C12.3802 20.4569 12.7795 20.8494 12.7795 21.3337C12.7795 21.8179 12.3802 22.2104 11.8876 22.2104H6.53621C6.04364 22.2104 5.64433 21.8179 5.64433 21.3336C5.64433 20.8494 6.04364 20.4568 6.53621 20.4568H8.32006V19.5313C4.30682 19.095 0.211914 15.7503 0.211914 11.6888V10.812C0.211914 10.3277 0.611218 9.93516 1.10379 9.93516C1.59637 9.93516 1.99567 10.3277 1.99567 10.812V11.6888C1.99567 15.0783 5.76415 17.8264 9.21194 17.8264C12.6597 17.8264 16.4282 15.0783 16.4282 11.6888V10.8119Z"
                       fill="var(--default-svg-fill)"/>
-            </svg>
+            </svg> -->
             <input @change="attachment.change"
                    type="file"
                    style="display: none;"
@@ -367,14 +368,14 @@
                 },
                 changeVideo: ($event) => {
                     if ($event.target.files[0]) {
-                        replaceImages([]);
-                        toggleModalSendVideos(true);
-                        $event.target.files.forEach(item => {
-                            let fr = new FileReader();
-                            fr.addEventListener("load", function () {
-                                createVideo(item)
+                         replaceVideo([]);
+                         toggleModalSendVideos(true);
+                         $event.target.files.forEach(item => {
+                             let fr = new FileReader();
+                             fr.addEventListener("load", function () {
+                                 createVideo(item)
                                     .then((r) => {
-                                        if (r.status === 'ok') {
+                                         if (r.status === 'ok') {
                                             addVideo({
                                                 name: item.name,
                                                 size: item.size,
@@ -387,8 +388,9 @@
                                     })
                             }, false);
                             fr.readAsDataURL(item);
-                        })
+                     })
                     }
+                 // document.getElementById('messages-container-input__attachment-video').click()
                 },  
             })
 

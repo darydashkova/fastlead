@@ -87,6 +87,7 @@
     import {useSocket} from "../../composition/useSocket";
     import {useDialogs} from "../../composition/useDialogs";
     import {useCustomScroll} from "../../composition/useCustomScroll";
+    import { useMessages } from "../../composition/useMessages";
     import {onMounted, ref} from "vue";
 
     export default {
@@ -96,10 +97,13 @@
             const { socketSend } = useSocket()
             const { selectedDialog } = useDialogs()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-            const { videosToSend, createVideo, addVideo, deleteVideo } = useVideos()
+            const { videosToSend, createVideo, addVideo, deleteVideo, clearVideo } = useVideos()
+            const { addSendedMessage, getRandomInRange } = useMessages();
          
             const close = () => {
+                clearVideo();
                 toggleModalSendVideos(false);
+                
             }
             const add = () => {
                 document.getElementById('modal-send-images__input-file').click();
@@ -125,7 +129,6 @@
                         fr.readAsDataURL(item);
                     })
                 }
-                
             }
             const  videoWrap = ref(true);
             const videoStatus = (num) =>{
@@ -158,6 +161,16 @@
                 return fsize;
             }
             const save = () => {
+                 const uidRandom = getRandomInRange();
+                   addSendedMessage({
+                        is_me: true,
+                        is_read: false,
+                        message_id:uidRandom+1,
+                        time: Math.floor(Date.now() / 1000),
+                        type: 'video',
+                        is_sending:true,
+                        request_uid:uidRandom,
+                    });
                 videosToSend.value.forEach(video => {
                     socketSend('send_message', {
                         type: 'video',
@@ -165,6 +178,7 @@
                         dialog_id: selectedDialog.value
                     })
                 })
+                toggleModalSendVideos(false);
             }
             onMounted( () => {
                 init()

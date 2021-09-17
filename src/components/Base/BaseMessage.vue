@@ -362,7 +362,7 @@
         position: relative;
         width: 48px;
         height: 48px;
-        background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+        background: white;
         border-radius: 48px;
         z-index: 1001;
 }

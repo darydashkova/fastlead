@@ -35,20 +35,20 @@
                                 Последняя активность
                             </div>
                         </div>
-                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-400">
+                        <div class="settings-account__row settings-account__row_none settings-account__row_jsb settings-account__row_w-300">
                             <div>
                                 <div class="settings-account__text">
 <!--                                    Windows - Краснодар, Россия-->
-                                    -
+                                    нет данных
                                 </div>
                                 <div class="settings-account__sub-text">
 <!--                                    сегодня в 16:53 - Браузер Yandex Browser-->
-                                    -
+                                    нет данных
                                 </div>
                             </div>
                             <div class="settings-account__online-text">
 <!--                                online-->
-                                -
+                                нет данных
                             </div>
                         </div>
                         <div class="settings-account__last-element">
@@ -72,16 +72,16 @@
                                 <div>
                                     <div class="settings-account__text">
 <!--                                        Windows - Краснодар, Россия-->
-                                        -
+                                        нет данных
                                     </div>
                                     <div class="settings-account__sub-text">
 <!--                                        сегодня в 16:53 - Браузер Yandex Browser-->
-                                        -
+                                        нет данных
                                     </div>
                                 </div>
                                 <div class="settings-account__online-text">
 <!--                                    online-->
-                                    -
+                                    нет данных
                                 </div>
                             </div>
                         </div>
@@ -92,15 +92,15 @@
                                 <div>
                                     <div class="settings-account__text">
 <!--                                        Windows - Краснодар, Россия-->
-                                            -
+                                            нет данных
                                     </div>
                                     <div class="settings-account__sub-text">
 <!--                                        сегодня в 16:53 - Браузер Yandex Browser-->
-                                        -
+                                        нет данных
                                     </div>
                                 </div>
                                 <div class="settings-account__online-text">
-                                    -
+                                    нет данных
 <!--                                    online-->
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                         </div>
                         <div class="settings-account__sub-text">
 <!--                            Обновлен 8 месяцев назад-->
-                            -
+                            нет данных
                         </div>
                         <div class="settings-account__last-element">
                             <BaseButton class="base-button_enter base-button_p5-15" @click="tryToChangePass">Готово</BaseButton>
@@ -171,7 +171,7 @@
                     </div>
                     <div class="settings-account__sub-text">
 <!--                        Обновлен 8 месяцев назад-->
-                        -
+                        нет данных
                     </div>
                     <div class="settings-account__last-element">
                         <div class="settings-account__action-button" @click="toggleOpenedChangePass(true)">Изменить пароль</div>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="settings-account__sub-text">
 <!--                            Сегодня в 20:30 - создал рассылку-->
-                            -
+                            нет данных
                         </div>
                         <div class="settings-account__last-element">
                             <div class="settings-account__action-button"
@@ -203,14 +203,14 @@
                             <div class="settings-account__first-element"></div>
                             <div class="settings-account__sub-text">
 <!--                                Сегодня в 20:30 - создал рассылку-->
-                                -
+                                нет данных
                             </div>
                         </div>
                         <div class="settings-account__row settings-account__row_none settings-account__row_mb-24">
                             <div class="settings-account__first-element"></div>
                             <div class="settings-account__sub-text">
 <!--                                Сегодня в 20:30 - создал рассылку-->
-                                -
+                                нет данных
                             </div>
                         </div>
 

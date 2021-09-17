@@ -8,10 +8,10 @@
                  @click="save(1)">
                 Оставить WhatsApp аккаунт у себя
             </div>
-            <div class="modal-choice-activation-method__choice pointer"
+            <!-- <div class="modal-choice-activation-method__choice pointer"
                  @click="save(2)">
                 Перенести WhatsApp аккаунт к нам
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

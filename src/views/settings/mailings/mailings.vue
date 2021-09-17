@@ -8,11 +8,11 @@
                           :class="{'settings-mailings__sub-title_active' : !isDynamicMailingsTable}"
                           @click="toggleDynamicMailingsTable(false)"
                     >Пользовательские</span>
-                    <span class="settings-mailings__sub-title"> / </span>
-                    <span class="settings-mailings__sub-title pointer"
+                    <!-- <span class="settings-mailings__sub-title"> / </span> -->
+                    <!-- <span class="settings-mailings__sub-title pointer"
                           :class="{'settings-mailings__sub-title_active' : isDynamicMailingsTable}"
                           @click="toggleDynamicMailingsTable(true)"
-                    >Массовые</span>
+                    >Массовые</span> -->
                 </div>
             </div>
             <BaseButton v-if="isCreating" class="base-button_cancel base-button_p6-40" @click="toggleCreating(false)">Отмена</BaseButton>
