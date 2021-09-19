@@ -5,7 +5,7 @@ const { outAuth } = useAuth()
 const routes = [
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/login',
+    redirect: '/messenger',
   },
   {
     path: '/login',
@@ -89,8 +89,11 @@ const routes = [
             path: '', component: () => import('../views/settings/integrations/Default'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
           },
           {
-            path: 'amo/connect', component: () => import('../views/settings/integrations/AmoConnect'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
-          }
+            path: 'amo/connect', component: () => import('../views/settings/integrations/AmoConnect.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+          },
+          // {
+          //   path: 'yclients/connect', component: () => import('../views/settings/integrations/YclientsConnect.vue'), meta: { requiresAuth: false, title: 'Fastlead - Интеграции' },
+          // }
         ]
       },
     ]

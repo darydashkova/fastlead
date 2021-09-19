@@ -8,8 +8,8 @@
                           :class="{'settings-mailings__sub-title_active' : !isDynamicMailingsTable}"
                           @click="toggleDynamicMailingsTable(false)"
                     >Пользовательские</span>
-                    <!-- <span class="settings-mailings__sub-title"> / </span>
-                    <span class="settings-mailings__sub-title pointer"
+                    <!-- <span class="settings-mailings__sub-title"> / </span> -->
+                    <!-- <span class="settings-mailings__sub-title pointer"
                           :class="{'settings-mailings__sub-title_active' : isDynamicMailingsTable}"
                           @click="toggleDynamicMailingsTable(true)"
                     >Массовые</span> -->

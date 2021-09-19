@@ -158,7 +158,11 @@
                 @gotoStep="gotoStep"
             ></BaseSteps>
             <BaseButton v-if="!isSecondStep" class="base-button_enter base-button_p5-15" @click="gotoStep(true)">Продолжить</BaseButton>
-            <BaseButton v-else class="base-button_enter base-button_p5-15" @click="create">Создать</BaseButton>
+            <template v-else>
+                <BaseButton v-if="!selectedMailingToEdit" class="base-button_enter base-button_p5-15" @click="create">Создать </BaseButton>
+                <BaseButton v-else class="base-button_enter base-button_p5-15" @click="create">Редактировать </BaseButton>
+            </template>
+            
         </div>
         <teleport to="body">
             <ModalChoiceFolder v-if="openedModalChoiceFolder" style="z-index: 500"></ModalChoiceFolder>
