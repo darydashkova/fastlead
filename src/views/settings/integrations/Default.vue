@@ -5,7 +5,7 @@
                 Интеграции
             </div>
             <BaseButton @click="closeForm" v-if="openedForm" class="base-button_cancel base-button_p6-40">Отмена</BaseButton>
-            <BaseButton v-else class="base-button_cancel base-button_p6-40">Помощь с настройкой</BaseButton>
+            <!-- <BaseButton v-else class="base-button_cancel base-button_p6-40">Помощь с настройкой</BaseButton> -->
 
         </div>
         <SettingsIntegrationsForm
