@@ -15,12 +15,12 @@ export const api = {
         return fetchArgs
     },
     fetch : async (method, endpoint, body = null, token = false, withCredential = false) => {
-        let args = api.fetchDefaultArgs(method, endpoint, body, token)
+        let args = api.fetchDefaultArgs(method, endpoint, body, token, withCredential)
         return await fetch(url+endpoint, args)
             .then(res => res.json())
     },
     fetchImage : async (method, endpoint, body = null, token = false, withCredential = false) => {
-        let args = api.fetchDefaultArgs(method, endpoint, body, token)
+        let args = api.fetchDefaultArgs(method, endpoint, body, token, withCredential)
         return await fetch(endpoint, args)
             .then(res => res.blob())
     },

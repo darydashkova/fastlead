@@ -4,8 +4,7 @@
             <div>
                 {{headerName}}
             </div>
-            <BaseButton v-if="isCreating && !autoresponders.isOpenedEdit" class="base-button_cancel base-button_p6-40" @click="toggleCreating(false)">Отмена</BaseButton>
-            <BaseButton v-else-if="isCreating && autoresponders.isOpenedEdit" class="base-button_cancel base-button_p6-40" @click="cancelEdit">Отменить изменения</BaseButton>
+            <BaseButton v-if="isCreating" class="base-button_cancel base-button_p6-40" @click="cancelEdit">Отмена</BaseButton>
             <BaseButton v-else class="base-button_enter base-button_p6-40" @click="gotoCreate(null)">Создать новый</BaseButton>
         </div>
         <div class="settings-autoresponder__scroll-container">
@@ -14,8 +13,6 @@
             </div>
             <div class="settings-autoresponder__content" ref="content">
                 <SettingsAutoresponderCreate
-                        ref="autoresponderCreateRef"
-
                         v-if="isCreating"
                         :selectedAutoresponderToEdit="selectedAutoresponderToEdit"
                         @gotoTable="toggleCreating(false)"
@@ -41,7 +38,7 @@
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
 
-            const { getSingleAutoresponder, autorespondersActions } = useAutoresponders()
+            const { getSingleAutoresponder } = useAutoresponders()
 
             onMounted( () => {
                 init();
@@ -75,9 +72,9 @@
                 }
             })
 
-            const autoresponderCreateRef = ref(null);
             const cancelEdit = () => {
-                autoresponderCreateRef.value.cancelEdit()
+                selectedAutoresponderToEdit.value = null;
+                toggleCreating(false);
             }
 
             return {
@@ -92,9 +89,6 @@
                 scrollbar,
                 scrollTo,
 
-                autoresponders: computed(() => autorespondersActions),
-
-                autoresponderCreateRef,
                 cancelEdit
             }
         }

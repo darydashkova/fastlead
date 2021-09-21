@@ -1,6 +1,8 @@
 import {reactive, computed} from 'vue';
 import integrationActions from "../api/integrationActions";
 
+const amocrm_client_id = `${process.env.VUE_APP_AMOCRM_ID}`
+
 export function useIntegrations() {
     const getBitrix = async () => {
         return await integrationActions.bitrixActions.getBitrix();
@@ -13,8 +15,8 @@ export function useIntegrations() {
         return await integrationActions.bitrixActions.connectBitrix(url);
     }
 
-    const connectAmocrm = async (url) => {
-        let client_id = 'adb03ea5-c2be-4347-9915-6118fa70e5a4',
+    const connectAmocrm = async () => {
+        let client_id = amocrm_client_id,
             state = Math.random().toString(36).substring(2),
             mode = 'popup';
 
@@ -57,6 +59,10 @@ export function useIntegrations() {
         );
     }
 
+    const connectAmocrmAfterLogin = async (data) => {
+        return await integrationActions.amocrmActions.connectAmocrm(data);
+    }
+
 
     const getFunnelsBitrix = async () => {
         return await integrationActions.bitrixActions.getFunnelsBitrix()
@@ -85,6 +91,8 @@ export function useIntegrations() {
     return {
         getBitrix,
         getAmocrm,
+        connectAmocrmAfterLogin,
+
         connectBitrix,
         connectAmocrm,
 

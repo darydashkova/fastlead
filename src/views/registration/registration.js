@@ -11,28 +11,34 @@ export default {
         const loading = ref(false);
         const error = ref('');
 
-        const login = ref('');
-        const password = ref('');
-        const passwordConfirm = ref('');
+        const name = ref('');
+        const phone = ref('');
+        const email = ref('');
+        const checkbox = ref(true);
 
         const registr = () => {
-            if (!login.value.length) {
-                error.value = 'Введите логин';
+            if (!name.value.length) {
+                error.value = 'Введите имя';
                 return;
             }
-            if (!password.value.length) {
-                error.value = 'Введите пароль';
+            if (!phone.value.length) {
+                error.value = 'Введите телефон';
                 return;
             }
-            if (password.value !== passwordConfirm.value) {
-                error.value = 'Пароли не совпадают';
+            if (!email.value.length) {
+                error.value = 'Введите E-mail';
+                return;
+            }
+            if (!checkbox.value) {
+                error.value = 'Необходимо согласие на обработку персональных данных';
                 return;
             }
             loading.value = true;
             error.value = '';
             tryRegistr({
-                login: login.value,
-                password: password.value,
+                name: name.value,
+                phone: phone.value,
+                email: email.value,
             })
                 .then(r => {
                     if (r.error) {
@@ -44,19 +50,22 @@ export default {
                 })
         }
 
-        const onlyEngChars = ($event) => {
-            let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
-            if (keyCode < 48 || (keyCode > 57 && keyCode < 65) || keyCode > 122 || (keyCode > 90 && keyCode < 97)) { // 46 is dot
+        const onlyRusChars = ($event) => {
+            const regex = new RegExp("^[а-яёА-ЯЁ]+$");
+            const key = String.fromCharCode(!$event.charCode ? $event.which : $event.charCode);
+            if (!regex.test(key)) {
                 $event.preventDefault();
+                return false;
             }
         }
         return {
-            login,
-            password,
-            passwordConfirm,
+            name,
+            phone,
+            email,
+            checkbox,
 
             registr,
-            onlyEngChars,
+            onlyRusChars,
             loading,
             error
         }

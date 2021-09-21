@@ -33,7 +33,7 @@ export function useStyle() {
             'user-info-settings-hover-setting-bg': '#575773',
             'foreign-messages-font-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
             'messenger-search-input-bg': '#575773',
-
+            'user-icon-name' : '#575773',
             'messages-input-wrapper-bg': '#141427',
 
             'font-color': '#F0F0FA', //цвет шрифта(основной) --> var(--font-color)
@@ -109,7 +109,7 @@ export function useStyle() {
             'messenger-search-input-bg': '#F0F0FA',
 
             'messages-input-wrapper-bg': '#DEDEEE',
-
+            'user-icon-name' : '#9797BB',
             'font-color': '#575773', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#9797BB',
             'main-color': '#F0F0FA', //цвет фона с перепиской --> var(--main-color)

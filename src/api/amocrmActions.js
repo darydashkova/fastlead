@@ -4,9 +4,9 @@ export default {
     getAmocrm: () => {
         return api.fetch('GET', `get/amocrm`, null, true)
     },
-    connectAmocrm: (url) => {
+    connectAmocrm: (data) => {
         let lData = {
-            amocrm_url: url,
+            ...data,
             csrf_token: localStorage.getItem('x-csrf'),
         }
         return api.fetch('POST', `connection/amocrm`, lData, true)

@@ -27,7 +27,10 @@ export function useFolder() {
     const getAllFoldersInFolder = async (id, isNeedGlobal) => {
         return await folderActions.getAllFoldersInFolder(id)
             .then(r => {
-                if (r.error) return;
+                if (r.error) {
+                    foldersInSelectedFolder.data = [];
+                    return;
+                }
 
                 if (r.folders.length && isNeedGlobal) {
                     foldersInSelectedFolder.data = [...r.folders];
@@ -45,7 +48,10 @@ export function useFolder() {
     const getAllFolders = async () => {
         return await folderActions.getAllFolders()
             .then(r => {
-                if (r.error) return;
+                if (r.error) {
+                    folders.data = []
+                    return [];
+                }
 
                 folders.data = [...r.folders]
                 return r.folders

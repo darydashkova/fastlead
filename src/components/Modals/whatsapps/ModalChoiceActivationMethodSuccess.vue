@@ -17,6 +17,7 @@
                 getWhatsapps();
                 toggleModalChoiceActivationMethodSuccess(false);
             }
+            setTimeout(close, 3000);
             return {
                 close,
             }

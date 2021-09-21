@@ -14,8 +14,9 @@
                          :class="{'settings-integrations-form__row_mt-26': index > 0}"
                          :key="index">
                         <div class="settongs-integrations-form__input-group">
-                            <div class="settings-integrations-form__label">Воронка</div>
+                            <div class="settings-integrations-form__label" v-if="index === 0">Воронка</div>
                             <button class="settings-integrations-form__input"
+                                    :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].funnel_id === null)}"
                                     @click="openedDropdown.toggleOpened('funnel', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -38,8 +39,9 @@
                             </button>
                         </div>
                         <div class="settongs-integrations-form__input-group">
-                            <div class="settings-integrations-form__label">Этап</div>
+                            <div class="settings-integrations-form__label" v-if="index === 0">Этап</div>
                             <button class="settings-integrations-form__input"
+                                    :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].column_uid === null)}"
                                     @click="openedDropdown.toggleOpened('column', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -63,11 +65,11 @@
                         <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__row settings-integrations-form__row_al-end">
                                 <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_w-100 settongs-integrations-form__input-group_mr-13">
-                                    <div class="settings-integrations-form__label">Автоосообщение</div>
+                                    <div class="settings-integrations-form__label" v-if="index === 0">Автоосообщение</div>
                                     <input type="text" class="settings-integrations-form__input" placeholder="Ввести"
                                            v-model="funnelAction.message.data">
                                 </div>
-                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg @click="del(index)" class="pointer" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M24.1 9.33333H21.31C21.1011 8.39284 20.5484 7.54779 19.7451 6.9406C18.9418 6.33341 17.937 6.00121 16.9 6H15.1C14.063 6.00121 13.0582 6.33341 12.2549 6.9406C11.4516 7.54779 10.8989 8.39284 10.69 9.33333H7.9C7.66131 9.33333 7.43239 9.42113 7.2636 9.57741C7.09482 9.73369 7 9.94565 7 10.1667C7 10.3877 7.09482 10.5996 7.2636 10.7559C7.43239 10.9122 7.66131 11 7.9 11H8.8V21.8333C8.80143 22.938 9.27599 23.997 10.1196 24.7782C10.9632 25.5593 12.107 25.9987 13.3 26H18.7C19.893 25.9987 21.0368 25.5593 21.8804 24.7782C22.724 23.997 23.1986 22.938 23.2 21.8333V11H24.1C24.3387 11 24.5676 10.9122 24.7364 10.7559C24.9052 10.5996 25 10.3877 25 10.1667C25 9.94565 24.9052 9.73369 24.7364 9.57741C24.5676 9.42113 24.3387 9.33333 24.1 9.33333ZM15.1 7.66667H16.9C17.4582 7.6673 18.0026 7.82781 18.4585 8.1262C18.9143 8.42459 19.2593 8.84624 19.4461 9.33333H12.5539C12.7407 8.84624 13.0857 8.42459 13.5415 8.1262C13.9974 7.82781 14.5418 7.6673 15.1 7.66667ZM21.4 21.8333C21.4 22.4964 21.1155 23.1323 20.6092 23.6011C20.1028 24.0699 19.4161 24.3333 18.7 24.3333H13.3C12.5839 24.3333 11.8972 24.0699 11.3908 23.6011C10.8845 23.1323 10.6 22.4964 10.6 21.8333V11H21.4V21.8333ZM14.2 20.9999C14.4387 20.9999 14.6677 20.9121 14.8364 20.7558C15.0052 20.5995 15.1 20.3876 15.1 20.1666V15.1666C15.1 14.9456 15.0052 14.7336 14.8364 14.5773C14.6677 14.421 14.4387 14.3333 14.2 14.3333C13.9614 14.3333 13.7324 14.421 13.5637 14.5773C13.3949 14.7336 13.3 14.9456 13.3 15.1666V20.1666C13.3 20.3876 13.3949 20.5995 13.5637 20.7558C13.7324 20.9121 13.9614 20.9999 14.2 20.9999ZM18.4364 20.7558C18.2676 20.9121 18.0387 20.9999 17.8 20.9999C17.5613 20.9999 17.3324 20.9121 17.1636 20.7558C16.9948 20.5995 16.9 20.3876 16.9 20.1666V15.1666C16.9 14.9456 16.9948 14.7336 17.1636 14.5773C17.3324 14.421 17.5613 14.3333 17.8 14.3333C18.0387 14.3333 18.2676 14.421 18.4364 14.5773C18.6052 14.7336 18.7 14.9456 18.7 15.1666V20.1666C18.7 20.3876 18.6052 20.5995 18.4364 20.7558Z" fill="#EB5757"/>
                                 </svg>
                             </div>
@@ -81,12 +83,13 @@
                 </div>
                 <div class="settings-integrations-form__field">
                     <div class="settings-integrations-form__header settings-integrations-form__header_mb-30">
-                        Если клиент попал в CRM  систему и ему нужно  написать первому
+                       Если клиента  нет в CRM системе и его нужно дабавить  в сделку 
                     </div>
                     <div class="settings-integrations-form__row">
                         <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__label">Воронка</div>
                             <button class="settings-integrations-form__input"
+                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null)}"
                                     @click="openedDropdown.toggleOpened('funnel', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -112,6 +115,7 @@
                         <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__label">Этап</div>
                             <button class="settings-integrations-form__input"
+                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.column_uid === null)}"
                                     @click="openedDropdown.toggleOpened('column', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -235,6 +239,7 @@
         props: {
             formData: Object
         },
+        emits: ['getBitrix', 'getAmocrm', 'close'],
         setup(props, {emit}) {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm } = useIntegrations()
@@ -253,6 +258,13 @@
                     form.data.data.funnel_actions = Array.isArray(form.data.data.funnel_actions) ? [...form.data.data.funnel_actions, objToAdd] : [objToAdd]
                 }
             })
+            const errors = ref({
+                funnel_actions: [],
+                new_dialog_action: {
+                    funnel_id: 'not_null',
+                    column_uid: 'not_null',
+                }
+            });
             const openedDropdown = reactive({
                 toggleOpened: (prop, index) => {
                     openedDropdown.openedProp = prop;
@@ -277,7 +289,7 @@
                 return (funnel_id, column_id) => {
                     let name = 'Выбрать';
 
-                    if (funnel_id && column_id) {
+                    if (funnel_id !== null && column_id !== null) {
                         let findedEl = funnels.value && funnels.value.find(i => i.funnel_id === funnel_id);
                         if (findedEl) {
                             let findedColumn = findedEl.columns.find(i => i.column_uid === column_id);
@@ -291,7 +303,7 @@
             const validFunnelName = computed(() => {
                 return (id) => {
                     let name = 'Выбрать';
-                    if (id) {
+                    if (id !== null) {
                         let findedEl = funnels.value && funnels.value.find(i => i.funnel_id === id);
 
                         if (funnels.value && findedEl) {
@@ -304,21 +316,64 @@
             })
             const funnels = ref(null);
 
-            const save = () => {
-                if (form.data.name === 'bitrix') {
-                    updateBitrix(form.data.data)
-                        .then(r => {
-                            if (r.error) return;
-                            emit('getBitrix');
-                            emit('close');
-                        })
+            const validation = () => {
+                let valid = true;
+                errors.value.funnel_actions = [];
+                errors.value.new_dialog_action = {};
+                form.data.data.funnel_actions.forEach((item, index) => {
+                    errors.value.funnel_actions.push({
+                        funnel_id: item.funnel_id,
+                        column_uid: item.column_uid,
+                    })
+                })
+                errors.value.new_dialog_action = form.data.data.new_dialog_action;
+
+                errors.value.funnel_actions.find(i => {
+                    if (i.funnel_id === null || i.column_uid === null) {
+                        valid = false;
+                    }
+                })
+                if (errors.value.new_dialog_action.funnel_id === null || errors.value.new_dialog_action.column_uid === null) {
+                    valid = false;
                 }
+
+                return valid;
+            }
+
+            const save = () => {
+                if (validation()) {
+                    if (form.data.name === 'bitrix') {
+                        updateBitrix(form.data.data)
+                            .then(r => {
+                                if (r.error) {
+
+
+                                    return;
+                                }
+                                emit('getBitrix');
+                                emit('close');
+                            })
+                    } else {
+                        updateAmocrm(form.data.data)
+                            .then(r => {
+                                if (r.error) {
+
+
+                                    return;
+                                }
+                                emit('getAmocrm');
+                                emit('close');
+                            })
+                    }
+                }
+            }
+            const del = (index) => {
+                form.data.data.funnel_actions = form.data.data.funnel_actions.filter((i, lIndex) => lIndex !== index);
             }
 
             onMounted(() => {
                 init();
                 form.data = props.formData;
-
                 if (!form.data.data.new_dialog_action) {
                     form.data.data.new_dialog_action = {
                         funnel_id: null,
@@ -349,11 +404,11 @@
                             funnels.value = r.funnels;
                         })
                 }
-                if (form.data.name === 'amocrm') {
+                if (form.data.name === 'amo') {
                     getFunnelsAmocrm()
                         .then(r => {
                             if (r.error) return;
-                            funnels.value = r.pipelines;
+                            funnels.value = r.funnels;
                         })
                 }
             })
@@ -371,7 +426,9 @@
                 validColumnName,
 
                 openedDropdown,
-                save
+                save,
+                del,
+                errors,
 
             }
         }

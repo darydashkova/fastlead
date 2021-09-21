@@ -12,6 +12,7 @@
             const close = () => {
                 emit('close');
             }
+            setTimeout(() => close(), 3000);
             return {
                 close,
             }

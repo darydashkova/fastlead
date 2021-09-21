@@ -9,12 +9,15 @@ const user = reactive({
 
 export function useUser() {
     const router = useRouter();
+    const { outAuth } = useAuth()
 
     const getUser = async (again = false) => {
         return await userActions.tryGetUser()
             .then(r => {
                 if (r.error) {
-                    router.push('/login');
+                    if (localStorage.getItem('token')) {
+                        outAuth();
+                    }
                     return;
                 }
                 user.data = {...r.user}
@@ -23,7 +26,7 @@ export function useUser() {
                 return r;
             })
             .catch(err => {
-                router.push('/login')
+                outAuth()
             })
     }
 

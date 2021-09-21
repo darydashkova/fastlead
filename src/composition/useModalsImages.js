@@ -5,11 +5,8 @@ export function useModalsImages() {
     const toggleModalSendImages = (value) => {
         openedModalSendImages.value = value;
     }
-
-
     return {
         toggleModalSendImages,
         openedModalSendImages,
-
     }
 }

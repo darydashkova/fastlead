@@ -18,6 +18,7 @@ export default {
             dialog_ids: dialog_ids,
             csrf_token: localStorage.getItem('x-csrf'),
         }
+        
         return api.fetch('POST', 'set/dialog/read', body, true)
     },
 

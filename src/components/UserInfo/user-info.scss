@@ -1,13 +1,22 @@
-
 .user-info__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+
   padding: 13px 17px;
   width: 100%;
   background: var(--user-info-settings-header-bg);
 }
 .user-info__ava-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
   background: var(--green-color);
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -15,11 +24,14 @@
 }
 .user-info__ava {
   border-radius: 50%;
-  width: 76px;
-  height: 76px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   border: 2px solid var(--user-info-settings-header-bg);
 }
 .user-info__login {
+  flex: 1 0 0;
+  padding-left: 17px;
+
   font-family: Segoe UI;
   font-style: normal;
   font-weight: normal;
@@ -28,6 +40,5 @@
   background: var(--green-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-top: 16px;
   text-align: left;
 }
