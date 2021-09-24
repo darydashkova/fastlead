@@ -83,7 +83,7 @@
                 </div>
                 <div class="settings-integrations-form__field">
                     <div class="settings-integrations-form__header settings-integrations-form__header_mb-30">
-                       Если клиента  нет в CRM системе и его нужно дабавить  в сделку 
+                       Если клиента  нет в CRM системе и его нужно добавить  в сделку 
                     </div>
                     <div class="settings-integrations-form__row">
                         <div class="settongs-integrations-form__input-group">
