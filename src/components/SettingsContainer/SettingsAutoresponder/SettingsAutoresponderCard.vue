@@ -38,12 +38,9 @@
     export default {
         setup() {
             const del = (id) => {
-
             }
             const open = (id) => {
-
             }
-
             return {
                 del, open
             }
@@ -52,5 +49,4 @@
 </script>
 
 <style lang="scss">
-
 </style>

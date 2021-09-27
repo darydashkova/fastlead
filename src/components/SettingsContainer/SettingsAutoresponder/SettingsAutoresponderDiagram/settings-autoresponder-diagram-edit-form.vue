@@ -3,7 +3,7 @@
         <h2 class="settings-autoresponder-diagram-edit-form__header">
             {{isStart? 'Условие' : 'Заголовок'}}
         </h2>
-        <div class="settings-autoresponder-diagram-edit-form__row-cont" v-if="isStart">
+        <div class="settings-autoresponder-diagram-edit-form__row-cont" v-if="isStart && cellValues.condition">
             <div class="settings-autoresponder-diagram-edit-form__choice" @click="startProp.isOpenedMessageChoice = !startProp.isOpenedMessageChoice">
                 Сообщение
                 <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -15,10 +15,16 @@
                 </svg>
             </div>
             <div class="settings-autoresponder-diagram-edit-form__dropdown-cont" v-if="startProp.isOpenedMessageChoice">
-                <div class="settings-autoresponder-diagram-edit-form__dropdown-element">
+                <div class="settings-autoresponder-diagram-edit-form__dropdown-element"
+                     @click="selectConditionMessage('All')"
+                     :class="{'settings-autoresponder-diagram-edit-form__dropdown-element_active': cellValues.condition.processing_type === 'All'}"
+                >
                     Любое
                 </div>
-                <div class="settings-autoresponder-diagram-edit-form__dropdown-element" @click="startProp.isOpenedMessageDefinite = !startProp.isOpenedMessageDefinite">
+                <div class="settings-autoresponder-diagram-edit-form__dropdown-element"
+                     @click="selectConditionMessage('Keywords')"
+                     :class="{'settings-autoresponder-diagram-edit-form__dropdown-element_active': cellValues.condition.processing_type === 'Keywords'}"
+                >
                     Определенное
                 </div>
             </div>
@@ -35,7 +41,8 @@
                     </svg>
                 </div>
                 <div class="settings-autoresponder-diagram-edit-form__dropdown-cont" v-if="startProp.isOpenedMessageDefiniteTextArea">
-                    <div contenteditable="true" class="settings-autoresponder-diagram-edit-form__textarea"></div>
+                    <textarea class="settings-autoresponder-diagram-edit-form__textarea"
+                              v-model="cellValues.condition.processing_text"></textarea>
                 </div>
             </template>
 
@@ -69,11 +76,17 @@
                 </div>
             </template>
         </div>
-        <div class="settings-autoresponder-diagram-edit-form__row-cont" v-else-if="isMessage">
-            <div class="settings-autoresponder-diagram-edit-form__choice">
+        <div class="settings-autoresponder-diagram-edit-form__row-cont" v-if="isMessage && cellValues.messageSettings">
+            <div class="settings-autoresponder-diagram-edit-form__choice"
+                 @click="selectMessageSettingsProcessingType('All')"
+                 :class="{'settings-autoresponder-diagram-edit-form__choice_active': cellValues.messageSettings.processing_type === 'All'}"
+            >
                 Любое сообщение
             </div>
-            <div class="settings-autoresponder-diagram-edit-form__choice" @click="messageProp.isOpenedKeyWords = !messageProp.isOpenedKeyWords">
+            <div class="settings-autoresponder-diagram-edit-form__choice"
+                 @click="selectMessageSettingsProcessingType('Keywords')"
+                 :class="{'settings-autoresponder-diagram-edit-form__choice_active': cellValues.messageSettings.processing_type === 'Keywords'}"
+            >
                 По ключевым словам
                 <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg"
                      :style="{'transition' : '.2s ease', transform: messageProp.isOpenedKeyWords && 'rotate(180deg)'}"
@@ -88,7 +101,8 @@
                     Ввести
                 </div>
                 <div class="settings-autoresponder-diagram-edit-form__dropdown-cont">
-                    <div contenteditable="true" class="settings-autoresponder-diagram-edit-form__textarea"></div>
+                    <textarea class="settings-autoresponder-diagram-edit-form__textarea"
+                              v-model="cellValues.messageSettings.processing_text"></textarea>
                 </div>
             </template>
             <template v-if="messageProp.isOpenedDelay">
@@ -106,8 +120,7 @@
                 </div>
             </template>
         </div>
-
-        <div class="settings-autoresponder-diagram-edit-form__row-cont" v-else-if="isTextarea">
+        <div class="settings-autoresponder-diagram-edit-form__row-cont" v-if="isTextarea && cellValues.messageSettings">
             <div class="settings-autoresponder-diagram-edit-form__choice" @click="textareaProp.isOpenedMessage = !textareaProp.isOpenedMessage">
                 Сообщение
                 <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +136,8 @@
                     Ввести сообщение
                 </div>
                 <div class="settings-autoresponder-diagram-edit-form__dropdown-cont">
-                    <div contenteditable="true" class="settings-autoresponder-diagram-edit-form__textarea"></div>
+                    <textarea class="settings-autoresponder-diagram-edit-form__textarea"
+                              v-model="cellValues.messageSettings.message.data"></textarea>
                 </div>
             </template>
             <div class="settings-autoresponder-diagram-edit-form__choice" @click="textareaProp.isOpenedAnswerList = !textareaProp.isOpenedAnswerList">
@@ -140,17 +154,12 @@
                 <div class="settings-autoresponder-diagram-edit-form__row" v-for="(linkName, index) in cellValues.messageSettings.linksOutput">
                     {{index + 1}}
                     <div class="settings-autoresponder-diagram-edit-form__dropdown-cont settings-autoresponder-diagram-edit-form__dropdown-cont_w-auto">
-                        <div contenteditable="true" class="settings-autoresponder-diagram-edit-form__textarea"
+                        <div  class="settings-autoresponder-diagram-edit-form__textarea"
                              type="text" @input="inputMessageSettingsLinks($event.target.innerHTML, index)">{{linkName}}</div>
                     </div>
                 </div>
             </template>
-
-
-
         </div>
-
-
 
         <div class="settings-autoresponder-diagram-edit-form__bottom">
             <template v-if="isMessage">
@@ -184,7 +193,7 @@
         components: {BaseButton},
         props: {
             cellData: {
-                type: Object
+                type: Object,
             },
             selectedType: String,
         },
@@ -206,21 +215,33 @@
                   isOpenedAnswerList: false
               },
 
-
               cellValues: {},
           }
         },
         methods: {
-            // устраняем частые запросы
-            debounce_change: debounce(function () {
-                // сообщаем об изменениях
-
-            }, 200),
             save() {
-                this.$emit('change', this.cellValues);
+                console.log('save',this.cellValues);
+                this.$emit('changeForced', this.cellValues);
             },
             inputMessageSettingsLinks($event, index) {
                 this.cellValues.messageSettings.linksOutput[index] = $event;
+            },
+            updateValues() {
+                if (this.cellData) {
+                    this.cellValues = JSON.parse(JSON.stringify(this.cellData.value));
+                }
+            },
+            selectConditionMessage(type) {
+                this.cellValues.condition.processing_type = type;
+                if (type !== 'All') {
+                    this.startProp.isOpenedMessageDefinite = !this.startProp.isOpenedMessageDefinite
+                }
+            },
+            selectMessageSettingsProcessingType(type) {
+                this.cellValues.messageSettings.processing_type = type;
+                if (type !== 'All') {
+                    this.messageProp.isOpenedKeyWords = !this.messageProp.isOpenedKeyWords
+                }
             }
         },
         computed: {
@@ -234,15 +255,6 @@
                 return this.selectedType === 'textarea'
             }
         },
-        watch: {
-            cellData: {
-                deep: true,
-                immediate: true,
-                handler() {
-                    this.cellValues = JSON.parse(JSON.stringify(this.cellData.value));
-                }
-            }
-        }
     }
 </script>
 
@@ -294,6 +306,13 @@
                 fill: var(--font-color);
             }
         }
+        &.settings-autoresponder-diagram-edit-form__choice_active {
+            background: var(--user-info-settings-hover-setting-bg);
+            color: var(--font-color);
+            svg path {
+                fill: var(--font-color);
+            }
+        }
 
     }
     .settings-autoresponder-diagram-edit-form__dropdown-cont {
@@ -332,6 +351,10 @@
         cursor: pointer;
 
         &:hover {
+            background: var(--modal-element-hover-bg-color);
+            color: var(--font-color);
+        }
+        &.settings-autoresponder-diagram-edit-form__dropdown-element_active {
             background: var(--modal-element-hover-bg-color);
             color: var(--font-color);
         }

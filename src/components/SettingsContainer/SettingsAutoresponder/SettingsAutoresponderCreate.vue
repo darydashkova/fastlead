@@ -44,12 +44,10 @@
                 </div>
             </div>
         </template>
-        <template v-else>
-            <SettingsAutoresponderDiagram
-                ref="diag"
-                :blocks="blocks"
-            ></SettingsAutoresponderDiagram>
-        </template>
+        <SettingsAutoresponderDiagram v-show="isSecondStep"
+            ref="diag"
+            :blocks="blocks"
+        ></SettingsAutoresponderDiagram>
 
         <div class="settings-autoresponder-create__footer">
             <BaseSteps
@@ -153,10 +151,11 @@
             const errors = ref([]);
 
             const convertDiagramToData = (diagram) => {
-                let firstStateDiagramData = diagram
+                let blocks = diagram
                     .filter(item => {
                         return !!(item.value.messageSettings || item.value.isStart)
                     })
+                let firstStateDiagramData = blocks
                     .map(item => {
                         return {
                             pos: {
@@ -165,30 +164,46 @@
                             },
                             self_id: item.id,
                             value: item.value,
+                            outputsFirstState: item.children.filter(i => i.value.isOutput)?.map((i, index) => {
+                                return {
+                                    id: i.id,
+                                    name: item.value.isStart?
+                                        item.value.condition.linksOutput[index] :
+                                        item.value.messageSettings.linksOutput[index],
+                                    type: item.value.isStart?
+                                        item.value.condition.linksOutputTypes[index] :
+                                        item.value.messageSettings.linksOutputTypes[index],
+                                }
+                            }),
+                            inputsFirstState: item.children.filter(i => !i.value.isOutput)?.map(i => i.id),
                         }
                 })
                 let connectors =
                     diagram.filter(item => item.value.isConnect);
                 let links =
                     diagram.filter(item => !item.value && item.source.id && item.target.id);
-                connectors.forEach(item => {
-                    let findedBlock = firstStateDiagramData.find(i => i.self_id === item.parent.id)
-                    if (findedBlock) {
-                        findedBlock.child_id = item.id;
-                    }
-                })
-                links.forEach(item => {
-                    let findedStart = firstStateDiagramData.find(i => i.child_id === item.source.id)
-                    let findedEnd = firstStateDiagramData.find(i => i.child_id === item.target.id)
 
-                    if (findedStart && findedEnd) {
-                        if (Array.isArray(findedStart.linkTo)) {
-                            findedStart.linkTo.push(item.target.id)
+                links.forEach(item => {
+                    let findedStart = firstStateDiagramData
+                        .find(block => block.outputsFirstState
+                            .find(i => i.id === item.source.id)
+                        );
+                    let superStart = findedStart.outputsFirstState.find(i => i.id === item.source.id);
+                    let findedEnd = firstStateDiagramData
+                        .find(block => block.inputsFirstState
+                            .find(i => i === item.target.id)
+                        );
+                    let superEnd = findedEnd.inputsFirstState.find(i => i === item.target.id);
+
+                    if (superStart && superEnd) {
+                        if (Array.isArray(superStart.linkTo)) {
+                            superStart.linkTo.push(item.target.id)
                         } else {
-                            findedStart.linkTo = [item.target.id]
+                            superStart.linkTo = [item.target.id]
                         }
                     }
                 })
+
 
                 return firstStateDiagramData.map(item => {
                     let returnObject = {
@@ -198,12 +213,18 @@
                         },
 
                     }
-                    if (item.linkTo) {
-                        returnObject.outputs = {
-                            start: item.linkTo && item.linkTo.map(i => {
-                                return firstStateDiagramData.findIndex(link => link.child_id === i)
-                            })
-                        };
+                    if (item.outputsFirstState && item.outputsFirstState.length) {
+                        returnObject.outputs = {}
+                        item.outputsFirstState.forEach(i => {
+                            returnObject.outputs[i.type] = i.linkTo && i.linkTo.map(i => {
+                                    return firstStateDiagramData.findIndex(link => {
+                                        if (link.inputsFirstState.length) {
+                                           return link.inputsFirstState[0] === i
+                                        }
+                                        return false;
+                                    })
+                                }) || [];
+                        })
                     }
 
                     if (item.value.isStart) {
@@ -261,7 +282,8 @@
             };
 
 
-            onMounted(() => {
+
+            const initProps = () => {
                 if (props.selectedAutoresponderToEdit) {
                     let toEdit = props.selectedAutoresponderToEdit;
                     infoToSend.name = toEdit.name;
@@ -278,7 +300,8 @@
 
 
                 }
-            })
+            }
+            initProps();
 
 
 
