@@ -5,12 +5,12 @@ import { ref } from 'vue';
 
 export default {
     setup() {
-        const { tryAuth } = useAuth()
+        const { tryAuth, getCsrf } = useAuth()
         const router = useRouter();
 
         const loading = ref(false);
         const error = ref('');
-
+        getCsrf();
         const login = ref('');
         const password = ref('');
         const onlyEngChars = ($event) => {
@@ -21,6 +21,7 @@ export default {
         }
 
         const auth = () => {
+            
             if (!login.value.length) {
                 error.value = 'Введите логин';
                 return;
@@ -54,7 +55,7 @@ export default {
             password,
             auth,
             onlyEngChars,
-
+            getCsrf,
             loading,
             error
         }
