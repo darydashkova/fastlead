@@ -17,7 +17,7 @@
                             <div class="settings-integrations-form__label" v-if="index === 0">Воронка</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].funnel_id === null)}"
-                                    @click="openedDropdown.toggleOpened('funnel', index)"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                     <div class="settings-integrations-form__dropdown-inner">
@@ -42,7 +42,7 @@
                             <div class="settings-integrations-form__label" v-if="index === 0">Этап</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].column_uid === null)}"
-                                    @click="openedDropdown.toggleOpened('column', index)"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
@@ -83,14 +83,14 @@
                 </div>
                 <div class="settings-integrations-form__field">
                     <div class="settings-integrations-form__header settings-integrations-form__header_mb-30">
-                       Если клиента  нет в CRM системе и его нужно дабавить  в сделку 
+                       Если клиента  нет в CRM системе и его нужно добавить  в сделку 
                     </div>
                     <div class="settings-integrations-form__row">
                         <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__label">Воронка</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null)}"
-                                    @click="openedDropdown.toggleOpened('funnel', 'action')"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
@@ -116,7 +116,7 @@
                             <div class="settings-integrations-form__label">Этап</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.column_uid === null)}"
-                                    @click="openedDropdown.toggleOpened('column', 'action')"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">

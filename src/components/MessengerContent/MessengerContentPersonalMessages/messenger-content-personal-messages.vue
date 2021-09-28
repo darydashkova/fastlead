@@ -35,8 +35,8 @@
                             </div>
                     </div>
                     <button class="messenger-content-personal-messages__info-button pointer"
-                            @click="toggleOpenedActions(true)"
-                            @blur="toggleOpenedActions(false)"
+                            @click="toggleOpenedActions()"
+                          
                     >
                         <svg width="5" height="24" viewBox="0 0 5 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M2.56323 4.97015C3.6678 4.97015 4.56323 4.07472 4.56323 2.97015C4.56323 1.86558 3.6678 0.970154 2.56323 0.970154C1.45866 0.970154 0.563232 1.86558 0.563232 2.97015C0.563232 4.07472 1.45866 4.97015 2.56323 4.97015ZM2.56323 14C3.6678 14 4.56323 13.1046 4.56323 12C4.56323 10.8954 3.6678 9.99999 2.56323 9.99999C1.45866 9.99999 0.563232 10.8954 0.563232 12C0.563232 13.1046 1.45866 14 2.56323 14ZM4.56323 21.0299C4.56323 22.1344 3.6678 23.0299 2.56323 23.0299C1.45866 23.0299 0.563232 22.1344 0.563232 21.0299C0.563232 19.9253 1.45866 19.0299 2.56323 19.0299C3.6678 19.0299 4.56323 19.9253 4.56323 21.0299Z"
@@ -90,9 +90,10 @@
             const { toggleOpenedUserInfo } = useUserInfo()
             const { toggleModalConfirmDelete, setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete } = useModalConfirmDelete()
             const openedActions = ref(false);
-            const toggleOpenedActions = (boolean) => {
-                openedActions.value = boolean;
+            const toggleOpenedActions = () => {
+                openedActions.value = !openedActions.value;
             }
+            
             const del = async () => {
                 let callback = async () => {
                     await deleteDialog(selectedGroupDialogs.value);
