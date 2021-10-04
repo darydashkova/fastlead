@@ -10,11 +10,11 @@
                    placeholder="Пароль"
             >
             <div v-if="error" class="login__error">{{error}}</div>
-            <div class="login__hint login__hint_mt-10">Забыли пароль?</div>
+            <!-- <div class="login__hint login__hint_mt-10">Забыли пароль?</div> -->
             <button class="login__button" type="submit"
                 :disabled="loading"
             >Войти</button>
-            <router-link class="login__hint" to="/registration">У меня нет аккаунта</router-link>
+            <!-- <router-link class="login__hint" to="/registration">У меня нет аккаунта</router-link> -->
         </form>
     </div>
 </template>
