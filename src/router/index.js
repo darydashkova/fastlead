@@ -85,16 +85,25 @@ const routes = [
       {
         path: 'integrations', component: () => import('../views/settings/integrations/integrations.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
         children: [
-          {
-            path: '', component: () => import('../views/settings/integrations/Default'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
-          },
-          {
-            path: 'amo/connect', component: () => import('../views/settings/integrations/AmoConnect.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
-          },
-          // {
-          //   path: 'yclients/connect', component: () => import('../views/settings/integrations/YclientsConnect.vue'), meta: { requiresAuth: false, title: 'Fastlead - Интеграции' },
-          // }
-        ]
+            {
+              path: '', component: () => import('../views/settings/integrations/Default'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+            },
+            // {
+            //   path: 'list', component: () => import('../views/settings/integrations/IntegrationList.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+            // },
+            {
+              path: 'amo/connect', component: () => import('../views/settings/integrations/AmoConnect.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+            },
+            {
+              path: 'create', component: () => import('../views/settings/integrations/integrationTabs/IntegrationTabsCreatedTasks.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+            },
+            {
+              path: 'ignore', component: () => import('../views/settings/integrations/integrationTabs/integrationTabsIgnore.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+            },
+            // {
+            //   path: 'yclients/connect', component: () => import('../views/settings/integrations/Yclient/YclientsConnect.vue'), meta: { requiresAuth: false, title: 'Fastlead - Интеграции' },
+            // }
+          ]
       },
     ]
   },

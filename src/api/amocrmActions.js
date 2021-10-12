@@ -22,4 +22,8 @@ export default {
         }
         return api.fetch('POST', `update/amocrm/${data.amocrm_integration_id}`, lData, true)
     },
+    deleteAmocrm: () => {
+        return api.fetch('POST', `delete/amocrm`, null, true)
+    },
+
 }

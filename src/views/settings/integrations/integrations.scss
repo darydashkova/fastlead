@@ -1,11 +1,11 @@
 .settings-integrations__header {
   height: 78px;
-  padding: 16px 45px;
+  padding: 16px 45px 0px;
   position: relative;
   text-align: left;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   border-bottom: 1px solid var(--separator-color);
 
   font-style: normal;
@@ -13,4 +13,40 @@
   font-size: 22px;
   line-height: 29px;
   color: var(--settings-header-color);
+
+  &-pages {
+    display: flex;
+    height: 100%;
+    padding-left: 80px;
+
+    &-link {
+      padding-right: 52px;
+      color: #9797BB;
+      font-size: 16px;
+      line-height: 300%;
+
+      a {
+        color: #9797BB;
+        font-size: 16px;
+        line-height: 300%;
+        text-decoration: none;
+      }
+    }
+
+    &-link_active {
+      color: #5EC075;
+      margin-right: 52px;
+      font-size: 16px;
+      line-height: 300%;
+      padding-right: 0px;
+      border-bottom: 1px solid #5EC075;
+      background: var(--green-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  &-name {
+    padding-bottom: 16px;
+  }
 }

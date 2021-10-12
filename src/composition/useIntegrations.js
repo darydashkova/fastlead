@@ -14,7 +14,9 @@ export function useIntegrations() {
     const connectBitrix = async (url) => {
         return await integrationActions.bitrixActions.connectBitrix(url);
     }
-
+    const deleteAmocrm = async () => {
+        return await integrationActions.amocrmActions.deleteAmocrm();
+    }
     const connectAmocrm = async () => {
         let client_id = amocrm_client_id,
             state = Math.random().toString(36).substring(2),
@@ -105,5 +107,6 @@ export function useIntegrations() {
 
         updateBitrix,
         updateAmocrm,
+        deleteAmocrm
     }
 }
