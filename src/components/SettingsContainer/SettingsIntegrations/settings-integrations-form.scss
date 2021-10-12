@@ -4,6 +4,15 @@
   ::-webkit-scrollbar {
     display: none;
   }
+ &__popup{
+   display: flex;
+   justify-content: space-between;
+ }
+ &__delete{
+  margin-bottom: 8px;
+
+
+ }
 }
 .settings-integrations-form__body {
   width: 100%;
@@ -14,7 +23,7 @@
   flex-direction: column;
 }
 .settings-integrations-form__field {
-  padding: 36px 45px;
+  padding: 36px 30px;
   border-bottom: 1px solid var(--separator-color);
   width: 100%;
 }
@@ -66,12 +75,40 @@
 }
 .settongs-integrations-form__input-group {
   width: 25%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
   &.settongs-integrations-form__input-group_w-100 {
     width: 100%;
   }
   &.settongs-integrations-form__input-group_mr-13 {
     margin-right: 13px;
   }
+}
+.settongs-integrations-form__input-group_width{
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+
+}
+.settings-integrations-form__input_test{
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  width: 100%;
+  margin-left: 50px;
+  padding: 8px 10px;
+  color: var(--modal-font-color);
+  background: var(--modal-element-hover-bg-color);
+  border: .7px solid var(--modal-input-border-color);
+  box-sizing: border-box;
+  border-radius: 3px;
+  text-align: left;
+  min-width: 159px;
+  position: relative;
+  
 }
 .settings-integrations-form__input {
   font-family: Segoe UI;
@@ -87,9 +124,11 @@
   box-sizing: border-box;
   border-radius: 3px;
   text-align: left;
-  width: 100%;
-  position: relative;
 
+  position: relative;
+@media screen and (max-width:1200px) {
+    max-width: 227px;
+}
   &.settings-integrations-form__input_search {
     padding: 8px 10px 8px 42px;
     position: relative;
@@ -190,9 +229,7 @@
   th {
     font-size: 14px;
     line-height: 19px;
-
     font-variant: small-caps;
-
     color: #9797BB;
   }
   td {
@@ -229,4 +266,36 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
+  .base-button_border-green{
+    margin-right: 22px;
+  }
+  .base-button_enter{
+    color: #1D1D35;
+    font-weight: 500;
+  }
+}
+.settings-integrations-form__label-test{
+  display: flex;
+  justify-content: space-between;
+  max-height: 37px;
+  .settings-integrations-form__input_test {
+    margin-left: 0px;
+    margin-right: 15px;
+  
+  }
+  .settings-integrations-form__label-test-button{
+    border: 1px solid #5EC075  ;
+    color: #5EC075;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 4px;
+  }
+}
+.settings-integrations-form__channel{
+  display: grid;
+  .settings-integrations-form__input_width{
+  width: 73%;
+  min-height: 37px;
+  max-width: 73% ;
+}
 }

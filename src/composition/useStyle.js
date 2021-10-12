@@ -171,7 +171,7 @@ export function useStyle() {
                 body.style.setProperty(`--${style}`, property[style])
             }
         }
-        type? setProperties(dark) : setProperties(light)
+        type? setProperties(dark) : setProperties(dark) //setProperties(light) 
         style.value = type;
         localStorage.setItem('style', type)
     }

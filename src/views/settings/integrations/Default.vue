@@ -1,42 +1,76 @@
 <template>
     <div class="settings-integrations">
-        <div class="settings-integrations__header">
-            <div>
-                Интеграции
-            </div>
-            <BaseButton @click="closeForm" v-if="openedForm" class="base-button_cancel base-button_p6-40">Отмена</BaseButton>
-            <!-- <BaseButton v-else class="base-button_cancel base-button_p6-40">Помощь с настройкой</BaseButton> -->
-
-        </div>
-        <SettingsIntegrationsForm
+        <integrationHeaderDefault  :isActivePage='openedForm'   @updateAmo="updateAmo()"   @openList="openedList()"></integrationHeaderDefault>  
+      <!--  <SettingsIntegrationsForm
                 v-if="openedForm"
-                @getBitrix="getBitrixWrapper"
                 @getAmocrm="getAmocrmWrapper"
                 @close="closeForm"
                 :formData="formData"
+        ></SettingsIntegrationsForm>-->
+      
+        <!-- <SettingsIntegrationsList
+                :bitrixProps="integrations.bitrix"
+                :amoProps="integrations.amo"
+                :yclientsProps="integrations.yclients"
+                @getBitrix="getBitrixWrapper"
+                @getYclients="getYclientsWrapper"
+                @openForm="openForm"
+                v-else
+        ></SettingsIntegrationsList> -->
+
+        <!-- <SettingsIntegrationsList
+                :amoProps="integrations.amo"
+                :openForm="openForm"
+                v-else
+        ></SettingsIntegrationsList>-->
+        <!-- {{formData}}--------------------- -->
+        
+    <SettingsIntegrationsForm
+                v-if="openedForm"
+                @getAmocrm="getAmocrmWrapper"
+                @close="closeForm"
+                :formData="formData"
+                @refreshAmo="getAmocrmWrapper()"
+                @updateDateSave ="updateAmo(), openForm"
         ></SettingsIntegrationsForm>
+        
         <SettingsIntegrationsList
                 :bitrixProps="integrations.bitrix"
                 :amoProps="integrations.amo"
                 @getBitrix="getBitrixWrapper"
+                @redirectYclient ="yclienRedirection()"
                 @openForm="openForm"
+                @deleteAmo="delAmoCrm()"
+                @activeAmo="activatedForm()" 
+                 :activeLink ="isActiveForm"
+                @openList="openedList()"
+                :openList="isAmoClick"                
                 v-else
-        ></SettingsIntegrationsList>
+        ></SettingsIntegrationsList> 
+    
+   <!-- @openForm="openForm" -->
+       
         <router-view></router-view>
+       
     </div>
 </template>
 
 <script>
     import SettingsIntegrationsList from "../../../components/SettingsContainer/SettingsIntegrations/settings-integrations-list";
     import BaseButton from "../../../components/Base/BaseButton";
-    import SettingsIntegrationsForm
-        from "../../../components/SettingsContainer/SettingsIntegrations/settings-integrations-form";
+    import SettingsIntegrationsForm from "../../../components/SettingsContainer/SettingsIntegrations/settings-integrations-form";
     import {ref, reactive} from 'vue';
     import {useIntegrations} from "../../../composition/useIntegrations";
+    import {integrationCards} from "../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsCard/settings-integrations-card";
+    import integrationHeaderDefault from "./integrationHeader/integrationHeader.vue";
+     import {integrationHeader} from "./integrationHeader/integrationHeader.js";
     export default {
-        components: {SettingsIntegrationsForm, SettingsIntegrationsList, BaseButton},
+        components: {SettingsIntegrationsForm, SettingsIntegrationsList, BaseButton, integrationHeaderDefault},
         setup() {
+    
             const openedForm = ref(false);
+            const formData = ref(null);
+                const {activateForm, isAmoClick} = integrationHeader();
             const openForm = prop => {
                 formData.value = {
                     name: prop,
@@ -44,6 +78,7 @@
                 }
                 openedForm.value = true;
             }
+            const amoCrmUpdateValue = ref('111');
             const closeForm = () => {
                 formData.value = {
                     name: '',
@@ -51,10 +86,14 @@
                 }
                 openedForm.value = false;
             }
-            const formData = ref(null);
+            const updateAmoDate = ref();
+            const openedList = () =>{
+// openedForm.value = false;
 
-            const { getBitrix, getAmocrm } = useIntegrations()
-
+            }     
+            const { getBitrix, getAmocrm, deleteAmocrm } = useIntegrations()
+            const {checkActiveCard, isActiveAmo, activeAmoCrmPage } = integrationCards()
+            const isUpdateAmo = ref();
             const integrations = reactive({
                 bitrix: {},
                 amo: {},
@@ -78,24 +117,46 @@
                             return;
                         }
                         integrations.amo = {...r.amocrm_integration};
-                    });
+                        formData.value.data= integrations.amo
+                    }); 
+                 
             }
-
-
-
+           
+            const delAmoCrm = () => {
+                deleteAmocrm();
+                integrations.amo = {is_active: false};
+            }
+             const isActiveForm = ref(false)
+            const activatedForm = () => {
+                 isActiveForm.value = true
+        return true
+            }
             getBitrixWrapper();
             getAmocrmWrapper();
-
+            const updateAmo = () => {
+                getAmocrmWrapper()
+                console.log(formData) 
+                }
             return {
                 openedForm,
                 integrations,
-
+                openedList,
                 openForm,
                 closeForm,
                 formData,
 
                 getBitrixWrapper,
                 getAmocrmWrapper,
+                 isActiveAmo,
+                 activeAmoCrmPage,
+                 deleteAmocrm,
+                 delAmoCrm,
+                 activatedForm,
+                 isActiveForm,
+                 isAmoClick,
+                 updateAmo,
+                 isUpdateAmo,
+                 amoCrmUpdateValue,
             }
         }
     }

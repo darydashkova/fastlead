@@ -36,4 +36,12 @@
     .base-button_w-100 {
         width: 100%;
     }
+      .base-button_border-green{
+         border: 1px solid #5EC075;
+        color: #5EC075;
+        font-size: 12px;
+        background-color: transparent;
+        font-size: 16px;
+        line-height: 130%;
+    }
 </style>
