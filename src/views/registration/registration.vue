@@ -3,9 +3,9 @@
         <form class="registration__form" @submit.prevent="registr">
             <h1 class="registration__header">Регистрация</h1>
             <input class="registration__input" type="text"
-                   v-model="login"
-                   placeholder="Логин"
-                   @keypress="onlyEngChars"
+                   v-model="name"
+                   placeholder="Имя"
+                   @keypress="onlyRusChars"
             >
             <input class="registration__input" type="tel"
                    v-model="phone"

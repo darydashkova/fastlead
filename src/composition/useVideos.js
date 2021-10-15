@@ -13,6 +13,9 @@ export function useVideos() {
     const deleteVideo = (id) => {
         videosToSend.data = videosToSend.data.filter(item => item.id !== id);
     }
+    const clearVideo = () => {
+        videosToSend.data = [];
+    }
     const addVideo = (file) => {
         videosToSend.data.push(file);
     }
@@ -25,5 +28,6 @@ export function useVideos() {
         deleteVideo,
         addVideo,
         replaceVideo,
+        clearVideo
     }
 }

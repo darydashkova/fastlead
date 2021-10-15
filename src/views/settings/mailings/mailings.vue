@@ -4,19 +4,19 @@
             <div>
                 {{headerName}}
                 <div class="settings-mailings__sub-header">
-                    <span class="settings-mailings__sub-title pointer"
+                    <!-- <span class="settings-mailings__sub-title pointer"
                           :class="{'settings-mailings__sub-title_active' : !isDynamicMailingsTable}"
                           @click="toggleDynamicMailingsTable(false)"
-                    >Пользовательские</span>
-                    <!-- <span class="settings-mailings__sub-title"> / </span>
-                    <span class="settings-mailings__sub-title pointer"
+                    >Пользовательские</span> -->
+                    <!-- <span class="settings-mailings__sub-title"> / </span> -->
+                    <!-- <span class="settings-mailings__sub-title pointer"
                           :class="{'settings-mailings__sub-title_active' : isDynamicMailingsTable}"
                           @click="toggleDynamicMailingsTable(true)"
                     >Массовые</span> -->
                 </div>
             </div>
             <BaseButton v-if="isCreating" class="base-button_cancel base-button_p6-40" @click="toggleCreating(false)">Отмена</BaseButton>
-<!--            <BaseButton v-else class="base-button_enter base-button_p6-40" @click="toggleModalChoiceMailingType(true)">Создать новую</BaseButton>-->
+      <!--            <BaseButton v-else class="base-button_enter base-button_p6-40" @click="toggleModalChoiceMailingType(true)">Создать новую</BaseButton>-->
             <BaseButton v-else class="base-button_enter base-button_p6-40" @click="gotoCreate(null, 1)">Создать новую</BaseButton>
         </div>
         <div class="settings-mailings__scroll-container">
@@ -117,6 +117,7 @@
                                 toggleCreating(true)
                             })
                     }
+
                 } else {
                     if (choiceNumber === 1) {
                         toggleIsCreatingMass(false)

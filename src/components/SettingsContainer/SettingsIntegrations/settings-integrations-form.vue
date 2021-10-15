@@ -5,6 +5,59 @@
         </div>
         <div class="settings-integrations-form__body" ref="content">
             <template v-if="form.data.data">
+                 <div class="settings-integrations-form__field settings-integrations-form__channel">
+                     <div class="settings-integrations-form__label" >Канал</div>
+                     <!-- <button class="settings-integrations-form__input settings-integrations-form__input_width"
+                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null)}"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('channel', 'action')"
+                                    @blur="openedDropdown.toggleOpened(null, null)"
+                            >
+                                <div class="settings-integrations-form__dropdown-inner">
+
+                                <template v-if="form.data.data.funnel_actions==null||form.data.data.funnel_actions.id==null">Введите</template>
+                                <template v-else>{{validChannelName(form.data.data?.funnel_actions?.id)}}</template>
+
+                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
+                                    </svg>
+                                </div>
+                                <div class="settings-integrations-form__dropdown-list"
+                                     v-if="openedDropdown.openedProp === 'channel' && openedDropdown.openedIndex === 'action'">
+
+                              
+                                    <div class="settings-integrations-form__dropdown-item"
+                                          v-for="(whatsapp, index) in whatsapps"
+                                         :key="index"
+                                         @click="validChannelName(whatsapp.whatsapp_id)">
+                                          {{whatsapp.phone}}-{{ whatsapp.whatsapp_id}} {{whatsapp}}
+                                    </div>
+                                </div>
+                            </button> -->
+                            <button class="settings-integrations-form__input settings-integrations-form__input_width"
+                                    @click="showChannels()"
+                            >
+                                <div class="settings-integrations-form__dropdown-inner">
+                                <template v-if="phone==''">Введите</template>
+                                <template v-else> {{phone}}</template>
+                              
+                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
+                                    </svg>
+                                </div>
+                                <div class="settings-integrations-form__dropdown-list"
+                                v-if="showChannelsActive"
+                                >
+                              
+                                    <div class="settings-integrations-form__dropdown-item"
+                                          v-for="(whatsapp, index) in whatsapps"
+                                         :key="index"
+                                         @click="channelChoise(whatsapp.whatsapp_id)">
+                                          {{whatsapp.phone}}
+                                    </div>
+                                </div>
+                            </button>
+                            </div>
+            <div class="settings-integrations-form__active" v-if="phone!=''">
                 <div class="settings-integrations-form__field">
                     <div class="settings-integrations-form__header settings-integrations-form__header_mb-30">
                         Если клиент попал в CRM  систему и ему нужно  написать первому
@@ -13,11 +66,11 @@
                          class="settings-integrations-form__row"
                          :class="{'settings-integrations-form__row_mt-26': index > 0}"
                          :key="index">
-                        <div class="settongs-integrations-form__input-group">
+                        <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_mr-13">
                             <div class="settings-integrations-form__label" v-if="index === 0">Воронка</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].funnel_id === null)}"
-                                    @click="openedDropdown.toggleOpened('funnel', index)"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                     <div class="settings-integrations-form__dropdown-inner">
@@ -26,6 +79,7 @@
                                             <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                         </svg>
                                     </div>
+                                    
                                     <div class="settings-integrations-form__dropdown-list"
                                          v-if="openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === index"
                                     >
@@ -38,11 +92,11 @@
 
                             </button>
                         </div>
-                        <div class="settongs-integrations-form__input-group">
+                        <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_mr-13">
                             <div class="settings-integrations-form__label" v-if="index === 0">Этап</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].column_uid === null)}"
-                                    @click="openedDropdown.toggleOpened('column', index)"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
@@ -54,24 +108,32 @@
                                 <div class="settings-integrations-form__dropdown-list"
                                      v-if="openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === index">
                                     <div  class="settings-integrations-form__dropdown-item" v-for="column in funnels.find(item => item.funnel_id === funnelAction.funnel_id).columns" :key="column.column_uid"
-                                          @click="openedDropdown.select('funnel_actions', 'column_uid', column.column_uid, index)"
-
-                                    >
+                                         @click="openedDropdown.select('funnel_actions', 'column_uid', column.column_uid, index)">
                                         {{column.name}}
                                     </div>
                                 </div>
                             </button>
                         </div>
-                        <div class="settongs-integrations-form__input-group">
+                     <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__row settings-integrations-form__row_al-end">
                                 <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_w-100 settongs-integrations-form__input-group_mr-13">
-                                    <div class="settings-integrations-form__label" v-if="index === 0">Автоосообщение</div>
-                                    <input type="text" class="settings-integrations-form__input" placeholder="Ввести"
-                                           v-model="funnelAction.message.data">
+                                    <div class="settings-integrations-form__label" v-if="index === 0">Автосообщение</div>
+                                    <SettingsIntegrationAutoMessage @saveText="saveMessage" :updateMessage="funnelAction.message" :automesage="automessage" :indexItem='index' :arrNum='form.data.data.funnel_actions.length' @click="checkAutomessage(funnelAction, index)"></SettingsIntegrationAutoMessage>       
                                 </div>
-                                <svg @click="del(index)" class="pointer" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.1 9.33333H21.31C21.1011 8.39284 20.5484 7.54779 19.7451 6.9406C18.9418 6.33341 17.937 6.00121 16.9 6H15.1C14.063 6.00121 13.0582 6.33341 12.2549 6.9406C11.4516 7.54779 10.8989 8.39284 10.69 9.33333H7.9C7.66131 9.33333 7.43239 9.42113 7.2636 9.57741C7.09482 9.73369 7 9.94565 7 10.1667C7 10.3877 7.09482 10.5996 7.2636 10.7559C7.43239 10.9122 7.66131 11 7.9 11H8.8V21.8333C8.80143 22.938 9.27599 23.997 10.1196 24.7782C10.9632 25.5593 12.107 25.9987 13.3 26H18.7C19.893 25.9987 21.0368 25.5593 21.8804 24.7782C22.724 23.997 23.1986 22.938 23.2 21.8333V11H24.1C24.3387 11 24.5676 10.9122 24.7364 10.7559C24.9052 10.5996 25 10.3877 25 10.1667C25 9.94565 24.9052 9.73369 24.7364 9.57741C24.5676 9.42113 24.3387 9.33333 24.1 9.33333ZM15.1 7.66667H16.9C17.4582 7.6673 18.0026 7.82781 18.4585 8.1262C18.9143 8.42459 19.2593 8.84624 19.4461 9.33333H12.5539C12.7407 8.84624 13.0857 8.42459 13.5415 8.1262C13.9974 7.82781 14.5418 7.6673 15.1 7.66667ZM21.4 21.8333C21.4 22.4964 21.1155 23.1323 20.6092 23.6011C20.1028 24.0699 19.4161 24.3333 18.7 24.3333H13.3C12.5839 24.3333 11.8972 24.0699 11.3908 23.6011C10.8845 23.1323 10.6 22.4964 10.6 21.8333V11H21.4V21.8333ZM14.2 20.9999C14.4387 20.9999 14.6677 20.9121 14.8364 20.7558C15.0052 20.5995 15.1 20.3876 15.1 20.1666V15.1666C15.1 14.9456 15.0052 14.7336 14.8364 14.5773C14.6677 14.421 14.4387 14.3333 14.2 14.3333C13.9614 14.3333 13.7324 14.421 13.5637 14.5773C13.3949 14.7336 13.3 14.9456 13.3 15.1666V20.1666C13.3 20.3876 13.3949 20.5995 13.5637 20.7558C13.7324 20.9121 13.9614 20.9999 14.2 20.9999ZM18.4364 20.7558C18.2676 20.9121 18.0387 20.9999 17.8 20.9999C17.5613 20.9999 17.3324 20.9121 17.1636 20.7558C16.9948 20.5995 16.9 20.3876 16.9 20.1666V15.1666C16.9 14.9456 16.9948 14.7336 17.1636 14.5773C17.3324 14.421 17.5613 14.3333 17.8 14.3333C18.0387 14.3333 18.2676 14.421 18.4364 14.5773C18.6052 14.7336 18.7 14.9456 18.7 15.1666V20.1666C18.7 20.3876 18.6052 20.5995 18.4364 20.7558Z" fill="#EB5757"/>
+
+                                <svg width="18" @click="del(index)" class="pointer settings-integrations-form__delete" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1 3.33333H14.31C14.1011 2.39284 13.5484 1.54779 12.7451 0.940598C11.9418 0.333408 10.937 0.0012121 9.9 0H8.1C7.06302 0.0012121 6.05819 0.333408 5.25487 0.940598C4.45156 1.54779 3.89889 2.39284 3.69 3.33333H0.9C0.661305 3.33333 0.432387 3.42113 0.263604 3.57741C0.0948211 3.73369 0 3.94565 0 4.16667C0 4.38768 0.0948211 4.59964 0.263604 4.75592C0.432387 4.9122 0.661305 5 0.9 5H1.8V15.8333C1.80143 16.938 2.27599 17.997 3.1196 18.7782C3.9632 19.5593 5.10696 19.9987 6.3 20H11.7C12.893 19.9987 14.0368 19.5593 14.8804 18.7782C15.724 17.997 16.1986 16.938 16.2 15.8333V5H17.1C17.3387 5 17.5676 4.9122 17.7364 4.75592C17.9052 4.59964 18 4.38768 18 4.16667C18 3.94565 17.9052 3.73369 17.7364 3.57741C17.5676 3.42113 17.3387 3.33333 17.1 3.33333ZM8.1 1.66667H9.9C10.4582 1.6673 11.0026 1.82781 11.4585 2.1262C11.9143 2.42459 12.2593 2.84624 12.4461 3.33333H5.5539C5.74072 2.84624 6.08571 2.42459 6.54155 2.1262C6.99739 1.82781 7.54175 1.6673 8.1 1.66667ZM14.4 15.8333C14.4 16.4964 14.1155 17.1323 13.6092 17.6011C13.1028 18.0699 12.4161 18.3333 11.7 18.3333H6.3C5.58392 18.3333 4.89716 18.0699 4.39081 17.6011C3.88446 17.1323 3.6 16.4964 3.6 15.8333V5H14.4V15.8333ZM7.20005 14.9999C7.43874 14.9999 7.66766 14.9121 7.83644 14.7558C8.00522 14.5995 8.10005 14.3876 8.10005 14.1666V9.16658C8.10005 8.94557 8.00522 8.73361 7.83644 8.57733C7.66766 8.42105 7.43874 8.33325 7.20005 8.33325C6.96135 8.33325 6.73243 8.42105 6.56365 8.57733C6.39487 8.73361 6.30005 8.94557 6.30005 9.16658V14.1666C6.30005 14.3876 6.39487 14.5995 6.56365 14.7558C6.73243 14.9121 6.96135 14.9999 7.20005 14.9999ZM11.4364 14.7558C11.2676 14.9121 11.0387 14.9999 10.8 14.9999C10.5613 14.9999 10.3324 14.9121 10.1636 14.7558C9.99479 14.5995 9.89996 14.3876 9.89996 14.1666V9.16658C9.89996 8.94557 9.99479 8.73361 10.1636 8.57733C10.3324 8.42105 10.5613 8.33325 10.8 8.33325C11.0387 8.33325 11.2676 8.42105 11.4364 8.57733C11.6052 8.73361 11.7 8.94557 11.7 9.16658V14.1666C11.7 14.3876 11.6052 14.5995 11.4364 14.7558Z" fill="#EB5757"/>
                                 </svg>
+                                
+
+                            </div>
+                        </div> 
+                        
+                          <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_width">
+                            <div class="settings-integrations-form__label" v-if="index === 0">Тестовая отправка</div>
+                            <div class="settings-integrations-form__label-test">
+                               <input class="settings-integrations-form__input_test "  v-maska="'# (###) ###-##-##'"> 
+                            <div class="settings-integrations-form__label-test-button pointer" @click="test(form.data.data.funnel_actions[index])">Отправить</div>
                             </div>
                         </div>
                     </div>
@@ -83,14 +145,14 @@
                 </div>
                 <div class="settings-integrations-form__field">
                     <div class="settings-integrations-form__header settings-integrations-form__header_mb-30">
-                        Если клиент попал в CRM  систему и ему нужно  написать первому
+                       Если клиента  нет в CRM системе и его нужно добавить  в сделку 
                     </div>
                     <div class="settings-integrations-form__row">
                         <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__label">Воронка</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null)}"
-                                    @click="openedDropdown.toggleOpened('funnel', 'action')"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
@@ -104,9 +166,8 @@
                                     <div class="settings-integrations-form__dropdown-item"
                                           v-for="funnel in funnels"
                                          :key="funnel.funnel_id"
-                                         @click="openedDropdown.select('new_dialog_action', 'funnel_id', funnel.funnel_id)"
-
-                                    >
+                                         @click="openedDropdown.select('new_dialog_action', 'funnel_id', funnel.funnel_id)">
+                                         <!--.select('new_dialog_action', 'funnel_id',  funnel.funnel_id)" -->
                                         {{funnel.name}}
                                     </div>
                                 </div>
@@ -116,7 +177,7 @@
                             <div class="settings-integrations-form__label">Этап</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.column_uid === null)}"
-                                    @click="openedDropdown.toggleOpened('column', 'action')"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
@@ -131,6 +192,7 @@
                                           v-for="column in funnels.find(item => item.funnel_id === form.data.data?.new_dialog_action?.funnel_id).columns" :key="column.column_uid"
                                           @click="openedDropdown.select('new_dialog_action', 'column_uid', column.column_uid)"
                                     >
+                                    <!--.select('new_dialog_action', 'column_uid',  funnel.funnel_id)" -->
                                         {{column.name}}
                                     </div>
                                 </div>
@@ -139,7 +201,7 @@
                         <div class="settongs-integrations-form__input-group"></div>
                     </div>
                 </div>
-
+</div>
 <!--                Пока нет Сотрудников и Ролей v-if=false-->
                 <div class="settings-integrations-form__field" v-if="false">
                     <div class="settings-integrations-form__header">
@@ -216,18 +278,26 @@
 
         </div>
     </div>
-    <div class="settings-integrations-form__footer">
+    <div class="settings-integrations-form__footer" v-if="phone!=''">
+        <BaseButton class="base-button_border-green" @click="$router.go(0)">Отмена</BaseButton>
         <BaseButton class="base-button_enter base-button_p5-15" @click="save">Сохранить</BaseButton>
+       
+
     </div>
 </template>
 <script>
     import {useCustomScroll} from "../../../composition/useCustomScroll";
-    import {onMounted, reactive, ref, computed} from "vue";
+    import {onMounted, reactive, ref, computed, onUpdated} from "vue";
     import ModalIntegrationBitrix from "../../Modals/integrations/ModalIntegrationBitrix";
     import ModalIntegrationAmoCRM from "../../Modals/integrations/ModalIntegrationAmoCRM";
+    import {ModalInputAutomessageFunc} from "../../Modals/integrations/ModalInputAutomessage/modal-input-automessage";
+    import ModalInputAutomessage from "../../Modals/integrations/ModalInputAutomessage/ModalInputAutomessage";
     import BaseButton from "../../Base/BaseButton";
     import BaseSwitcherWithoutLabel from "../../Base/BaseSwitcherWithoutLabel";
     import {useIntegrations} from "../../../composition/useIntegrations";
+    import SettingsIntegrationAutoMessage from "./SettingsIntegrationAutoMessage/SettingsIntegrationAutoMessage";
+    import { useWhatsapp } from "../../../composition/useWhatsapp";
+    import { integrationTasks } from "../../../views/settings/integrations/integrationTabs/integration-tabs-created-tasks"
 
     export default {
         components: {
@@ -235,21 +305,27 @@
             ModalIntegrationBitrix,
             ModalIntegrationAmoCRM,
             BaseButton,
+            ModalInputAutomessage,
+            SettingsIntegrationAutoMessage
         },
         props: {
             formData: Object
         },
         emits: ['getBitrix', 'getAmocrm', 'close'],
         setup(props, {emit}) {
+            const {editDate} = integrationTasks()
+            const { whatsapps, getWhatsapps } = useWhatsapp()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm } = useIntegrations()
-
+           const { showPopup, isPopup, automessage, indexPopup, automessageArray } = ModalInputAutomessageFunc()
             const form = reactive({
                 data: {},
                 addAction: () => {
                     let objToAdd = {
                         funnel_id: null,
                         column_uid: null,
+                        id: phoneId.value,
+                        type: 'whatsapp',
                         message: {
                             type: 'text',
                             data: '',
@@ -258,6 +334,7 @@
                     form.data.data.funnel_actions = Array.isArray(form.data.data.funnel_actions) ? [...form.data.data.funnel_actions, objToAdd] : [objToAdd]
                 }
             })
+         
             const errors = ref({
                 funnel_actions: [],
                 new_dialog_action: {
@@ -265,6 +342,10 @@
                     column_uid: 'not_null',
                 }
             });
+            const saveMessage = (text, index) => {
+                form.data.data.funnel_actions[index].message.data=text
+            }
+            getWhatsapps();
             const openedDropdown = reactive({
                 toggleOpened: (prop, index) => {
                     openedDropdown.openedProp = prop;
@@ -278,13 +359,21 @@
                         form.data.data[prop][index][name] = id;
 
                     } else {
+                        
                         form.data.data[prop][name] = id;
+                  
                     }
                     setTimeout(() => {
                         openedDropdown.toggleOpened(null, null);
                     }, 100)
                 }
             })
+           
+            const showChannelsActive = ref(false)
+            const showChannels = () => {
+                showChannelsActive.value=!showChannelsActive.value
+                return showChannelsActive
+            }
             const validColumnName = computed(() => {
                 return (funnel_id, column_id) => {
                     let name = 'Выбрать';
@@ -300,8 +389,22 @@
                     return name;
                 }
             })
+           const phone = ref('')
+           const phoneId = ref();
+            const channelChoise = (id) => {
+                if(id!=null){
+                    phoneId.value=id;
+                      let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)  
+                       phone.value = whatsapps.value[index].phone;
+                         form.data.data.new_dialog_action.id=id;
+                         form.data.data.new_dialog_action.type='whatsapp';
+                }
+               
+                return phone
+            }
+          
             const validFunnelName = computed(() => {
-                return (id) => {
+                                return (id) => {
                     let name = 'Выбрать';
                     if (id !== null) {
                         let findedEl = funnels.value && funnels.value.find(i => i.funnel_id === id);
@@ -310,74 +413,164 @@
                             name = findedEl.name;
                         }
                     }
-
                     return name;
                 }
             })
+                 const validChannelName = computed(() => {
+                return (id) => {
+                    let name = 'Выбрать';
+                    if (id !== null) {
+                        let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)  
+                        name=whatsapps.value[index].phone;
+                     form.data.data.funnel_actions[0].id = id;
+                   
+                    }
+                    return name;
+                }
+            })
+          
+            const checkAutomessage = (message, index) => {
+                form.data.data.funnel_actions[index].message.data=message.message.data;
+                
+                return message
+            }
             const funnels = ref(null);
 
             const validation = () => {
                 let valid = true;
                 errors.value.funnel_actions = [];
                 errors.value.new_dialog_action = {};
-                form.data.data.funnel_actions.forEach((item, index) => {
-                    errors.value.funnel_actions.push({
-                        funnel_id: item.funnel_id,
-                        column_uid: item.column_uid,
-                    })
-                })
-                errors.value.new_dialog_action = form.data.data.new_dialog_action;
-
-                errors.value.funnel_actions.find(i => {
-                    if (i.funnel_id === null || i.column_uid === null) {
-                        valid = false;
+                 errors.value.new_dialog_action.funnel_id = 'not_null';
+                errors.value.new_dialog_action.column_uid = 'not_null'; 
+                let isValid = false;
+        
+                if(!form.data.data.funnel_actions){
+                    if(form.data.data.new_dialog_action){
+                        if(form.data.data.new_dialog_action.column_uid===null||form.data.data.new_dialog_action.funnel_id===null){
+                            errors.value.new_dialog_action.funnel_id = null;
+                            errors.value.new_dialog_action.column_uid = null; 
+                          
+                            valid= false;
+                        }
+                        else{
+                            errors.value.new_dialog_action.funnel_id = 'not_null';
+                            errors.value.new_dialog_action.column_uid = 'not_null'; 
+                            valid= true;
+                            isValid = true;
+                        }  
                     }
-                })
-                if (errors.value.new_dialog_action.funnel_id === null || errors.value.new_dialog_action.column_uid === null) {
-                    valid = false;
-                }
-
+                   
+                } 
+                else{
+                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.column_uid!=null);
+                          form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.funnel_id!=null);
+                          form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.message.data!="");
+                         
+                        //   form.data.data.funnel_actions=form.data.data.funnel_actions.filter( lIndex => lIndex.length!=0);
+                        if(form.data.data.new_dialog_action.column_uid===null||form.data.data.new_dialog_action.funnel_id===null){
+                                form.data.data.new_dialog_action=null;
+                             isValid=false;
+                           }
+                          if(form.data.data.funnel_actions.length!=0){
+                            errors.value.new_dialog_action.funnel_id = 'not_null';
+                            errors.value.new_dialog_action.column_uid = 'not_null'; 
+                            valid=true; 
+                            
+                          }
+                           else{
+                           form.data.data.funnel_actions=null    
+                          if(!isValid){
+                            valid=false; 
+                          }
+                            else{
+                                 valid=true;  
+                            }
+                           }
+                           
+                    }
+                errors.value.new_dialog_action = form.data.data.new_dialog_action;
+                // errors.value.funnel_actions.find(i => {
+                //     if (i.funnel_id === null || i.column_uid === null) {
+                //         valid = false;
+                //            console.log('333')
+                //     }
+                //     else
+                //      if ((i.funnel_id === null || i.column_uid === null)&&isValid){
+                           
+                //             valid=true; 
+                //     }
+                // })   
                 return valid;
             }
-
+            const condition = ref();
             const save = () => {
-                if (validation()) {
-                    if (form.data.name === 'bitrix') {
-                        updateBitrix(form.data.data)
-                            .then(r => {
-                                if (r.error) {
+                  if (validation()) { 
+                //     if (form.data.name === 'bitrix') {
+                //         updateBitrix(form.data.data)
+                //             .then(r => {
+                //                 if (r.error) {
+                //                     return;
+                //                 }
+                //                 emit('getBitrix');
+                //                 emit('close');
+                //             })
+            
+                //     } else {
+                //         console.log('1') 
+                if(form.data.data.funnel_actions!=null){    
+                    for(let i = 0; i <form.data.data.funnel_actions.length;i++){
+                        console.log(form.data.data.funnel_actions[i].message)
+                        if(form.data.data.funnel_actions[i].message.message){
+                            const type = form.data.data.funnel_actions[i].message.type
+                            const mess = form.data.data.funnel_actions[i].message.message
+                            form.data.data.funnel_actions[i].message = {};
+                            form.data.data.funnel_actions[i].message.data = mess;
+                            form.data.data.funnel_actions[i].message.type = type
+                        }
+                    }
 
-
-                                    return;
-                                }
-                                emit('getBitrix');
-                                emit('close');
-                            })
-                    } else {
+                }
                         updateAmocrm(form.data.data)
                             .then(r => {
                                 if (r.error) {
-
-
+                                
+                                    return;
+                                }
+                                emit('getAmocrm');
+                                emit('close');
+                                 emit('updateDateSave');
+                            })
+                        //  location.reload();
+                //      }
+                }
+            }
+            const test = (itemForm) => {
+                if (validation()) { 
+                updateAmocrm(itemForm)
+                            .then(r => {
+                                if (r.error) {
                                     return;
                                 }
                                 emit('getAmocrm');
                                 emit('close');
                             })
-                    }
-                }
+                          }
             }
             const del = (index) => {
-                form.data.data.funnel_actions = form.data.data.funnel_actions.filter((i, lIndex) => lIndex !== index);
+             automessageArray.value = automessageArray.value.filter((i, lIndex) => lIndex !== index);
+                 form.data.data.funnel_actions = form.data.data.funnel_actions.filter((i, lIndex) => lIndex !== index);
+               
             }
-
+          
             onMounted(() => {
                 init();
+       
                 form.data = props.formData;
                 if (!form.data.data.new_dialog_action) {
                     form.data.data.new_dialog_action = {
                         funnel_id: null,
                         column_uid: null,
+                        id: null,
                     }
                 }
                 if (Array.isArray(form.data.data.funnel_actions)) {
@@ -387,6 +580,8 @@
                             k.message = {
                                 type: 'text',
                                 data: item.message.message,
+
+
                             }
                         }
                         return {
@@ -395,8 +590,6 @@
                         }
                     })
                 }
-
-
                 if (form.data.name === 'bitrix') {
                     getFunnelsBitrix()
                         .then(r => {
@@ -412,24 +605,46 @@
                         })
                 }
             })
+         onUpdated(() => {
+                if(editDate.value!=null){
+                    const id = editDate.value
 
+                channelChoise(id)
+                editDate.value=null
+                }
+                
+            })
             return {
                 container,
                 content,
                 scrollbar,
                 scrollTo,
-
+                automessage,
                 form,
                 funnels,
-
+                indexPopup,
                 validFunnelName,
                 validColumnName,
-
+                isPopup,
                 openedDropdown,
                 save,
                 del,
                 errors,
-
+                showPopup,
+                condition,
+                automessageArray,
+                test,
+                whatsapps,
+                validChannelName,
+                showChannelsActive,
+                showChannels,
+                channelChoise,
+                phone,
+                phoneId,
+                checkAutomessage,
+                saveMessage,
+                editDate
+        
             }
         }
     }

@@ -115,11 +115,13 @@
     import {useModals} from "../../../composition/useModals";
     import {useLoader} from "../../../composition/useLoader";
     import {useUser} from "../../../composition/useUser";
+    import {MessengerContentInput} from "./messenger-content-nav.js";
+
     export default {
         components: {BaseCircleIcon, BaseFolder},
         setup() {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-
+            const { getFolder, activeFolder } = MessengerContentInput()
             const { getDialogs, selectedGroupDialogs, toggleAllSelectedGroupDialogs } = useDialogs()
 
             const { selectedFolder, folders, selectFolder, getAllFoldersInFolder, selectedParentFolder, foldersInSelectedFolder, selectParentFolder } = useFolder()
@@ -153,6 +155,7 @@
                 }
                 toggleAllSelectedGroupDialogs(false);
                 toggleOpenedUserInfo(false);
+                getFolder(selectedFolder.value)
             }
 
             const parentFolderName = computed(() => {

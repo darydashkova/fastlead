@@ -27,6 +27,9 @@
         &.base-modal-text_mt-29 {
             margin-top: 29px;
         }
+        &.base-modal-text_mt-40{
+            padding: 0px 20px 40px;
+        }
         &.base-modal-text_mt-45 {
             margin-top: 45px;
         }
@@ -76,6 +79,10 @@
         &.base-modal-text_underline {
             span {
                 position: relative;
+                border-bottom: 1px solid #5EC075;
+                background: var(--green-color);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
                 &:after {
                     content: '';
                     position: absolute;
