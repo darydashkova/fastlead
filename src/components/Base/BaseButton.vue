@@ -11,7 +11,7 @@
         font-size: 16px;
         line-height: 21px;
         color: #F0F0FA;
-        padding: 11px 36px;
+        padding: 8px 32px;
         border-radius: 6px;
         cursor: pointer;
     }
@@ -19,7 +19,11 @@
         background: var(--green-color);
     }
     .base-button_cancel {
-        background: #575773;
+        background: transparent;
+        border: 1px solid #5EC075;
+        background: var(--green-color);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     .base-button_delete {
         background: var(--red-color);

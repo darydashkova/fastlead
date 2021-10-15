@@ -19,7 +19,7 @@
                         class="base-button_enter"
                         @click="save"
                 >
-                    Далее
+                    Подключить
          
                 </BaseButton>
                 <BaseButton
@@ -160,7 +160,11 @@
         padding: 0 20px;
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
+        .base-button_enter{
+            color: black;
+            margin-right:11px;
+        }
     }
 
 </style>

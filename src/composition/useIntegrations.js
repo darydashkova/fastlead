@@ -23,7 +23,7 @@ export function useIntegrations() {
         return await integrationActions.amocrmActions.deleteAmocrm();
     }
     const delYclient = async () => {
-        return await integrationActions.amocrmActions.delYclient();
+        return await integrationActions.yclientsActions.delYclient();
     }
     const connectAmocrm = async () => {
         let client_id = amocrm_client_id,
@@ -95,7 +95,6 @@ export function useIntegrations() {
     }
 
     const updateAmocrm = async (data) => {
-        console.log(data)
         return await integrationActions.amocrmActions.updateAmocrm(data);
     }
     const updateYclients = async (data) => {

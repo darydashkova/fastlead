@@ -47,7 +47,7 @@ export default {
         }
         return api.fetch('POST', `update/yclients/task`, lData, true)
     },
-    delYclient : () => {
+     delYclient : () => {
         return api.fetch('POST', `delete/yclients`, null, true)
     }
 }
