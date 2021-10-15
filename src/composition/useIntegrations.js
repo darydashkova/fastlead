@@ -10,12 +10,20 @@ export function useIntegrations() {
     const getAmocrm = async () => {
         return await integrationActions.amocrmActions.getAmocrm();
     }
-
+    const getYclients = async () => {
+        return await integrationActions.yclientsActions.getYclients();
+    }
     const connectBitrix = async (url) => {
         return await integrationActions.bitrixActions.connectBitrix(url);
     }
+    const connectYclients = async (url) => {
+        return await integrationActions.yclientsActions.connectYclients(url);
+    }
     const deleteAmocrm = async () => {
         return await integrationActions.amocrmActions.deleteAmocrm();
+    }
+    const delYclient = async () => {
+        return await integrationActions.yclientsActions.delYclient();
     }
     const connectAmocrm = async () => {
         let client_id = amocrm_client_id,
@@ -65,9 +73,11 @@ export function useIntegrations() {
         return await integrationActions.amocrmActions.connectAmocrm(data);
     }
 
-
     const getFunnelsBitrix = async () => {
         return await integrationActions.bitrixActions.getFunnelsBitrix()
+    }
+     const getFunnelsYclients = async () => {
+        return await integrationActions.yclientsActions.getFunnelsYclients()
     }
     const getFunnelsAmocrm = async () => {
         return await integrationActions.amocrmActions.getFunnelsAmocrm()
@@ -87,26 +97,45 @@ export function useIntegrations() {
     const updateAmocrm = async (data) => {
         return await integrationActions.amocrmActions.updateAmocrm(data);
     }
-
-
-
+    const updateYclients = async (data) => {
+        return await integrationActions.yclientsActions.updateYclients(data);
+    }
+    const postBirthdayTask = async (data) => {
+        return await integrationActions.yclientsActions.postBirthdayTask(data)
+    }
+    const getAllTask = async () => {
+        return await integrationActions.yclientsActions.getAllTask()
+    }
+    const deleteTask = async (data) => {
+        return await integrationActions.yclientsActions.deleteTask(data)
+    }
+    const updateTask = async (data) => {
+        return await integrationActions.yclientsActions.updateTask(data)
+    }
     return {
         getBitrix,
         getAmocrm,
+        getYclients,
         connectAmocrmAfterLogin,
-
+        connectYclients,
         connectBitrix,
         connectAmocrm,
 
-
         getFunnelsBitrix,
         getFunnelsAmocrm,
+        getFunnelsYclients,
 
         getColumnFromFunnelBitrix,
         getColumnFromFunnelAmocrm,
 
         updateBitrix,
         updateAmocrm,
-        deleteAmocrm
+        updateYclients,
+        deleteAmocrm,
+        postBirthdayTask,
+        getAllTask,
+        deleteTask,
+        updateTask,
+        delYclient
     }
 }

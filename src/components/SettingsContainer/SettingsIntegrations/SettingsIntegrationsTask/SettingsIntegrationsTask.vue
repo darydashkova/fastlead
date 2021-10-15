@@ -21,11 +21,12 @@ export default {
         active: Boolean,
         phone:String,
         index:Number,
+        indexPhone:Number,
     },
-     emits: ['deleteInput'],
+     emits: ["deleteInput", "clickAmoSettings"],
     setup(props, {emit}) {
         const clickAmoSettings = () => {
-            emit("clickAmoSettings")
+            emit("clickAmoSettings", props.indexPhone)
         }
         const deleteInput = () => {
             emit("deleteInput", props.index);

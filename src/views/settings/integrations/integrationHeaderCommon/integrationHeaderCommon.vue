@@ -8,8 +8,7 @@
                 :class="{'settings-integrations__header-pages-link_active': (dateNew[index][1]=='true')}"
                 @click="activateLink(index)" :key="index"
                 >
-                     <!-- <router-link to="/settings/integrations">Настройка AmoCRM</router-link>  -->
-                    {{link[0]}}
+                     <router-link :to="link[2]"> {{link[0]}}</router-link>  
                
                     </div>
                
@@ -27,26 +26,15 @@ export default {
     },
     emits: ["pageOpen"],
     setup(props, {emit}) {
-        console.log(props.date)
         const location = document.location.pathname;
         const dateNew = ref(props.date.links);
     const activeAmoCrmPage = ref(false);
         const activateLink = (link) => { 
             for(let i = 0; i<dateNew.value.length; i++){
                dateNew.value[i][1]='false'
-// if(props.date.links[i][1]==location){
-//      for(let j = 0; j<dateNew.value.length; j++){
-//           dateNew.value[j][2]=='false'
-//           console.log(dateNew.value)
-//      }
-    
-//     dateNew.value[i][2]='true'  
-//      console.log('++')
-//      console.log(dateNew.value[i][2])
-// }
             }
-dateNew.value[link][1]='true'
-emit('pageOpen', link)
+                dateNew.value[link][1]='true'
+                emit('pageOpen', link)
         }
 
      

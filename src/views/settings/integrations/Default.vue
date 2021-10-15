@@ -1,6 +1,6 @@
 <template>
     <div class="settings-integrations">
-        <integrationHeaderDefault  :isActivePage='openedForm'   @updateAmo="updateAmo()"   @openList="openedList()"></integrationHeaderDefault>  
+        <integrationHeaderDefault  :isActivePage='openedForm'   @updateAmo="updateAmo()"   @openList="openedList()" @activeAmoClick="activeAmoClick"></integrationHeaderDefault>  
       <!--  <SettingsIntegrationsForm
                 v-if="openedForm"
                 @getAmocrm="getAmocrmWrapper"
@@ -23,13 +23,12 @@
                 :openForm="openForm"
                 v-else
         ></SettingsIntegrationsList>-->
-        <!-- {{formData}}--------------------- -->
-        
     <SettingsIntegrationsForm
                 v-if="openedForm"
                 @getAmocrm="getAmocrmWrapper"
                 @close="closeForm"
                 :formData="formData"
+                :editDate="editDate"
                 @refreshAmo="getAmocrmWrapper()"
                 @updateDateSave ="updateAmo(), openForm"
         ></SettingsIntegrationsForm>
@@ -37,10 +36,13 @@
         <SettingsIntegrationsList
                 :bitrixProps="integrations.bitrix"
                 :amoProps="integrations.amo"
+                :yclientsProps="integrations.yclients"
                 @getBitrix="getBitrixWrapper"
+                @getYclients ="getYclientsWrapper"
                 @redirectYclient ="yclienRedirection()"
                 @openForm="openForm"
                 @deleteAmo="delAmoCrm()"
+                @deleteYclient="deleteYclient()"
                 @activeAmo="activatedForm()" 
                  :activeLink ="isActiveForm"
                 @openList="openedList()"
@@ -60,14 +62,25 @@
     import BaseButton from "../../../components/Base/BaseButton";
     import SettingsIntegrationsForm from "../../../components/SettingsContainer/SettingsIntegrations/settings-integrations-form";
     import {ref, reactive} from 'vue';
+    import { useRouter, useRoute}  from 'vue-router'
     import {useIntegrations} from "../../../composition/useIntegrations";
     import {integrationCards} from "../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsCard/settings-integrations-card";
     import integrationHeaderDefault from "./integrationHeader/integrationHeader.vue";
-     import {integrationHeader} from "./integrationHeader/integrationHeader.js";
+    import {integrationHeader} from "./integrationHeader/integrationHeader.js";
+    import { integrationTasks } from "./integrationTabs/integration-tabs-created-tasks"
     export default {
         components: {SettingsIntegrationsForm, SettingsIntegrationsList, BaseButton, integrationHeaderDefault},
         setup() {
-    
+            const router = useRouter();
+            const {editDate} = integrationTasks();
+            const yclienRedirection = () => {
+                 router.push('/settings/integrations/yclients/connect')
+            }
+                   
+               const activeAmoClick = () => {
+                   console.log('111111S')
+               }
+        
             const openedForm = ref(false);
             const formData = ref(null);
                 const {activateForm, isAmoClick} = integrationHeader();
@@ -88,15 +101,15 @@
             }
             const updateAmoDate = ref();
             const openedList = () =>{
-// openedForm.value = false;
 
             }     
-            const { getBitrix, getAmocrm, deleteAmocrm } = useIntegrations()
+            const { getBitrix, getAmocrm, getYclients, deleteAmocrm, delYclient } = useIntegrations()
             const {checkActiveCard, isActiveAmo, activeAmoCrmPage } = integrationCards()
             const isUpdateAmo = ref();
             const integrations = reactive({
                 bitrix: {},
                 amo: {},
+                yclients: {},
             })
 
             const getBitrixWrapper = () => {
@@ -110,6 +123,7 @@
                     });
             }
             const getAmocrmWrapper = () => {
+                
                 getAmocrm()
                     .then(r => {
                         if (r.code === 404) {
@@ -118,13 +132,27 @@
                         }
                         integrations.amo = {...r.amocrm_integration};
                         formData.value.data= integrations.amo
+                      
                     }); 
-                 
             }
-           
+            const  getYclientsWrapper = () => {
+               
+                 getYclients()
+                    .then(r => {
+                        if (r.code === 404) {
+                            integrations.yclients = {is_active: false};
+                            return;
+                        }
+                        integrations.yclients = {...r.yclients_integration_id};
+                    });
+            }
             const delAmoCrm = () => {
                 deleteAmocrm();
                 integrations.amo = {is_active: false};
+            }
+            const deleteYclient = () => {
+                delYclient();
+                integrations.yclients = {is_active: false};
             }
              const isActiveForm = ref(false)
             const activatedForm = () => {
@@ -133,9 +161,11 @@
             }
             getBitrixWrapper();
             getAmocrmWrapper();
+            getYclientsWrapper();
             const updateAmo = () => {
                 getAmocrmWrapper()
                 console.log(formData) 
+                console.log('update')
                 }
             return {
                 openedForm,
@@ -144,9 +174,10 @@
                 openForm,
                 closeForm,
                 formData,
-
+                activeAmoClick,
                 getBitrixWrapper,
                 getAmocrmWrapper,
+                 getYclientsWrapper,
                  isActiveAmo,
                  activeAmoCrmPage,
                  deleteAmocrm,
@@ -157,6 +188,9 @@
                  updateAmo,
                  isUpdateAmo,
                  amoCrmUpdateValue,
+                 yclienRedirection,
+                 deleteYclient,
+                 editDate
             }
         }
     }
