@@ -158,14 +158,11 @@ export default {
   const password = pass.value
   const data = {log, password}
   yclients.connect(data)
-  connectYclients(data)
 }
 const updateAmoHeader = () => {
   if(activeAmoCrmPage.value){
-    console.log(true)
   }
   else{
-        console.log(false)
   }
 }
     const bitrix = reactive({
@@ -188,14 +185,11 @@ const updateAmoHeader = () => {
     });
 const linkForm = ref(false)
 const propsActive = () => {
- 
   if(isAmoClick.value){
-
     linkForm.value=true
      return true
   }
  else{
-
     linkForm.value=false
       return false
  }
@@ -251,23 +245,15 @@ const propsActive = () => {
 const openModel = (name) => {
       name.toggleOpened(true);
 }
-
 const linkSettings = () => {
-
-    //  amo.action();
     emit("openForm", "amo");
     emit("refreshAmo");
-      checkActiveCard(true)
-          activeTabs(true)
-           amo.toggleOpened(false);
-
-
+    checkActiveCard(true)
+    activeTabs(true)
+    amo.toggleOpened(false);
 }
 const linkDefault = () =>{
 
-
-  // amo.action()
-  //     amo.toggleOpened(false);
 }
 
     return {
@@ -283,7 +269,7 @@ const linkDefault = () =>{
       amo,
       yclients,
       checkActiveCard,
-  linkSettings,
+      linkSettings,
       ff,
       activateForm,
       isAmoClick,

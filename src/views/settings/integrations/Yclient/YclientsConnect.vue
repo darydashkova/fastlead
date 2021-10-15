@@ -100,7 +100,8 @@ watch(()=>{
             const openSelect = () => {
                 statusSelect.value = !statusSelect.value;
             }
-            const links = ref([['Настройка Yclients','true', '/settings/integrations/yclients/connect'],['Созданные задачи','false', '/settings/integrations/yclients/create'],['Игнор лист', 'false', '/settings/integrations/yclients/connect']]);
+            const links = ref([['Настройка Yclients','true', '/settings/integrations/yclients/connect'],['Созданные задачи','false', '/settings/integrations/yclients/create']]); 
+            //,['Игнор лист', 'false', '/settings/integrations/yclients/connect']
            
              const date  = ref({links:links, name:'yclient'})
              const numberPattern = ref('');

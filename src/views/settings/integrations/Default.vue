@@ -28,6 +28,7 @@
                 @getAmocrm="getAmocrmWrapper"
                 @close="closeForm"
                 :formData="formData"
+                :editDate="editDate"
                 @refreshAmo="getAmocrmWrapper()"
                 @updateDateSave ="updateAmo(), openForm"
         ></SettingsIntegrationsForm>
@@ -41,14 +42,18 @@
                 @redirectYclient ="yclienRedirection()"
                 @openForm="openForm"
                 @deleteAmo="delAmoCrm()"
+                @deleteYclient="deleteYclient()"
                 @activeAmo="activatedForm()" 
                  :activeLink ="isActiveForm"
                 @openList="openedList()"
                 :openList="isAmoClick"                
                 v-else
         ></SettingsIntegrationsList> 
+    
    <!-- @openForm="openForm" -->
+       
         <router-view></router-view>
+       
     </div>
 </template>
 
@@ -62,18 +67,23 @@
     import {integrationCards} from "../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsCard/settings-integrations-card";
     import integrationHeaderDefault from "./integrationHeader/integrationHeader.vue";
     import {integrationHeader} from "./integrationHeader/integrationHeader.js";
+    import { integrationTasks } from "./integrationTabs/integration-tabs-created-tasks"
     export default {
         components: {SettingsIntegrationsForm, SettingsIntegrationsList, BaseButton, integrationHeaderDefault},
         setup() {
             const router = useRouter();
+            const {editDate} = integrationTasks();
             const yclienRedirection = () => {
-                router.push('/settings/integrations/yclients/connect')
-            }      
-            const activeAmoClick = () => {
+                 router.push('/settings/integrations/yclients/connect')
             }
+                   
+               const activeAmoClick = () => {
+                   console.log('111111S')
+               }
+        
             const openedForm = ref(false);
             const formData = ref(null);
-            const {activateForm, isAmoClick} = integrationHeader();
+                const {activateForm, isAmoClick} = integrationHeader();
             const openForm = prop => {
                 formData.value = {
                     name: prop,
@@ -91,6 +101,7 @@
             }
             const updateAmoDate = ref();
             const openedList = () =>{
+
             }     
             const { getBitrix, getAmocrm, getYclients, deleteAmocrm, delYclient } = useIntegrations()
             const {checkActiveCard, isActiveAmo, activeAmoCrmPage } = integrationCards()
@@ -100,6 +111,7 @@
                 amo: {},
                 yclients: {},
             })
+
             const getBitrixWrapper = () => {
                 getBitrix()
                     .then(r => {
@@ -111,6 +123,7 @@
                     });
             }
             const getAmocrmWrapper = () => {
+                
                 getAmocrm()
                     .then(r => {
                         if (r.code === 404) {
@@ -119,9 +132,11 @@
                         }
                         integrations.amo = {...r.amocrm_integration};
                         formData.value.data= integrations.amo
+                      
                     }); 
             }
             const  getYclientsWrapper = () => {
+               
                  getYclients()
                     .then(r => {
                         if (r.code === 404) {
@@ -139,10 +154,10 @@
                 delYclient();
                 integrations.yclients = {is_active: false};
             }
-            const isActiveForm = ref(false)
+             const isActiveForm = ref(false)
             const activatedForm = () => {
                  isActiveForm.value = true
-                return true
+        return true
             }
             getBitrixWrapper();
             getAmocrmWrapper();
@@ -174,7 +189,8 @@
                  isUpdateAmo,
                  amoCrmUpdateValue,
                  yclienRedirection,
-                 deleteYclient
+                 deleteYclient,
+                 editDate
             }
         }
     }
