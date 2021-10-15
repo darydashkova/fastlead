@@ -77,6 +77,17 @@ const routes = [
         path: 'account', component: () => import('../views/settings/account/account.vue'), meta: { requiresAuth: true, title: 'Fastlead - Настройки аккаунта' }
       },
       {
+        path: 'finance', component: () => import('../views/settings/finance/finance.vue'), meta: { requiresAuth: true, title: 'Fastlead - Финансы' },
+        children: [
+          {
+            path: '/settings/finance/rates', component: () => import('../views/settings/finance/rates/rates.vue'), meta: { requiresAuth: true, title: 'Fastlead - Финансы' },
+          },
+          {
+            path: '/settings/finance/history', component: () => import('../views/settings/finance/history/history.vue'), meta: { requiresAuth: true, title: 'Fastlead - Финансы' },
+          }
+        ]
+      },
+      {
         path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчики' }
       },
       {

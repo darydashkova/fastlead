@@ -1,0 +1,370 @@
+.settings-finance__rates{
+    padding: 20px 32px 0px 32px;
+}
+.settings-finance__tariff{
+    text-align: left;
+    display: flex;
+    & h2{
+        color: #CFCFE4;
+        font-size: 18px;
+        line-height: 0px;
+        padding-left: 10px;
+    }
+}
+.settings-finance__type-tariff{
+    display: flex;
+    justify-content: space-between;
+    width: 510px;
+    text-align: center;
+    margin-left: 172px;
+    background: #141427;
+    border-radius: 6px;
+    
+    &_base,&_start,&_pro{
+        text-align: center;
+        margin: auto;
+        width: 170px;
+        color: #F0F0FA;
+        border: 2px solid #141427;
+        border-radius: 6px;
+        height: 30px;
+        font-size: 10px;
+        padding-top: 5px;
+        &:hover{
+            border: 2px solid #60d17c;
+            color: #60d17c;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+    }
+}
+
+.tariff_active{
+    border: 2px solid #60d17c;
+    color: #60d17c;
+}
+table {
+    border-collapse: collapse; 
+    width: 100%;
+}
+.settings-finance__info{
+    height: 170px;
+    background: #141427;
+    margin-top: 12px;
+    border-radius: 6px;
+    display: flex;
+}
+.settings-finance__info_table{
+    &:first-child{
+        border-bottom: 1px solid #252544;
+    }
+    &:last-child{
+        border-top: 1px solid #252544;
+    }
+        & td{
+        align-items: center;
+        color: #F0F0FA;
+        font-size: 12px;
+        width: 180px;
+        text-align: center;
+        position: relative;
+        &:first-child{
+            text-align: left;
+            color: #9797BB;
+            font-size: 10px;
+            width: 240px;
+            padding-left: 20px;
+        }
+        &:last-child{
+            width: auto;
+        }
+    }
+}
+
+.settings-finance__payment{
+    margin-top: 25px;
+    text-align: left;
+    display: flex;
+    & h2{
+        color: #CFCFE4;
+        font-size: 18px;
+        line-height: 0px;
+        padding-left: 10px;
+    }
+}
+.settings-finance__type-payment{
+    display: flex;
+    justify-content: space-between;
+    width: 850px;
+    text-align: center;
+    margin-left: 180px;
+    background: #141427;
+    border-radius: 6px;
+    
+    &_mounth{
+        text-align: center;
+        margin: auto;
+        width: 100%;
+        color: #F0F0FA;
+        border: 2px solid #141427;
+        border-radius: 6px;
+        height: 30px;
+        font-size: 10px;
+        padding-top: 5px;
+        &:hover{
+            border: 2px solid #60d17c;
+            color: #60d17c;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+    }
+}
+.tariff_active-payment{
+    border: 2px solid #60d17c;
+    color: #60d17c;
+}
+.settings-finance__calculator{
+    margin-top: 18px;
+    width: 100%;
+    border-collapse: collapse;
+    &_titles{
+        height: 37px;
+        background-color: #191933;
+        & td{
+            text-align: left;
+            width: 80px;
+            color: #9797BB;
+            font-size: 10px;
+            &:first-child{
+                padding: 0px 20px 0px 20px;
+                border-top-left-radius: 10px;
+            }
+            &:last-child{
+                border-top-right-radius: 10px
+            }
+        }
+    }
+    &_values{
+        height: 60px;
+        background-color: #141427;
+        border-bottom: 1px solid #252544;
+        margin-left: 100px;
+        & td{
+            text-align: left;
+            width: 50px;
+            color: #9797BB;
+            font-size: 13px;
+            &:first-child{
+                padding: 0px 0px 0px 20px;
+                width: 50px;
+            }
+        }
+        &:last-child{
+            border-bottom: none;
+            & td{
+                &:first-child{
+                    border-bottom-left-radius: 10px;
+                }
+                &:last-child{
+                    border-bottom-right-radius: 10px
+                }
+            }
+        }
+        &-days{
+            padding-left: 15px;
+        }
+        &-text{
+            padding-left: 20px;
+            /* margin-top: -20px; */
+            display: flex;
+        }
+        &-question{
+            margin-top: 2px;
+            align-items: center; 
+            cursor: pointer;
+            width: fit-content;
+            /* display: flex; */
+            position: absolute;
+
+            &:hover .settings-finance__calculator_message{
+            display: block;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+        }
+       
+    }
+}
+.settings-finance__calculator_message{
+    position: absolute;
+    margin-top: -8px;
+    display: none;
+    &-arrov{
+        /* display: none; */
+        border: 10px solid transparent;
+        border-bottom: 10px solid #F0F0FA;
+        width: 5px;
+        margin-left: -3px;
+    }
+    &-text{
+        width: 300px;
+        background: #F0F0FA;
+        color: #252544;
+        padding: 18px 18px 18px 18px;
+        border-radius: 6px;
+        margin-left: -35px;
+        /* display: none; */
+    }
+}
+/* .settings-finance__calculator_values */
+.settings-finance__total{
+    margin-top: 25px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #252544;
+    & h2{
+        color: #CFCFE4;
+        font-size: 18px;
+        line-height: 0px;
+        padding: 0px 10px 10px 10px;
+    }
+    &_without-discount{
+        margin-top: 10px;
+        & h2{
+            font-size: 14px;
+            padding-bottom: 5px;
+        }
+    }
+}
+
+.settings-finance__pay{
+    margin-top: 25px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    &-button{
+        padding: 8px 32px 8px 32px;
+        font-size: 16px;
+        background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+        border-radius: 6px;
+        cursor: pointer;
+    }
+}
+
+.settings-finance__btn{
+    display: flex;
+    padding-top: 20px;
+    margin-left: -25px;
+    &_minus{
+        background: none;
+        padding-right: 15px;
+        cursor: pointer;
+        & svg:hover{
+            border-radius: 3px;
+            background: #ffffff67;
+        }
+        & svg:active{
+            background: #40406B;
+            transition: all 0.3s;
+            & rect{
+                stroke: #84D160;
+            }
+            & path{
+                fill: #84D160;
+            }
+        }
+    }
+    &_plus{
+        background: none;
+        padding-left: 15px;
+        cursor: pointer;
+        & svg:hover{
+            border-radius: 3px;
+            background: #ffffff67;
+            transition: all 0.3s;
+        }
+        & svg:active{
+            background: #40406B;
+            & rect{
+                stroke: #84D160;
+            }
+            & path{
+                fill: #84D160;
+            }
+        }
+    }
+    &_reset{
+        background: #141427;
+        color: #EB5757;
+        border: 1px solid #252544;
+        border-radius: 6px;
+        padding: 4px 20px 4px 20px;
+        margin-left: -30px;
+        cursor: pointer;
+        &:hover{
+            background: #EB5757;
+            color: #CFCFE4;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 32px;
+    height: 18px;
+    margin-left: 10px;
+  }
+  
+.switch input {
+    display: none;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1D1D35;
+    border: 2px solid #9797BB;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    top: 1px;
+    bottom: 4px;
+    background-color: #9797BB;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+  
+input:checked + .slider {
+    border: 2px solid #84D160;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+    background: #84D160;
+}
+  
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
