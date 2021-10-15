@@ -1,0 +1,53 @@
+.settings-finance__history{
+    padding: 20px 32px 0px 32px;
+}
+.settings-finance__title{
+    text-align: left;
+    display: flex;
+    & h2{
+        color: #CFCFE4;
+        font-size: 18px;
+        line-height: 0px;
+        padding-left: 10px;
+    }
+}
+.scroll{
+    overflow-y: auto;
+    height: 750px;
+    width: 95%;
+    z-index: 0;
+    margin-right: 50px;
+    align-items: flex-start;
+    margin-top: 150px;
+}
+::-webkit-scrollbar-button {
+    background-repeat:no-repeat;
+    width:5px;
+    height:0px
+    }
+    
+    ::-webkit-scrollbar-track {
+    background-color: #0b0b1a;
+    border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 4px;
+    background-color:#40406B;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover{
+    background-color:#56568d;
+    }
+    
+    ::-webkit-resizer{
+    background-image:url('');
+    background-repeat:no-repeat;
+    width: 0px;
+    height:0px
+    }
+    
+    ::-webkit-scrollbar{
+    width: 6px;
+    }

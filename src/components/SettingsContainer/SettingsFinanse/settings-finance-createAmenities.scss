@@ -1,0 +1,127 @@
+.settings-finance__list{
+    
+    width: 100%;
+    border-collapse: collapse;
+    &_titles{
+        height: 37px;
+        background-color: #191933;
+        & td{
+            text-align: left;
+            width: 80px;
+            color: #9797BB;
+            font-size: 10px;
+            &:first-child{
+                padding: 0px 20px 0px 20px;
+                border-top-left-radius: 10px;
+            }
+            &:last-child{
+                text-align: right;
+                padding-right: 20px;
+                border-top-right-radius: 10px
+            }
+        }
+    }
+}
+.settings-finance-createAmenities{
+    height: 85px;
+    background: #141427;
+    padding: 0px 0px 0px 20px;
+    border-bottom: 2px solid #252544;
+    & td {
+        text-align: left;
+        color: #CFCFE4;
+        font-size: 12px;
+        &:first-child{
+            padding-left: 20px;
+            font-size: 14px;
+        }
+        &:last-child{
+            text-align: right;
+        }
+    }
+    &:last-child{
+        border-bottom: none ;
+        & td{
+            &:first-child{
+                border-bottom-left-radius: 10px;
+            }
+            &:last-child{
+                border-bottom-right-radius: 10px;
+            }
+        }
+    }
+    &__instagram{
+        padding-top: 20px;
+        display: flex;
+        &_text{
+            padding-left: 9px;
+        }
+    }
+    &__whatsapp{
+        padding: 10px 0px 20px 0px;
+        display: flex;
+        &_text{
+            padding-left: 9px;
+        }
+    }
+    
+    &__status{
+        &_name-error{
+            color: #EB5757;
+            background: #eb575731;
+            width: 100px;
+            min-width: 100px;
+            text-align: center;
+            padding: 4px 12px 4px 12px;
+            border-radius: 22px;
+        }
+        &_name-successful{
+            color: #5EC075;
+            background: #5EC07531;
+            width: 100px;
+            min-width: 100px;
+            text-align: center;
+            padding: 4px 12px 4px 12px;
+            border-radius: 22px;
+        }
+        &_name-completed{
+            color: #DACB4A;
+            background: #DACB4A31;
+            width: 100px;
+            min-width: 100px;
+            text-align: center;
+            padding: 4px 12px 4px 12px;
+            border-radius: 22px;
+        }
+    }
+    
+    &__button{
+        
+        &_change{
+            background: #141427;
+            color: #9797BB;
+            border: 1px solid #252544;
+            border-radius: 6px;
+            padding: 4px 20px 4px 20px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        &_payment{
+            background: #141427;
+            color: #5EC075;
+            border: 1px solid #252544;
+            border-radius: 6px;
+            padding: 4px 20px 4px 20px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+        &_disabled{
+            background: #2e2e5a;
+            color: #c2c7c36b;
+            border: 1px solid #252544;
+            border-radius: 6px;
+            padding: 4px 20px 4px 20px;
+            margin-right: 20px;
+        }
+    }
+}
