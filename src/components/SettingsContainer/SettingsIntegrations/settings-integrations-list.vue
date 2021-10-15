@@ -44,7 +44,8 @@
            <SettingsIntegrationsCard v-if="isAmoClick"  :img="cardImg[0]" :active="amoProps.is_active" :activelink="isAmoClick"  :name='`amoCRM`'  @connect="amo.action()" @del="amo.del()" @connectEdit="linkSettings()" @activeAmo='ff()'></SettingsIntegrationsCard> 
           <SettingsIntegrationsCard :img="cardImg[0]" v-else  :active="amoProps.is_active" :activelink="isAmoClick" @plug="openModel(amo)"  :name='`amoCRM`'  @connect="amo.action()" @del="amo.del()"  @connectEdit="linkDefault()" @activeAmo='ff()'></SettingsIntegrationsCard> 
         </div>
-             <!-- </router-link> -->
+        <SettingsIntegrationsCard :img="cardImg[1]"  :active="yclientsProps.is_active" @del="yclients.del()" :name='`yclient`' @connect="yclients.action()"  @plug="openModel(yclients)"  ></SettingsIntegrationsCard>
+      <!-- </router-link> -->
       <!-- <SettingsIntegrationsCard :img='cardImg' :active="amoProps"></SettingsIntegrationsCard>  -->
       <!-- <div class="settings-integrations-list__element" @click="bitrix.action()">
                 <svg v-if="bitrixProps.is_active" width="136" height="25" viewBox="0 0 136 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,6 +98,12 @@
         @close="bitrix.toggleOpened(false)"
         @save="bitrix.connect"
       ></ModalIntegrationBitrix>
+      <ModalIntegrationYclients
+        v-if="yclients.isOpened"
+        @close="yclients.toggleOpened(false)"
+        @save="yclients.connect"
+        @connectYclient ='pastAuth'
+      ></ModalIntegrationYclients>
     </teleport>
   </div>
 </template>
@@ -105,6 +112,7 @@ import { useCustomScroll } from "../../../composition/useCustomScroll";
 import { onMounted, reactive, computed, ref, onUpdated } from "vue";
 import ModalIntegrationBitrix from "../../Modals/integrations/ModalIntegrationBitrix";
 import ModalIntegrationAmoCRM from "../../Modals/integrations/ModalIntegrationAmoCRM";
+import ModalIntegrationYclients from "../../Modals/integrations/ModalIntegrationYclients";
 import BaseButton from "../../Base/BaseButton";
 import SettingsIntegrationsCard from "./SettingsIntegrationsCard/SettingsIntegrationsCard";
 import {integrationCards} from "./SettingsIntegrationsCard/settings-integrations-card";
@@ -114,45 +122,51 @@ export default {
   components: {
     ModalIntegrationBitrix,
     ModalIntegrationAmoCRM,
+    ModalIntegrationYclients,
     BaseButton,
     SettingsIntegrationsCard,
   },
   props: {
     bitrixProps: Object,
     amoProps: Object,
+    yclientsProps: Object,
     activeLink: Boolean,
     openList: Boolean,
-refreshAmo:Boolean,
+    refreshAmo:Boolean,
   },
   setup(props, { emit }) {
     const {activateForm, isAmoClick} = integrationHeader();
     const { container, content, scrollbar, scrollTo, init } = useCustomScroll();
-     const { connectAmocrm, connectBitrix  } = useIntegrations()
+     const { connectAmocrm, connectBitrix, connectYclients  } = useIntegrations()
     const cardImg = ref([]);
     const checkactiveLink = () => {
-
     }
 
     onUpdated(()=>{
       checkactiveLink();
     })
    
-    const { checkActiveCard, activeTabs} = integrationCards()
+    const { checkActiveCard, activeTabs, activeAmoCrmPage} = integrationCards()
     cardImg.value = ["data:image/png;base64,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",
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAEECAYAAADOCEoKAAAQP0lEQVR4Ae2dMY/bRhbH9VEELCm4zgcwFpaUC5AiLo27Imlyre3+nLvykBS5woDTOYWrNHZz1wXGtcEB28WlC3+ATZ1mDy/eecvVitRQekPOvPkFcKiVuFxx5v9+83/DN+RiMeK/5fJ82bbbx6vV5nXbbt+37eaybTdX/KMN0EA2GpCYvLiO0cfL5WfLESEet+vZ2fph227e0unZdDoQZiAao4GL1erTL+OifWCvptmcAwIgwEDgRQPb90c7htVq83eE4EUInAdavtGAxPaAD7j7UdtuX9KANw1IW9AWDjXw/d3I3/NO226+d3jyY/It9iU/r0QD25d7EHDzFmkCIyGDQV0a6E0f7t37bIkY6hID/U1/iwbk4sGNLbh+dV1XUIlVQgjAAA10NPD2FhDadvtV50OgQA6NBirTQNP86QuFQtNsLgACIwYaqFoDH10CcwdViwAnUJkTGIK+LE1YNM2DJ0M78RnAQAN1aKBpNk8WTbN+TYfX0eH0M/08pIHVavNmwfwBIhkSCZ/VpI/t+wVLmGvqcM4VwA1q4FKAwMQSbYAG0MAfGgAICAEYoAHVAEBADCoG3CJuGSAABICABlQDAAExqBhwCDgEgAAQAAIaUA0ABMSgYsAh4BAAAkAACGhANQAQEIOKAYeAQwAIAAEgoAHVAEBADCoGHAIOASAABICABlQDAAExqBhwCDgEgAAQAAIaUA0ABMSgYsAh4BAAAkAACGhANQAQEIOKAYeAQwAIAAEgoAHVAEBADCoGHAIOASAABICABlQDAAExqBhwCDgEgAAQAAIaUA0ABMSgYsAh4BAAAkAACGhANQAQEIOKAYeAQwAIAAEgoAHVAEBADCoGHAIOASAABICABlQDAAExqBhwCDgEgAAQAAIaUA0ABMSgYsAh4BAAAkAACGhANQAQEIOKAYeAQwAIAAEgoAHVAEBADCoGHAIOASAABICABlQDAAExqBhwCDgEgAAQAAIaUA0ABMSgYsAh4BAAAkAACGhANQAQEIOKAYeAQwAIAAEgoAHVAEBADCoGHAIOASAABICABlQDAAExqBhwCDgEgAAQAAIaUA0ABMSgYsAh4BAAAkAACGhANQAQEIOKAYeAQwAIAAEgoAHVAEBADCoGHAIOASAABICABlQDAAExqBhwCDgEgAAQAAIaUA0ABMSgYsAh4BAAAkAACGhANQAQEIOKAYeAQwAIAAEgoAHVAEBADCoGHAIOoWogfPLJF1fPnj2/+vbbl9X8e/r0n8kAIO359dd/c9WW9+//OVl75QjgqoHw668frn777ffq/r169W9TkQsIBKofPly6bEs5vxyDN8V3qhYI0sk1wkDO+eef/2cm8Pv3/3LlHayPHj01a68UQWx5zGqBII0ogVEjFKzShhpg8O7dh2pgIDFRNRBE0F5tbh/oLN3Bq1f/cQ/Uzz//K0CwtCC5H0ty377g8fi+1SSZ2GiP7dM9px9++KkqGFTvEAKsvOfAQeTffffSTODe20xSBSt4Bp2VsK06ZQgdVMNoZ5kL1+CqrOZZgsZK2QKE68IksYdhJPW4tRrtZN7FY/t0z8n6smwpMJDvCRCugSCXIb1OMFrmwqQKvqsZAUKndFlsYnek8PBaUgWrwhpSBd8wwCF0YBBsnbfaBKtcmFTBPwwAwh4geKpNsMyFf/nlnTv31HWAki5azbOEwaXELSnDHih4sMaWl81kAVg3eDy+/uab52aXZEsEQfjOAGEPEKRxSp88s0wVvE62BrBZXpINgVXqFiD0AKHk2gTKk8etYCVVuJkfAQg9QBDCl1qbYCVwj1ddgisIW8vqzVJdQfd7A4QBIJRYm2AlcJlcLT1tCkHftyVVuHEGAQoAYQAI0kgljZKWAq9hJaOVkwrB5GELEA4AQTq5lNoEK4GXBMG+0f/Q+1ZOygMEuucAECKAUEJtgpXAa0kVrKo3u8Hk4TVAiACCdHTOtQmSKlgJ/MUL34u8xDnIjWA9BG+KcwAIkUCQxs91ks2q5qDkS62HUoTwuWX1ZoqAnPuYAGEEEHIMGEuB5wq8EMynbsVJWc2zzB24qf4+QBgBBOmEnGoTLAWec0p0KgjC71s5qVTBmMNxAcJIIORUm2AlcJlIDEHjdWvppHII3FTfASCMBIJ0RA6X5SwFTqpwt0AnVcDlflyAcAQQpFPnrE2wXKpLqgAMupACCEcCYc7aBMuaA68pQjgvy4Ve3cDx+hogHAkEEcQco6tlefKcLicEbOotVxXGOSCAcAIQZIJx6vzbSuA13PTEykl5dQP7zgsgnAAEadApaxOsBF5LefI+wfPesGMACCcCQQQ2RW2CZarASsbhoKgZGgDBAAhT1CaIE7EQag6XTFPPG1g5KYv2Lu0YAMEACNLpcpPOVEK3qjkgVcAZHAIUQDACgjR0ill7y/LkGlKF2h7ffijAx34OEAyBkKI2wao8uYZUwfKRdWMDycv+AMEQCCIKy9oEq1RhjsujqdKnvuNaOikvwX3MeQAEYyBYBZ9leXINNz2xclLHBJGn3wEIxkAQcVjUJlg9SUjSmL5R1cv7Vk7KU2Afey4AIQEQpDNOqU2wrDmYupJyasiQKtheOQEIiYBwSm2CVXmy5XzG1IEe+/dIFQCCSYHOsZZqzO8dU5tgVVRDqmAbKGP6veR9cQiJHEIQxZjaBFKF+GcyWk66hr5iu7kCCImBMKY2waqopoZUwWrSFQjcdlIAITEQRHAxAWo1U15DqmDppAACQJh8DuJQbYLlTPmYFCV24i63/awmXYHBbRhIe+AQJnAI0tBDtQlWM+U1lCdbTboCg7swAAgTwSCIb19tgmWqUEPNQWhLtvsD+tR2wSFMCIXd1MEyVahhJSOpQhoIdCECECYEgjS8TPpJnv/mzX+vrK4qkCqkD5Ru0Hh+DRAmBoK1mAQwNaQK4q6s247j3QUpQCgcCDWkCjy+/W7gpoIZQCgYCDWkClaTrqkCyNtxAUKhQNidoMytVsDi+1hOunoL3FTnAxAKBQI3PZnORqcKvhyPCxAKBEIN5cmkCvMADyAUCIQaripQcwAQuKwUAaeYhVIW+fucx7Aq5c7Rkuf+nXAIEUGYSyfWkCpI0VYu7V3j9wAIBQHBe6ogroRUYZ5UIcAPIBQChBpSBVYyzgsDgQJAKAAIkirILcPmzOtT/21uejI/DABCATCQTuKmJ3kES7DVnrc4hMyhUEN5MqlCPsADCBkDoZaVjJ5H3NLODSBkDIQaVjJa3ROitMDL9fsChEyBUEOqwOPb80kVAqAAQoZAqCVVoOYAIFCFFgGgGlIFypPzg4G4BBxCRIAGOzXFVu4OlPqa/9zHZyVjnjAACJnBgJue5BsoUwwGOfwNHEJGUOCmJwBhbigAhEyAUMNKRlKF/IEHEDIBgveVjDy+PX8YMIeQCQxqWMnI49sBApcYI4BTQ6rASsYyYIBDiAjY1JM83lMFucRJARJAwB1EwObZs+fuaw5YyVgODHAIEUGbyiFIqsBNT8oKllRayOm4XGWYCQry9Oe5KwZT/31ShfKABxBmAEINKxlJFcqDASnDDDCoZSUjj28HCEwkRgCmhpWMPL69TBjgECIC2HLCp4ZUgfLkcmEAECYEQi2pAhOJAIFUIQIsNaQK3PSkbBjgECIC2SJlePToqftLjKQK5cMAIEwEBO/lybJWgVQBIJAqRAClholEUgUfMMAhRAT0qSmD98ew8fh2PzAACBMAwXu6QKoAEEgVRoDEMxAoT/YFAxzCiMA+NnXwmjJw0xN/MAAIEwDB6+3RSBUAAqnCEQDx+KwFUgWfMMAhHBHgx6QOngqTSBX8wgAgTAQEaWgvN0Th8e0AgVTBABySOpR+yzQe3+4bBjgEg0Afk0LIswlS37Ys1fEpT/YPA4AwMRCkwUu9DEl5MkAgVUgAjBLvtsxKxjpggENIEPAxKURJtQmkCvXAACDMBARp+FJKmkkVAAKpwgSgKKE2gVShLhjgECYI/KEUQi7jpboqcOpxeXx7fTAACDMDIefaBB7fDhBIFWYAhDzD4NTR3Pr3KU+uEwY4hBkAsC+FyK02gZWMAAF3MCMccqpNYCVjvTDAIcwIgV2nkENZM6lC3TAACBkBQTpj7tSBVAEg8Dj4jKAgS4utJwhjj0eqAAxwCBnBIKQQc9QmSKrA49sBAkDIEAhz3HKNx7cDgzAgkTJkCIUpy5opTwYGAQY4hAxhEDpniluusZIRGAS9hS0OIVMoTFHWzEpGgBBAELYAIVMgSAelrE0gVQAGAQLdLUDIGAjSUSlqE0gVgEEXAt3XACFzIKQoayZVAAhdCHRfA4TMgSCdZXnLNXEcXQHwGjh0NQAQCgCCdJjVLdcoTwYAXQDsvgYIhQDBojaB8mRgsAuA3Z8BQiFAkI47payZlYzAYDf49/0MEAoCwim1CaQKAGEfAHbfAwgFAUE675hbrpEqAIPdwO/7GSAUBgTpyDG1CaQKwKAv+Pe9DxAKBMKY2gQe3w4Q9gV+33sAoUAgSGfGlDXz+HZg0Bf4fe8DhEKBIB06lDpQngwM+oJ+6H2AUDAQhm65RnkyQBgK/L7PAELBQJBO3VebwEpGYNAX8IfeBwiFA2H3lmukCsDgUNAPfQ4QCgeCdK5cdXjx4qcrcQYUIAGEoYA/9BlAcACEQ53M50AiVgMAASCwHBoNqAYAAmJQMcSOIuzn13EABIAAENCAagAgIAYVAyO/35E/tm8BAkAACGhANQAQEIOKIXYUYT+/TgIgAASAgAZUAwABMagYGPn9jvyxfQsQAAJAQAOqAYCAGFQMsaMI+/l1EgABIAAENKAaAAiIQcXAyO935I/tW4AAEAACGlANAATEoGKIHUXYz6+TAAgAASCgAdUAQEAMKgZGfr8jf2zfAgSAABDQgGoAICAGFUPsKMJ+fp0EQAAIAAENqAYAAmJQMTDy+x35Y/sWIAAEgIAGVAMAATGoGGJHEfbz6yQAAkAACGhANQAQEIOKgZHf78gf27cAASAABDSgGgAIiEHFEDuKsJ9fJwEQAAJAQAOqAYCAGFQMjPx+R/7YvgUIAAEgoAHVAEBADCqG2FGE/fw6CYAAEAACGlANAATEoGJg5Pc78sf2LUAACAABDagGBAiXsfRgP0YQNOBaA5eLtt2+p5Ndd7LSn36mnw9o4GLRNOvXB3ZCUFhKNFCBBlarzZtF0zx4AhAYOdAAGmiazZPFvXvnS8SAGNAAGlguz5cL+a9tN28RBIJAA1Vr4OIPGMj/zs7WDxFD1WJgjqCCOYKhGF+t1l8qEHAJwGBILHzmXR/r97dgID80zeacjvfe8ZwfGr+rAZ072KVC02z+QYPdbTDahDbxqgGJ+V0O3Pq5bbc/ej15zovARgM3Gjg7W//rVvD3/SA70nA3DUdb0Bb+NLD9sS/+975P+kAQ+AsC+lT69GCasJcIi8V10dKatQ6VX5ICDD5A0jSbt3LxoC/eo99v2wdfNc3mAmH4EAb9WFc/CgjOzj59GB3wsTt+LHNeP5YFUdeAYOk07oGiprw0cCkrmD8uWlw/7r2k2BP0/wed85JjV2OgEAAAAABJRU5ErkJggg=="];
 
-    
-
     onMounted(() => {
       init();
- 
     });
-const pastAuth = (login, pass) => {
-
+  const pastAuth = (login, pass) => {
   const log = login.value;
   const password = pass.value
   const data = {log, password}
-
+  yclients.connect(data)
+  connectYclients(data)
+}
+const updateAmoHeader = () => {
+  if(activeAmoCrmPage.value){
+    console.log(true)
+  }
+  else{
+        console.log(false)
+  }
 }
     const bitrix = reactive({
       action: () => {
@@ -186,6 +200,28 @@ const propsActive = () => {
       return false
  }
 }
+    const yclients = reactive({
+      action: () => {
+        if (props.yclientsProps.is_active) {
+          emit("openForm", "yclients");
+          //open form
+        } else {
+          yclients.toggleOpened(true);
+        }
+         emit("redirectYclient");
+      },
+      isOpened: false,
+      toggleOpened: (boolean) => (yclients.isOpened = boolean),
+      connect: (data) => {
+        connectYclients(data).then((r) => {
+          emit("getYclients");
+          yclients.toggleOpened(false);
+        });
+      },
+      del: () => {
+         emit("deleteYclient");
+      }
+    });
     checkActiveCard(false);
     const amo = reactive({
       action: () => {
@@ -193,10 +229,8 @@ const propsActive = () => {
           emit("openForm", "amo");
           checkActiveCard(true)
           activeTabs(true)
-
           //open form
         } else {
-         
           amo.toggleOpened(true);
           activeTabs(false)
            checkActiveCard(false)
@@ -243,11 +277,11 @@ const linkDefault = () =>{
       scrollTo,
       amoProps: computed(() => props.amoProps),
       bitrixProps: computed(() => props.bitrixProps),
-
+      yclientsProps: computed(() => props.yclientsProps),
       cardImg,
       bitrix,
       amo,
-
+      yclients,
       checkActiveCard,
   linkSettings,
       ff,
@@ -257,7 +291,9 @@ const linkDefault = () =>{
       linkForm,
       linkDefault,
       openModel,
-      pastAuth
+      pastAuth,
+      activeAmoCrmPage,
+      updateAmoHeader
     };
   },
 };

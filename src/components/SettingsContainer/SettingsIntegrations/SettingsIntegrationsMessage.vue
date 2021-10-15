@@ -4,8 +4,8 @@
         <div class="settings-integration-message__input">
             <div class="scroll" ref="container" @click.self="scrollTo">
                 <div class="scroll__bar" ref="scrollbar"></div>
-            </div> 
-            <textarea class="settings-integration-message__input-text settings-integrations-form__input_test" placeholder="" ref="content"> </textarea>
+            </div>
+            <textarea class="settings-integration-message__input-text settings-integrations-form__input_test" placeholder="" ref="content" v-model="textMessage" @blur="checkMesage()"></textarea>
                <div class="settings-integration-message__input-elems">
                 <div class="settings-integration-message__input-elems-flex">
                     <div class="settings-integration-message__input-elems-emoji pointer">
@@ -36,16 +36,25 @@
     </div>
 </template>
 <script>
- import { ref, reactive, onMounted } from "vue";
+ import { ref, reactive, onMounted, watch } from "vue";
 import { Picker } from "../../emoji-component/src";
 import {useEmoji} from "../../../composition/useEmoji";
 import {useCustomScroll} from "../../../composition/useCustomScroll";
 import SettingsIntegrationsModalFiles from "./SettingsIntegrationsModalFiles"
 export default {
     components: { Picker, SettingsIntegrationsModalFiles},
-    setup() {
-         const openedEmojiPicker = ref(false);
-         const textarea = ref();
+    emits: ["propText"],
+    props: {
+        text:String
+    },
+    setup(props,{emit}) {
+        const openedEmojiPicker = ref(false);
+        const textarea = ref();
+        const textMessage = ref('');
+        watch(()=>{
+           textMessage.value=props.text; 
+        })
+        
         const openedFileModal = ref(false);
             onMounted(() => {
                 textarea.value = document.querySelector('.settings-integration-message__input-text');
@@ -68,6 +77,10 @@ export default {
                 openedEmojiPicker.value = false
                 ScrollToBottom()
             }
+            const checkMesage = () => {
+                console.log(textMessage.value)
+                emit("propText", textMessage.value)
+            }
         return {
             openedEmojiPicker,
             emojiIndex,
@@ -82,14 +95,20 @@ export default {
             scrollTo,
             openedFileModal,
             openEmojiBlock,
-            openFileBlock
+            openFileBlock,
+            textMessage,
+            checkMesage
         }
     },
 }
 </script>
 <style lang="scss">
 .settings-integration-message{
+    position: relative;
     width: calc(56.3% - 10px);
+    .emoji-mart-static{
+        bottom:30px !important;
+    }
     &__title{
     font-size: 14px;
     line-height: 130%;
