@@ -199,8 +199,6 @@
                     div.innerHTML = div.innerHTML.replace(/<br>/g, '\n');
                     div.innerHTML = div.innerHTML.replace(/\n\n/g, '\n');
                     div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
-                    console.log(div.innerHTML)
-                    console.log('div.innerHTML')
                     addSendedMessage({
                         is_me: true,
                         is_read: false,

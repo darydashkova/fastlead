@@ -84,7 +84,7 @@
             height: 100%;
         }
         &.base-range-input-group_w-50 {
-            width: 50%;
+            width: 52%;
         }
         &.base-range-input-group_w-45 {
             width: 45%;
