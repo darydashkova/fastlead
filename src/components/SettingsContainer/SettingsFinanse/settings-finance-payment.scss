@@ -21,11 +21,11 @@
         display: flex;
         justify-content: space-between;
         padding: 26px 24px 0px 24px;
-        & span{
+        &_title{
             font-size: 30px;
             color: #CFCFE4;
         }
-        & svg{
+        &_close{
             cursor: pointer;
         }
     }
@@ -56,7 +56,7 @@
             }
         }
         &-total{
-            margin-top: 100px;        
+            margin-top: 10px;        
             border-top: 2px solid #40406B;
             &_title{
                 padding-top: 23px;
@@ -68,11 +68,11 @@
                 font-size: 18px;
                 color: #84d160ce;
             }
-            & td{
-                font-weight: 600;
-            }
         }
-        & tr{
+        &_cell{
+            font-weight: 600;
+        }
+        &_row{
             display: flex;
             justify-content: space-between;
         }
@@ -80,7 +80,7 @@
     &__method{
         height: 160px;
         border-bottom: 2px solid #40406B;
-        padding: 26px 24px 0px 24px;
+        padding: 24px 24px 0px 24px;
         &_title{
             color: #F0F0FA;
         }

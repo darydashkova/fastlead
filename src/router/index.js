@@ -88,6 +88,20 @@ const routes = [
         ]
       },
       {
+        path: 'partners', component: () => import('../views/settings/partners/partners.vue'), meta: { requiresAuth: true, title: 'Fastlead - Партнерская программа' },
+        children: [
+          {
+            path: '/settings/partners/profit', component: () => import('../views/settings/partners/profit/profit.vue'), meta: { requiresAuth: true, title: 'Fastlead - Партнерская программа' },
+          },
+          {
+            path: '/settings/partners/links', component: () => import('../views/settings/partners/links/links.vue'), meta: { requiresAuth: true, title: 'Fastlead - Партнерская программа' },
+          },
+          {
+            path: '/settings/partners/history', component: () => import('../views/settings/partners/history/history.vue'), meta: { requiresAuth: true, title: 'Fastlead - Партнерская программа' },
+          },
+        ]
+      },
+      {
         path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчики' }
       },
       {

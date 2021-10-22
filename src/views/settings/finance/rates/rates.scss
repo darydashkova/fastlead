@@ -4,7 +4,7 @@
 .settings-finance__tariff{
     text-align: left;
     display: flex;
-    & h2{
+    &_name{
         color: #CFCFE4;
         font-size: 18px;
         line-height: 0px;
@@ -43,7 +43,7 @@
     border: 2px solid #60d17c;
     color: #60d17c;
 }
-table {
+.settings-finance__info_wrapper {
     border-collapse: collapse; 
     width: 100%;
 }
@@ -55,19 +55,20 @@ table {
     display: flex;
 }
 .settings-finance__info_table{
+    border-bottom: 1px solid #252544;
     &:first-child{
         border-bottom: 1px solid #252544;
     }
     &:last-child{
-        border-top: 1px solid #252544;
+        border-bottom: none;
     }
-        & td{
-        align-items: center;
-        color: #F0F0FA;
-        font-size: 12px;
-        width: 180px;
-        text-align: center;
-        position: relative;
+    &-cell{
+    align-items: center;
+    color: #F0F0FA;
+    font-size: 12px;
+    width: 180px;
+    text-align: center;
+    position: relative;
         &:first-child{
             text-align: left;
             color: #9797BB;
@@ -149,11 +150,11 @@ table {
         background-color: #141427;
         border-bottom: 1px solid #252544;
         margin-left: 100px;
-        & td{
+        &-cell{
             text-align: left;
             width: 50px;
             color: #9797BB;
-            font-size: 13px;
+            font-size: 12px;
             &:first-child{
                 padding: 0px 0px 0px 20px;
                 width: 50px;
@@ -161,7 +162,7 @@ table {
         }
         &:last-child{
             border-bottom: none;
-            & td{
+            .settings-finance__calculator_values-cell{
                 &:first-child{
                     border-bottom-left-radius: 10px;
                 }
