@@ -26,7 +26,7 @@
                         </div>
                 </button>
                 </div>
-                </div> -->
+                </div>  -->
                  <div class="settings-integrations-form__date-column">
                     <div>Время запуска</div>
                     <div class="settings-integrations-form__container">
@@ -47,7 +47,8 @@
                     </svg>
                         </div>
                        
-                </button> <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-time" v-if="statusTimeSelect">
+                </button> 
+                <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-time" v-if="statusTimeSelect">
                             <div class="settings-integrations-form__date-column">
                                 <div class="settings-integrations-form__date-column-title">Часов</div>
                                 <div class="settings-integrations-form__date-input">
@@ -113,19 +114,10 @@
                 </div>
                 <button @click="openFilters" class="settings-integrations-form__input_test" :class="{'settings-integrations-form__select_active': statusFiltersSelect }"> 
                     <div class="settings-integrations-form__dropdown-inner settings-integrations-form__dropdown-inner_placeholder"> Показать
-                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0)">
-                        <path d="M8 0C6.41775 0 4.87104 0.469192 3.55544 1.34824C2.23985 2.22729 1.21447 3.47672 0.608967 4.93853C0.00346629 6.40034 -0.15496 8.00887 0.153721 9.56072C0.462403 11.1126 1.22433 12.538 2.34315 13.6569C3.46197 14.7757 4.88743 15.5376 6.43928 15.8463C7.99113 16.155 9.59966 15.9965 11.0615 15.391C12.5233 14.7855 13.7727 13.7602 14.6518 12.4446C15.5308 11.129 16 9.58225 16 8C15.9977 5.87897 15.1541 3.84547 13.6543 2.34568C12.1545 0.845886 10.121 0.00229405 8 0V0ZM8 14.6667C6.68146 14.6667 5.39253 14.2757 4.2962 13.5431C3.19987 12.8106 2.34539 11.7694 1.84081 10.5512C1.33622 9.33305 1.2042 7.99261 1.46144 6.6994C1.71867 5.40619 2.35361 4.21831 3.28596 3.28596C4.21831 2.35361 5.4062 1.71867 6.6994 1.46143C7.99261 1.2042 9.33305 1.33622 10.5512 1.8408C11.7694 2.34539 12.8106 3.19987 13.5431 4.2962C14.2757 5.39253 14.6667 6.68146 14.6667 8C14.6647 9.76752 13.9617 11.4621 12.7119 12.7119C11.4621 13.9617 9.76752 14.6647 8 14.6667Z" fill="#CFCFE4"/>
-                        <path d="M7.99964 4C7.82283 4 7.65326 4.07024 7.52824 4.19526C7.40321 4.32029 7.33297 4.48986 7.33297 4.66667V7.55L5.08564 8.958C4.93535 9.05188 4.82851 9.20163 4.78863 9.37428C4.74875 9.54694 4.77909 9.72837 4.87297 9.87866C4.96686 10.029 5.1166 10.1358 5.28926 10.1757C5.46192 10.2156 5.64335 10.1852 5.79364 10.0913L8.35364 8.49133C8.45037 8.43073 8.52991 8.34631 8.58466 8.24615C8.6394 8.146 8.66752 8.03346 8.66631 7.91933V4.66667C8.66631 4.48986 8.59607 4.32029 8.47105 4.19526C8.34602 4.07024 8.17645 4 7.99964 4Z" fill="#CFCFE4"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0">
-                        <rect width="16" height="16" fill="white"/>
-                        </clipPath>
-                        </defs>
-                    </svg>
-                        </div>
-                       
+                       <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
+                        </svg>
+                    </div>
                 </button> 
                 <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-filters" :class="{' settings-integrations-form__dropdown-list-filters_hidden':!statusFiltersSelect}">
                     <div class="settings-integrations-form__dropdown-list-filters-title">Клиент потратил сумму</div>
@@ -305,8 +297,14 @@ export default {
                 const dataNew = data.value
                 updateTask(dataNew)
                 router.push('/settings/integrations/yclients/create')
-                console.log(dataNew)
             } 
+        }
+        const checkOpenModal = (item) => {
+            statusAccSelect.value=false;
+            statusTimeSelect.value = false;
+            statusSelect.value=false;
+            statusFiltersSelect.value=false;
+            item.value = true;
         }
         watch(()=>{
             if(props.Propdata.parameters){
@@ -333,17 +331,28 @@ export default {
         }
         const openSelect = () => {
             statusSelect.value = !statusSelect.value;
+            if(statusSelect.value){
+             checkOpenModal(statusSelect)   
+            } 
         }
         const statusTimeSelected = () => {
             statusTimeSelect.value = !statusTimeSelect.value;
-            timeOption.value = hours.value + ':' + minute.value
+            timeOption.value = hours.value + ':' + minute.value;
+            if(statusTimeSelect.value){
+             checkOpenModal(statusTimeSelect)   
+            }
         }
         const openAcc =  () => {
             statusAccSelect.value=!statusAccSelect.value;
-            console.log(statusAccSelect.value)
+             if(statusAccSelect.value){
+             checkOpenModal(statusAccSelect)   
+            }
         }
         const openFilters = () => {
-            statusFiltersSelect.value=!statusFiltersSelect.value
+            statusFiltersSelect.value=!statusFiltersSelect.value;
+            if(statusFiltersSelect.value){
+             checkOpenModal(statusFiltersSelect)   
+            }
         }
         const checkFilters = (item) => {
             item = String(item);
@@ -498,6 +507,7 @@ export default {
             chooseAcc,
             timeZoneOption,
             data,
+            checkOpenModal,
             name,
             post,
             filial,
@@ -515,16 +525,13 @@ export default {
 }
 </script>
 <style lang="scss">
-
-
-
 .settings-integrations-form__birthday{
     .settings-integrations-form__date-column{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         .settings-integrations-form__input_test{
-            width: 93%;
+            width: 100%;
             margin-left: 0;
             height: 39px;
            

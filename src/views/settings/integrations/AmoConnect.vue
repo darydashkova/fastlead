@@ -1,31 +1,87 @@
 <template>
     <div class="settings-integrations">
-        <div class="settings-integrations__header">
-            <div>
-                Интеграции
-            </div>
-        </div>
-        <teleport to="body">
-            <FullScreenLoader></FullScreenLoader>
-        </teleport>
+        <integrationHeader></integrationHeader>  
+{{integrations.amo}}
+              <SettingsIntegrationsForm
+                
+                @getAmocrm="getAmocrmWrapper"
+                @close="closeForm"
+                :formData="  integrations.amo "
+        ></SettingsIntegrationsForm>
+       
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import { useRouter, useRoute } from 'vue-router'
+ 
+    import BaseButton from "../../../components/Base/BaseButton";
+    import SettingsIntegrationsForm from "../../../components/SettingsContainer/SettingsIntegrations/settings-integrations-form";
+    import {ref, reactive} from 'vue';
     import {useIntegrations} from "../../../composition/useIntegrations";
-    import FullScreenLoader from "../../../components/FullScreenLoader";
+     import {integrationCards} from "../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsCard/settings-integrations-card";
+    import integrationHeader from "./integrationHeader/integrationHeader";
     export default {
-        components: {FullScreenLoader},
-        setup() {
-            const router = useRouter();
-            const route = useRoute();
-            const { connectAmocrmAfterLogin } = useIntegrations()
-            connectAmocrmAfterLogin(route.query)
-                .then(r => {
-                    router.push('/settings/integrations')
-                })
+        components: {  BaseButton, integrationHeader, SettingsIntegrationsForm},
+      
+                   setup() {
+            const openedForm = ref(false);
+            const openForm = prop => {
+                formData.value = {
+                    name: prop,
+                    data: integrations[prop],
+                }
+                openedForm.value = true;
+            }
+            const closeForm = () => {
+                formData.value = {
+                    name: '',
+                    data: {},
+                }
+                openedForm.value = false;
+            }
+            const formData = ref(null);
+
+            const { getAmocrm } = useIntegrations()
+            const {checkActiveCard, isActiveAmo, activeAmoCrmPage } = integrationCards()
+            const integrations = reactive({
+
+                amo: {},
+
+
+            })
+
+            const getAmocrmWrapper = () => {
+                
+                getAmocrm()
+                    .then(r => {
+                        if (r.code === 404) {
+                            integrations.amo = {is_active: false};
+                           
+                            return;
+                        }
+                        integrations.amo = {...r.amocrm_integration};
+
+                    });
+            }
+            getAmocrmWrapper();
+
+            return {
+                openedForm,
+                integrations,
+
+                openForm,
+                closeForm,
+                formData,
+
+      
+                getAmocrmWrapper,
+          
+                 isActiveAmo,
+                 activeAmoCrmPage
+            }
         }
+        
     }
 </script>
 

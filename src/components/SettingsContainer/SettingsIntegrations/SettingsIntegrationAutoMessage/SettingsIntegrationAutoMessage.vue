@@ -5,16 +5,17 @@
                 <template v-if="automessageArray[indexItem][0]!=null"> 
                     {{automessageArray[indexItem][0]}}
                 </template> -->
+               
                    <template v-if="updateMessage">
-                    <template v-if="updateMessage?.data">
+                    <template v-if="updateMessage?.data&&updateMessage?.data.length!=0">
                         {{updateMessage.data}}
                     </template>
                     <template v-if="updateMessage?.message">
                         {{updateMessage.message}}
                     </template>
+                    <template v-if="updateMessage?.data&&updateMessage?.data.length===0">Ввести</template>
                   </template>
                 <template v-else>Ввести</template>
-        
             <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-integrations-form__input-edit">
                 <g clip-path="url(#clip0)">
                 <path d="M14.3255 0.697066L5.18151 9.84107C4.83227 10.1884 4.5554 10.6016 4.36692 11.0567C4.17845 11.5118 4.08212 11.9997 4.08351 12.4923V13.4996C4.08351 13.6985 4.16253 13.8892 4.30318 14.0299C4.44383 14.1705 4.6346 14.2496 4.83351 14.2496H5.84076C6.33333 14.251 6.82129 14.1546 7.27638 13.9662C7.73147 13.7777 8.14465 13.5008 8.49201 13.1516L17.636 4.00757C18.0743 3.56819 18.3204 2.97292 18.3204 2.35232C18.3204 1.73171 18.0743 1.13644 17.636 0.697066C17.1903 0.270986 16.5974 0.0332031 15.9808 0.0332031C15.3641 0.0332031 14.7713 0.270986 14.3255 0.697066ZM16.5755 2.94707L7.43151 12.0911C7.00861 12.5114 6.43702 12.748 5.84076 12.7496H5.58351V12.4923C5.58507 11.8961 5.82169 11.3245 6.24201 10.9016L15.386 1.75757C15.5462 1.60453 15.7592 1.51914 15.9808 1.51914C16.2023 1.51914 16.4153 1.60453 16.5755 1.75757C16.733 1.91545 16.8214 2.12933 16.8214 2.35232C16.8214 2.5753 16.733 2.78918 16.5755 2.94707Z" fill="#9797BB"/>

@@ -33,7 +33,8 @@
                                     </div>
                                 </div>
                             </button> -->
-                            <button class="settings-integrations-form__input settings-integrations-form__input_width"
+                            <button class="settings-integrations-form__input settings-integrations-form__input_width "
+                             :class="{'settings-integrations-form__select_active': showChannelsActive }"
                                     @click="showChannels()"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
@@ -69,7 +70,8 @@
                         <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_mr-13">
                             <div class="settings-integrations-form__label" v-if="index === 0">Воронка</div>
                             <button class="settings-integrations-form__input"
-                                    :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].funnel_id === null)}"
+                                    :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].funnel_id === null),
+                                    'settings-integrations-form__select_active':openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === index}"
                                     @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -95,7 +97,9 @@
                         <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_mr-13">
                             <div class="settings-integrations-form__label" v-if="index === 0">Этап</div>
                             <button class="settings-integrations-form__input"
-                                    :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].column_uid === null)}"
+                                    :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].column_uid === null),
+                                     'settings-integrations-form__select_active': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === index }"
+                                    
                                     @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -129,13 +133,13 @@
                             </div>
                         </div> 
                         
-                          <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_width">
+                          <!-- <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_width">
                             <div class="settings-integrations-form__label" v-if="index === 0">Тестовая отправка</div>
                             <div class="settings-integrations-form__label-test">
                                <input class="settings-integrations-form__input_test "  v-maska="'# (###) ###-##-##'"> 
                             <div class="settings-integrations-form__label-test-button pointer" @click="test(form.data.data.funnel_actions[index])">Отправить</div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="settings-integrations-form__add">
                     <span @click="form.addAction">
@@ -151,7 +155,9 @@
                         <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__label">Воронка</div>
                             <button class="settings-integrations-form__input"
-                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null)}"
+
+                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null),
+                                    'settings-integrations-form__select_active': openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === 'action' }"
                                     @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -176,7 +182,8 @@
                         <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__label">Этап</div>
                             <button class="settings-integrations-form__input"
-                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.column_uid === null)}"
+                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.column_uid === null),
+                                     'settings-integrations-form__select_active': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === 'action' }"
                                     @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', 'action')"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >

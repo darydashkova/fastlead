@@ -34,24 +34,18 @@ export function ModalInputAutomessageFunc() {
 
   }
   const getMedia = (event) => {
-
     automedia.value = event;
-
   }
   const getPopup = (index, file) => {
-
     getText();
     getMedia(file);
-
     if (!getText()) {
       automessageArray.value[index] = [null, automedia.value]
-
     }
     else {
       automessageArray.value[index] = [automessage.value, automedia.value]
       message.value = automessage.value;
     }
-    console.log(automedia.value)
   }
   const showText = (index) => {
     if (!automessageArray.value[index]) {

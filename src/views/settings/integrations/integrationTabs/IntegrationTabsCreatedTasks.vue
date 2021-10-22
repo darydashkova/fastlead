@@ -119,7 +119,9 @@
         padding-bottom: 6px;
     }
     &-list{
-        
+        @media (min-width: 1200px) {
+            max-width:1000px
+        }
         &-block{
             display: flex;
             align-items: center;

@@ -299,3 +299,12 @@
   max-width: 73% ;
 }
 }
+.settings-integrations-form__select_active {
+  border: 1px solid #5EC075 !important;
+}
+.settings-integrations-form__date-column{
+  margin-right: 16px;
+}
+.settings-integrations-form__date-column:nth-last-child(1){
+  margin-right: 0px;
+}

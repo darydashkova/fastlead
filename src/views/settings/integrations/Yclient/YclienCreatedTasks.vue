@@ -51,6 +51,7 @@ export default {
         }  
         const editTask = (index) => {
             editTaskYclient(index);
+            
               router.push('/settings/integrations/yclients/connect');
         }
         // const editTask = (index) => {
@@ -58,11 +59,11 @@ export default {
         //      console.log(task);
         // }
         const { container, content, scrollbar, scrollTo, init } = useCustomScroll();
-        const links = ref([['Настройка Yclients','false', '/settings/integrations/yclients/connect'],['Созданные задачи','true', '/settings/integrations/yclients/create'],['Игнор лист', 'false', '/settings/integrations/yclients/connect']]); 
+        const links = ref([['Настройка Yclients','false', '/settings/integrations/yclients/connect'],['Созданные задачи','true', '/settings/integrations/yclients/create']]); 
         const date  = ref({links:links, name:'yclient'})
         const checkUpdate = ref(false);
         const deleteChooseTask = (index) => {
-             const taskId = {task_id:data.value.yclients_task[index].task_id}
+            const taskId = {task_id:data.value.yclients_task[index].task_id}
             deleteTask(taskId)
             getAllTaskYclient();
             checkUpdate.value=true;
