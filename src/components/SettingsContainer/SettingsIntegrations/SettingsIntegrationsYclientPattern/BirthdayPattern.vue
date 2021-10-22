@@ -26,7 +26,7 @@
                         </div>
                 </button>
                 </div>
-                </div> -->
+                </div>  -->
                  <div class="settings-integrations-form__date-column">
                     <div>Время запуска</div>
                     <div class="settings-integrations-form__container">
@@ -47,7 +47,8 @@
                     </svg>
                         </div>
                        
-                </button> <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-time" v-if="statusTimeSelect">
+                </button> 
+                <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-time" v-if="statusTimeSelect">
                             <div class="settings-integrations-form__date-column">
                                 <div class="settings-integrations-form__date-column-title">Часов</div>
                                 <div class="settings-integrations-form__date-input">
@@ -296,8 +297,14 @@ export default {
                 const dataNew = data.value
                 updateTask(dataNew)
                 router.push('/settings/integrations/yclients/create')
-                console.log(dataNew)
             } 
+        }
+        const checkOpenModal = (item) => {
+            statusAccSelect.value=false;
+            statusTimeSelect.value = false;
+            statusSelect.value=false;
+            statusFiltersSelect.value=false;
+            item.value = true;
         }
         watch(()=>{
             if(props.Propdata.parameters){
@@ -324,17 +331,28 @@ export default {
         }
         const openSelect = () => {
             statusSelect.value = !statusSelect.value;
+            if(statusSelect.value){
+             checkOpenModal(statusSelect)   
+            } 
         }
         const statusTimeSelected = () => {
             statusTimeSelect.value = !statusTimeSelect.value;
-            timeOption.value = hours.value + ':' + minute.value
+            timeOption.value = hours.value + ':' + minute.value;
+            if(statusTimeSelect.value){
+             checkOpenModal(statusTimeSelect)   
+            }
         }
         const openAcc =  () => {
             statusAccSelect.value=!statusAccSelect.value;
-            console.log(statusAccSelect.value)
+             if(statusAccSelect.value){
+             checkOpenModal(statusAccSelect)   
+            }
         }
         const openFilters = () => {
-            statusFiltersSelect.value=!statusFiltersSelect.value
+            statusFiltersSelect.value=!statusFiltersSelect.value;
+            if(statusFiltersSelect.value){
+             checkOpenModal(statusFiltersSelect)   
+            }
         }
         const checkFilters = (item) => {
             item = String(item);
@@ -489,6 +507,7 @@ export default {
             chooseAcc,
             timeZoneOption,
             data,
+            checkOpenModal,
             name,
             post,
             filial,
@@ -506,16 +525,13 @@ export default {
 }
 </script>
 <style lang="scss">
-
-
-
 .settings-integrations-form__birthday{
     .settings-integrations-form__date-column{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         .settings-integrations-form__input_test{
-            width: 93%;
+            width: 100%;
             margin-left: 0;
             height: 39px;
            

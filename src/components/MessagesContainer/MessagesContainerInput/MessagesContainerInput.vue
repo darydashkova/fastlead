@@ -50,7 +50,7 @@
                           fill="var(--default-svg-fill)"/>
                 </svg>
             </button>
-            <!-- <button class="messages-container-input__icon messages-container-input__icon_include"
+           <!-- <button class="messages-container-input__icon messages-container-input__icon_include"
                     @blur="attachment.open(false)"
             >
                 <svg class="pointer" width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-            </button> -->
+            </button>  -->
           <!--   <svg v-if="!value" class="messages-container-input__icon messages-container-input__icon_micro" width="19" height="23" viewBox="0 0 19 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5628 10.7322C14.5628 13.6373 12.1666 15.993 9.2115 15.993C6.25642 15.993 3.86015 13.6373 3.86015 10.7322V5.47131C3.86015 2.56621 6.25642 0.210449 9.2115 0.210449C12.1666 0.210449 14.5628 2.56621 14.5628 5.47131V10.7322ZM9.2115 1.96408C7.24157 1.96408 5.64394 3.5347 5.64394 5.47131V10.7322C5.64394 12.6688 7.24157 14.2394 9.2115 14.2394C11.1814 14.2394 12.779 12.6688 12.779 10.7322V5.47131C12.779 3.5347 11.1814 1.96408 9.2115 1.96408ZM16.4282 10.8119C16.4282 10.3277 16.8275 9.93512 17.32 9.93512C17.8126 9.93512 18.2119 10.3277 18.2119 10.812V11.6888C18.2119 15.7503 14.117 19.095 10.1038 19.5313V20.4569H11.8876C12.3802 20.4569 12.7795 20.8494 12.7795 21.3337C12.7795 21.8179 12.3802 22.2104 11.8876 22.2104H6.53621C6.04364 22.2104 5.64433 21.8179 5.64433 21.3336C5.64433 20.8494 6.04364 20.4568 6.53621 20.4568H8.32006V19.5313C4.30682 19.095 0.211914 15.7503 0.211914 11.6888V10.812C0.211914 10.3277 0.611218 9.93516 1.10379 9.93516C1.59637 9.93516 1.99567 10.3277 1.99567 10.812V11.6888C1.99567 15.0783 5.76415 17.8264 9.21194 17.8264C12.6597 17.8264 16.4282 15.0783 16.4282 11.6888V10.8119Z"
                       fill="var(--default-svg-fill)"/>
@@ -115,7 +115,7 @@
                    style="display: none;"
                    id="messages-container-input__attachment"
                    multiple
-                   accept="image/jpeg,image/png,image/gif,image/JPEG,image/PNG,image/GIF"
+                   accept="image/*"
             >
             <input @change="attachment.changeDocs"
                    type="file"

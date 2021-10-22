@@ -12,7 +12,7 @@
                  class="integration-modal-files__title-no-padding"
                 >Отправить с текстом под файлом</BaseSwitcher>
         <div class="integration-modal-files__line"> </div>
-        <div class="integration-modal-files__title-no-padding">Прикрепить контакт</div>
+        <div class="integration-modal-files__title">Прикрепить контакт</div>
           <input class="integration-modal-files__input" type="text"   v-maska="'+7 (###) ###-##-##'" placeholder="+7(xxx)-xxx-xx-xx" >
     </div>
 </template>
@@ -23,10 +23,10 @@ import { useStyle } from "../../../composition/useStyle";
 export default {
             components: { BaseSwitcher },
     setup() {
-           const { style, setStyle } = useStyle();
+        const { style, setStyle } = useStyle();
         const inputBlock = ref();
         const fileName = ref('Файл не выбран')
-       const inputOpen = () => {
+        const inputOpen = () => {
             inputBlock.value.click();
        }
        onMounted(() => {
