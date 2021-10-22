@@ -2,48 +2,49 @@
     <div class="settings-finance-payment-shadow">
         <div class="settings-finance-payment">
             <div class="settings-finance-payment__header">
-                    <span>Подлючение подписки</span>
-                    <svg @click="closePay" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <span class="settings-finance-payment__header_title">Подлючение подписки</span>
+                    <svg class="settings-finance-payment__header_close" @click="closePay" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#9797BB"/>
                     </svg>
             </div>
             <div class="settings-finance-payment__info">
                 <table class="settings-finance-payment__info-main">
-                    <tr>
-                        <td class="settings-finance-payment__info-main_title">Подписка:</td>
+                    <tr class="settings-finance-payment__info_row">
+                        <td class="settings-finance-payment__info-main_title settings-finance-payment__info_cell">Подписка:</td>
                     </tr>
-                    <tr class="settings-finance-payment__info-main_subtitle">
-                        <td>{{initialData.countNum}} номеров на тарифе 
-                            <span v-if="returnFinanceHistory.tariff_id == 1">"Base"</span>
-                            <span v-if="returnFinanceHistory.tariff_id == 2">"Start"</span>
-                            <span v-if="returnFinanceHistory.tariff_id == 3">"Pro"</span>
+                    <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle">
+                        <td>Тариф 
+                        <template v-for="(tariffName, index) in tariffNames" :key="index"><span v-if="returnFinanceHistory.tariff_id == index+1">{{tariffName.name}}</span></template>
                              на 
-                             <span v-if="returnFinanceHistory.sale_id == 1">1</span>
-                             <span v-if="returnFinanceHistory.sale_id == 2">3</span>
-                             <span v-if="returnFinanceHistory.sale_id == 3">6</span>
-                             <span v-if="returnFinanceHistory.sale_id == 4">12</span>
-                             <span v-if="returnFinanceHistory.sale_id == 5">24</span>
+                             <template v-for="(mounthCount, index) in mounthCounts" :key="index"><span v-if="returnFinanceHistory.sale_id == index+1">{{mounthCount.value}}</span></template>
                              меся<span v-if="returnFinanceHistory.sale_id == 1">ц</span>
                             <span v-if="returnFinanceHistory.sale_id == 2 || returnFinanceHistory.sale_id == 5">ца</span>
                             <span v-if="returnFinanceHistory.sale_id == 3 || returnFinanceHistory.sale_id == 4">цев</span>
                          </td>
-                        <td class="settings-finance-payment__info-main_title">{{initialData.price}}₽</td>
+                        <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">{{initialData.price}}₽</td>
                     </tr>
                 </table>
-                <!--<table class="settings-finance-payment__info-more">
-                    <tr class="settings-finance-payment__info-more_title" >
-                        <td>Дополнительные услуги:</td>
+                <table class="settings-finance-payment__info-main">
+                    <tr class="settings-finance-payment__info_row">
+                        <td class="settings-finance-payment__info-main_title settings-finance-payment__info_cell">Каналы:</td>
                     </tr>
-                    :class="{'more_active' : paymentСard.validationBase == true}"
-                    <tr class="settings-finance-payment__info-more_subtitle">
-                        <td>Аренда виртруальных номеров</td>
-                        <td class="settings-finance-payment__info-more_title">2000₽</td>
+                    <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle">
+                        <td>WhatsApp -  
+                             <span>{{initialData.whatsapp}}</span>
+                         </td>
+                        <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">{{initialData.whatsappPrice}}₽</td>
                     </tr>
-                </table>-->
+                    <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle">
+                        <td>Instagram -  
+                            <span>{{initialData.instagram}}</span>
+                        </td>
+                        <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">{{initialData.instagramPrice}}₽</td>
+                    </tr>
+                </table>
                 <table class="settings-finance-payment__info-total">
-                    <tr>
-                        <td class="settings-finance-payment__info-total_title">Итого к оплате</td>
-                        <td class="settings-finance-payment__info-total_subtitle">{{initialData.price}}₽</td>
+                    <tr class="settings-finance-payment__info_row">
+                        <td class="settings-finance-payment__info-total_title settings-finance-payment__info_cell">Итого к оплате</td>
+                        <td class="settings-finance-payment__info-total_subtitle settings-finance-payment__info_cell">{{initialData.price}}₽</td>
                     </tr>
                 </table>
             </div>
@@ -86,8 +87,21 @@
     },
     setup(props, {emit}){
         
-        const {returnFinance, finance, getFinance, getSingleFinance, /* getFinanceHistory, */ returnFinanceHistory, paymentFinance, linkPayment} = useFinance()
+        const {returnFinance, finance, getFinance, getSingleFinance, returnFinanceHistory, paymentFinance, linkPayment} = useFinance()
 
+        const tariffNames = ref([
+            {name: "Base"},
+            {name: "Start"},
+            {name: "Pro"},
+        ])
+
+        const mounthCounts = ref([
+            {value: 1},
+            {value: 3},
+            {value: 6},
+            {value: 12},
+            {value: 24},
+        ])
         const modalPay = ref({
             show: false
         })
@@ -105,30 +119,41 @@
             type.value[element.id].active=true;
         }
 
-        /* console.log(returnFinanceHistory) */
-
         const initialData = ref({
             price: 0,
             countNum: 0,
+            whatsapp: 0,
+            instagram: 0,
+            whatsappPrice: 0,
+            instagramPrice: 0,
+            priceCanals: 0,
         })
+
+        
 
         const updateData = () => {
             initialData.value.price = returnFinanceHistory.value.price
             initialData.value.countNum = returnFinanceHistory.value.parameters[0].whatsapp + returnFinanceHistory.value.parameters[0].instagram
+            initialData.value.whatsapp = returnFinanceHistory.value.parameters[0].whatsapp
+            initialData.value.instagram = returnFinanceHistory.value.parameters[0].instagram
+            if (returnFinanceHistory.value.tariff_id == 2){
+                initialData.value.priceCanals = 950 
+            } else {
+                initialData.value.priceCanals = 2100
+            }
+            console.log(mounthCounts.value)
+            initialData.value.whatsappPrice = returnFinanceHistory.value.parameters[0].whatsapp * initialData.value.priceCanals;
+            initialData.value.instagramPrice = returnFinanceHistory.value.parameters[0].instagram * initialData.value.priceCanals;
         }
 
         onUpdated(() => {
             updateData()
-            /* getSingleFinance(finance.value.user_tariff_id) */
         })
 
-        /* console.log(finance.value.user_tariff_id) */
-
-        const payment = () => {
-            
-        }
-
         return {
+            tariffNames,
+            mounthCounts,
+
             searchType,
             type,
             modalPay,
@@ -141,7 +166,6 @@
             returnFinance,
             returnFinanceHistory,
 
-            payment,
             linkPayment,
         }
     }

@@ -1,67 +1,48 @@
 <template>
     <div class="settings-finance__rates">
         <div class="settings-finance__tariff">
-            <h2>Тарифы</h2>
+            <h2 class="settings-finance__tariff_name">Тарифы</h2>
             <div class="settings-finance__type-tariff">
-                <div :id = "arr[0].id" class="settings-finance__type-tariff_base" :class="{'tariff_active' : arr[0].active}" @click="searchElemnt(arr[0])">БАЗОВЫЙ</div>
-                <div :id = "arr[1].id"  class="settings-finance__type-tariff_start" :class="{'tariff_active': arr[1].active}" @click="searchElemnt(arr[1])">START</div>
-                <div :id = "arr[2].id"  class="settings-finance__type-tariff_pro" :class="{'tariff_active' : arr[2].active}" @click="searchElemnt(arr[2])">PRO</div>
+            <div class="settings-finance__type-tariff_base"
+            
+            v-for="(tariffName, index) in tariffNames" :key="index" :id = "arr[index].id" :class="{'tariff_active' : arr[index].active}" @click="searchElemnt(arr[index])"
+            >{{tariffName.name}}</div>
             </div>
         </div>
         <div class="settings-finance__info">
-            <table>
-                <tr class="settings-finance__info_table">
-                    <td>КОЛ-ВО ДИАЛОГОВ</td>
-                    <td>30 в месяц</td>
-                    <td class="settings-finance__info_table-start">120 в месяц</td>
-                    <td class="settings-finance__info_tabled">Неограничено</td>
-                    <td></td>
-                </tr>
-                <tr class="settings-finance__info_table">
-                    <td>КОЛИЧЕСТВО ОПЕРАТОРОВ</td>
-                    <td>2 оператора</td>
-                    <td class="settings-finance__info_table-start">2 оператора</td>
-                    <td class="settings-finance__info_table-last">Неограничено</td>
-                    <td></td>
-                </tr>
-                <tr class="settings-finance__info_table">
-                    <td>СРОК ХРАНЕНИЯ ПЕРЕПИСКИ</td>
-                    <td>2 месяца</td>
-                    <td class="settings-finance__info_table-start">Неограничено</td>
-                    <td class="settings-finance__info_table-last">Неограничено</td>
-                    <td></td>
+            <table class="settings-finance__info_wrapper">
+            <tr class="settings-finance__info_table" v-for='table in tables'>
+                        <td  class="settings-finance__info_table-cell">{{table.name}}</td>
+                        <td  class="settings-finance__info_table-cell">{{table.valueBase}}</td>
+                        <td  class="settings-finance__info_table-cell settings-finance__info_table-last">{{table.valueStart}}</td>
+                        <td  class="settings-finance__info_table-cell settings-finance__info_table-last">{{table.valuePro}}</td>
+                        <td></td>
                 </tr>
             </table>
         </div>
         <div class="settings-finance__payment">
             <h2>Оплата</h2>
             <div class="settings-finance__type-payment">
-                <div :id = "mounth[0].id" class="settings-finance__type-payment_mounth" :class="{'tariff_active-payment' : mounth[0].active}" @click="searchMounth(mounth[0])">КАЖДЫЙ МЕСЯЦ</div>
-                <div :id = "mounth[1].id" class="settings-finance__type-payment_mounth" :class="{'tariff_active-payment' : mounth[1].active}" @click="searchMounth(mounth[1])">3 МЕСЯЦА -10%</div>
-                <div :id = "mounth[2].id" class="settings-finance__type-payment_mounth" :class="{'tariff_active-payment' : mounth[2].active}" @click="searchMounth(mounth[2])">6 МЕСЯЦЕВ -20%</div>
-                <div :id = "mounth[3].id" class="settings-finance__type-payment_mounth" :class="{'tariff_active-payment' : mounth[3].active}" @click="searchMounth(mounth[3])">12 МЕСЯЦЕВ -30%</div>
-                <div :id = "mounth[4].id" class="settings-finance__type-payment_mounth" :class="{'tariff_active-payment' : mounth[4].active}" @click="searchMounth(mounth[4])">24 МЕСЯЦА -40%</div>
+            <div class="settings-finance__type-payment_mounth"
+            v-for="(mounthName, index) in mounthNames" :key="index" :id = "mounth[index].id" :class="{'tariff_active-payment' : mounth[index].active}" @click="searchMounth(mounth[index]),mounthValues(index)"
+            >{{mounthName.name}}</div>
             </div>
         </div>
-        <table class="settings-finance__calculator">
+        <table class="settings-finance__info_wrapper settings-finance__calculator">
             <tr class="settings-finance__calculator_titles">
-                <td>НАИМЕНОВАНИЕ ПАРАМЕТРОВ</td>
-                <td>СТОИМОСТЬ</td>
-                <td>КОЛ-ВО</td>
-                <td>СКИДКА</td>
-                <td>ОПЦИИ</td>
+            <td v-for="(calculatorTitle, index) in calculatorTitles" :key="calculatorTitle.name">{{calculatorTitle.name}}</td>
             </tr>
             <tr class="settings-finance__calculator_values">
-                <td>КАНАЛ-WHATSAPP</td>
-                <td>{{ initialСost[0].price }}₽/мес</td>
-                <td class="settings-finance__btn">
+                <td class="settings-finance__calculator_values-cell">КАНАЛ-WHATSAPP</td>
+                <td class="settings-finance__calculator_values-cell">{{ initialСost[0].price }}₽/мес</td>
+                <td class="settings-finance__calculator_values-cell settings-finance__btn">
                     <button class="settings-finance__btn_minus" @click="decrimentWhats()" >
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.25 9.25H6.75C6.33579 9.25 6 9.58579 6 10C6 10.4142 6.33579 10.75 6.75 10.75H14.25C14.6642 10.75 15 10.4142 15 10C15 9.58579 14.6642 9.25 14.25 9.25Z" fill="#CFCFE4"/>
                             <rect x="1" y="0.5" width="19" height="19" rx="2.5" stroke="#CFCFE4"/>
                         </svg>
                     </button>
-                    <span>{{ count[0].numberWhats }}</span>
+                    <span>{{ count.numberWhats }}</span>
                     <button class="settings-finance__btn_plus" @click="incrementWhats()">
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0)">
@@ -76,22 +57,22 @@
                         </svg>
                     </button>
                 </td>
-                <td>-{{initialСost[7].price}}%</td>
-                <td>
+                <td class="settings-finance__calculator_values-cell">-{{initialСost[7].price}}%</td>
+                <td class="settings-finance__calculator_values-cell">
                     <button class="settings-finance__btn_reset" @click="resetWhatsNumber">Очистить</button>
                 </td>
             </tr>
             <tr class="settings-finance__calculator_values">
-                <td>КАНАЛ-INSTAGRAM</td>
-                <td>{{ initialСost[0].price }}₽/мес</td>
-                <td class="settings-finance__btn">
+                <td class="settings-finance__calculator_values-cell">КАНАЛ-INSTAGRAM</td>
+                <td class="settings-finance__calculator_values-cell">{{ initialСost[0].price }}₽/мес</td>
+                <td class="settings-finance__calculator_values-cell settings-finance__btn">
                     <button class="settings-finance__btn_minus" @click="decrimentInst()" >
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.25 9.25H6.75C6.33579 9.25 6 9.58579 6 10C6 10.4142 6.33579 10.75 6.75 10.75H14.25C14.6642 10.75 15 10.4142 15 10C15 9.58579 14.6642 9.25 14.25 9.25Z" fill="#CFCFE4"/>
                             <rect x="1" y="0.5" width="19" height="19" rx="2.5" stroke="#CFCFE4"/>
                         </svg>
                     </button>
-                    <span>{{ count[1].numberInst }}</span>
+                    <span>{{ count.numberInst }}</span>
                     <button class="settings-finance__btn_plus" @click="incrementInst()">
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0)">
@@ -106,18 +87,18 @@
                         </svg>
                     </button>
                 </td>
-                <td>-{{initialСost[7].price}}%</td>
-                <td><button class="settings-finance__btn_reset" @click="resetInstNumber">Очистить</button></td>
+                <td class="settings-finance__calculator_values-cell">-{{initialСost[7].price}}%</td>
+                <td class="settings-finance__calculator_values-cell"><button class="settings-finance__btn_reset" @click="resetInstNumber">Очистить</button></td>
             </tr>
             <tr class="settings-finance__calculator_values">
-                <td>КОЛ-ВО ПОДАРОЧНЫХ ДНЕЙ</td>
-                <td></td>
-                <td class="settings-finance__calculator_values-days">{{initialСost[10].count}}</td>
-                <td></td>
-                <td></td>
+                <td class="settings-finance__calculator_values-cell">КОЛ-ВО ПОДАРОЧНЫХ ДНЕЙ</td>
+                <td class="settings-finance__calculator_values-cell"></td>
+                <td class="settings-finance__calculator_values-cell settings-finance__calculator_values-days">{{initialСost[10].count}}</td>
+                <td class="settings-finance__calculator_values-cell"></td>
+                <td class="settings-finance__calculator_values-cell"></td>
             </tr>
             <tr style="display:none;" class="settings-finance__calculator_values">
-                <td>
+                <td class="settings-finance__calculator_values-cell">
                 <div class="settings-finance__calculator_values-question">
                     <svg  width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.99992 0.5C10.6819 0.5 13.6666 3.48467 13.6666 7.16667C13.6666 10.8487 10.6819 13.8333 
@@ -152,10 +133,10 @@
                     </span>
                     
                 </td>
-                <td>500₽/мес</td>
-                <td></td>
-                <td></td>
-                <td>
+                <td class="settings-finance__calculator_values-cell">500₽/мес</td>
+                <td class="settings-finance__calculator_values-cell"></td>
+                <td class="settings-finance__calculator_values-cell"></td>
+                <td class="settings-finance__calculator_values-cell">
                     <label class="switch">
                         <input type="checkbox" @click="toggleValidationBase()">
                         <div class="slider round"></div>
@@ -163,7 +144,7 @@
                 </td>
             </tr>
             <tr style="display: none;" class="settings-finance__calculator_values">
-                <td>
+                <td class="settings-finance__calculator_values-cell">
                 <div class="settings-finance__calculator_values-question">
                     <svg  width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.99992 0.5C10.6819 0.5 13.6666 3.48467 13.6666 7.16667C13.6666 10.8487 10.6819 13.8333 
@@ -198,10 +179,10 @@
                         АРЕНДА ВИРТУАЛЬНЫХ НОМЕРОВ
                     </span>
                 </td>
-                <td>500₽/мес</td>
-                <td></td>
-                <td></td>
-                <td>
+                <td class="settings-finance__calculator_values-cell">500₽/мес</td>
+                <td class="settings-finance__calculator_values-cell"></td>
+                <td class="settings-finance__calculator_values-cell"></td>
+                <td class="settings-finance__calculator_values-cell">
                     <label class="switch">
                         <input type="checkbox" @click="toggleTubeRental()">
                         <div class="slider round"></div>
@@ -209,7 +190,7 @@
                 </td>
             </tr>
             <tr style="display: none;" class="settings-finance__calculator_values">
-                <td>
+                <td class="settings-finance__calculator_values-cell">
                 <div class="settings-finance__calculator_values-question">
                     <svg  width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.99992 0.5C10.6819 0.5 13.6666 3.48467 13.6666 7.16667C13.6666 10.8487 10.6819 13.8333 
@@ -244,15 +225,15 @@
                         МАССОВЫЕ РАССЫЛКИ В WHATSAPP
                     </span>
                 </td>
-                <td>2₽/мес</td>
-                <td class="settings-finance__btn">
+                <td class="settings-finance__calculator_values-cell">2₽/мес</td>
+                <td class="settings-finance__btn settings-finance__calculator_values-cell">
                     <button class="settings-finance__btn_minus" @click="decrimentMailing()" >
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.25 9.25H6.75C6.33579 9.25 6 9.58579 6 10C6 10.4142 6.33579 10.75 6.75 10.75H14.25C14.6642 10.75 15 10.4142 15 10C15 9.58579 14.6642 9.25 14.25 9.25Z" fill="#CFCFE4"/>
                             <rect x="1" y="0.5" width="19" height="19" rx="2.5" stroke="#CFCFE4"/>
                         </svg>
                     </button>
-                    <span>{{ count[2].numberMailing }}</span>
+                    <span>{{ count.numberMailing }}</span>
                     <button class="settings-finance__btn_plus" @click="incrementMailing()">
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0)">
@@ -304,6 +285,32 @@ export default {
 
         routerTrue.value.link = "/settings/finance/rates"
 
+        const tariffNames = ref([
+            {name: "BASE"},
+            {name: "START"},
+            {name: "PRO"},
+        ])
+
+        const mounthNames = ref([
+            {name: "КАЖДЫЙ МЕСЯЦ"},
+            {name: "3 МЕСЯЦА -10%"},
+            {name: "6 МЕСЯЦЕВ -20%"},
+            {name: "12 МЕСЯЦЕВ -30%"},
+            {name: "24 МЕСЯЦА -40%"},
+        ])
+        const tables = ref([
+            {name: "ЦЕНА ЗА МЕСЯЦ", valueBase: "0₽/мес", valueStart: "950₽/мес", valuePro: "2100₽/мес"},
+            {name: "КОЛ-ВО ДИАЛОГОВ", valueBase: "30 в месяц", valueStart: "120 в месяц", valuePro: "Неограничено"},
+            {name: "КОЛИЧЕСТВО ОПЕРАТОРОВ", valueBase: "2 оператора", valueStart: "2 оператора", valuePro: "Неограничено"},
+            {name: "СРОК ХРАНЕНИЯ ПЕРЕПИСКИ", valueBase: "2 месяца", valueStart: "Неограничено", valuePro: "Неограничено"},
+        ])
+        const calculatorTitles = ref([
+            {name: "НАИМЕНОВАНИЕ ПАРАМЕТРОВ"},
+            {name: "СТОИМОСТЬ"},
+            {name: "КОЛ-ВО"},
+            {name: "СКИДКА"},
+            {name: "ОПЦИИ"},
+        ])
         const arr = ref([   //initial type tariff block
             {id:0, active:true},
             {id:1, active:false},
@@ -324,28 +331,27 @@ export default {
             {name: "PriceWithoutDiscount", price:0}, //initial discount
             {name: "Base", id: 1},
         ])
+
         const searchElemnt = (element) => { //assigning an active class to a block
             for (let i = 0; i<arr.value.length; i++) {
                 arr.value[i].active = false;
             }
             arr.value[element.id].active=true;
 
-            if (arr.value[0].active == true ){   //tariff Base is active
+            if (arr.value[0].active == true ){ 
                 initialСost.value[0].price = initialСost.value[1].price;
-                count.value[0].numberWhats = 1;
-                count.value[1].numberInst = 1;
+                count.value.numberWhats = 1;
+                count.value.numberInst = 1;
                 initialСost.value[12].name = initialСost.value[1].name
                 initialСost.value[12].id = initialСost.value[1].id
-            } else if (arr.value[1].active == true){    //tariff Start is active
+            } else if (arr.value[1].active == true){
                 initialСost.value[0].price = initialСost.value[2].price;
                 initialСost.value[12].name = initialСost.value[2].name
                 initialСost.value[12].id = initialСost.value[2].id
-            } else {    //tariff Pro is active
+            } else {
                 initialСost.value[0].price = initialСost.value[3].price;
                 initialСost.value[12].name = initialСost.value[3].name
                 initialСost.value[12].id = initialСost.value[3].id
-                /* count.value[0].numberWhats = 0;
-                count.value[1].numberInst = 0; */
             }
             totalPrice() 
         }
@@ -357,7 +363,8 @@ export default {
             {id:4, active:false, seil: 30, count: 12},
             {id:5, active:false, seil: 40, count: 24},
         ])
-        const searchMounth = (seil) => {
+
+        const searchMounth = (seil, index) => {
             for (let i = 0; i<mounth.value.length; i++) {
                 mounth.value[i].active = false;
             }
@@ -384,100 +391,99 @@ export default {
                 initialСost.value[9].price = mounth.value[4].count;
                 initialСost.value[9].id = mounth.value[4].id;
             }
+
             totalPrice() 
         }
 
-        const count = ref([
-            {numberWhats: 1},
-            {numberInst: 1},
-            {numberMailing: 0},
-            {checkboxBase: false},
-            {checkboxTube: false},
-        ])
+        const count = ref(
+            {numberWhats: 1,
+            numberInst: 1,
+            numberMailing: 0,
+            checkboxBase: false,
+            сheckboxTube: false},
+        )
 
         const incrementWhats = () => {
             if(arr.value[0].active == false){
-            count.value[0].numberWhats++
+            count.value.numberWhats++
             }
             totalPrice();
         }
         const decrimentWhats = () => {
             if(arr.value[0].active == false){
-            if (returnFinance.value.tariff_id == undefined && count.value[0].numberWhats > 0){
-            count.value[0].numberWhats-- 
+            if (returnFinance.value.tariff_id == undefined && count.value.numberWhats > 0){
+            count.value.numberWhats-- 
             }
-            if(returnFinance.value.tariff_id != undefined && count.value[0].numberWhats > returnFinance.value.parameters[0].whatsapp){
-                count.value[0].numberWhats--
-                console.log("Уменьшение")
+            if(returnFinance.value.tariff_id != undefined && count.value.numberWhats > returnFinance.value.parameters[0].whatsapp){
+                count.value.numberWhats--
             }
             totalPrice();
             }
         }
         const resetWhatsNumber = () => {
-            count.value[0].numberWhats = 0
+            count.value.numberWhats = 0
             if(returnFinance.value.tariff_id != undefined){
-                count.value[0].numberWhats = returnFinance.value.parameters[0].whatsapp;
+                count.value.numberWhats = returnFinance.value.parameters[0].whatsapp;
             }
             totalPrice();
         }
 
         const incrementInst = () => {
             if(arr.value[0].active == false){
-            count.value[1].numberInst++ 
+            count.value.numberInst++ 
             }
             totalPrice();
         }
         const decrimentInst = () => {
             if(arr.value[0].active == false){
-            if (returnFinance.value.tariff_id == undefined && count.value[1].numberInst > 0){
-            count.value[1].numberInst-- 
+            if (returnFinance.value.tariff_id == undefined && count.value.numberInst > 0){
+            count.value.numberInst-- 
             }
-            if(returnFinance.value.tariff_id != undefined && count.value[1].numberInst > returnFinance.value.parameters[0].instagram){
-                count.value[1].numberInst--
-                console.log("Уменьшение")
+            if(returnFinance.value.tariff_id != undefined && count.value.numberInst > returnFinance.value.parameters[0].instagram){
+                count.value.numberInst--
             }
             totalPrice();
             }
         }
         const resetInstNumber = () => {
-            count.value[1].numberInst = 0
+            count.value.numberInst = 0
             if(returnFinance.value.tariff_id != undefined){
-                count.value[1].numberInst = returnFinance.value.parameters[0].instagram
+                count.value.numberInst = returnFinance.value.parameters[0].instagram
             }
             totalPrice();
         }
 
         const incrementMailing = () => {
-            count.value[2].numberMailing+=1000
+            count.value.numberMailing+=1000
             totalPrice();
         }
         const decrimentMailing = () => {
-            if (count.value[2].numberMailing > 0){
-            count.value[2].numberMailing-=1000 
+            if (count.value.numberMailing > 0){
+            count.value.numberMailing-=1000 
             totalPrice();
             }
         }
         const resetMailingNumber = () => {
-            count.value[2].numberMailing = 0
+            count.value.numberMailing = 0
             totalPrice();
         }
 
         const toggleValidationBase = () => {
-            if (count.value[3].checkboxBase == false){
-            count.value[3].checkboxBase = true
+            if (count.value.checkboxBase == false){
+            count.value.checkboxBase = true
             initialСost.value[4].price = 500;
             } else{
-                count.value[3].checkboxBase = false
+                count.value.checkboxBase = false
                 initialСost.value[4].price = 0;
             }
             totalPrice();
         }
         const toggleTubeRental = () => {
-            if (count.value[4].checkboxTube == false){
-            count.value[4].checkboxTube = true
+            if (count.value.checkboxTube == false){
+            count.value.checkboxTube = true
             initialСost.value[5].price = 500;
             } else{
-                count.value[4].checkboxTube = false
+                count.value.checkboxTube = false
                 initialСost.value[5].price = 0;
             }
             totalPrice();
@@ -485,9 +491,9 @@ export default {
 
         const totalPrice = () => {
             
-            let totalWhats = count.value[0].numberWhats * initialСost.value[0].price;   //the cost of whatsapp channels
+            let totalWhats = count.value.numberWhats * initialСost.value[0].price;   //the cost of whatsapp channels
             
-            let totalInst = count.value[1].numberInst * initialСost.value[0].price;     //the cost of instagram channels
+            let totalInst = count.value.numberInst * initialСost.value[0].price;     //the cost of instagram channels
             
             let totalCostChannels = (totalWhats + totalInst) * initialСost.value[9].price; //the cost of all channels with mounth
 
@@ -495,15 +501,15 @@ export default {
 
             let totalPriceWithoutAdditional = totalCostChannels - totalDiscount; // the cost of discounted services  
 
-            let massMailingtotal = count.value[2].numberMailing * initialСost.value[6].price * initialСost.value[9].price; //total price mass mailing
+            let massMailingtotal = count.value.numberMailing * initialСost.value[6].price * initialСost.value[9].price; //total price mass mailing
 
             initialСost.value[11].price = totalCostChannels + massMailingtotal + (initialСost.value[4].price * initialСost.value[9].price) + (initialСost.value[5].price * initialСost.value[9].price); // price without discount
 
             initialСost.value[8].price = totalPriceWithoutAdditional + massMailingtotal + (initialСost.value[4].price * initialСost.value[9].price) + (initialСost.value[5].price  * initialСost.value[9].price); //total price
 
-            if(arr.value[2].active == true && count.value[0].numberWhats >= 4 || arr.value[2].active == true && count.value[1].numberInst >= 4){
+            if(arr.value[2].active == true && count.value.numberWhats >= 4 || arr.value[2].active == true && count.value.numberInst >= 4){
                 initialСost.value[10].count = Math.round(totalDiscount / (2100/31)); // free days pro
-            }else if(arr.value[1].active == true && count.value[0].numberWhats >= 4 || arr.value[1].active == true && count.value[1].numberInst >= 4){
+            }else if(arr.value[1].active == true && count.value.numberWhats >= 4 || arr.value[1].active == true && count.value.numberInst >= 4){
                 initialСost.value[10].count = Math.round(totalDiscount / (950/31)); //free days start
             } else{
                 initialСost.value[10].count = 0; //free days base
@@ -528,19 +534,17 @@ export default {
         const appropriationSellParametrs = () => {
             sellParametrs.value.tariff_id = initialСost.value[12].id;
             sellParametrs.value.sale_id = initialСost.value[9].id;
-            sellParametrs.value.parameters[0].whatsapp = count.value[0].numberWhats;
-            sellParametrs.value.parameters[0].instagram = count.value[1].numberInst;
-            sellParametrs.value.parameters[0].base_validation = count.value[3].checkboxBase;
-            sellParametrs.value.parameters[0].virtual_numbers = count.value[4].checkboxTube;
-            sellParametrs.value.parameters[0].mass_sending = count.value[2].numberMailing;
+            sellParametrs.value.parameters[0].whatsapp = count.value.numberWhats;
+            sellParametrs.value.parameters[0].instagram = count.value.numberInst;
+            sellParametrs.value.parameters[0].base_validation = count.value.checkboxBase;
+            sellParametrs.value.parameters[0].virtual_numbers = count.value.checkboxTube;
+            sellParametrs.value.parameters[0].mass_sending = count.value.numberMailing;
 
             totalPrice()
         }
 
         const createNewFinance = () => {
-
             appropriationSellParametrs()
-
             createFinance(sellParametrs.value)
                         .then(r => {
                             if (r.error) {
@@ -548,7 +552,6 @@ export default {
                             }
                                 getSingleFinance(r.user_tariff_id)
                                 isModalOpen.value = true
-
                                 paymentFinance({user_tariff_id: r.user_tariff_id})
                                 .then(r => {
                                     console.log(r)
@@ -568,16 +571,32 @@ export default {
             isModalOpen.value = false
         }
 
+        const tariffValues = (element, index, array) => {
+            if (initialСost.value[12].id  == index+1) {
+                arr.value[1].active = false
+                arr.value[index+1].active = true
+                initialСost.value[0].price = initialСost.value[index+1].price
+            }
+        }
+
+        const mounthValues = (index) => {
+                initialСost.value[7].price = mounth.value[index].seil;
+                initialСost.value[9].price = mounth.value[index].count;
+                initialСost.value[9].id = mounth.value[index].id;
+        }
+
         const returnDataHistory = () => {
             if (returnFinance.value.tariff_id != undefined){
 
                 initialСost.value[12].id        = returnFinance.value.tariff_id
                 initialСost.value[9].id         = returnFinance.value.sale_id
-                count.value[0].numberWhats      = returnFinance.value.parameters[0].whatsapp
-                count.value[1].numberInst       = returnFinance.value.parameters[0].instagram
-                count.value[3].checkboxBase     = returnFinance.value.parameters[0].base_validation
-                count.value[4].checkboxTube     = returnFinance.value.parameters[0].virtual_numbers
-                count.value[2].numberMailing    = returnFinance.value.parameters[0].mass_sending
+                count.value.numberWhats      = returnFinance.value.parameters[0].whatsapp
+                count.value.numberInst       = returnFinance.value.parameters[0].instagram
+                count.value.checkboxBase     = returnFinance.value.parameters[0].base_validation
+                count.value.checkboxTube     = returnFinance.value.parameters[0].virtual_numbers
+                count.value.numberMailing    = returnFinance.value.parameters[0].mass_sending
+
+
 
                 if (initialСost.value[12].id == 1){
                     initialСost.value[0].price = initialСost.value[1].price;
@@ -590,7 +609,7 @@ export default {
                     arr.value[2].active = true
                     initialСost.value[0].price = initialСost.value[3].price;
                 }
-
+            
                 if (initialСost.value[9].id == 1){
                     initialСost.value[7].price = mounth.value[0].seil;
                     initialСost.value[9].price = mounth.value[0].count;
@@ -623,11 +642,11 @@ export default {
             sellUpdateParametrs.value.user_tariff_id                   =        returnFinance.value.user_tariff_id
             sellUpdateParametrs.value.tariff_id                        =        initialСost.value[12].id     
             sellUpdateParametrs.value.sale_id                          =        initialСost.value[9].id      
-            sellUpdateParametrs.value.parameters[0].whatsapp           =        count.value[0].numberWhats   
-            sellUpdateParametrs.value.parameters[0].instagram          =        count.value[1].numberInst    
-            sellUpdateParametrs.value.parameters[0].base_validation    =        count.value[3].checkboxBase  
-            sellUpdateParametrs.value.parameters[0].virtual_numbers    =        count.value[4].checkboxTube  
-            sellUpdateParametrs.value.parameters[0].mass_sending       =        count.value[2].numberMailing 
+            sellUpdateParametrs.value.parameters[0].whatsapp           =        count.value.numberWhats   
+            sellUpdateParametrs.value.parameters[0].instagram          =        count.value.numberInst    
+            sellUpdateParametrs.value.parameters[0].base_validation    =        count.value.checkboxBase  
+            sellUpdateParametrs.value.parameters[0].virtual_numbers    =        count.value.checkboxTube  
+            sellUpdateParametrs.value.parameters[0].mass_sending       =        count.value.numberMailing 
         }
 
         const sellUpdateParametrs = ref({
@@ -652,9 +671,7 @@ export default {
            if(updateCheck.value&&returnFinance.value?.status){
                    returnDataHistory()
                    updateCheck.value=false
-           } else{
-               console.log('-')
-            }
+           }
         })
 
         const update = () => {
@@ -669,6 +686,11 @@ export default {
         }
 
         return {
+            tariffNames,
+            mounthNames,
+            calculatorTitles,
+            tables,
+
             searchElemnt,
             arr,
             updateCheck,
@@ -710,6 +732,10 @@ export default {
             linkPayment,
 
             routerTrue,
+
+            mounthValues,
+            tariffValues,
+    
         }
     }
 }

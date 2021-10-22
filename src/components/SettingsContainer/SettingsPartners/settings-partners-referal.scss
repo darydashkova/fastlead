@@ -1,0 +1,21 @@
+.settings-partners-referal__table_row{
+        display: flex;
+        justify-content: space-between;
+        background: #252544;
+        padding: 24px 20px 24px 20px;
+        border-bottom: 2px solid #40406B;
+        &:last-child{
+            border-radius: 0px 0px 6px 6px;
+            border-bottom: none;
+        }
+        &-cell{
+            width: 170px;
+            font-size: 12px;
+            color: #CFCFE4;
+            text-align: left;
+            letter-spacing: 1px;
+            &:last-child{
+                padding-left: 60px;
+            }
+        }
+    }

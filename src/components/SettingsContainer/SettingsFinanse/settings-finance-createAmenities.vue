@@ -6,19 +6,16 @@
         <div class="scroll">
             <table class="settings-finance__list">
                 <tr class="settings-finance__list_titles">
-                    <td>ТАРИФ</td>
-                    <td>КОЛ-ВО КАНАЛОВ</td>
-                    <td>СТАТУС</td>
-                    <td>ДАТА ОКОНЧАНИЯ</td>
-                    <td>ОСТАВШИЕСЯ КОЛ-ВО ДИАЛОГОВ</td>
-                    <td>ОПЦИИ</td>
+                    <td class="settings-finance__list_titles-items"
+                    v-for="(listTitle, index) in listTitles" :key="index"
+                    >{{listTitle.title}}</td>
                 </tr>
             <tr class="settings-finance-createAmenities"
             v-for="finance in finances"
             :key="finance.user_tariff_id"
             >
-                <td>{{finance.name}}</td>
-                <td>
+                <td class="settings-finance-createAmenities__cell">{{finance.name}}</td>
+                <td class="settings-finance-createAmenities__cell">
                     <div class="settings-finance-createAmenities__instagram">
                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0)">
@@ -65,18 +62,18 @@
                         </span>
                     </div>
                 </td>
-                <td class="settings-finance-createAmenities__status">
+                <td class="settings-finance-createAmenities__cell settings-finance-createAmenities__status">
                     <div class="name" :class="{
-                        'settings-finance-createAmenities__status_name-error' : finance.status == status[0].name,
-                        'settings-finance-createAmenities__status_name-successful': finance.status == status[1].name,
-                        'settings-finance-createAmenities__status_name-completed': finance.status == status[2].name}">
+                        'settings-finance-createAmenities__status_name-error' : finance.status == 'waiting',
+                        'settings-finance-createAmenities__status_name-successful': finance.status == 'success',
+                        'settings-finance-createAmenities__status_name-completed': finance.status == 'finish'}">
                         <template v-if="finance.status==='success'">Оплачено</template>
-                        <template  v-if="finance.status==='waiting'">Ждет оплаты</template>
+                        <template  v-else="finance.status==='waiting'">Ждет оплаты</template>
                     </div>
                 </td>
-                <td>{{new Date(finance.parameters[0].end_date * 1000).toLocaleDateString()}}</td>
-                <td>Осталось диалогов/Всего диалогов</td>
-                <td class="settings-finance-createAmenities__button">
+                <td class="settings-finance-createAmenities__cell">{{new Date(finance.parameters[0].end_date * 1000).toLocaleDateString()}}</td>
+                <td class="settings-finance-createAmenities__cell">Осталось диалогов/Всего диалогов</td>
+                <td class="settings-finance-createAmenities__button settings-finance-createAmenities__cell">
                 <button v-if="finance.status ==='success'" class="settings-finance-createAmenities__button_disabled" @click="restore(finance.user_tariff_id)">Изменить</button>
                 <router-link v-else to="/settings/finance/rates"><button class="settings-finance-createAmenities__button_change" @click="restore(finance.user_tariff_id)">Изменить</button></router-link>
                 <button v-if="finance.status ==='success'" class="settings-finance-createAmenities__button_disabled">Оплатить</button>
@@ -103,13 +100,16 @@ export default {
     setup(props, {emit}){
 
         const {getFinance, finances, getSingleFinance, returnFinance, getFinanceHistory, returnFinanceHistory, paymentFinance, linkPayment} = useFinance()
-
-        const status = ref([
-            {name: "waiting"},
-            {name: "success"},
-            {name: "Завершен"},
-        ])
         
+        const listTitles = ref([
+            {title: "ТАРИФ"},
+            {title: "КОЛ-ВО КАНАЛОВ"},
+            {title: "СТАТУС"},
+            {title: "ДАТА ОКОНЧАНИЯ"},
+            {title: "ОСТАВШИЕСЯ КОЛ-ВО ДИАЛОГОВ"},
+            {title: "ОПЦИИ"},
+        ])
+
         const restore = (id) => {
             getSingleFinance(id)
         }
@@ -133,7 +133,6 @@ export default {
 
         paymentFinance(initialPaymentData.value)
             .then(r => {
-                            console.log(r)
                             linkPayment.value = r
                             if (r.error) {
                                 return;
@@ -154,7 +153,8 @@ export default {
         getFinance();
 
         return {
-            status,
+            listTitles,
+
             finances,
             restore,
 

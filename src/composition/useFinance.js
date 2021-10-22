@@ -29,22 +29,11 @@ export function useFinance() {
         
         return await financeActions.getSingleFinance(id)
             .then(r => {
-             returnFinance.value = {...r};
-             returnFinanceHistory.value = {...r};
-            /* console.log(returnFinance.value) */
+            returnFinance.value = {...r};
+            returnFinanceHistory.value = {...r};
             return r;
         })
     }
-/* 
-    const getFinanceHistory = async (id) => {
-        
-        return await financeActions.getSingleFinance(id)
-            .then(r => { */
-             /* returnFinanceHistory.value = {...r}; */
-            /* console.log(returnFinance.value) */
-/*             return r;
-        })
-    } */
 
     const updateFinance = async (data) => {
         return await financeActions.updateFinance(data);
@@ -60,10 +49,8 @@ export function useFinance() {
         createFinance,
         getSingleFinance,
         updateFinance,
-       /*  getFinanceHistory, */
         paymentFinance,
         linkPayment,
-        /* restoreFinance, */
         finances: computed(() => finances.data),
         returnFinance,
         returnFinanceHistory,

@@ -5,7 +5,7 @@
     &_titles{
         height: 37px;
         background-color: #191933;
-        & td{
+        &-items{
             text-align: left;
             width: 80px;
             color: #9797BB;
@@ -27,7 +27,7 @@
     background: #141427;
     padding: 0px 0px 0px 20px;
     border-bottom: 2px solid #252544;
-    & td {
+    &__cell {
         text-align: left;
         color: #CFCFE4;
         font-size: 12px;
@@ -41,7 +41,7 @@
     }
     &:last-child{
         border-bottom: none ;
-        & td{
+        .settings-finance-createAmenities__cell{
             &:first-child{
                 border-bottom-left-radius: 10px;
             }

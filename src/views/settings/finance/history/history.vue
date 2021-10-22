@@ -1,22 +1,5 @@
 <template>
-    <!--<div class="settings-finance__history">
-        <div class="settings-finance__title">
-                <h2>История платежей</h2>
-        </div>
-        <div class="scroll">
-        <table class="settings-finance__list">
-            <tr class="settings-finance__list_titles">
-                <td>ТАРИФ</td>
-                <td>КОЛ-ВО КАНАЛОВ</td>
-                <td>СТАТУС</td>
-                <td>ДАТА ОКОНЧАНИЯ</td>
-                <td>ОСТАВШИЕСЯ КОЛ-ВО ДИАЛОГОВ</td>
-                <td>ОПЦИИ</td>
-            </tr>-->
-            <createAmenities></createAmenities>
-        <!--</table>
-        </div>
-    </div>-->
+    <createAmenities></createAmenities>
 </template>
 
 <script>
@@ -44,7 +27,6 @@ export default {
             routerTrue,
         }
 
-        
     },
 }
 </script>>
