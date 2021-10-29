@@ -5,15 +5,19 @@
                 <template v-if="automessageArray[indexItem][0]!=null"> 
                     {{automessageArray[indexItem][0]}}
                 </template> -->
-               
                    <template v-if="updateMessage">
-                    <template v-if="updateMessage?.data&&updateMessage?.data.length!=0">
-                        {{updateMessage.data}}
+                    <template v-if="updateMessage?.data&&updateMessage?.data.length!=0&&!updateMessage.hasOwnProperty('caption')">
+                      11  {{updateMessage.data}}
                     </template>
                     <template v-if="updateMessage?.message">
                         {{updateMessage.message}}
                     </template>
-                    <template v-if="updateMessage?.data&&updateMessage?.data.length===0">Ввести</template>
+                      <template v-if="updateMessage.hasOwnProperty('caption')">
+                       
+                        <template v-if="updateMessage.caption.length==0">Ввести</template>
+                         <template v-else> {{updateMessage.caption}}</template>
+                    </template>
+                    <template v-if="updateMessage?.data?.length==0&&!updateMessage.hasOwnProperty('caption')">Ввести</template>
                   </template>
                 <template v-else>Ввести</template>
             <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-integrations-form__input-edit">
@@ -27,12 +31,14 @@
                 </clipPath>
                 </defs>
             </svg>
-        </div> 
-        <ModalInputAutomessage v-if="isPopup&&(indexPopup==indexItem)" :index = "indexPopup" :show = "isPopup" :arr="arrNum" :message="updateMessage.data" @save ="save"></ModalInputAutomessage>
-     </div>
-                                        
-
-                     
+        </div>
+        <!-- <template v-if="!updateMessage.caption">123 -->
+            <ModalInputAutomessage v-if="isPopup&&(indexPopup==indexItem)" :index = "indexPopup" :show = "isPopup" :arr="arrNum" :message="updateMessage.hasOwnProperty('caption')?updateMessage.caption:updateMessage.data" @save ="save" :updateMedia='updateMessage'></ModalInputAutomessage>
+        <!-- </template>
+        <template v-else>
+        <ModalInputAutomessage v-if="isPopup&&(indexPopup==indexItem)" :index = "indexPopup" :show = "isPopup" :arr="arrNum" :message="updateMessage.caption" @save ="save" :updateMedia='updateMessage'></ModalInputAutomessage>
+     44</template> -->
+     </div>               
 </template>
 
 <script>
@@ -49,10 +55,11 @@ export default {
         ModalInputAutomessage
         },
         emits:["saveText"],
-    setup(props, {emit}) {
-                 const { showPopup, isPopup, automessage, indexPopup, showText, message,automessageArray, emptyMessage } = ModalInputAutomessageFunc()
-          const save = (text) => {
-              emit('saveText', text, props.indexItem)
+        setup(props, {emit}) {
+        const { showPopup, isPopup, automessage, indexPopup, showText, message,automessageArray, emptyMessage } = ModalInputAutomessageFunc()
+        const save = (data) => {
+            console.log(data)
+            emit('saveText', data, props.indexItem)
           }
             return {
                 showPopup,

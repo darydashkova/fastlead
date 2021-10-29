@@ -161,7 +161,7 @@
      </div>
      <div class="settings-integrations-form__field ">
         <div class=" settings-integrations-form__create-message">
-            <SettingsIntegrationsMessage @propText="getText" :text='textMess'></SettingsIntegrationsMessage>
+            <SettingsIntegrationsMessage @dataFile='checkData' @propText="getText" :text='textMess' :nameFile='propFileData'></SettingsIntegrationsMessage>
             <SettingsIntegrationsVariables></SettingsIntegrationsVariables>
         </div>
         <!-- <TestCheck></TestCheck> -->
@@ -197,6 +197,8 @@ export default {
       },
     setup(props) {
          const router = useRouter();
+        const fileData = ref([])
+        const propFileData = ref('');
         const {postBirthdayTask, updateTask} = useIntegrations()
         const { whatsapps, getWhatsapps } = useWhatsapp()
         const statusSelect = ref(false);
@@ -216,6 +218,13 @@ export default {
         const whatsappId=ref();
         const textMess = ref('')
         getWhatsapps()
+         const checkData = (data) => {
+                console.log(data)
+                if(data.length!=0){                
+                   fileData.value = data
+                  
+                }
+            }
         const data = ref({
                 type: "Birthday",
                 task_name: "Поздравление с днём рождения ",
@@ -261,16 +270,55 @@ export default {
                 else{
                     data.value.parameters[0].whatsapp_id =  whatsappId.value;    
                 }
-                if((message.value=='')||(message.value=='undefined')){
+                  if((message.value=='')||(message.value=='undefined')){
                     if(props.Propdata.parameters){
-                        data.value.parameters[0].message.data =  props.Propdata.parameters[0].message.Text;    
+                         console.log('111')
+                         console.log(props.Propdata.parameters[0])
+                        if( props.Propdata.parameters[0].message.Caption!=null){
+                                   console.log('22')
+                            if( fileData.value.length!=0){
+                                data.value.parameters[0].message.caption = props.Propdata.parameters[0].message.Caption;
+                                data.value.parameters[0].message.data =  fileData.value[0];
+                                data.value.parameters[0].message.type = fileData.value[1]
+                                 console.log(props.Propdata.parameters[0].message.Caption)
+                            }
+                            else{
+                                    data.value.parameters[0].message.caption = props.Propdata.parameters[0].message.Caption;
+                    //    data.value.parameters[0].message.data = props.Propdata.parameters[0].message.file_uid;
+                    console.log(props.Propdata.parameters[0].message.Caption)
+                       data.value.parameters[0].message.type =  props.Propdata.parameters[0].message.Type 
+                       if( props.Propdata.parameters[0].message.Img!=null){
+                           data.value.parameters[0].message.data = props.Propdata.parameters[0].message.Img; 
+                       }
+                       else if(props.Propdata.parameters[0].message.Document!=null){
+                              data.value.parameters[0].message.data = props.Propdata.parameters[0].message.Document; 
+                       }
+                        else if(props.Propdata.parameters[0].message.Video!=null){
+                              data.value.parameters[0].message.data = props.Propdata.parameters[0].message.Video; 
+                       } 
+                            }
+                            console.log( data.value.parameters[0].message)
+                   
+                        }
+                        else{
+                            data.value.parameters[0].message.data =  props.Propdata.parameters[0].message.Text;    
+                        }
+                       
                     }
+                    
                 else{
                     return false   
                     }
                 }
                 else{
-                    data.value.parameters[0].message.data =  message.value;    
+                    if (fileData.value.length!=0){
+                       data.value.parameters[0].message.caption =  message.value;
+                       data.value.parameters[0].message.data =  fileData.value[0];
+                       data.value.parameters[0].message.type = fileData.value[1]
+                    } 
+                    else{
+                         data.value.parameters[0].message.data = message.value;
+                    }   
                 }  
                 if(((name.value=='')||(name.value=='undefined'))){
                     console.log('5')
@@ -285,7 +333,10 @@ export default {
             if (ValidateDate()){
                 const dataNew = data.value
                 postBirthdayTask(dataNew)
-                router.push('/settings/integrations/yclients/create')
+                .then(r=> {
+                    console.log(r)
+                    router.push('/settings/integrations/yclients/create')
+                })
             } 
         }
         const update = () => {
@@ -296,7 +347,9 @@ export default {
             if (ValidateDate()){
                 const dataNew = data.value
                 updateTask(dataNew)
-                router.push('/settings/integrations/yclients/create')
+                 .then(r=> {
+                   router.push('/settings/integrations/yclients/create')  
+                 })
             } 
         }
         const checkOpenModal = (item) => {
@@ -309,7 +362,16 @@ export default {
         watch(()=>{
             if(props.Propdata.parameters){
                 timeOption.value=props.Propdata.parameters[0].start_time;
-                textMess.value = props.Propdata.parameters[0].message.Text
+                 if(props.Propdata.parameters[0].message.Caption!=null){
+                    textMess.value = props.Propdata.parameters[0].message.Caption
+                    // if(textMess.value = props.Propdata.parameters[0].message.Img!=null){
+                    //   propFileData.value.push(props.Propdata.parameters[0].message.Img)  
+                    // }
+                    propFileData.value = props.Propdata.parameters[0].message.file_name
+                }
+                else{
+                 textMess.value = props.Propdata.parameters[0].message.Text   
+                }
                 name.value=props.Propdata.task_name;
                 filial.value=props.Propdata.parameters[0].company_id
                 whatsappId.value=props.Propdata.parameters[0].whatsapp_id
@@ -520,6 +582,9 @@ export default {
             deleteBirthday,
             textMess,
             update,
+            checkData,
+            fileData,
+            propFileData
         }
     },
 }

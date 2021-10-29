@@ -29,7 +29,7 @@
         background: var(--red-color);
     }
     .base-button_p5-15 {
-        padding: 6px 20px;
+        padding: 8px 16px;
     }
     .base-button_p6-40 {
         padding: 6px 40px;
@@ -47,5 +47,7 @@
         background-color: transparent;
         font-size: 16px;
         line-height: 130%;
+        border-radius: 6px;
+
     }
 </style>

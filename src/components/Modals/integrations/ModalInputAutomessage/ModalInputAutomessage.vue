@@ -12,11 +12,11 @@
          <div class="modal-input-automessage__message"  >
                 <div class="modal-input-automessage__message-activities">
                     <div class="modal-input-automessage__message-activities-title">Сообщение</div>
-                    <!-- <div>
+                    <div>
                             <button class="modal-input-automessage__message-activities-input" @click="attachment.add">
                                 <svg class="pointer" width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg"> -->
                                  <!-- @click="attachment.toggle" //////-->
-                                <!-- <path d="M13.2458 5.53727C13.0375 5.53727 12.8492 5.61572 12.7016 5.74105L12.6939 5.73328L6.04702 12.392C5.29377 13.149 4.98493 13.8875 4.98098 14.9419C4.98098 15.7665 5.28409 16.5083 5.8343 17.0307C6.40257 17.5699 7.19178 17.8549 8.11699 17.8548H8.13641C9.09946 17.8504 10.0006 17.4695 10.6731 16.7831L18.3856 9.03205C20.339 7.06822 20.3903 4.26939 18.5075 2.37663C17.5737 1.438 16.3304 0.921021 15.0066 0.921021C13.6829 0.921021 12.4399 1.438 11.5068 2.3767L1.84701 12.0857C-0.615669 14.5613 -0.615669 18.5895 1.84701 21.0652C3.03805 22.2621 4.62406 22.9211 6.31284 22.9211C8.00166 22.9211 9.58778 22.2621 10.7793 21.065L20.7796 10.9768C20.7796 10.9768 21 10.759 21 10.3917C21 9.92105 20.6204 9.53941 20.1522 9.53941C19.9297 9.53941 19.7287 9.62755 19.5774 9.7686L19.5748 9.766L9.57437 19.8544C8.70453 20.7283 7.54618 21.2096 6.31266 21.2096C5.07915 21.2096 3.92098 20.7283 3.05146 19.8544C1.25296 18.0458 1.25296 15.104 3.05146 13.2966L12.7112 3.58779C13.3233 2.97248 14.1385 2.63369 15.0066 2.63369C15.8748 2.63369 16.6905 2.97263 17.3031 3.58779C17.914 4.2019 18.221 4.93144 18.1913 5.69785C18.1619 6.45212 17.8127 7.18635 17.1811 7.82118L9.45242 15.5887C9.0991 15.9444 8.62934 16.141 8.13037 16.1422C7.18124 16.1422 6.68468 15.5411 6.68468 14.9481C6.68659 14.447 6.88208 13.975 7.2354 13.6193L13.8984 6.94437L13.8909 6.93678C14.0155 6.78845 14.0936 6.59921 14.0936 6.38972C14.0937 5.91873 13.714 5.53727 13.2458 5.53727Z" fill="var(--default-svg-fill)">
+                             <path d="M13.2458 5.53727C13.0375 5.53727 12.8492 5.61572 12.7016 5.74105L12.6939 5.73328L6.04702 12.392C5.29377 13.149 4.98493 13.8875 4.98098 14.9419C4.98098 15.7665 5.28409 16.5083 5.8343 17.0307C6.40257 17.5699 7.19178 17.8549 8.11699 17.8548H8.13641C9.09946 17.8504 10.0006 17.4695 10.6731 16.7831L18.3856 9.03205C20.339 7.06822 20.3903 4.26939 18.5075 2.37663C17.5737 1.438 16.3304 0.921021 15.0066 0.921021C13.6829 0.921021 12.4399 1.438 11.5068 2.3767L1.84701 12.0857C-0.615669 14.5613 -0.615669 18.5895 1.84701 21.0652C3.03805 22.2621 4.62406 22.9211 6.31284 22.9211C8.00166 22.9211 9.58778 22.2621 10.7793 21.065L20.7796 10.9768C20.7796 10.9768 21 10.759 21 10.3917C21 9.92105 20.6204 9.53941 20.1522 9.53941C19.9297 9.53941 19.7287 9.62755 19.5774 9.7686L19.5748 9.766L9.57437 19.8544C8.70453 20.7283 7.54618 21.2096 6.31266 21.2096C5.07915 21.2096 3.92098 20.7283 3.05146 19.8544C1.25296 18.0458 1.25296 15.104 3.05146 13.2966L12.7112 3.58779C13.3233 2.97248 14.1385 2.63369 15.0066 2.63369C15.8748 2.63369 16.6905 2.97263 17.3031 3.58779C17.914 4.2019 18.221 4.93144 18.1913 5.69785C18.1619 6.45212 17.8127 7.18635 17.1811 7.82118L9.45242 15.5887C9.0991 15.9444 8.62934 16.141 8.13037 16.1422C7.18124 16.1422 6.68468 15.5411 6.68468 14.9481C6.68659 14.447 6.88208 13.975 7.2354 13.6193L13.8984 6.94437L13.8909 6.93678C14.0155 6.78845 14.0936 6.59921 14.0936 6.38972C14.0937 5.91873 13.714 5.53727 13.2458 5.53727Z" fill="var(--default-svg-fill)">
                                     </path>
                                     </svg>
                             </button>           
@@ -27,12 +27,15 @@
                                         fill="var(--default-svg-fill)"/>
                                 </svg>
                             </button>
-                    </div> -->
+                    </div>
                 </div>
-               
+                 <template v-if='message.lenght!=0'>
                 <textarea class="modal-input-automessage__message-textarea"   ref="textarea"  @paste="smiles.paste" @copy="smiles.copy" @input="input">
-                    {{message}}
+               {{message}}
+                  
                 </textarea>
+                </template>
+               
                
                    <Picker
                 v-show="smiles.isOpened"
@@ -41,25 +44,15 @@
                 style="width: 100%"
                 set="apple"
                 @select="smiles.addEmoji"
-        />
-                <template  v-if="automessageArray[index]">
-                <div v-if="automessageArray[index][1]!=null" class="modal-input-automessage__message-data">
-                    <template v-if="(automessageArray[index][1].length!=files.length)&&files.length==0">
-                        <ModalInputAutomessageMedia :files = "automessageArray[index][1]"></ModalInputAutomessageMedia>
-                    </template> 
-                    <template v-else>
-                        <ModalInputAutomessageMedia :files = "files"></ModalInputAutomessageMedia>
+        />     
+                <template v-if="files.length!=0">  
+                    <ModalInputAutomessageMedia  :files = "files"></ModalInputAutomessageMedia>
+                </template>
+                <template v-else>
+                    <template v-if="updateMedia.hasOwnProperty('is_read')&&(!automessageArray[index]||automessageArray[index][1]==null)"><ModalInputAutomessageMedia :updateMedia = "updateMedia"></ModalInputAutomessageMedia></template>
+                    <template v-if="automessageArray[index]&&automessageArray[index][1]!=null">
+                           <ModalInputAutomessageMedia :files = "automessageArray[index][1]"></ModalInputAutomessageMedia>
                     </template>
-                </div>
-                <div class="modal-input-automessage__message-data" v-else>
-                    <ModalInputAutomessageMedia :files = "files"></ModalInputAutomessageMedia>
-                </div>
-                  </template>
-                 
-                <template v-else >
-                    <div v-if="files" class="modal-input-automessage__message-data">
-                        <ModalInputAutomessageMedia :files = "files"></ModalInputAutomessageMedia>
-                    </div>
                 </template>
                 <div class="modal-input-automessage__message-buttons">
                     <div class="modal-input-automessage__message-buttons-item_save modal-input-automessage__message-buttons-item pointer"  @click="attachment.save(index)">Сохранить</div>
@@ -82,7 +75,10 @@
     import  ModalInputAutomessageMedia  from "./ModalInputAutomessageMedia";
     import {useVideos} from "../../../../composition/useVideos";
     import {useEmoji} from "../../../../composition/useEmoji";
-      import { Picker } from "../../../emoji-component/src";
+    import {useImages} from "../../../../composition/useImages";
+    import { Picker } from "../../../emoji-component/src";
+    import { useMessages } from "../../../../composition/useMessages";
+     import { useFiles } from "../../../../composition/useFiles";
     export default {
         components: {ModalInputAutomessageMedia, Picker},
         props: {
@@ -90,16 +86,19 @@
             index: Number,
             arr: Number,
             message: String, 
+            updateMedia:Object,
         },
         emits: ["save"],
         setup(props,{emit}) {
-           
+           const convertedSrc = ref();
             const { showPopup, isPopup, getText, automessagePopup, getMedia, automedia, getPopup, automessageArray, automessage } = ModalInputAutomessageFunc();
               const { videosToSend, createVideo, addVideo, deleteVideo, clearVideo } = useVideos()
+               const {  getRandomInRange } = useMessages();
                 const textarea = ref(null);
             const files = ref([]);
                const value = ref('');
              const { emojiIndex, emojiToHtml, wrapEmoji } = useEmoji();
+             const {getImage, createImage}= useImages();
          
             const attachment = reactive({
         add: () => {
@@ -113,60 +112,84 @@
              showPopup();
              if(files.value.length!=0){
                 getPopup(index, files.value); 
-      
+                const data = ref([automessage.value,files.value,{is_media:true}])
+                emit('save', data.value)
+                console.log(data.value)
              }
             else {
-                
                 if(!automessageArray.value[props.index]){
                     getPopup(index, null); 
+                         emit('save', automessage.value)
                 }
                     else{
                         getPopup(index, automessageArray.value[props.index][1]); 
+                        emit('save',automessageArray.value[props.index])
                     }
-               emit('save', automessage.value)
             }
-
         },
-       
         chooseFiles: ($event) => {
-            if(automessageArray.value[props.index]){
+            // if(automessageArray.value[props.index]){
                
-                if(automessageArray.value[props.index][1]){
-                     console.log('111')
-                  for(let i = 0; i< automessageArray.value[props.index][1].length; i++){
-                      files.value.push(automessageArray.value[props.index][1][i]) 
-                  }
-                 $event.target.files.forEach(item => {
-                    let fr = new FileReader();
-                    fr.addEventListener("load", function () {
-                     files.value.push([$event.target.files[0],fr.result ]);
-                         }, false);
-                    fr.readAsDataURL(item);
-                })
-                }
-                else{
-                     console.log('111222')
-                      $event.target.files.forEach(item => {
-                    let fr = new FileReader();
-                    fr.addEventListener("load", function () {
-                     files.value.push([$event.target.files[0],fr.result ]);
-                         }, false);
-                    fr.readAsDataURL(item);
-                })
-                }
-            }
-            else{
-                   console.log('222')
+            //     if(automessageArray.value[props.index][1]){
+            //          console.log('111')
+            //       for(let i = 0; i< automessageArray.value[props.index][1].length; i++){
+            //           files.value.push(automessageArray.value[props.index][1][i]) 
+            //       }
+            //      $event.target.files.forEach(item => {
+            //         let fr = new FileReader();
+            //         fr.addEventListener("load", function () {
+            //          files.value.push([$event.target.files[0],fr.result ]);
+            //              }, false);
+            //         fr.readAsDataURL(item);
+            //     })
+            //     }
+            //     else{
+            //          console.log('111222')
+            //           $event.target.files.forEach(item => {
+            //         let fr = new FileReader();
+            //         fr.addEventListener("load", function () {
+            //          files.value.push([$event.target.files[0],fr.result ]);
+            //              }, false);
+            //         fr.readAsDataURL(item);
+            //     })
+            //     }
+            // }
+            // else{
+
+
+            // getImage(fr.result)
+            //               .then(r => {
+            //                 let url = URL.createObjectURL(r);
+            //                 convertedSrc.value = `${url}`;
+            //                 console.log($event.target.files )
+            //                files.value.push([$event.target.files[0],fr.result,convertedSrc.value,uidRandom ]); 
+            //             })
                   $event.target.files.forEach(item => {
                     let fr = new FileReader();
-                    fr.addEventListener("load", function () {
-                     files.value.push([$event.target.files[0],fr.result ]);
-                         }, false);
-                    fr.readAsDataURL(item);
-                })
-            }
-               
+                       fr.addEventListener("load", function () {
+                           files.value=[]
+                                createImage(item)
+                                    .then((r) => {
+                                      const uidRandom = getRandomInRange();
+                                        console.log(r.files)
+                                        files.value.push([$event.target.files[0],fr.result,r.files,uidRandom ]);
+                                        console.log(files.value) 
+                                        })
+                            }, false);
+                            fr.readAsDataURL(item);
+                    // fr.addEventListener("load", function () {
+                    //      const uidRandom = getRandomInRange();
+                    //   createFile()  
+                    //   .then((r) => {
+                    //         if (r.status === 'ok') {
+                    //              files.value.push([$event.target.files[0],fr.result,convertedSrc.value,uidRandom ]);
+                    //         }
+                         
+                    //        }
 
+                    //      }, false);
+                    // fr.readAsDataURL(item);
+                })
         }
        
             }) 
@@ -280,7 +303,7 @@
                 automedia,
                 automessageArray,
                 getPopup,
-             
+             convertedSrc,
                 emojiIndex,
                 smiles,
                 wrapTab,

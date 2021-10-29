@@ -25,5 +25,15 @@ export default {
     deleteAmocrm: () => {
         return api.fetch('POST', `delete/amocrm`, null, true)
     },
+    getAllTasksAmo: () => {
+        return api.fetch('GET', `get/id/amocrm`, null, true)
+    },
+    deleteIdAmocrm: (data) => {
+        let lData = {
+            ...data,
+        }
+        console.log('44444')
+         return api.fetch('POST', `delete/id/amocrm`, lData, true)
+    }
 
 }
