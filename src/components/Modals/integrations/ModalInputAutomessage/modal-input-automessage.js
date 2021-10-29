@@ -17,12 +17,12 @@ export function ModalInputAutomessageFunc() {
   const emptyInput = () => {
     emptyMessage.value = false;
   }
-  const getText = (e) => {
+  const getText = () => {
     const text = document.getElementsByTagName('textarea');
     if (text[0].value.length != 0) {
       automessage.value = text[0].value;
       automessagePopup.value = text[0].value;
-      message.value = text[0].value;
+      message.value = text[0].value; 
       return true
     }
     else {
@@ -31,7 +31,7 @@ export function ModalInputAutomessageFunc() {
       message.value = text[0].value;
       return false
     }
-
+     
   }
   const getMedia = (event) => {
     automedia.value = event;
@@ -39,13 +39,17 @@ export function ModalInputAutomessageFunc() {
   const getPopup = (index, file) => {
     getText();
     getMedia(file);
+
     if (!getText()) {
       automessageArray.value[index] = [null, automedia.value]
     }
     else {
+      console.log('yes')
       automessageArray.value[index] = [automessage.value, automedia.value]
       message.value = automessage.value;
     }
+    console.log( automessageArray.value[index]);
+    console.log(message.value)
   }
   const showText = (index) => {
     if (!automessageArray.value[index]) {

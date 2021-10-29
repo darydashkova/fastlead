@@ -141,7 +141,6 @@
                     let str = wrapEmoji(props.message.message.replace(/\n/g, '<br>'));
                     str = str + ` <div class="base-message__state">
                         ${validTime(props.message.time)}`
-
                   let subst = props.message.is_me? (
                       !props.message.is_read && props.message.is_sending? 
                       `<svg  viewBox="0 0 16 15" width="16" height="15" class="base-message__is-read">

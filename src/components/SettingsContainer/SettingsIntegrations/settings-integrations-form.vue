@@ -99,7 +99,6 @@
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].column_uid === null),
                                      'settings-integrations-form__select_active': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === index }"
-                                    
                                     @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', index)"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
@@ -349,8 +348,31 @@
                     column_uid: 'not_null',
                 }
             });
+            const arrAutoSms = ref([]);
             const saveMessage = (text, index) => {
-                form.data.data.funnel_actions[index].message.data=text
+                console.log(text)
+             if(Array.isArray(text)){
+                 form.data.data.funnel_actions[index].message={}
+                form.data.data.funnel_actions[index].message.data=text[1][0][2][0]
+                form.data.data.funnel_actions[index].message.caption = text[0]
+                if(text[1][0][0].type.startsWith('im')){
+                  form.data.data.funnel_actions[index].message.type= 'img'
+                }
+               else if(text[1][0][0].type.startsWith('video')){
+                  form.data.data.funnel_actions[index].message.type= 'video'
+                }
+               else {
+                    form.data.data.funnel_actions[index].message.type= 'document'
+                }
+                arrAutoSms.value.push(index)
+             } 
+             else{
+                   form.data.data.funnel_actions[index].message.data=text
+
+                }
+                // form.data.data.funnel_actions[index].message.data=text
+                // form.data.data.funnel_actions[index].message.data
+                // form.data.data.funnel_actions[index].message.data
             }
             getWhatsapps();
             const openedDropdown = reactive({
@@ -453,7 +475,7 @@
         
                 if(!form.data.data.funnel_actions){
                     if(form.data.data.new_dialog_action){
-                        if(form.data.data.new_dialog_action.column_uid===null||form.data.data.new_dialog_action.funnel_id===null){
+                        if(form.data.data.new_dialog_action?.column_uid===null||form.data.data.new_dialog_action?.funnel_id===null){
                             errors.value.new_dialog_action.funnel_id = null;
                             errors.value.new_dialog_action.column_uid = null; 
                           
@@ -511,7 +533,9 @@
             }
             const condition = ref();
             const save = () => {
+                 console.log('not-yet-valid')
                   if (validation()) { 
+                      console.log('valid')
                 //     if (form.data.name === 'bitrix') {
                 //         updateBitrix(form.data.data)
                 //             .then(r => {
@@ -526,16 +550,34 @@
                 //         console.log('1') 
                 if(form.data.data.funnel_actions!=null){    
                     for(let i = 0; i <form.data.data.funnel_actions.length;i++){
-                        console.log(form.data.data.funnel_actions[i].message)
-                        if(form.data.data.funnel_actions[i].message.message){
+                        if(form.data.data.funnel_actions[i].message.hasOwnProperty('is_read')){
+                          const type = form.data.data.funnel_actions[i].message.type
+                            const mess = form.data.data.funnel_actions[i].message.file_uid
+                            const caption = form.data.data.funnel_actions[i].message.caption
+                             if(arrAutoSms.value.length=!0){
+                                  for(let j = 0; j<arrAutoSms.value.length;j++){
+                                if(arrAutoSms.value[j]!==i){
+                            form.data.data.funnel_actions[i].message = {};
+                            form.data.data.funnel_actions[i].message.data = mess;
+                            form.data.data.funnel_actions[i].message.type = type  
+                           form.data.data.funnel_actions[i].message.caption = caption  
+                                }
+                            } 
+                             }
+                           
+                        }
+                        else{
+                           if(form.data.data.funnel_actions[i].message.message){
                             const type = form.data.data.funnel_actions[i].message.type
                             const mess = form.data.data.funnel_actions[i].message.message
                             form.data.data.funnel_actions[i].message = {};
                             form.data.data.funnel_actions[i].message.data = mess;
                             form.data.data.funnel_actions[i].message.type = type
+                        } 
                         }
                     }
-
+                    console.log(form.data.data)
+                     console.log(arrAutoSms.value)
                 }
                         updateAmocrm(form.data.data)
                             .then(r => {
@@ -543,6 +585,7 @@
                                 
                                     return;
                                 }
+                                automessageArray.value = [];
                                 emit('getAmocrm');
                                 emit('close');
                                  emit('updateDateSave');
@@ -650,7 +693,8 @@
                 phoneId,
                 checkAutomessage,
                 saveMessage,
-                editDate
+                editDate,
+                arrAutoSms
         
             }
         }
