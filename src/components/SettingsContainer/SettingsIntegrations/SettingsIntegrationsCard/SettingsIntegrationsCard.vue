@@ -98,6 +98,7 @@ export default {
     }
     &-img{
       width: 62px;
+      height:62px;
     }
   }
   &__name {

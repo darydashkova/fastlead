@@ -198,8 +198,6 @@ export default {
         const { whatsapps, getWhatsapps } = useWhatsapp()
         const statusSelect = ref(false);
         const textOption = ref('');
-        const fileData = ref([])
-        const propFileData = ref('');
         const timeOption = ref('Выбрать');
         const timeZoneOption = ref('Выбрать');
         const minute = ref('00');
@@ -214,6 +212,8 @@ export default {
         const message = ref('');
         const whatsappId=ref();
         const textMess = ref('')
+        const fileData = ref([])
+        const propFileData = ref('');
         const ntime = ref('')
         const switcherObj = ref([
             {title: 'Выполнять, если категория записи', active:false, api:'entryСategory', list:false},
@@ -226,14 +226,61 @@ export default {
         const changeSwitcher = (activeItem) => {
             activeItem.active=!activeItem.active
         }
-        const checkData = (data) => {
+         const checkData = (data) => {
                 console.log(data)
                 if(data.length!=0){                
                    fileData.value = data
                   
                 }
             }
-             if((message.value=='')||(message.value=='undefined')){
+        getWhatsapps()
+        const data = ref({
+                type: "Review",
+                task_name: "Запрос отзыва после визита",
+                parameters:
+                [
+                    {
+                        message: {
+                            type: "text",
+                            data: ""
+                        },
+                        whatsapp_id : null,
+                        n_minutes : null,
+                        company_id : null
+                    }
+                ]
+            })
+        const checkboxStatus = ref([
+            {name:'waitClient', val:'waitClient', title:'Ожидание клиента'},
+            {name:'clientHere', val:'clientHere', title:'Клиент пришел'},
+            {name:'clientIsntGo', val:'clientIsntGo', title:'Клиент не пришел'},
+            {name:'clientСonfirmed', val:'clientСonfirmed', title:'Клиент подтвердил'},
+        ])
+        const checkboxIsOnline = ref([
+            {name:'online', val:'online', title:'Онлайн'},
+            {name:'offline', val:'offline', title:'Офлайн'},
+        ])
+            const getText = (text) => {
+                message.value = text;
+            }
+            const chooseId = (id) => {
+                whatsappId.value = id
+            }
+            const ValidateDate = () => {
+                if(textOption.value=='Выбрать'){
+                    data.value.parameters[0].company_id ='';
+                    return false
+                }
+                else{
+                    data.value.parameters[0].company_id = filial.value; 
+                }
+                if(whatsappId.value=='undefined'){
+                    return false
+                }
+                else{
+                    data.value.parameters[0].whatsapp_id =  whatsappId.value;    
+                }
+                 if((message.value=='')||(message.value=='undefined')){
                     if(props.Propdata.parameters){
                          console.log('111')
                          console.log(props.Propdata.parameters[0])
@@ -282,65 +329,7 @@ export default {
                     else{
                          data.value.parameters[0].message.data = message.value;
                     }   
-                }  
-        getWhatsapps()
-        const data = ref({
-                type: "Review",
-                task_name: "Запрос отзыва после визита",
-                parameters:
-                [
-                    {
-                        message: {
-                            type: "text",
-                            data: ""
-                        },
-                        whatsapp_id : null,
-                        n_minutes : null,
-                        company_id : null
-                    }
-                ]
-            })
-        const checkboxStatus = ref([
-            {name:'waitClient', val:'waitClient', title:'Ожидание клиента'},
-            {name:'clientHere', val:'clientHere', title:'Клиент пришел'},
-            {name:'clientIsntGo', val:'clientIsntGo', title:'Клиент не пришел'},
-            {name:'clientСonfirmed', val:'clientСonfirmed', title:'Клиент подтвердил'},
-        ])
-        const checkboxIsOnline = ref([
-            {name:'online', val:'online', title:'Онлайн'},
-            {name:'offline', val:'offline', title:'Офлайн'},
-        ])
-            const getText = (text) => {
-                message.value = text;
-            }
-            const chooseId = (id) => {
-                whatsappId.value = id
-            }
-            const ValidateDate = () => {
-                if(textOption.value=='Выбрать'){
-                    data.value.parameters[0].company_id ='';
-                    return false
-                }
-                else{
-                    data.value.parameters[0].company_id = filial.value; 
-                }
-                if(whatsappId.value=='undefined'){
-                    return false
-                }
-                else{
-                    data.value.parameters[0].whatsapp_id =  whatsappId.value;    
-                }
-                if((message.value=='')||(message.value=='undefined')){
-                    if(props.Propdata.parameters){
-                        data.value.parameters[0].message.data =  props.Propdata.parameters[0].message.Text;    
-                    }
-                else{
-                    return false   
-                    }
-                }
-                else{
-                    data.value.parameters[0].message.data =  message.value;    
-                }  
+                }   
                 if(((name.value=='')||(name.value=='undefined'))){
                     return false  
                 }
@@ -360,7 +349,7 @@ export default {
                 const dataNew = data.value
                 console.log(dataNew)
                 postBirthdayTask(dataNew)
-               .then(r=> {
+                .then(r=> {
                     console.log(r)
                     router.push('/settings/integrations/yclients/create')
                 })
@@ -377,13 +366,12 @@ export default {
                .then(r=> {
                    router.push('/settings/integrations/yclients/create')  
                  })
-                console.log(dataNew)
             } 
         }
         watch(()=>{
             if(props.Propdata.parameters){
                 ntime.value=props.Propdata.parameters[0].n_minutes;
-                if(props.Propdata.parameters[0].message.Caption!=null){
+                 if(props.Propdata.parameters[0].message.Caption!=null){
                     textMess.value = props.Propdata.parameters[0].message.Caption
                     // if(textMess.value = props.Propdata.parameters[0].message.Img!=null){
                     //   propFileData.value.push(props.Propdata.parameters[0].message.Img)  
@@ -487,10 +475,8 @@ export default {
                  time = time.split('');
                  time = time[1]
                  time++;
-
              }
              else{
-
                  time = Number(time)
                 if(name == 'minute'){
                   if(time===59){
@@ -525,7 +511,6 @@ export default {
                     hours.value = time;  
                 }
             }
-
         }
         const arrowPrev = (time, name) => {
             time=String(time)
@@ -560,7 +545,6 @@ export default {
                      hours.value = time;  
                 }
             }
-
         }
         const deleteBirthday = () => {
             filial.value=null;
@@ -617,9 +601,9 @@ export default {
             setStyle,
             switcherObj,
             changeSwitcher,
-            checkData,
             fileData,
-            propFileData
+            propFileData,
+            checkData
         }
     },
 }

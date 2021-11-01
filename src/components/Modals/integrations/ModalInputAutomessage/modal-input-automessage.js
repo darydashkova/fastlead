@@ -44,12 +44,9 @@ export function ModalInputAutomessageFunc() {
       automessageArray.value[index] = [null, automedia.value]
     }
     else {
-      console.log('yes')
       automessageArray.value[index] = [automessage.value, automedia.value]
       message.value = automessage.value;
     }
-    console.log( automessageArray.value[index]);
-    console.log(message.value)
   }
   const showText = (index) => {
     if (!automessageArray.value[index]) {

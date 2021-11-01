@@ -1,7 +1,7 @@
 <template>
-    <button class="base-button">
+    <div class="base-button">
         <slot></slot>
-    </button>
+    </div>
 </template>
 
 <style lang="scss">
@@ -17,6 +17,8 @@
     }
     .base-button_enter {
         background: var(--green-color);
+        border-radius: 6px;
+        font-weight: 500;
     }
     .base-button_cancel {
         background: transparent;
@@ -24,6 +26,7 @@
         background: var(--green-color);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        border-radius: 6px;
     }
     .base-button_delete {
         background: var(--red-color);

@@ -112,10 +112,16 @@
     height: 28px;
     background: var(--settings-main-color);
     border-radius: 3px;
-
+    position: relative;
     margin-right: 3px;
     &:last-of-type {
       margin-right: 0;
+    }
+    &_width{
+      overflow: inherit;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-64%);
     }
   }
 
