@@ -203,7 +203,7 @@
                         is_me: true,
                         is_read: false,
                         message: div.innerHTML,
-                        message_id: (Object.keys(messages.value.message)).length,
+                        message_id: (Object.keys(messages.value.messages)).length,
                         time: Math.floor(Date.now() / 1000),
                         type: 'text',
                         is_sending:true,
