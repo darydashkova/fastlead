@@ -7,7 +7,7 @@
 <style lang="scss">
     .base-button {
         font-style: normal;
-        font-weight: normal;
+        font-weight: 550;
         font-size: 16px;
         line-height: 21px;
         color: #F0F0FA;

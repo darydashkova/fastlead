@@ -2,20 +2,26 @@
     <div class="integration-tabs-created-tasks">
         <integrationHeader ></integrationHeader>
         <div class="integration-tabs-created-tasks__container">
-            <div class="integration-tabs-created-tasks__container-title">Воронка</div>
-            <div class="integration-tabs-created-tasks__container-list" >
-                <template v-if="amo?.id.length!=0">
-                    <!-- <SettingsIntegrationsTask :name="getNameFunnel(amo.funnel_actions[index].id)" :indexPhone ="amo.funnel_actions[index].id" :active="amo.is_active" @clickAmoSettings ="createdTasksEditActiveated" @deleteInput="del(index)" :phone="getPhoneFunnel(amo.funnel_actions[index].id)" v-for="(item, index) in amo?.funnel_actions" :key="index" :index='index'>
-                    </SettingsIntegrationsTask> -->
-                    <SettingsIntegrationsTask 
-                    :data='amo.id[index]' 
-                    v-for="(item, index) in amo?.id" 
-                    :key="index" 
-                     @clickAmoSettings ="createdTasksEditActiveated" 
-                     @deleteInput="updateTasks " 
-                    ></SettingsIntegrationsTask>
-                </template>
-            </div>
+          <template v-if="amo?.id.length!=0">
+              <div class="integration-tabs-created-tasks__container-title">Воронка</div>
+                <div class="integration-tabs-created-tasks__container-list" >
+                        <!-- <SettingsIntegrationsTask :name="getNameFunnel(amo.funnel_actions[index].id)" :indexPhone ="amo.funnel_actions[index].id" :active="amo.is_active" @clickAmoSettings ="createdTasksEditActiveated" @deleteInput="del(index)" :phone="getPhoneFunnel(amo.funnel_actions[index].id)" v-for="(item, index) in amo?.funnel_actions" :key="index" :index='index'>
+                        </SettingsIntegrationsTask> -->
+                        <SettingsIntegrationsTask 
+                        :data='amo.id[index]' 
+                        v-for="(item, index) in amo?.id" 
+                        :key="index" 
+                        @clickAmoSettings ="createdTasksEditActiveated" 
+                        @deleteInput="updateTasks " 
+                        ></SettingsIntegrationsTask>
+                </div> 
+            </template>
+            <template v-else>
+                <div class="empty-list">
+                    <div class="empty-list__title">У вас еще нет задач</div>
+                    <div class="empty-list__button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -63,6 +69,10 @@
                 getDateForChange(index);
                  gg.click();
             }
+            const addTask = () => {
+                const gg = document.querySelector('.settings-integrations__header-pages-link a ')
+                gg.click();
+            }
             const getNameFunnel = (id) => {
                 let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)  
                 const name = whatsapps.value[index].name
@@ -108,7 +118,8 @@
                 getAllTasksAmo,
                 deleteIdAmocrm,
                 updateTasks,
-                activeUpdate
+                activeUpdate,
+                addTask
             }
         },
     }
@@ -148,6 +159,26 @@
                 line-height: 130%;
                 color: #9797BB; 
             }
+        }
+    }
+    .empty-list{
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width: fit-content;
+        display:flex;
+        align-items: center;
+        flex-direction: column;
+        &__title{
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 24px;
+            color: #F0F0FA;
+            padding-bottom:32px;
+        }
+        &__button{
+            color: #1D1D35
         }
     }
 }

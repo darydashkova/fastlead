@@ -33,6 +33,7 @@
                                     </div>
                                 </div>
                             </button> -->
+                            
                             <button class="settings-integrations-form__input settings-integrations-form__input_width "
                              :class="{'settings-integrations-form__select_active': showChannelsActive }"
                                     @click="showChannels()"
@@ -41,20 +42,52 @@
                                 <template v-if="phone==''">Введите</template>
                                 <template v-else> {{phone}}</template>
                               
-                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg    :class="{'settings-integrations-form__dropdown-inner-svg_green': showChannelsActive }" width="8" class='settings-integrations-form__dropdown-inner-svg' height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
                                 <div class="settings-integrations-form__dropdown-list"
                                 v-if="showChannelsActive"
                                 >
-                              
                                     <div class="settings-integrations-form__dropdown-item"
                                           v-for="(whatsapp, index) in whatsapps"
                                          :key="index"
-                                         @click="channelChoise(whatsapp.whatsapp_id)">
-                                          {{whatsapp.phone}}
+                                         @click="channelChoise(whatsapp.whatsapp_id, 'whatsapp') ">
+                                            <svg class="settings-integrations-form__dropdown-image" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_675:274)">
+                                                <path d="M4.22905 13.7034L4.49061 13.8327C5.58061 14.479 6.8013 14.7807 8.02205 14.7807C11.8586 14.7807 14.9976 11.678 14.9976 7.88591C14.9976 6.07606 14.2564 4.30927 12.9485 3.01648C11.6406 1.72369 9.89667 0.99115 8.02205 0.99115C4.18549 0.99115 1.04642 4.09379 1.09005 7.92903C1.09005 9.22176 1.48242 10.4715 2.13636 11.5487L2.31074 11.8073L1.61324 14.3498L4.22905 13.7034Z" fill="#18CA7F"/>
+                                                <path d="M13.6896 2.32698C12.2073 0.81878 10.1582 0 8.0655 0C3.61863 0 0.043625 3.57665 0.0871875 7.92896C0.0871875 9.30792 0.479562 10.6438 1.13356 11.8504L0 15.9442L4.22894 14.8668C5.40606 15.5133 6.71394 15.8149 8.02194 15.8149C12.4253 15.8149 16.0002 12.2382 16.0002 7.88596C16.0002 5.77439 15.1718 3.79212 13.6896 2.32698ZM8.0655 14.4791C6.88838 14.4791 5.71125 14.1775 4.7085 13.5742L4.44694 13.4449L1.91831 14.0912L2.57225 11.635L2.39788 11.3764C0.479563 8.31691 1.39512 4.26613 4.53412 2.37004C7.67312 0.474008 11.7277 1.37897 13.646 4.48161C15.5642 7.58425 14.6487 11.5918 11.5098 13.4879C10.5069 14.1343 9.28625 14.4791 8.0655 14.4791ZM11.9021 9.69588L11.4225 9.4804C11.4225 9.4804 10.725 9.17875 10.289 8.96327C10.2454 8.96327 10.2018 8.92015 10.1582 8.92015C10.0274 8.92015 9.94019 8.96327 9.853 9.00639C9.853 9.00639 9.80944 9.04945 9.19906 9.73893C9.15544 9.82511 9.06825 9.86823 8.98106 9.86823H8.93744C8.89387 9.86823 8.80669 9.82511 8.76306 9.78205L8.54506 9.69588C8.0655 9.4804 7.62956 9.22181 7.28075 8.8771C7.19356 8.79092 7.06275 8.70474 6.97556 8.61856C6.67038 8.31691 6.36519 7.97214 6.14725 7.58431L6.10362 7.49813C6.06006 7.45501 6.06006 7.41195 6.01644 7.32578C6.01644 7.2396 6.01644 7.15342 6.06006 7.1103C6.06006 7.1103 6.23444 6.89483 6.36519 6.76559C6.45244 6.67935 6.496 6.55012 6.58319 6.46394C6.67038 6.33464 6.714 6.16229 6.67037 6.03299C6.62681 5.81751 6.10363 4.65402 5.97288 4.39549C5.88563 4.26619 5.7985 4.22314 5.66769 4.18002H5.18813C5.10088 4.18002 5.01375 4.22314 4.9265 4.22314L4.88287 4.26619C4.79569 4.30931 4.7085 4.39549 4.62131 4.43855C4.53413 4.52479 4.4905 4.6109 4.40331 4.69714C4.09813 5.08497 3.92375 5.55898 3.92375 6.03299C3.92375 6.3777 4.01094 6.72247 4.14175 7.02412L4.18538 7.15342C4.57775 7.97214 5.10088 8.70474 5.7985 9.3511L5.97288 9.52346C6.10363 9.65276 6.23444 9.73893 6.32163 9.86817C7.23719 10.6439 8.2835 11.2041 9.46062 11.5057C9.59144 11.5488 9.76581 11.5488 9.89662 11.5919H10.3326C10.5506 11.5919 10.8121 11.5057 10.9866 11.4196C11.1173 11.3334 11.2045 11.3334 11.2917 11.2472L11.3789 11.161C11.4661 11.0748 11.5533 11.0317 11.6405 10.9455C11.7277 10.8594 11.8149 10.7732 11.8585 10.6869C11.9457 10.5146 11.9893 10.2991 12.0329 10.0837V9.78205C12.0329 9.78205 11.9892 9.73893 11.9021 9.69588Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_675:274">
+                                                <rect width="16" height="16" fill="white"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        {{whatsapp.name}} / {{whatsapp.phone}} / {{whatsapp.status}}
                                     </div>
+                                     <!-- <div class="settings-integrations-form__dropdown-item"
+                                          v-for="(instagram, index) in instagrams"
+                                         :key="index"
+                                         @click="channelChoise(instagram.instagram_id, 'instagram')">
+                                            <svg class="settings-integrations-form__dropdown-image" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_675:3241)">
+                                                <path d="M1.0003 1.08868C-0.257038 2.39468 0.000295601 3.78201 0.000295601 7.99668C0.000295601 11.4967 -0.610371 15.0053 2.58563 15.8313C3.58363 16.088 12.4263 16.088 13.423 15.83C14.7536 15.4867 15.8363 14.4073 15.9843 12.5253C16.005 12.2627 16.005 3.73534 15.9836 3.46734C15.8263 1.46268 14.5923 0.307344 12.9663 0.0733439C12.5936 0.0193439 12.519 0.00334392 10.607 1.05856e-05C3.82496 0.00334392 2.3383 -0.298656 1.0003 1.08868V1.08868Z" fill="url(#paint0_linear_675:3241)"/>
+                                                <path d="M7.99814 2.09274C5.57747 2.09274 3.2788 1.8774 2.4008 4.13074C2.03814 5.0614 2.0908 6.27007 2.0908 8.00074C2.0908 9.51941 2.04214 10.9467 2.4008 11.8701C3.2768 14.1247 5.59414 13.9087 7.9968 13.9087C10.3148 13.9087 12.7048 14.1501 13.5935 11.8701C13.9568 10.9301 13.9035 9.73941 13.9035 8.00074C13.9035 5.69274 14.0308 4.20274 12.9115 3.08407C11.7781 1.95074 10.2455 2.09274 7.99547 2.09274H7.99814ZM7.4688 3.1574C12.5181 3.1494 13.1608 2.58807 12.8061 10.3861C12.6801 13.1441 10.5801 12.8414 7.9988 12.8414C3.29214 12.8414 3.1568 12.7067 3.1568 7.99807C3.1568 3.23474 3.53014 3.16007 7.4688 3.15607V3.1574ZM11.1515 4.13807C10.7601 4.13807 10.4428 4.4554 10.4428 4.84674C10.4428 5.23807 10.7601 5.5554 11.1515 5.5554C11.5428 5.5554 11.8601 5.23807 11.8601 4.84674C11.8601 4.4554 11.5428 4.13807 11.1515 4.13807V4.13807ZM7.99814 4.96674C6.3228 4.96674 4.9648 6.3254 4.9648 8.00074C4.9648 9.67607 6.3228 11.0341 7.99814 11.0341C9.67347 11.0341 11.0308 9.67607 11.0308 8.00074C11.0308 6.3254 9.67347 4.96674 7.99814 4.96674V4.96674ZM7.99814 6.0314C10.6015 6.0314 10.6048 9.97007 7.99814 9.97007C5.39547 9.97007 5.39147 6.0314 7.99814 6.0314Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <linearGradient id="paint0_linear_675:3241" x1="1.03098" y1="14.9781" x2="15.9013" y2="2.10799" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#FFDD55"/>
+                                                <stop offset="0.5" stop-color="#FF543E"/>
+                                                <stop offset="1" stop-color="#C837AB"/>
+                                                </linearGradient>
+                                                <clipPath id="clip0_675:3241">
+                                                <rect width="16" height="16" fill="white"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        {{instagram.login}} / {{instagram.status}}
+                                    </div> -->
                                 </div>
                             </button>
                             </div>
@@ -77,7 +110,7 @@
                             >
                                     <div class="settings-integrations-form__dropdown-inner">
                                         {{validFunnelName(funnelAction.funnel_id)}}
-                                        <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg  :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === index }" class='settings-integrations-form__dropdown-inner-svg' width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                         </svg>
                                     </div>
@@ -104,7 +137,7 @@
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
                                     {{validColumnName(funnelAction.funnel_id, funnelAction.column_uid)}}
-                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === index }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
@@ -117,28 +150,32 @@
                                 </div>
                             </button>
                         </div>
+                        <div class="settongs-integrations-form__input-automessage">
                      <div class="settongs-integrations-form__input-group">
                             <div class="settings-integrations-form__row settings-integrations-form__row_al-end">
                                 <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_w-100 settongs-integrations-form__input-group_mr-13">
                                     <div class="settings-integrations-form__label" v-if="index === 0">Автосообщение</div>
                                     <SettingsIntegrationAutoMessage @saveText="saveMessage" :updateMessage="funnelAction.message" :automesage="automessage" :indexItem='index' :arrNum='form.data.data.funnel_actions.length' @click="checkAutomessage(funnelAction, index)"></SettingsIntegrationAutoMessage>       
                                 </div>
-
-                                <svg width="18" @click="del(index)" class="pointer settings-integrations-form__delete" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1 3.33333H14.31C14.1011 2.39284 13.5484 1.54779 12.7451 0.940598C11.9418 0.333408 10.937 0.0012121 9.9 0H8.1C7.06302 0.0012121 6.05819 0.333408 5.25487 0.940598C4.45156 1.54779 3.89889 2.39284 3.69 3.33333H0.9C0.661305 3.33333 0.432387 3.42113 0.263604 3.57741C0.0948211 3.73369 0 3.94565 0 4.16667C0 4.38768 0.0948211 4.59964 0.263604 4.75592C0.432387 4.9122 0.661305 5 0.9 5H1.8V15.8333C1.80143 16.938 2.27599 17.997 3.1196 18.7782C3.9632 19.5593 5.10696 19.9987 6.3 20H11.7C12.893 19.9987 14.0368 19.5593 14.8804 18.7782C15.724 17.997 16.1986 16.938 16.2 15.8333V5H17.1C17.3387 5 17.5676 4.9122 17.7364 4.75592C17.9052 4.59964 18 4.38768 18 4.16667C18 3.94565 17.9052 3.73369 17.7364 3.57741C17.5676 3.42113 17.3387 3.33333 17.1 3.33333ZM8.1 1.66667H9.9C10.4582 1.6673 11.0026 1.82781 11.4585 2.1262C11.9143 2.42459 12.2593 2.84624 12.4461 3.33333H5.5539C5.74072 2.84624 6.08571 2.42459 6.54155 2.1262C6.99739 1.82781 7.54175 1.6673 8.1 1.66667ZM14.4 15.8333C14.4 16.4964 14.1155 17.1323 13.6092 17.6011C13.1028 18.0699 12.4161 18.3333 11.7 18.3333H6.3C5.58392 18.3333 4.89716 18.0699 4.39081 17.6011C3.88446 17.1323 3.6 16.4964 3.6 15.8333V5H14.4V15.8333ZM7.20005 14.9999C7.43874 14.9999 7.66766 14.9121 7.83644 14.7558C8.00522 14.5995 8.10005 14.3876 8.10005 14.1666V9.16658C8.10005 8.94557 8.00522 8.73361 7.83644 8.57733C7.66766 8.42105 7.43874 8.33325 7.20005 8.33325C6.96135 8.33325 6.73243 8.42105 6.56365 8.57733C6.39487 8.73361 6.30005 8.94557 6.30005 9.16658V14.1666C6.30005 14.3876 6.39487 14.5995 6.56365 14.7558C6.73243 14.9121 6.96135 14.9999 7.20005 14.9999ZM11.4364 14.7558C11.2676 14.9121 11.0387 14.9999 10.8 14.9999C10.5613 14.9999 10.3324 14.9121 10.1636 14.7558C9.99479 14.5995 9.89996 14.3876 9.89996 14.1666V9.16658C9.89996 8.94557 9.99479 8.73361 10.1636 8.57733C10.3324 8.42105 10.5613 8.33325 10.8 8.33325C11.0387 8.33325 11.2676 8.42105 11.4364 8.57733C11.6052 8.73361 11.7 8.94557 11.7 9.16658V14.1666C11.7 14.3876 11.6052 14.5995 11.4364 14.7558Z" fill="#EB5757"/>
-                                </svg>
-                                
-
                             </div>
                         </div> 
-                        
-                          <!-- <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_width">
+                           
+                            <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer settings-integrations-form__folder" @click="openModal(true)" >
+                            <path d="M17.4167 1.81818H11.4327C11.2909 1.81911 11.1508 1.78802 11.0229 1.72727L8.12992 0.287273C7.74803 0.0986774 7.32729 0.00035122 6.90067 0H4.58333C3.3682 0.00144351 2.20326 0.480802 1.34403 1.33293C0.484808 2.18505 0.00145554 3.34037 0 4.54545L0 15.4545C0.00145554 16.6596 0.484808 17.8149 1.34403 18.6671C2.20326 19.5192 3.3682 19.9986 4.58333 20H17.4167C18.6318 19.9986 19.7967 19.5192 20.656 18.6671C21.5152 17.8149 21.9985 16.6596 22 15.4545V6.36364C21.9985 5.15855 21.5152 4.00323 20.656 3.15111C19.7967 2.29898 18.6318 1.81963 17.4167 1.81818V1.81818ZM4.58333 1.81818H6.90067C7.04244 1.81725 7.18256 1.84834 7.31042 1.90909L10.2034 3.34455C10.5849 3.53471 11.0057 3.6346 11.4327 3.63636H17.4167C17.9649 3.63725 18.5003 3.80061 18.9542 4.10547C19.4081 4.41032 19.7598 4.84276 19.9641 5.34727L1.83333 5.44909V4.54545C1.83333 3.82214 2.12306 3.12844 2.63879 2.61698C3.15451 2.10552 3.85399 1.81818 4.58333 1.81818V1.81818ZM17.4167 18.1818H4.58333C3.85399 18.1818 3.15451 17.8945 2.63879 17.383C2.12306 16.8716 1.83333 16.1779 1.83333 15.4545V7.26727L20.1667 7.16455V15.4545C20.1667 16.1779 19.8769 16.8716 19.3612 17.383C18.8455 17.8945 18.146 18.1818 17.4167 18.1818Z" fill="#9797BB"/>
+                            </svg>
+                            <svg width="18" @click="del(index)" class="pointer settings-integrations-form__delete" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1 3.33333H14.31C14.1011 2.39284 13.5484 1.54779 12.7451 0.940598C11.9418 0.333408 10.937 0.0012121 9.9 0H8.1C7.06302 0.0012121 6.05819 0.333408 5.25487 0.940598C4.45156 1.54779 3.89889 2.39284 3.69 3.33333H0.9C0.661305 3.33333 0.432387 3.42113 0.263604 3.57741C0.0948211 3.73369 0 3.94565 0 4.16667C0 4.38768 0.0948211 4.59964 0.263604 4.75592C0.432387 4.9122 0.661305 5 0.9 5H1.8V15.8333C1.80143 16.938 2.27599 17.997 3.1196 18.7782C3.9632 19.5593 5.10696 19.9987 6.3 20H11.7C12.893 19.9987 14.0368 19.5593 14.8804 18.7782C15.724 17.997 16.1986 16.938 16.2 15.8333V5H17.1C17.3387 5 17.5676 4.9122 17.7364 4.75592C17.9052 4.59964 18 4.38768 18 4.16667C18 3.94565 17.9052 3.73369 17.7364 3.57741C17.5676 3.42113 17.3387 3.33333 17.1 3.33333ZM8.1 1.66667H9.9C10.4582 1.6673 11.0026 1.82781 11.4585 2.1262C11.9143 2.42459 12.2593 2.84624 12.4461 3.33333H5.5539C5.74072 2.84624 6.08571 2.42459 6.54155 2.1262C6.99739 1.82781 7.54175 1.6673 8.1 1.66667ZM14.4 15.8333C14.4 16.4964 14.1155 17.1323 13.6092 17.6011C13.1028 18.0699 12.4161 18.3333 11.7 18.3333H6.3C5.58392 18.3333 4.89716 18.0699 4.39081 17.6011C3.88446 17.1323 3.6 16.4964 3.6 15.8333V5H14.4V15.8333ZM7.20005 14.9999C7.43874 14.9999 7.66766 14.9121 7.83644 14.7558C8.00522 14.5995 8.10005 14.3876 8.10005 14.1666V9.16658C8.10005 8.94557 8.00522 8.73361 7.83644 8.57733C7.66766 8.42105 7.43874 8.33325 7.20005 8.33325C6.96135 8.33325 6.73243 8.42105 6.56365 8.57733C6.39487 8.73361 6.30005 8.94557 6.30005 9.16658V14.1666C6.30005 14.3876 6.39487 14.5995 6.56365 14.7558C6.73243 14.9121 6.96135 14.9999 7.20005 14.9999ZM11.4364 14.7558C11.2676 14.9121 11.0387 14.9999 10.8 14.9999C10.5613 14.9999 10.3324 14.9121 10.1636 14.7558C9.99479 14.5995 9.89996 14.3876 9.89996 14.1666V9.16658C9.89996 8.94557 9.99479 8.73361 10.1636 8.57733C10.3324 8.42105 10.5613 8.33325 10.8 8.33325C11.0387 8.33325 11.2676 8.42105 11.4364 8.57733C11.6052 8.73361 11.7 8.94557 11.7 9.16658V14.1666C11.7 14.3876 11.6052 14.5995 11.4364 14.7558Z" fill="#EB5757"/>
+                            </svg>
+                                
+                        </div>
+                          <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_width" >
                             <div class="settings-integrations-form__label" v-if="index === 0">Тестовая отправка</div>
                             <div class="settings-integrations-form__label-test">
-                               <input class="settings-integrations-form__input_test "  v-maska="'# (###) ###-##-##'"> 
-                            <div class="settings-integrations-form__label-test-button pointer" @click="test(form.data.data.funnel_actions[index])">Отправить</div>
+                               <input class="settings-integrations-form__input_test "  v-maska="'7 (###) ###-##-##'" placeholder="7 (###) ###-##-##" v-model="phoneTest[index]"> 
+                            <!-- <div class="settings-integrations-form__label-test-button pointer" @click="test(form.data.data.funnel_actions[index])">Отправить</div> -->
+                             <div class="settings-integrations-form__label-test-button pointer" @click="testSend(phoneTest[index], index)">Отправить</div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="settings-integrations-form__add">
                     <span @click="form.addAction">
@@ -162,7 +199,7 @@
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
                                     {{validFunnelName(form.data.data?.new_dialog_action?.funnel_id)}}
-                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === 'action' }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
@@ -188,7 +225,7 @@
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
                                     {{validColumnName(form.data.data?.new_dialog_action?.funnel_id, form.data.data?.new_dialog_action?.column_uid)}}
-                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === 'action' }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
@@ -284,12 +321,12 @@
 
         </div>
     </div>
+     <ModalFoldersAmo v-if="openModalFolder" @closeModal="openModal"></ModalFoldersAmo>
     <div class="settings-integrations-form__footer" v-if="phone!=''">
         <BaseButton class="base-button_border-green" @click="$router.go(0)">Отмена</BaseButton>
         <BaseButton class="base-button_enter base-button_p5-15" @click="save">Сохранить</BaseButton>
-       
-
     </div>
+    
 </template>
 <script>
     import {useCustomScroll} from "../../../composition/useCustomScroll";
@@ -298,11 +335,13 @@
     import ModalIntegrationAmoCRM from "../../Modals/integrations/ModalIntegrationAmoCRM";
     import {ModalInputAutomessageFunc} from "../../Modals/integrations/ModalInputAutomessage/modal-input-automessage";
     import ModalInputAutomessage from "../../Modals/integrations/ModalInputAutomessage/ModalInputAutomessage";
+    import ModalFoldersAmo from "../../Modals/integrations/ModalFoldersAmo";
     import BaseButton from "../../Base/BaseButton";
     import BaseSwitcherWithoutLabel from "../../Base/BaseSwitcherWithoutLabel";
     import {useIntegrations} from "../../../composition/useIntegrations";
     import SettingsIntegrationAutoMessage from "./SettingsIntegrationAutoMessage/SettingsIntegrationAutoMessage";
     import { useWhatsapp } from "../../../composition/useWhatsapp";
+    import { useInstagram } from "../../../composition/useInstagrams";
     import { integrationTasks } from "../../../views/settings/integrations/integrationTabs/integration-tabs-created-tasks"
 
     export default {
@@ -312,18 +351,24 @@
             ModalIntegrationAmoCRM,
             BaseButton,
             ModalInputAutomessage,
-            SettingsIntegrationAutoMessage
+            SettingsIntegrationAutoMessage,
+            ModalFoldersAmo
         },
         props: {
             formData: Object
         },
         emits: ['getBitrix', 'getAmocrm', 'close'],
         setup(props, {emit}) {
+            const phoneTest = ref([]);
+            const openModalFolder = ref(false);
             const {editDate} = integrationTasks()
             const { whatsapps, getWhatsapps } = useWhatsapp()
+           const {getInstagrams, instagrams} = useInstagram()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-            const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm } = useIntegrations()
+            const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm, testMessage } = useIntegrations()
            const { showPopup, isPopup, automessage, indexPopup, automessageArray } = ModalInputAutomessageFunc()
+            getWhatsapps();
+            getInstagrams();
             const form = reactive({
                 data: {},
                 addAction: () => {
@@ -348,14 +393,58 @@
                     column_uid: 'not_null',
                 }
             });
+            const testSend = (item, index) => {
+                const phone = ref();
+                phone.value = item.replace(/\s/g, '').replace(/-/g, '').replace("(", '').replace(")", '');
+                console.log(phone.value)
+                const data = form.data.data.funnel_actions[index] ;
+                const dataTest = ref({});
+                if (data.column_uid!==null&&data.funnel_id!==null&&data.message.data!=''){
+                dataTest.value.phone = phone.value;
+                dataTest.value.whatsapp_id = phoneId.value;
+                if(data.message.hasOwnProperty('file_uid')){
+                    if(data.message.caption!=null){
+                        dataTest.value.caption = data.message.caption;
+                        dataTest.value.data = data.message.file_uid;
+                        dataTest.value.type = data.message.type;
+                    }
+                    else{
+                        dataTest.value.data = data.message.data;
+                        dataTest.value.type = data.message.type;
+                    }
+                    
+                }
+                else{
+                    dataTest.value.data = data.message.data;
+                    dataTest.value.type = data.message.type;
+                }
+                }
+
+
+                // testMessage(dataTest.value)
+                console.log(dataTest)
+            }
             const arrAutoSms = ref([]);
             const saveMessage = (text, index) => {
-                console.log(text)
+                console.log(text )
+                  console.log('---------------')
+                  form.data.data.funnel_actions[index].message={}
              if(Array.isArray(text)){
-                 form.data.data.funnel_actions[index].message={}
-                form.data.data.funnel_actions[index].message.data=text[1][0][2][0]
+                 console.log('array')
+                 
+                
+               
+                arrAutoSms.value.push(index)
+                if(text[1]===null){
+                     console.log('array222');
+                   form.data.data.funnel_actions[index].message.data=text[0] ;
+                    form.data.data.funnel_actions[index].message.type='text'
+                }
+                else{
+                    console.log('array333');
+                    form.data.data.funnel_actions[index].message.data=text[1][0][2][0]
                 form.data.data.funnel_actions[index].message.caption = text[0]
-                if(text[1][0][0].type.startsWith('im')){
+                 if(text[1][0][0].type.startsWith('im')){
                   form.data.data.funnel_actions[index].message.type= 'img'
                 }
                else if(text[1][0][0].type.startsWith('video')){
@@ -364,17 +453,18 @@
                else {
                     form.data.data.funnel_actions[index].message.type= 'document'
                 }
-                arrAutoSms.value.push(index)
+                }
              } 
              else{
                    form.data.data.funnel_actions[index].message.data=text
-
+                    form.data.data.funnel_actions[index].message.type='text'
                 }
                 // form.data.data.funnel_actions[index].message.data=text
                 // form.data.data.funnel_actions[index].message.data
                 // form.data.data.funnel_actions[index].message.data
+                console.log(  form.data.data.funnel_actions[index] )
             }
-            getWhatsapps();
+           
             const openedDropdown = reactive({
                 toggleOpened: (prop, index) => {
                     openedDropdown.openedProp = prop;
@@ -420,13 +510,24 @@
             })
            const phone = ref('')
            const phoneId = ref();
-            const channelChoise = (id) => {
+            const channelChoise = (id, name) => {
                 if(id!=null){
                     phoneId.value=id;
-                      let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)  
-                       phone.value = whatsapps.value[index].phone;
-                         form.data.data.new_dialog_action.id=id;
-                         form.data.data.new_dialog_action.type='whatsapp';
+                    console.log(name)
+                    if(name==='whatsapp'){
+                        let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)   
+                        phone.value = whatsapps.value[index].phone;
+                        form.data.data.new_dialog_action.id=id;
+                        form.data.data.new_dialog_action.type='whatsapp';  
+                    }
+                      else{
+                        let index = instagrams.value.findIndex(item => item.instagram_id==id)   
+                        console.log(index)
+                        phone.value = instagrams.value[index].login;
+                        form.data.data.new_dialog_action.id=id;
+                        form.data.data.new_dialog_action.type='instagram';  
+                      }
+                      
                 }
                
                 return phone
@@ -457,7 +558,37 @@
                     return name;
                 }
             })
-          
+          const validAutomessage = () => {
+                if(form.data.data.funnel_actions!=null){    
+                    for(let i = 0; i <form.data.data.funnel_actions.length;i++){
+                        if(form.data.data.funnel_actions[i].message.hasOwnProperty('file_uid')){
+                          const type = form.data.data.funnel_actions[i].message.type
+                            const mess = form.data.data.funnel_actions[i].message.file_uid
+                            const caption = form.data.data.funnel_actions[i].message.caption
+                             if(arrAutoSms.value.length=!0){
+                                  for(let j = 0; j<arrAutoSms.value.length;j++){
+                                if(arrAutoSms.value[j]!==i){
+                            form.data.data.funnel_actions[i].message = {};
+                            form.data.data.funnel_actions[i].message.data = mess;
+                            form.data.data.funnel_actions[i].message.type = type  
+                           form.data.data.funnel_actions[i].message.caption = caption  
+                                }
+                            } 
+                             }
+                           
+                        }
+                        else{
+                           if(form.data.data.funnel_actions[i].message.message){
+                            const type = form.data.data.funnel_actions[i].message.type
+                            const mess = form.data.data.funnel_actions[i].message.message
+                            form.data.data.funnel_actions[i].message = {};
+                            form.data.data.funnel_actions[i].message.data = mess;
+                            form.data.data.funnel_actions[i].message.type = type
+                        } 
+                        }
+                    }
+                }
+          }
             const checkAutomessage = (message, index) => {
                 form.data.data.funnel_actions[index].message.data=message.message.data;
                 
@@ -548,37 +679,7 @@
             
                 //     } else {
                 //         console.log('1') 
-                if(form.data.data.funnel_actions!=null){    
-                    for(let i = 0; i <form.data.data.funnel_actions.length;i++){
-                        if(form.data.data.funnel_actions[i].message.hasOwnProperty('is_read')){
-                          const type = form.data.data.funnel_actions[i].message.type
-                            const mess = form.data.data.funnel_actions[i].message.file_uid
-                            const caption = form.data.data.funnel_actions[i].message.caption
-                             if(arrAutoSms.value.length=!0){
-                                  for(let j = 0; j<arrAutoSms.value.length;j++){
-                                if(arrAutoSms.value[j]!==i){
-                            form.data.data.funnel_actions[i].message = {};
-                            form.data.data.funnel_actions[i].message.data = mess;
-                            form.data.data.funnel_actions[i].message.type = type  
-                           form.data.data.funnel_actions[i].message.caption = caption  
-                                }
-                            } 
-                             }
-                           
-                        }
-                        else{
-                           if(form.data.data.funnel_actions[i].message.message){
-                            const type = form.data.data.funnel_actions[i].message.type
-                            const mess = form.data.data.funnel_actions[i].message.message
-                            form.data.data.funnel_actions[i].message = {};
-                            form.data.data.funnel_actions[i].message.data = mess;
-                            form.data.data.funnel_actions[i].message.type = type
-                        } 
-                        }
-                    }
-                    console.log(form.data.data)
-                     console.log(arrAutoSms.value)
-                }
+              validAutomessage();
                         updateAmocrm(form.data.data)
                             .then(r => {
                                 if (r.error) {
@@ -655,11 +756,14 @@
                         })
                 }
             })
+            const openModal = (item) => {
+                    openModalFolder.value = item;
+            }
          onUpdated(() => {
                 if(editDate.value!=null){
                     const id = editDate.value
 
-                channelChoise(id)
+                 channelChoise(id, 'whatsapp')
                 editDate.value=null
                 }
                 
@@ -694,7 +798,13 @@
                 checkAutomessage,
                 saveMessage,
                 editDate,
-                arrAutoSms
+                arrAutoSms,
+                testSend,
+                phoneTest,
+                validAutomessage,
+                instagrams,
+                openModalFolder,
+                openModal
         
             }
         }

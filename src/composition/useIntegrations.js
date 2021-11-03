@@ -119,6 +119,9 @@ export function useIntegrations() {
     const updateTask = async (data) => {
         return await integrationActions.yclientsActions.updateTask(data)
     }
+    const testMessage = async (data) => {
+        return await integrationActions.amocrmActions.testMessage(data);
+    }
     return {
         getBitrix,
         getAmocrm,
@@ -145,6 +148,7 @@ export function useIntegrations() {
         updateTask,
         delYclient,
         getAllTasksAmo,
-        deleteIdAmocrm
+        deleteIdAmocrm,
+        testMessage
     }
 }

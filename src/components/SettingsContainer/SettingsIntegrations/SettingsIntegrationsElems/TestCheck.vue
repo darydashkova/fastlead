@@ -2,20 +2,34 @@
     <div class="test-check">
         <div class="test-check__title">Тестовая отправка</div> 
         <div class="test-check__number">
-            <input class="test-check__number-input" placeholder="Ввести номер"   v-maska="'# (###) ###-##-##'">
-            <button  class="test-check__number-send  base-button_border-green">Отправить</button>
+            <input class="test-check__number-input " :class="{'settings-integrations-form__input_error': error}" placeholder="7 (###) ###-##-##"   v-maska="'7 (###) ###-##-##'" v-model="number">
+            <button  @click="send(number)" class="test-check__number-send  base-button_border-green pointer">Отправить</button>
         </div>
        
     </div>
 </template>
 <script>
-
+import { ref } from "vue";
 export default {
-   
-    setup() {
-       
+   props:{},
+   emits: ["send"],
+    setup(props, {emit}) {
+        const error = ref(false);
+        const number = ref('');
+        const send = (num) => {
+            if(num.length!=17){
+               error.value = true 
+            }
+            else{
+                error.value = false 
+                emit("send", num)   
+            }
+           
+        }
         return{
-
+            number,
+            send,
+            error
         }
     },
 }
@@ -55,6 +69,9 @@ export default {
             min-width: 159px;
             position: relative; 
             margin-right: 16px;
+            &::placeholder{
+                color:#40406B
+            }
         } 
         &-send{
             font-size: 12px;

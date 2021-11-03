@@ -77,7 +77,7 @@
     export default {
         components: { BaseButton, BaseModalLabel, BaseModalText, BaseModalHint, BaseCircleIcon, BaseModalHeader },
         setup() {
-            const { createFolder, getAllFolders, folders, selectFolder, updateFolder, foldersInSelectedFolder } = useFolder();
+            const { createFolder, getAllFolders, folders, selectFolder, updateFolder, foldersInSelectedFolder, createpdateFolder } = useFolder();
             const {
                 toggleModalCreateFolder,
                 toggleModalAddToFolder,
@@ -181,6 +181,7 @@
                             error.value = true;
                             return;
                         }
+                        createpdateFolder.value = true;
                         closeModalAfterFetch(createFolderParentId.value);
                     })
                 }
@@ -209,6 +210,7 @@
                 delDialog,
                 close,
                 fromModals,
+                createpdateFolder
 
 
             }

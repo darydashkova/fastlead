@@ -32,8 +32,13 @@ export default {
         let lData = {
             ...data,
         }
-        console.log('44444')
          return api.fetch('POST', `delete/id/amocrm`, lData, true)
+    },
+    testMessage: (data) => {
+        let lData = {
+            ...data,
+        }
+         return api.fetch('POST', `send/test/message`, lData, true)
     }
 
 }

@@ -7,6 +7,8 @@ const folders = reactive({
     data: [],
 })
 
+const createpdateFolder = ref(false); 
+
 const selectedParentFolder = ref(null);
 const foldersInSelectedFolder = reactive({
     data: [],
@@ -85,6 +87,7 @@ export function useFolder() {
         updateFolder,
 
         selectParentFolder,
+        createpdateFolder,
         getAllFoldersInFolder,
 
     }
