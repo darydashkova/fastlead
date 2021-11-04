@@ -49,8 +49,8 @@
             let groupedMessages = computed(() => {
                 let dateArr = [];
                 let finalArr = [];
-                if (messages.value.message) {
-                    messages.value.message.forEach(item => {
+                if (messages.value.messages) {
+                    messages.value.messages.forEach(item => {
                         let elem = dateArr.find(i => validDate(item.time, true) === i.date)
                         elem
                             ? elem.message.push(item)

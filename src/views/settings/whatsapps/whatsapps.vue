@@ -48,14 +48,14 @@
                     >
                         {{whatsapp.status}}
                     </div>
-                    <BaseButton
+                    <div
                             @click="sync(whatsapp)"
                             class="base-button_cancel base-button_p5-15 base-button_w-100"
-                            v-if="whatsapp.is_active">Синхронизировать</BaseButton>
-                    <BaseButton
+                            v-if="whatsapp.is_active">Синхронизировать</div>
+                    <div
                             @click="activate(whatsapp)"
                             class="base-button_cancel base-button_p5-15 base-button_w-100"
-                            v-else>Активировать</BaseButton>
+                            v-else>Активировать</div>
                 </div>
             </div>
         </div>

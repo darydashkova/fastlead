@@ -127,7 +127,7 @@
                     Получатели
                 </label>
                 <div class="settings-mailings-create__row settings-mailings-create__row_m-0">
-                    <div class="settings-mailings-create__iconed-input settings-mailings-create__iconed-input_w-60">
+                    <div class="settings-mailings-create__iconed-input settings-mailings-create__iconed-input_w-60 settings-mailings-create__input-column">
                         <button class="settings-mailings-create__input settings-mailings-create__input_selector pointer"
                                 @click="openModalChoiceFolder"
                         >

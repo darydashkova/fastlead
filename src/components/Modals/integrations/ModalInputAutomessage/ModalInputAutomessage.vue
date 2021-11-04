@@ -29,12 +29,12 @@
                             </button>
                     </div>
                 </div>
-                 <template v-if='message.lenght!=0'>
+                 <!-- <template v-if='message.lenght!=0'> -->
                 <textarea class="modal-input-automessage__message-textarea"   ref="textarea"  @paste="smiles.paste" @copy="smiles.copy" @input="input">
-               {{message}}
+               {{message}} 
                   
                 </textarea>
-                </template>
+                <!-- </template> -->
                
                
                    <Picker
@@ -44,12 +44,14 @@
                 style="width: 100%"
                 set="apple"
                 @select="smiles.addEmoji"
-        />     
+        />   
                 <template v-if="files.length!=0">  
                     <ModalInputAutomessageMedia  :files = "files"></ModalInputAutomessageMedia>
                 </template>
                 <template v-else>
-                    <template v-if="updateMedia.hasOwnProperty('is_read')&&(!automessageArray[index]||automessageArray[index][1]==null)"><ModalInputAutomessageMedia :updateMedia = "updateMedia"></ModalInputAutomessageMedia></template>
+                    <template v-if="updateMedia.hasOwnProperty('type')&&updateMedia.type!='text' &&(!automessageArray[index]||automessageArray[index][1]==null)">
+                        <ModalInputAutomessageMedia :updateMedia = "updateMedia"></ModalInputAutomessageMedia>
+                        </template>
                     <template v-if="automessageArray[index]&&automessageArray[index][1]!=null">
                            <ModalInputAutomessageMedia :files = "automessageArray[index][1]"></ModalInputAutomessageMedia>
                     </template>
@@ -110,21 +112,29 @@
        
         save: (index) => {
              showPopup();
+                console.log(files.value.length+ '//333')
              if(files.value.length!=0){
                 getPopup(index, files.value); 
                 const data = ref([automessage.value,files.value,{is_media:true}])
                 emit('save', data.value)
-                console.log(data.value)
+                 console.log( '333')
              }
             else {
-                if(!automessageArray.value[props.index]){
+                console.log(automessageArray.value[props.index])
+                if(!automessageArray.value[props.index]||automessageArray.value[props.index]=='undefined'){
                     getPopup(index, null); 
-                         emit('save', automessage.value)
+                       
+                          console.log( automessage.value)
+                          console.log( '11')
                 }
                     else{
                         getPopup(index, automessageArray.value[props.index][1]); 
                         emit('save',automessageArray.value[props.index])
+                         console.log(automessageArray.value[props.index])
+                         console.log( '22')
                     }
+                      emit('save', automessage.value)
+                             console.log( automessage.value)
             }
         },
         chooseFiles: ($event) => {
@@ -171,9 +181,7 @@
                                 createImage(item)
                                     .then((r) => {
                                       const uidRandom = getRandomInRange();
-                                        console.log(r.files)
                                         files.value.push([$event.target.files[0],fr.result,r.files,uidRandom ]);
-                                        console.log(files.value) 
                                         })
                             }, false);
                             fr.readAsDataURL(item);
@@ -202,7 +210,6 @@
                     smiles.isOpened = boolean;
                 },
                 addEmoji: (emoji) => {
-                 console.log(window.getSelection())
                    if (!textarea.value.innerHTML.length
                         || !window.getSelection()
                         || !window.getSelection().anchorNode
@@ -220,7 +227,6 @@
                               
                         } else {
                             textarea.value.focus();
-                            console.log()
                             setCaretToPos(textarea.value, textarea.value.childNodes.length);
                             value.value = textarea.value.innerHTML;
                         }
@@ -303,7 +309,7 @@
                 automedia,
                 automessageArray,
                 getPopup,
-             convertedSrc,
+                convertedSrc,
                 emojiIndex,
                 smiles,
                 wrapTab,

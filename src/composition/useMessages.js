@@ -61,20 +61,20 @@ export function useMessages() {
         const addMessage = (message) => {
             let messageId=null;
             const uid = message.message_uid;
-            let findeUid = messages.data.message.findIndex(message => message.message_uid == uid);
+            let findeUid = messages.data.messages.findIndex(message => message.message_uid == uid);
             if(findeUid != -1){
                 messageId=findeUid;
-                messages.data.message[messageId]=message;
+                messages.data.messages[messageId]=message;
             }
            else{
-              messages.data.message.push(message);  
+              messages.data.messages.push(message);  
            }
            preloaderActive.value = false
             goBottom();
         }
         const addSendedMessage = (message) => {
             if(!local.value){
-              messages.data.message.push(message);   
+              messages.data.messages.push(message);   
               preloaderActive.value = true;
             goBottom(); 
             }

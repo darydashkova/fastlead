@@ -20,18 +20,18 @@
                 <div  class="modal-create-whatsapp__input-phone-error" v-if='errors.text'>{{errors.text}}</div>
             </div>
             <div class="modal-create-whatsapp__buttons">
-                <BaseButton
-                        class="base-button_enter"
+                <div
+                        class="base-button_enter base-button_p5-15"
                         @click="save"
                 >
                     Сохранить
-                </BaseButton>
-                <BaseButton
-                        class="base-button_cancel"
+                </div>
+                <div
+                        class="base-button_cancel base-button_p5-15"
                         @click.self="close"
                 >
                     Отмена
-                </BaseButton>
+                </div>
             </div>
         </div>
     </div>
