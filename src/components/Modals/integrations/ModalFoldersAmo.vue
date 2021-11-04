@@ -16,7 +16,7 @@
             <div  class="modal-folders__choise-title">
                 Мои папки ({{folders.length}})
             </div>{{styleActive.value}}
-            <div class="modal-folders__choise-item" v-for="(folder, index) in allFolders" :key="index" @click="chooseFolder(index)" :class="{'modal-folders__choise-item_active': (styleActive[index]?true:false)}">
+            <div class="modal-folders__choise-item" v-for="(folder, index) in allFolders" :key="index" @click="chooseFolder(index, folder.folder_id )" :class="{'modal-folders__choise-item_active': (styleActive[index]?true:false)}">
                 <div class="modal-folders__choise-item-flex">
                     <div class="modal-folders__choise-item-flex-name">{{folder.name}}</div>
                     <div class="modal-folders__choise-item-flex-count">{{folder.dialogues_count}}</div>
@@ -42,7 +42,7 @@
             Создать новую папку 
         </div>
         <div class="modal-folders__buttons">
-            <div class="base-button base-button_enter base-button_p5-15">Сохранить</div>
+            <div class="base-button base-button_enter base-button_p5-15" @click="save">Сохранить</div>
             <div class="base-button base-button_border-green" @click="close()">Отмена</div>
         </div>
     </div>
@@ -54,9 +54,9 @@ import { ref, onUpdated, computed } from 'vue';
 import {useFolder} from "../../../composition/useFolder";
 export default {
     props: {
-
+     index: Number,
     },
-    emits: ["closeModal"],
+    emits: ["closeModal", "folderSave"],
     setup(props, {emit}) {
 
         const { toggleModalEditFolders, toggleModalCreateFolder, setCloseCallbackCreateFolder, createFolderParentId } = useModals();
@@ -96,13 +96,15 @@ export default {
             }
 
         const close = () => {
-            emit('closeModal', false)
+            emit('closeModal', props.index,  false)
         }
-        const chooseFolder = (index) => {
+        const emitFolder = ref();
+        const chooseFolder = (index, folder) => {
             for(let i = 0; i<styleActive.value.length; i++ ){
                 styleActive.value[i] = false
             }
             styleActive.value[index] = true
+            emitFolder.value = folder;
         }
         onUpdated (() => {
             if(createpdateFolder.value){
@@ -117,9 +119,9 @@ export default {
             }
 
         })
-        computed(() =>{
-            searchFolder()
-        })
+        const save = () => {
+            emit('folderSave', props.index, false, emitFolder.value )
+        }
         return {
             allFolders,
             close,
@@ -130,7 +132,9 @@ export default {
             chooseFolder,
             styleActive,
             search,
-            searchFolder
+            searchFolder,
+            emitFolder,
+            save
         }
     },
 }
@@ -140,6 +144,7 @@ export default {
     position: absolute;
     background: #252544;
     border-radius: 6px;
+    z-index:9999;
     padding: 30px 0px;
     width: 520px;
     -webkit-box-shadow: -2px 2px 12px 18px rgba(34, 60, 80, 0.2);

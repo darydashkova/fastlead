@@ -155,12 +155,16 @@
                             <div class="settings-integrations-form__row settings-integrations-form__row_al-end">
                                 <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_w-100 settongs-integrations-form__input-group_mr-13">
                                     <div class="settings-integrations-form__label" v-if="index === 0">Автосообщение</div>
-                                    <SettingsIntegrationAutoMessage @saveText="saveMessage" :updateMessage="funnelAction.message" :automesage="automessage" :indexItem='index' :arrNum='form.data.data.funnel_actions.length' @click="checkAutomessage(funnelAction, index)"></SettingsIntegrationAutoMessage>       
+                                    <SettingsIntegrationAutoMessage @saveText="saveMessage" 
+                                    :updateMessage="funnelAction.message" :automesage="automessage" 
+                                    :indexItem='index' :arrNum='form.data.data.funnel_actions.length' 
+                                    @click="checkAutomessage(funnelAction, index)"
+                                    ></SettingsIntegrationAutoMessage>       
                                 </div>
                             </div>
-                        </div> 
-                           
-                            <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer settings-integrations-form__folder" @click="openModal(true)" >
+                        </div>
+                            <ModalFoldersAmo v-if="openModalFolder[index]" @closeModal="openModal" @folderSave ="folderSave" :index='index'></ModalFoldersAmo>
+                            <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer settings-integrations-form__folder" @click="openModal(index,true)" >
                             <path d="M17.4167 1.81818H11.4327C11.2909 1.81911 11.1508 1.78802 11.0229 1.72727L8.12992 0.287273C7.74803 0.0986774 7.32729 0.00035122 6.90067 0H4.58333C3.3682 0.00144351 2.20326 0.480802 1.34403 1.33293C0.484808 2.18505 0.00145554 3.34037 0 4.54545L0 15.4545C0.00145554 16.6596 0.484808 17.8149 1.34403 18.6671C2.20326 19.5192 3.3682 19.9986 4.58333 20H17.4167C18.6318 19.9986 19.7967 19.5192 20.656 18.6671C21.5152 17.8149 21.9985 16.6596 22 15.4545V6.36364C21.9985 5.15855 21.5152 4.00323 20.656 3.15111C19.7967 2.29898 18.6318 1.81963 17.4167 1.81818V1.81818ZM4.58333 1.81818H6.90067C7.04244 1.81725 7.18256 1.84834 7.31042 1.90909L10.2034 3.34455C10.5849 3.53471 11.0057 3.6346 11.4327 3.63636H17.4167C17.9649 3.63725 18.5003 3.80061 18.9542 4.10547C19.4081 4.41032 19.7598 4.84276 19.9641 5.34727L1.83333 5.44909V4.54545C1.83333 3.82214 2.12306 3.12844 2.63879 2.61698C3.15451 2.10552 3.85399 1.81818 4.58333 1.81818V1.81818ZM17.4167 18.1818H4.58333C3.85399 18.1818 3.15451 17.8945 2.63879 17.383C2.12306 16.8716 1.83333 16.1779 1.83333 15.4545V7.26727L20.1667 7.16455V15.4545C20.1667 16.1779 19.8769 16.8716 19.3612 17.383C18.8455 17.8945 18.146 18.1818 17.4167 18.1818Z" fill="#9797BB"/>
                             </svg>
                             <svg width="18" @click="del(index)" class="pointer settings-integrations-form__delete" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,6 +180,8 @@
                              <div class="settings-integrations-form__label-test-button pointer" @click="testSend(phoneTest[index], index)">Отправить</div>
                             </div>
                         </div>
+
+                        
                     </div>
                     <div class="settings-integrations-form__add">
                     <span @click="form.addAction">
@@ -321,7 +327,7 @@
 
         </div>
     </div>
-     <ModalFoldersAmo v-if="openModalFolder" @closeModal="openModal"></ModalFoldersAmo>
+
     <div class="settings-integrations-form__footer" v-if="phone!=''">
         <BaseButton class="base-button_border-green" @click="$router.go(0)">Отмена</BaseButton>
         <BaseButton class="base-button_enter base-button_p5-15" @click="save">Сохранить</BaseButton>
@@ -360,7 +366,7 @@
         emits: ['getBitrix', 'getAmocrm', 'close'],
         setup(props, {emit}) {
             const phoneTest = ref([]);
-            const openModalFolder = ref(false);
+            const openModalFolder = ref([]);
             const {editDate} = integrationTasks()
             const { whatsapps, getWhatsapps } = useWhatsapp()
            const {getInstagrams, instagrams} = useInstagram()
@@ -649,6 +655,9 @@
                            
                     }
                 errors.value.new_dialog_action = form.data.data.new_dialog_action;
+                // for(let i = 0; i <form.data.data.funnel_actions.length; i++){
+                //         if(form.data.data.funnel_actions[i].folder_id)
+                // }
                 // errors.value.funnel_actions.find(i => {
                 //     if (i.funnel_id === null || i.column_uid === null) {
                 //         valid = false;
@@ -755,9 +764,15 @@
                             funnels.value = r.funnels;
                         })
                 }
+                if(form.data.data.funnel_actions!=null){
+                     for(let i = 0; i<form.data.data.funnel_actions.length; i++){
+                    openModalFolder.value.push(false)
+                } 
+                }
+                
             })
-            const openModal = (item) => {
-                    openModalFolder.value = item;
+            const openModal = (index,item) => {
+                    openModalFolder.value[index] = item;
             }
          onUpdated(() => {
                 if(editDate.value!=null){
@@ -768,10 +783,22 @@
                 }
                 
             })
+            const folderAmo = ref(null);
+            const folderSave = (index, modal, item) =>{
+                console.log(index, modal, item)
+            openModal(index,modal);
+            folderAmo.value = item;
+            form.data.data.funnel_actions[index].folder_id=item
+         }
+         const giveFolderItem = (index) => {
+             console.log(index)
+         }
             return {
                 container,
                 content,
                 scrollbar,
+                folderAmo,
+                giveFolderItem,
                 scrollTo,
                 automessage,
                 form,
@@ -804,7 +831,8 @@
                 validAutomessage,
                 instagrams,
                 openModalFolder,
-                openModal
+                openModal,
+                folderSave
         
             }
         }
