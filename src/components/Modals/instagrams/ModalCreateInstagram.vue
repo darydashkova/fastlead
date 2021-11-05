@@ -55,7 +55,7 @@
     import BaseModalHeader from '../../Base/BaseModalHeader.vue'
     import ModalCreateInstagramSuccess from './ModalCreateInstagramSuccess.vue'
 
-    import { onMounted, ref, reactive, computed } from "vue";
+    import { onMounted, ref, reactive, computed, watch } from "vue";
     import {useInstagram} from "../../../composition/useInstagrams";
     import FullScreenLoader from "../../FullScreenLoader";
 
@@ -63,12 +63,14 @@
         components: {FullScreenLoader, BaseButton, BaseModalLabel, BaseModalHeader, ModalCreateInstagramSuccess },
         props: {
             selectedInstagram: Object,
+            succes:Boolean,
         },
+        emits:["twoFactorModal"],
         setup(props, {emit}) {
 
             const { createInstagram, updateInstagram, getInstagrams } = useInstagram()
 
-
+ const succesTwoFactor = ref(true)
             const password = ref('');
             const login = ref('');
             const errors = reactive({
@@ -136,10 +138,30 @@
                                 errors.password = true;
                                 return;
                             }
-                            success.value = true;
+                            
+                            else{
+                                if(r.two_factor){
+                                   
+                                emit("twoFactorModal", true, r.instagram_id)
+                                }
+                                else{
+                                    success.value = true; 
+                                }
+                            }
+                               console.log(r)
+                            console.log(r.two_factor, r.status)
                         })
                 }
-
+               
+watch(()=>{
+    if(props.succes){
+        if(succesTwoFactor.value){
+             success.value = true;  
+             succesTwoFactor.value = false
+        }
+       
+    }
+})
 
             }
             return {
@@ -154,6 +176,7 @@
                 loading,
                 closeAfterUpdate,
                 success,
+                succesTwoFactor
             }
         }
     }
