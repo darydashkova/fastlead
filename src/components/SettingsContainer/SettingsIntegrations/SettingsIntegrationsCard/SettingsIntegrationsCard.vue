@@ -22,7 +22,6 @@
       Подключить 
     </div>
   </div>
-  
 </template>
 
 <script>

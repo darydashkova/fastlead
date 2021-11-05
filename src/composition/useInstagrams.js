@@ -23,12 +23,15 @@ export function useInstagram() {
     const updateInstagram = async (data) => {
         return await instagramActions.updateInstagram(data);
     }
-
+const twoFactorInstagram = async (data) => {
+    return await instagramActions.twoFactorInstagram(data);
+}
     return {
         instagrams: computed(() => instagrams.data),
         getInstagrams,
         deleteInstagrams,
         createInstagram,
         updateInstagram,
+        twoFactorInstagram,
     }
 }

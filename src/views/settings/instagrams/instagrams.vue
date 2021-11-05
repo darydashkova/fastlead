@@ -57,7 +57,17 @@
                     v-if="openedModal"
                     :selectedInstagram="selectedInstagram"
                     @close="toggleModal"
+                    :succes="succes"
+                    @twoFactorModal="twoFactorModal"
             ></ModalCreateInstagram>
+            <ModalCreateInstagramCode
+            v-if="modalFactorOpen"
+                    @close="twoFactorModal"
+                    :index="instagramIndex"
+                    @succesInstagram="succesInstagram"
+                    >
+                
+            </ModalCreateInstagramCode>
         </teleport>
     </div>
 </template>
@@ -67,12 +77,12 @@
     import { onMounted, ref } from "vue";
     import { useModalConfirmDelete } from "../../../composition/useModalConfirmDelete";
     import ModalCreateInstagram from "../../../components/Modals/instagrams/ModalCreateInstagram";
+    import ModalCreateInstagramCode from "../../../components/Modals/instagrams/ModalCreateInstagramCode";
     import { useInstagram } from "../../../composition/useInstagrams";
     export default {
-        components: {ModalCreateInstagram, BaseButton },
+        components: {ModalCreateInstagram, BaseButton, ModalCreateInstagramCode },
         setup() {
             const { instagrams, getInstagrams, deleteInstagrams } = useInstagram()
-
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
             onMounted( () => {
@@ -96,7 +106,13 @@
                 toggleModalConfirmDelete(true);
 
             }
-
+            const modalFactorOpen = ref(false)
+            const instagramIndex = ref(null)
+            const twoFactorModal = (item, index) => {
+                console.log( modalFactorOpen.value, item)
+            modalFactorOpen.value = item;
+            instagramIndex.value = index
+            }
             const edit = (inst) => {
                 selectedInstagram.value = inst;
                 toggleModal(true);
@@ -105,10 +121,15 @@
                 selectedInstagram.value = null;
                 toggleModal(true);
             }
-
+            const succes = ref(false)
+            const succesInstagram = (item) => {
+                console.log(item, '  kokil')
+                modalFactorOpen.value = false;
+            succes.value = item
+            }
             return {
                 instagrams,
-
+modalFactorOpen,
                 del,
                 edit,
                 create,
@@ -120,6 +141,10 @@
                 content,
                 scrollbar,
                 scrollTo,
+                twoFactorModal,
+                instagramIndex,
+                succes,
+                succesInstagram
             }
         }
     }
