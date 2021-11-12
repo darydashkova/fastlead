@@ -112,29 +112,20 @@
        
         save: (index) => {
              showPopup();
-                console.log(files.value.length+ '//333')
              if(files.value.length!=0){
                 getPopup(index, files.value); 
                 const data = ref([automessage.value,files.value,{is_media:true}])
                 emit('save', data.value)
-                 console.log( '333')
              }
             else {
-                console.log(automessageArray.value[props.index])
                 if(!automessageArray.value[props.index]||automessageArray.value[props.index]=='undefined'){
                     getPopup(index, null); 
-                       
-                          console.log( automessage.value)
-                          console.log( '11')
                 }
                     else{
                         getPopup(index, automessageArray.value[props.index][1]); 
                         emit('save',automessageArray.value[props.index])
-                         console.log(automessageArray.value[props.index])
-                         console.log( '22')
                     }
                       emit('save', automessage.value)
-                             console.log( automessage.value)
             }
         },
         chooseFiles: ($event) => {

@@ -2,7 +2,10 @@
     <div class="integration-tabs-created-tasks">
         <integrationHeader ></integrationHeader>
         <div class="integration-tabs-created-tasks__container">
-          <template v-if="amo?.id.length!=0">
+            <teleport to="body" v-if="loading">
+                <FullScreenLoader ></FullScreenLoader>
+            </teleport>
+          <template v-if="amo?.id.length!=0&&amo">
               <div class="integration-tabs-created-tasks__container-title">Воронка</div>
                 <div class="integration-tabs-created-tasks__container-list" >
                         <!-- <SettingsIntegrationsTask :name="getNameFunnel(amo.funnel_actions[index].id)" :indexPhone ="amo.funnel_actions[index].id" :active="amo.is_active" @clickAmoSettings ="createdTasksEditActiveated" @deleteInput="del(index)" :phone="getPhoneFunnel(amo.funnel_actions[index].id)" v-for="(item, index) in amo?.funnel_actions" :key="index" :index='index'>
@@ -16,7 +19,7 @@
                         ></SettingsIntegrationsTask>
                 </div> 
             </template>
-            <template v-else>
+            <template v-else-if="!loading&&(Object.keys(amo).length)">
                 <div class="empty-list">
                     <div class="empty-list__title">У вас еще нет задач</div>
                     <div class="empty-list__button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
@@ -29,6 +32,7 @@
     import integrationHeader from "../integrationHeader/integrationHeader.vue";
     import {integrationCards} from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsCard/settings-integrations-card"; 
     import BaseInputGroup from "../../../../components/Base/BaseInputGroup"; 
+    import FullScreenLoader from "../../../../components/FullScreenLoader";
     import SettingsIntegrationsTask from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsTask/SettingsIntegrationsTask.vue"; 
     import {useIntegrations} from "../../../../composition/useIntegrations";
     import {ref, reactive, onMounted, watch, onUpdated} from 'vue';
@@ -36,20 +40,23 @@
     import { integrationTasks } from "./integration-tabs-created-tasks";
 
     export default {
-        components: { integrationHeader, BaseInputGroup, SettingsIntegrationsTask },
+        components: { integrationHeader, BaseInputGroup, SettingsIntegrationsTask, FullScreenLoader },
         setup() {
             const { checkActiveCard, isActiveAmo, activeCreatedTasks} = integrationCards()
             const { deleteIdAmocrm, getAllTasksAmo } = useIntegrations()
             const {getDateForChange} = integrationTasks();
             const { whatsapps, getWhatsapps } = useWhatsapp()
             const activeUpdate = ref(null);
+            const loading = ref(false);
              checkActiveCard(true);
              activeCreatedTasks.value = true;
              const amo = ref();
              getWhatsapps();
                  const getAmocrmWrapper = () => {
+                    loading.value = true
                 getAllTasksAmo()
                     .then(r => {
+                        loading.value = false
                         if (r.code === 404) {
                            amo.value = {is_active: false};
                             return;
@@ -119,7 +126,8 @@
                 deleteIdAmocrm,
                 updateTasks,
                 activeUpdate,
-                addTask
+                addTask,
+                loading
             }
         },
     }

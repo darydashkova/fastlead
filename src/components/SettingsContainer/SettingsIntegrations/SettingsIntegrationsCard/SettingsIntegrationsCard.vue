@@ -40,7 +40,6 @@ export default {
     const connect = () => {
       emit("connect");
     }
-    console.log(activateForm())
     if(activateForm()){
       //  connect();
     }
