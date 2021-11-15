@@ -26,6 +26,7 @@
         position: absolute;
         left: 90px;
         top: 0;
-        overflow-y: scroll;
+        //overflow-y: auto;
+
     }
 </style>
