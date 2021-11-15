@@ -96,7 +96,7 @@ export function useSocket() {
 
     const refreshSocket = () => {
         if (!isOpen(socket)) {
-            socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
+            //socket = new WebSocket(`${process.env.VUE_APP_SOCKET_URL}?token=${localStorage.getItem('token')}`)
         }
         socketInit();
     }

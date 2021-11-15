@@ -2,7 +2,7 @@
     <div class="settings-instagrams">
         <div class="settings-instagrams__header">
             <div>
-                Instagram аккаунты
+                Созданные аккаунты
             </div>
             <BaseButton class="base-button_enter base-button_p6-40" @click="create">Добавить новый</BaseButton>
         </div>
@@ -11,6 +11,7 @@
                 <div class="scroll__bar" ref="scrollbar"></div>
             </div>
             <div class="settings-instagrams__content" ref="content">
+            <div class="element-none" v-if="!instagrams">У вас еще нет подключенных аккаунтов</div>
                 <div class="settings-instagrams__element" v-for="instagram in instagrams"
                      :key="instagram.instagram_id+'SettingsWhatsapp'">
                     <div class="settings-instagrams__name">
@@ -68,13 +69,17 @@
     import { useModalConfirmDelete } from "../../../composition/useModalConfirmDelete";
     import ModalCreateInstagram from "../../../components/Modals/instagrams/ModalCreateInstagram";
     import { useInstagram } from "../../../composition/useInstagrams";
+    import {useInstagramApi} from "@/composition/useInstagramApi"
     export default {
         components: {ModalCreateInstagram, BaseButton },
         setup() {
             const { instagrams, getInstagrams, deleteInstagrams } = useInstagram()
-
+            const {routerActiveLink} = useInstagramApi()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
+
+            routerActiveLink.value.link = "/settings/instagrams"
+
             onMounted( () => {
                 init();
             })
@@ -108,6 +113,8 @@
 
             return {
                 instagrams,
+
+                routerActiveLink,
 
                 del,
                 edit,

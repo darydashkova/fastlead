@@ -11,10 +11,10 @@
             </div>
             <div class="settings-partners-link-change__block_main">
                 <p class="settings-partners-link-change__block_main-title">Название</p>
-                <input placeholder="Ввести" class="settings-partners-link-change__block_main-input">
+                <input v-model="initialUpdate.url_name" placeholder="Ввести" class="settings-partners-link-change__block_main-input">
             </div>
             <div class="settings-partners-link-change__block_buttons">
-                <button type="button" class="settings-partners-link-change__block_buttons-access">Применить</button>
+                <button type="button" class="settings-partners-link-change__block_buttons-access" @click="sellUpdateLink()">Применить</button>
                 <button type="button" class="settings-partners-link-change__block_buttons-cansel" @click="closeModalChange">Отмена</button>
             </div>
         </div>
@@ -22,15 +22,54 @@
 </template>
 
 <script>
+import { ref, onUpdated, onMounted } from 'vue'
+import { usePartners } from "@/composition/usePartners";
 export default {
     setup(props, {emit}){
+
+        const {returnPartners, updatePartners, getPartners} = usePartners()
 
         const closeModalChange = () => {
             emit('closeModalChange');
         }
 
+        const initialUpdate = ref({
+            affiliate_id: 0,
+            url_name: "",
+        })
+
+        const updateParametrs = () => {
+            initialUpdate.value.affiliate_id = returnPartners.value.affiliate[0].affiliate_id
+            returnPartners.value.affiliate[0].url_name = initialUpdate.value.url_name
+        }
+
+        
+
+        onUpdated(() => {
+            updateParametrs()
+        })
+
+        const sellUpdateLink = () => {
+
+            updatePartners(initialUpdate.value)
+            .then(r => {
+                if (r.error) {
+                    return;
+                }
+            })
+
+            emit('closeModalChange'); 
+        }
+
         return {
             closeModalChange,
+            
+            returnPartners,
+
+            initialUpdate,
+            updateParametrs,
+            sellUpdateLink,
+            
         }
     }
 }

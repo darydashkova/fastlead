@@ -2,8 +2,8 @@
     <div class="settings-finance-payment-shadow">
         <div class="settings-finance-payment">
             <div class="settings-finance-payment__header">
-                    <span class="settings-finance-payment__header_title">Подлючение подписки</span>
-                    <svg class="settings-finance-payment__header_close" @click="closePay" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <span class="settings-finance-payment__header_title">Продление подписки</span>
+                    <svg class="settings-finance-payment__header_close" @click="closeChange" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#9797BB"/>
                     </svg>
             </div>
@@ -33,7 +33,7 @@
                             </td>
                         </template>
                     </tr>
-                    <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle" v-if="initialValues.parameters[0].instagram != 0">
+                    <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle" v-else-if="initialValues.parameters[0].instagram != 0">
                         <td>Instagram -  
                             <span>{{initialValues.parameters[0].instagram}}</span>
                         </td>
@@ -72,7 +72,7 @@
                     </tr>
                 </table>
             <div class="settings-finance-payment__buttons">
-                <div class="settings-finance-payment__buttons_cancel" @click="closePay">Отмена</div>
+                <div class="settings-finance-payment__buttons_cancel" @click="closeChange">Отмена</div>
                 <a><div class="settings-finance-payment__buttons_payment" @click="payment()">Оплатить</div></a>
             </div>
         </div>
@@ -89,10 +89,10 @@
     },
     setup(props, {emit}){
         
-        const {initialData, createFinance, paymentFinance} = useFinance()
+        const {initialData, returnFinance, createFinance, extentionTariff, paymentFinance} = useFinance()
 
         const mounths = ref([
-            {name: "1 месяц", seil: "", active: false, id: 1, value: 0, count: 1,},
+            {name: "1 месяц", seil: "", active: true, id: 1, value: 0, count: 1,},
             {name: "3 месяца", seil: "Скидка - 10%", active: false, id: 2, value: 10, count: 3,},
             {name: "6 месяцев", seil: "Скидка - 15%", active: false, id: 3, value: 15, count: 6,},
             {name: "1 год", seil: "Скидка - 20%", active: false, id: 4, value: 20, count: 12,},
@@ -105,10 +105,10 @@
             })
 
         const initialValues = ref({
-           /*  user_tariff_id: 0,
+            user_tariff_id: 0,
             whatsapp_tariff_id: 0,
-            instagram_tariff_id: 0, */
-            sale_id: 1,
+            instagram_tariff_id: 0,
+            sale_id: 0,
             parameters: [
                 {
                     whatsapp: 0,
@@ -116,16 +116,15 @@
                 }
             ]
         })
-
+        console.log(returnFinance.value)
         const openUpdate = () => {
-            initialValues.value.sale_id = initialData.value.sale_id
-            initialValues.value.parameters[0].whatsapp = initialData.value.parameters[0].whatsapp
-            initialValues.value.parameters[0].instagram = initialData.value.parameters[0].instagram
-
-            for(i = 0; i< Object.keys(mounths.value).length; i++){
-                if(initialValues.value.sale_id == mounths.value[i].id){
-                    mounths.value[i].active = true
-                }
+            initialValues.value.sale_id = returnFinance.value.sale_id
+            if (returnFinance.value.whatsapp_tariff_id){
+                initialValues.value.parameters[0].whatsapp =  returnFinance.value.count
+                initialValues.value.parameters[0].instagram = 0
+            } else {
+                initialValues.value.parameters[0].instagram = returnFinance.value.count
+                initialValues.value.parameters[0].whatsapp = 0
             }
         }
 
@@ -137,15 +136,29 @@
                     defaultPrice.value.price = priceWithoutSeil - ((priceWithoutSeil * mounths.value[i].value)/100)
                 }
             }
+
         }
 
-        openUpdate()
+        const boolen = ref(true)
+
+        
+
+        watch(() => {
+            openUpdate()
+        })
+
+        onUpdated(() => {
+            console.log(initialValues.value.sale_id)
+        })
+
 
         const modalPay = ref({
             show: false
         })
-        const closePay = () => {
-            emit('closePay');
+        const closeChange = () => {
+            emit('closeChange');
+            initialValues.value.whatsapp_tariff_id == 0
+            initialValues.value.instagram_tariff_id == 0
         }
         const type = ref([
             {id:0, active:true},
@@ -161,44 +174,45 @@
         const searchMounth = (id) => {
             for (let i = 0; i < Object.keys(mounths.value).length; i++){
                 mounths.value[i].active = false;
-                
             }
             mounths.value[id-1].active = true
             initialValues.value.sale_id = mounths.value[id-1].id
-            
         }
 
-         onUpdated(() => {
-            console.log(initialValues.value.sale_id)
-        })
-
         const payment = () => {
-            createFinance(initialValues.value)
-            .then( r => {
-                initialValues.value.user_tariff_id = r.user_tariff_id
-                console.log(r.user_tariff_id)
-                console.log(initialValues.value.user_tariff_id)
-                paymentFinance({user_tariff_id: initialValues.value.user_tariff_id})
-                .then( r => {
-                    document.location.href = r.link
+            if(returnFinance.value.whatsapp_tariff_id){
+                extentionTariff({whatsapp_tariff_id: returnFinance.value.whatsapp_tariff_id,
+                                sale_id: initialValues.value.sale_id})
+                    .then( r => {
+                        paymentFinance({whatsapp_tariff_id: returnFinance.value.whatsapp_tariff_id})
+                        .then( r => {
+                            document.location.href = r.link
+                        })
                     return r;
                 })
-                
-                return r;
-            })
+            }else{
+                extentionTariff({instagram_tariff_id: returnFinance.value.instagram_tariff_id,
+                                sale_id: initialValues.value.sale_id})
+                    .then( r => {
+                        paymentFinance({instagram_tariff_id: returnFinance.value.instagram_tariff_id})
+                        .then( r => {
+                            document.location.href = r.link
+                        })
+                    return r;
+                })
+            }
         }
 
         watch(() => {
           updateValues()  
         })
-        
 
         return {
             type,
             mounths,
 
             modalPay,
-            closePay,
+            closeChange,
 
             searchType,
             searchMounth,
@@ -210,10 +224,12 @@
             openUpdate,
 
             payment,
-            paymentFinance,
+
+            returnFinance,
+            boolen,
         }
     }
 }
 </script>
 
-<style lang="scss" src="./settings-finance-payment.scss"></style>
+<style lang="scss" src="./settings-finance-extension.scss"></style>

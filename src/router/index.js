@@ -68,10 +68,18 @@ const routes = [
         path: 'mailings', component: () => import('../views/settings/mailings/mailings.vue'), meta: { requiresAuth: true, title: 'Fastlead - Рассылки' }
       },
       {
-        path: 'whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: { requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты' }
-      },
-      {
-        path: 'instagrams', component: () => import('../views/settings/instagrams/instagrams.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
+        path: 'accounts', component: () => import('../views/settings/accounts/accounts.vue'), meta: { requiresAuth: true, title: 'Fastlead - Аккаунты' },
+        children: [
+          {
+            path: '/settings/whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: { requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты' }
+          },
+          {
+            path: '/settings/instagrams', component: () => import('../views/settings/instagrams/instagrams.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
+          },
+          {
+            path: '/settings/instagrams-api', component: () => import('../views/settings/instagrams-api/instagrams-api.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
+          },
+        ]
       },
       {
         path: 'account', component: () => import('../views/settings/account/account.vue'), meta: { requiresAuth: true, title: 'Fastlead - Настройки аккаунта' }

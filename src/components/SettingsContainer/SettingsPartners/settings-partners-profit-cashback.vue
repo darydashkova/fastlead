@@ -21,7 +21,7 @@
             </div>
             <div class="settings-partners-profit-cashback__block_main">
                 <p class="settings-partners-profit-cashback__block_main-title">Номер карты</p>
-                <input data-inputmask = "' mask': '5000 5000 5000 5000'" type="number" placeholder="Ввести" class="settings-partners-profit-cashback__block_main-input">
+                <input v-maska="'####—####—####—####'" type="text" maxlength="19" placeholder="Ввести" class="settings-partners-profit-cashback__block_main-input">
             </div>
             <div class="settings-partners-profit-cashback__block_buttons">
                 <button type="button" class="settings-partners-profit-cashback__block_buttons-access">Готово</button>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onUpdated } from 'vue'
 export default {
     setup(props, {emit}){
 
@@ -56,6 +56,8 @@ export default {
             }
             option.value[element.id].active=true;
         }
+
+        
 
         return {
            closeModalCashback,

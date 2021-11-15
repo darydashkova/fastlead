@@ -1,24 +1,28 @@
 <template>
-        <tr class="settings-partners-referal__table_row" v-for="(tableCell, index) in tableCells" :key="index">
-            <td class="settings-partners-referal__table_row-cell"></td>
-            <td class="settings-partners-referal__table_row-cell"></td>
-            <td class="settings-partners-referal__table_row-cell"></td>
-            <td class="settings-partners-referal__table_row-cell"></td>
+        <tr class="settings-partners-referal__table_row" v-for="(returnRegPartner, id) in returnRegPartners" :key="id">
+            <td class="settings-partners-referal__table_row-cell">{{new Date(returnRegPartner.date * 1000).toLocaleDateString()}}</td>
+            <td class="settings-partners-referal__table_row-cell">+{{returnRegPartner.phone}}</td>
+            <td class="settings-partners-referal__table_row-cell">{{returnRegPartner.user_tariffs}}</td>
+            <td class="settings-partners-referal__table_row-cell">{{returnRegPartner.user_tariffs}}</td>
         </tr>
 </template>
 
 <script>
-import { ref, onUpdated } from 'vue'
+import { ref, onUpdated, watch, onBeforeMount } from 'vue'
+import { usePartners } from "@/composition/usePartners";
 export default {
+    setup(props, {emit}){
 
-    setup(){
-        /* const tableCells = ref([
-            {date: "", phone: "", status:"", price: 0,},
-            {date: "", phone: "", status:"", price: 0,},
-        ]) */
+        const {routerActiveLink, returnRegPartners, getRegRefferals} = usePartners()
+
+        onUpdated(() => {
+            /* getRegRefferals() */
+        })
+
+        getRegRefferals()
 
         return{
-            /* tableCells, */
+            returnRegPartners
         }
     }
 }

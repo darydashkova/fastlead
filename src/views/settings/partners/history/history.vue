@@ -4,6 +4,7 @@
             <tr class="history__table_row">
                 <td class="history__table_cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
             </tr>
+            <tr class="settings-partners-links__table_row row-data-none">Отсутсвуют данные</tr>
             <PartnersHistory/>
         </table>
     </div>

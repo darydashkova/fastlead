@@ -2,7 +2,7 @@
     <div class="settings-partners">
         <div class="settings-partners__header">
             <div>
-                Партнерская программа
+                Аккаунты
             </div>
             <div class="settings-partners__navigation">
                 <router-link class="navigation-link" v-for="(routerLink, index) in routerLinks" :key="index" :to="routerLink.link"
@@ -18,16 +18,16 @@
 
 <script>
 import { ref } from 'vue'
-import { usePartners } from "@/composition/usePartners";
+import { useInstagramApi } from "@/composition/useInstagramApi";
 
 export default {
     setup() {
-        const {routerActiveLink} = usePartners()
+        const {routerActiveLink} = useInstagramApi()
 
         const routerLinks = ref([
-            {name: "Прибыль", link: "/settings/partners/profit"},
-            {name: "Ваша ссылка", link: "/settings/partners/links"},
-            /* {name: "История", link: "/settings/partners/history"}, */
+            {name: "WhatsApp", link: "/settings/whatsapps"},
+            {name: "Instagrams", link: "/settings/instagrams"},
+           /*  {name: "InstagramsApi", link: "/settings/instagrams-api"}, */
         ])
 
 
@@ -40,4 +40,4 @@ export default {
 
 </script>
 
-<style lang="scss" src="./partners.scss"></style>
+<style lang="scss" src="./accounts.scss"></style>
