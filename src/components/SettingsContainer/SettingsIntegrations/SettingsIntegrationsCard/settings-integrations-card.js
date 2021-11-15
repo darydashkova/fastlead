@@ -21,17 +21,16 @@ export function integrationCards() {
         activeCreatedTasks.value = false;
         activeIgnoreList.value = false;
          const href = document.location.pathname;
-        if(href == '/settings/integrations/create'){
+        if(href === '/settings/integrations/create'){
             activeCreatedTasks.value = true;
         }
-        else if (href == '/settings/integrations/ignore'){
+        else if (href === '/settings/integrations/ignore'){
             activeIgnoreList.value = true;
         }
         else {
             activeAmoCrmPage.value = true;
 
         }
-        
     }
    
     return {

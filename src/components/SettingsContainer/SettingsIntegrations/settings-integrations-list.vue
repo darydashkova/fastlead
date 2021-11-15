@@ -44,7 +44,7 @@
            <SettingsIntegrationsCard v-if="isAmoClick"  :img="cardImg[0]" :active="amoProps.is_active" :activelink="isAmoClick"  :name='`amoCRM`'  @connect="amo.action()" @del="amo.del()" @connectEdit="linkSettings()" @activeAmo='ff()'></SettingsIntegrationsCard> 
           <SettingsIntegrationsCard :img="cardImg[0]" v-else  :active="amoProps.is_active" :activelink="isAmoClick" @plug="openModel(amo)"  :name='`amoCRM`'  @connect="amo.action()" @del="amo.del()"  @connectEdit="linkDefault()" @activeAmo='ff()'></SettingsIntegrationsCard> 
         </div>
-        <SettingsIntegrationsCard :img="cardImg[1]"  :active="yclientsProps.is_active"  :name='`yclient`' @connect="yclients.action()" @del="yclients.del()" @plug="openModel(yclients)"  ></SettingsIntegrationsCard>
+        <SettingsIntegrationsCard :img="cardImg[1]"  :active="yclientsProps.is_active"  :name='`YCLIENT`' @connect="yclients.action()" @del="yclients.del()" @plug="openModel(yclients)"  ></SettingsIntegrationsCard>
       <!-- </router-link> -->
       <!-- <SettingsIntegrationsCard :img='cardImg' :active="amoProps"></SettingsIntegrationsCard>  -->
       <!-- <div class="settings-integrations-list__element" @click="bitrix.action()">

@@ -29,4 +29,4 @@
     }
 </script>
 
-<style lang="scss" src="./integrations.scss"></style>
+<style lang="scss" src="./integrations.scss"></style> 

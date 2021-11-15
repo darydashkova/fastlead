@@ -25,5 +25,20 @@ export default {
     deleteAmocrm: () => {
         return api.fetch('POST', `delete/amocrm`, null, true)
     },
+    getAllTasksAmo: () => {
+        return api.fetch('GET', `get/id/amocrm`, null, true)
+    },
+    deleteIdAmocrm: (data) => {
+        let lData = {
+            ...data,
+        }
+         return api.fetch('POST', `delete/id/amocrm`, lData, true)
+    },
+    testMessage: (data) => {
+        let lData = {
+            ...data,
+        }
+         return api.fetch('POST', `send/test/message`, lData, true)
+    }
 
 }
