@@ -11,7 +11,7 @@
                 <div class="scroll__bar" ref="scrollbar"></div>
             </div>
             <div class="settings-whatsapps__content" ref="content">
-                <div class="settings-whatsapps__element" v-for="whatsapp in whatsapps"
+                <div class="settings-whatsapps__element pointer" v-for="whatsapp in whatsapps"
                      :key="whatsapp.whatsapp_id+'SettingsWhatsapp'">
                     <div class="settings-whatsapps__name">
                         <span>
