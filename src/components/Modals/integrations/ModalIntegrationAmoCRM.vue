@@ -15,7 +15,7 @@
           Как настроить интеграцию:
         </div>
         <ol class="modal-integration-amo-crm__info-list">
-          <li>Аторизуйтесь в amoCRM</li>
+          <li>Авторизуйтесь в amoCRM</li>
 
           <li>Установите наш виджет “FastLead” в магазине amoCRM</li>
         </ol>

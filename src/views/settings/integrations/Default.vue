@@ -78,7 +78,7 @@
             }
                    
                const activeAmoClick = () => {
-                   console.log('111111S')
+ 
                }
         
             const openedForm = ref(false);
@@ -131,8 +131,14 @@
                             return;
                         }
                         integrations.amo = {...r.amocrm_integration};
-                        formData.value.data= integrations.amo
-                      
+                        formData.value.data = integrations.amo
+                        if(formData.value.data.new_dialog_action===null){
+                            const new_dialog_action = ref({
+                                    funnel_id: null,
+                                    column_uid: null,
+                            });
+                            formData.value.data.new_dialog_action=new_dialog_action
+                        }
                     }); 
             }
             const  getYclientsWrapper = () => {
@@ -164,8 +170,6 @@
             getYclientsWrapper();
             const updateAmo = () => {
                 getAmocrmWrapper()
-                console.log(formData) 
-                console.log('update')
                 }
             return {
                 openedForm,

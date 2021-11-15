@@ -7,11 +7,17 @@
  &__popup{
    display: flex;
    justify-content: space-between;
+   align-items: center;
  }
  &__delete{
   margin-bottom: 8px;
+min-width: 18px;
 
-
+ }
+ &__folder{
+min-width: 18px;
+margin-right: 16px;
+margin-bottom: 8px;
  }
 }
 .settings-integrations-form__body {
@@ -88,7 +94,7 @@
 .settongs-integrations-form__input-group_width{
   display: flex;
   flex-direction: column;
-  margin-left: 50px;
+  margin-left: 75px;
 
 }
 .settings-integrations-form__input_test{
@@ -108,7 +114,9 @@
   text-align: left;
   min-width: 159px;
   position: relative;
-  
+  &::placeholder{
+    color: #40406B;
+  }
 }
 .settings-integrations-form__input {
   font-family: Segoe UI;
@@ -117,18 +125,24 @@
   font-size: 14px;
   line-height: 19px;
   width: 100%;
-  padding: 8px 10px;
+  // padding: 8px 10px;
+  padding: 0px 10px;
   color: var(--modal-font-color);
   background: var(--modal-element-hover-bg-color);
   border: .7px solid var(--modal-input-border-color);
   box-sizing: border-box;
   border-radius: 3px;
   text-align: left;
-
+  height:37px;
+  width: 100%;
   position: relative;
-@media screen and (max-width:1200px) {
-    max-width: 227px;
-}
+  @media screen and (max-width:1100px) {
+    width: 159px;
+
+  }
+  @media screen and (max-width:1200px) {
+      width: 200px;
+  }
   &.settings-integrations-form__input_search {
     padding: 8px 10px 8px 42px;
     position: relative;
@@ -144,15 +158,28 @@
   &.settings-integrations-form__input_error {
     border: .7px solid var(--red-color);
   }
-}
-.settings-integrations-form__dropdown-inner {
+
+} 
+
+.settings-integrations-form__dropdown{
+&-inner {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  height: 100%;
+  &-svg{
+    border-left: 1px solid #252544;
+    height: 100%;
+    padding-left: 10px;
+    min-width: 21px;
+  }
+  &-svg_green{
+    border-left: 1px solid #5EC075 !important
+  }
 }
-.settings-integrations-form__dropdown-list {
+&-list {
   position: absolute;
   width: 100%;
   left: 0;
@@ -162,12 +189,14 @@
   border-radius: 3px;
   z-index: 111;
 }
-.settings-integrations-form__dropdown-item {
+&-item {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 21px;
   padding: 8px 15px;
+  display: flex;
+  align-items: center;
   transition: .2s ease;
   color: var(--user-info-settings-default-svg-fill);
   cursor: pointer;
@@ -175,8 +204,15 @@
     background: var(--user-info-settings-hover-setting-bg);
     color: var(--font-color);
   }
+} 
+  &-image{
+    margin-right: 10px;
+    width:16px;
+    height: 16px;
+    min-width: 16px;
+  }
 }
-.settings-integrations-form__icon {
+.setуууtings-integrations-form__icon {
   position: absolute;
   left: 11px;
 }
@@ -298,4 +334,21 @@
   min-height: 37px;
   max-width: 73% ;
 }
+}
+.settings-integrations-form__select_active {
+  border: 1px solid #5EC075 !important;
+}
+.settings-integrations-form__date-column{
+  margin-right: 16px;
+}
+.settings-integrations-form__date-column:nth-last-child(1){
+  margin-right: 0px;
+}
+.settongs-integrations-form__input-automessage{
+  min-width: 25%;
+  display: flex;
+  align-items: flex-end;
+  .settongs-integrations-form__input-group{
+      width: 100%;
+  }
 }

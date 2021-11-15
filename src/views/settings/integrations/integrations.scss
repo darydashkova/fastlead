@@ -24,12 +24,13 @@
       color: #9797BB;
       font-size: 16px;
       line-height: 300%;
-
       a {
         color: #9797BB;
         font-size: 16px;
         line-height: 300%;
         text-decoration: none;
+        display: flex;
+        height: 100%;
       }
     }
 
@@ -39,7 +40,7 @@
       font-size: 16px;
       line-height: 300%;
       padding-right: 0px;
-      border-bottom: 1px solid #5EC075;
+      border-bottom: 2px solid #5EC075;
       background: var(--green-color);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;

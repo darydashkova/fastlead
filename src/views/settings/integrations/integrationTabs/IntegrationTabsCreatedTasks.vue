@@ -2,16 +2,26 @@
     <div class="integration-tabs-created-tasks">
         <integrationHeader ></integrationHeader>
         <div class="integration-tabs-created-tasks__container">
-            <div class="integration-tabs-created-tasks__container-title">Воронка</div>
-            <div class="integration-tabs-created-tasks__container-list" >
-                <template v-if="amo?.funnel_actions!=null">
-                    <SettingsIntegrationsTask :name="getNameFunnel(amo.funnel_actions[index].id)" :indexPhone ="amo.funnel_actions[index].id" :active="amo.is_active" @clickAmoSettings ="createdTasksEditActiveated" @deleteInput="del(index)" :phone="getPhoneFunnel(amo.funnel_actions[index].id)" v-for="(item, index) in amo?.funnel_actions" :key="index" :index='index'>
-                    </SettingsIntegrationsTask>
-                </template>
-                <template v-if="amo?.new_dialog_action!=null">
-                    <SettingsIntegrationsTask :name="getNameFunnel(amo.new_dialog_action.id)" :active="amo.is_active" @clickAmoSettings ="createdTasksEditActiveatedNewDialog" @deleteInput="delNewDialog(amo.new_dialog_action)" :phone="getPhoneFunnel(amo.new_dialog_action.id)" ></SettingsIntegrationsTask>
-                </template>
-            </div>
+          <template v-if="amo?.id.length!=0">
+              <div class="integration-tabs-created-tasks__container-title">Воронка</div>
+                <div class="integration-tabs-created-tasks__container-list" >
+                        <!-- <SettingsIntegrationsTask :name="getNameFunnel(amo.funnel_actions[index].id)" :indexPhone ="amo.funnel_actions[index].id" :active="amo.is_active" @clickAmoSettings ="createdTasksEditActiveated" @deleteInput="del(index)" :phone="getPhoneFunnel(amo.funnel_actions[index].id)" v-for="(item, index) in amo?.funnel_actions" :key="index" :index='index'>
+                        </SettingsIntegrationsTask> -->
+                        <SettingsIntegrationsTask 
+                        :data='amo.id[index]' 
+                        v-for="(item, index) in amo?.id" 
+                        :key="index" 
+                        @clickAmoSettings ="createdTasksEditActiveated" 
+                        @deleteInput="updateTasks " 
+                        ></SettingsIntegrationsTask>
+                </div> 
+            </template>
+            <template v-else>
+                <div class="empty-list">
+                    <div class="empty-list__title">У вас еще нет задач</div>
+                    <div class="empty-list__button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -21,45 +31,47 @@
     import BaseInputGroup from "../../../../components/Base/BaseInputGroup"; 
     import SettingsIntegrationsTask from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsTask/SettingsIntegrationsTask.vue"; 
     import {useIntegrations} from "../../../../composition/useIntegrations";
-    import {ref, reactive, onMounted} from 'vue';
+    import {ref, reactive, onMounted, watch, onUpdated} from 'vue';
     import { useWhatsapp } from "../../../../composition/useWhatsapp";
     import { integrationTasks } from "./integration-tabs-created-tasks";
 
     export default {
         components: { integrationHeader, BaseInputGroup, SettingsIntegrationsTask },
         setup() {
-            const { checkActiveCard, isActiveAmo, activeAmoCrmPage, activeNextTabs, activeIgnoreList, activeCreatedTasks} = integrationCards()
-            const { getAmocrm } = useIntegrations()
+            const { checkActiveCard, isActiveAmo, activeCreatedTasks} = integrationCards()
+            const { deleteIdAmocrm, getAllTasksAmo } = useIntegrations()
             const {getDateForChange} = integrationTasks();
             const { whatsapps, getWhatsapps } = useWhatsapp()
+            const activeUpdate = ref(null);
              checkActiveCard(true);
              activeCreatedTasks.value = true;
              const amo = ref();
              getWhatsapps();
                  const getAmocrmWrapper = () => {
-                getAmocrm()
+                getAllTasksAmo()
                     .then(r => {
                         if (r.code === 404) {
                            amo.value = {is_active: false};
-                           
                             return;
                         }
                         amo.value = {...r.amocrm_integration};
-                     
                     });
             }
-            const createdTasksEditActive = ref(false);
+            const updateTasks =  (data) => {
+                 deleteIdAmocrm(data)
+                 .then(r => {
+                     console.log(r)
+                    activeUpdate.value  = r.status
+                 });
+            }
             const createdTasksEditActiveated = (index) => {
                 const gg = document.querySelector('.settings-integrations__header-pages-link a ')
-                const data = amo.value.funnel_actions.find(i => i.id == index)
                 getDateForChange(index);
                  gg.click();
             }
-            const createdTasksEditActiveatedNewDialog = (index) => {
-            const gg = document.querySelector('.settings-integrations__header-pages-link a ')
-            const data = amo.value.new_dialog_action.id
-                getDateForChange(index);
-                 gg.click();
+            const addTask = () => {
+                const gg = document.querySelector('.settings-integrations__header-pages-link a ')
+                gg.click();
             }
             const getNameFunnel = (id) => {
                 let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)  
@@ -71,8 +83,12 @@
                 const phone = whatsapps.value[index].phone
                return phone
             }
-             onMounted(() => {
-
+             watch(() => {
+                  if (activeUpdate.value=='ok'){
+                   getAmocrmWrapper();  
+                    activeUpdate.value = null
+                  }
+                
              });
              const del = (indx) => {
                  console.log(amo.value.funnel_actions)
@@ -86,7 +102,7 @@
                 
             }
             getAmocrmWrapper();
-              
+            
             return{
                 isActiveAmo,
                 activeCreatedTasks,
@@ -97,10 +113,13 @@
                 getWhatsapps,
                 getPhoneFunnel,
                 createdTasksEditActiveated,
-                createdTasksEditActive,
                 del,
                 delNewDialog,
-                createdTasksEditActiveatedNewDialog
+                getAllTasksAmo,
+                deleteIdAmocrm,
+                updateTasks,
+                activeUpdate,
+                addTask
             }
         },
     }
@@ -119,7 +138,9 @@
         padding-bottom: 6px;
     }
     &-list{
-        
+        @media (min-width: 1200px) {
+            max-width:1000px
+        }
         &-block{
             display: flex;
             align-items: center;
@@ -138,6 +159,26 @@
                 line-height: 130%;
                 color: #9797BB; 
             }
+        }
+    }
+    .empty-list{
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width: fit-content;
+        display:flex;
+        align-items: center;
+        flex-direction: column;
+        &__title{
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 24px;
+            color: #F0F0FA;
+            padding-bottom:32px;
+        }
+        &__button{
+            color: #1D1D35
         }
     }
 }

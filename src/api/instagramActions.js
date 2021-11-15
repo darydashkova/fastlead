@@ -25,4 +25,8 @@ export default {
         }
         return api.fetch('POST', 'update/instagram', lData, true)
     },
+    twoFactorInstagram: (data) =>{
+       
+        return api.fetch('POST', 'two-factor/instagram', data, true)
+    }
 }

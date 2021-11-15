@@ -10,6 +10,9 @@ export function useIntegrations() {
     const getAmocrm = async () => {
         return await integrationActions.amocrmActions.getAmocrm();
     }
+    const getAllTasksAmo = async () => {
+           return await integrationActions.amocrmActions.getAllTasksAmo();
+    }
     const getYclients = async () => {
         return await integrationActions.yclientsActions.getYclients();
     }
@@ -24,6 +27,9 @@ export function useIntegrations() {
     }
     const delYclient = async () => {
         return await integrationActions.yclientsActions.delYclient();
+    }
+    const deleteIdAmocrm = async (id) => {
+        return await integrationActions.amocrmActions.deleteIdAmocrm(id);
     }
     const connectAmocrm = async () => {
         let client_id = amocrm_client_id,
@@ -101,6 +107,7 @@ export function useIntegrations() {
         return await integrationActions.yclientsActions.updateYclients(data);
     }
     const postBirthdayTask = async (data) => {
+        console.log(data)
         return await integrationActions.yclientsActions.postBirthdayTask(data)
     }
     const getAllTask = async () => {
@@ -111,6 +118,9 @@ export function useIntegrations() {
     }
     const updateTask = async (data) => {
         return await integrationActions.yclientsActions.updateTask(data)
+    }
+    const testMessage = async (data) => {
+        return await integrationActions.amocrmActions.testMessage(data);
     }
     return {
         getBitrix,
@@ -136,6 +146,9 @@ export function useIntegrations() {
         getAllTask,
         deleteTask,
         updateTask,
-        delYclient
+        delYclient,
+        getAllTasksAmo,
+        deleteIdAmocrm,
+        testMessage
     }
 }

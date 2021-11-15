@@ -1,13 +1,13 @@
 <template>
-    <button class="base-button">
+    <div class="base-button">
         <slot></slot>
-    </button>
+    </div>
 </template>
 
 <style lang="scss">
     .base-button {
         font-style: normal;
-        font-weight: normal;
+        font-weight: 550;
         font-size: 16px;
         line-height: 21px;
         color: #F0F0FA;
@@ -17,6 +17,8 @@
     }
     .base-button_enter {
         background: var(--green-color);
+        border-radius: 6px;
+        font-weight: 500;
     }
     .base-button_cancel {
         background: transparent;
@@ -24,12 +26,13 @@
         background: var(--green-color);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        border-radius: 6px;
     }
     .base-button_delete {
         background: var(--red-color);
     }
     .base-button_p5-15 {
-        padding: 6px 20px;
+        padding: 8px 16px;
     }
     .base-button_p6-40 {
         padding: 6px 40px;
@@ -47,5 +50,7 @@
         background-color: transparent;
         font-size: 16px;
         line-height: 130%;
+        border-radius: 6px;
+
     }
 </style>

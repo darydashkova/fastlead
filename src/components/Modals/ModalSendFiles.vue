@@ -159,7 +159,7 @@
             }
 
             const save = () => {
-                const uidRandom = getRandomInRange(1, 10000);
+                const uidRandom = getRandomInRange();
                     addSendedMessage({
                         is_me: true,
                         is_read: false,

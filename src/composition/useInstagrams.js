@@ -9,6 +9,8 @@ export function useInstagram() {
         return await instagramActions.getInstagrams()
             .then(r => {
                 instagrams.data = [...r.instagrams]
+                console.log(instagrams)
+                console.log('instagrams')
                 return r;
             })
     }
@@ -21,12 +23,15 @@ export function useInstagram() {
     const updateInstagram = async (data) => {
         return await instagramActions.updateInstagram(data);
     }
-
+const twoFactorInstagram = async (data) => {
+    return await instagramActions.twoFactorInstagram(data);
+}
     return {
         instagrams: computed(() => instagrams.data),
         getInstagrams,
         deleteInstagrams,
         createInstagram,
         updateInstagram,
+        twoFactorInstagram,
     }
 }
