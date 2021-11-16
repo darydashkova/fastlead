@@ -230,6 +230,12 @@ margin-bottom: 8px;
       transform: translateY(3px) rotateX(180deg);
     }
   }
+  &-svg_green_no-transform{
+    border-left: 1px solid #5EC075 !important;
+    path{
+      fill: #5EC075;
+    }
+  }
 }
 &-list {
   position: absolute;
