@@ -8,35 +8,37 @@
 }
 .settings-finance-payment{
     margin: 10% auto;
-    width: 600px;
-    height: 610px;
+    width: 520px;
+    height: 650px;
     background: #252544;
     text-align: left;
     border-radius: 6px;
     &__header{
         border-radius: 6px;
-        height: 100px;
+        height: 78px;
         background: #252544;
         width: 100%;
         display: flex;
         justify-content: space-between;
         padding: 26px 24px 0px 24px;
-        & span{
-            font-size: 30px;
+        &_title{
+            font-size: 24px;
             color: #CFCFE4;
         }
-        & svg{
+        &_close{
             cursor: pointer;
         }
     }
     &__info{
         background: #1D1D35;
-        height: 250px;
+        height: 400px;
         width: 100%;
-        padding: 26px 24px 0px 24px;
+        padding: 0px 24px 0px 24px;
         display: flex;
         flex-direction: column;
         &-main{
+            margin-top: 24px;
+            width: 550px;
             &_title{
                 color: #CFCFE4;
             }
@@ -56,9 +58,14 @@
             }
         }
         &-total{
-            margin-top: 100px;        
-            border-top: 2px solid #40406B;
+            margin-top: 10px;        
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            padding-bottom: 23px;
+            border-bottom: 2px solid #40406B;
             &_title{
+                width: 400px;
                 padding-top: 23px;
                 color: #CFCFE4;
                 font-size: 18px;
@@ -68,11 +75,11 @@
                 font-size: 18px;
                 color: #84d160ce;
             }
-            & td{
-                font-weight: 600;
-            }
         }
-        & tr{
+        &_cell{
+            font-weight: 600;
+        }
+        &_row{
             display: flex;
             justify-content: space-between;
         }
@@ -80,22 +87,22 @@
     &__method{
         height: 160px;
         border-bottom: 2px solid #40406B;
-        padding: 26px 24px 0px 24px;
+        padding: 24px 24px 0px 24px;
         &_title{
+            padding-top: 26px;
             color: #F0F0FA;
         }
         &_type{
             padding-top: 18px;
             display: flex;
             &-card{
-                /* width: 267px; */
                 width: 100%;
                 align-items: center;
                 display: flex;
                 justify-content: space-between;
-                padding: 19px 19px 19px 19px;
+                padding: 14px 19px 14px 19px;
                 color: #9797BB;
-                background: #40406B;
+                background: none;
                 border-radius: 6px;
                 cursor: pointer;
                 border: 1px solid #40406B;
@@ -145,10 +152,11 @@
     }
     &__buttons{
         height: 100px;
-        padding: 41px 24px 30px 24px;
+        padding: 21px 24px 30px 24px;
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
+        font-weight: 500;
         &_cancel{
             padding: 8px 32px 8px 32px;
             border-radius: 6px;
@@ -168,7 +176,7 @@
 }
 
 .settings-finance-payment__method_type-active{
-    background: #4d4d7e;
+    /* background: #4d4d7e; */
     border: 1px solid #84D160;
     color: #84D160;
     & span{
@@ -181,4 +189,35 @@
 .more_active{
     color: red;
     display: block;
+}
+
+.mounth__list{
+    padding-top: 12px;
+    display: flex;
+}
+
+.mounth__element{
+    width: 111px;
+    background: #252544;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #00000000;
+    margin-right: 11px;
+    cursor: pointer;
+    &_mounth{
+        font-size: 16px;
+        color: #CFCFE4;
+    }
+    &_seil{
+        font-size: 12px;
+        color: #9797BB;
+        padding-top: 8px;
+    }
+}
+
+.mounth-active{    
+    border: 1px solid #84D160;
+    & .mounth__element_mounth{
+        color: #84D160;
+    }
 }

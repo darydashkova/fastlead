@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--separator-color);
+/*   border-bottom: 1px solid var(--separator-color); */
 
   font-style: normal;
   font-weight: normal;
@@ -105,4 +105,16 @@
   &:last-of-type {
     margin: 0;
   }
+}
+
+.element-none{
+  width: 100%;
+  color: #F0F0FA;
+  font-size: 24px;
+  background: #252544;
+  text-align: center;
+  align-items: center;
+  /* height: calc(100vh - 30vh); */
+  padding: 180px;
+  border-radius: 6px;
 }

@@ -1,0 +1,33 @@
+.history{
+    width: 100%;
+    text-align: left;
+    padding-right: 80px;
+    padding-top: 40px;
+    &__table{
+        margin-left: 33px;
+        /* max-width: 1200px; */
+        width: 100%;
+        padding: 32px 0px 0px 32px;
+        border-collapse: collapse;
+        &_row{
+            background: #34345e;
+            border-radius: 6px 6px 0px 0px;
+            display: flex;
+            justify-content: space-between;
+        }
+        &_cell{
+            font-size: 10px;
+            color: #9797BB;
+            padding: 12px 20px 12px 20px;
+            &:nth-child(2){
+                margin-left: 55px;
+            }
+            &:nth-child(3){
+                margin-left: 0px;
+            }
+            &:nth-child(4){
+                margin-right: 40px;
+            }
+        }
+    }
+}

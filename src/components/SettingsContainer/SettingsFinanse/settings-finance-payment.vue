@@ -2,53 +2,50 @@
     <div class="settings-finance-payment-shadow">
         <div class="settings-finance-payment">
             <div class="settings-finance-payment__header">
-                    <span>Подлючение подписки</span>
-                    <svg @click="closePay" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <span class="settings-finance-payment__header_title">Подлючение подписки</span>
+                    <svg class="settings-finance-payment__header_close" @click="closePay" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#9797BB"/>
                     </svg>
             </div>
             <div class="settings-finance-payment__info">
                 <table class="settings-finance-payment__info-main">
-                    <tr>
-                        <td class="settings-finance-payment__info-main_title">Подписка:</td>
+                    <tr class="settings-finance-payment__info_row">
+                        <td class="settings-finance-payment__info-main_title settings-finance-payment__info_cell">Срок подписки:</td>
                     </tr>
-                    <tr class="settings-finance-payment__info-main_subtitle">
-                        <td>{{initialData.countNum}} номеров на тарифе 
-                            <span v-if="returnFinanceHistory.tariff_id == 1">"Base"</span>
-                            <span v-if="returnFinanceHistory.tariff_id == 2">"Start"</span>
-                            <span v-if="returnFinanceHistory.tariff_id == 3">"Pro"</span>
-                             на 
-                             <span v-if="returnFinanceHistory.sale_id == 1">1</span>
-                             <span v-if="returnFinanceHistory.sale_id == 2">3</span>
-                             <span v-if="returnFinanceHistory.sale_id == 3">6</span>
-                             <span v-if="returnFinanceHistory.sale_id == 4">12</span>
-                             <span v-if="returnFinanceHistory.sale_id == 5">24</span>
-                             меся<span v-if="returnFinanceHistory.sale_id == 1">ц</span>
-                            <span v-if="returnFinanceHistory.sale_id == 2 || returnFinanceHistory.sale_id == 5">ца</span>
-                            <span v-if="returnFinanceHistory.sale_id == 3 || returnFinanceHistory.sale_id == 4">цев</span>
+                    <div class="mounth__list">
+                        <div class="mounth__element" v-for="(mounth, index) in mounths" :key="index" :class="{'mounth-active' : mounth.active}"  @click="searchMounth(mounth.id)">
+                            <div class="mounth__element_mounth">{{mounth.name}}</div>
+                            <div class="mounth__element_seil">{{mounth.seil}}</div>
+                        </div>
+                    </div>
+                </table>
+                <table class="settings-finance-payment__info-main">
+                    <tr class="settings-finance-payment__info_row">
+                        <td class="settings-finance-payment__info-main_title settings-finance-payment__info_cell">Каналы:</td>
+                    </tr>
+                    <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle" v-if="initialValues.parameters[0].whatsapp != 0">
+                        <td>WhatsApp -  
+                             <span>{{initialValues.parameters[0].whatsapp}}</span>
                          </td>
-                        <td class="settings-finance-payment__info-main_title">{{initialData.price}}₽</td>
+                         <template>
+                            <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">
+                               
+                            </td>
+                        </template>
+                    </tr>
+                    <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle" v-if="initialValues.parameters[0].instagram != 0">
+                        <td>Instagram -  
+                            <span>{{initialValues.parameters[0].instagram}}</span>
+                        </td>
+                        <template>
+                            <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">
+                          
+                            </td>
+                        </template>
                     </tr>
                 </table>
-                <!--<table class="settings-finance-payment__info-more">
-                    <tr class="settings-finance-payment__info-more_title" >
-                        <td>Дополнительные услуги:</td>
-                    </tr>
-                    :class="{'more_active' : paymentСard.validationBase == true}"
-                    <tr class="settings-finance-payment__info-more_subtitle">
-                        <td>Аренда виртруальных номеров</td>
-                        <td class="settings-finance-payment__info-more_title">2000₽</td>
-                    </tr>
-                </table>-->
-                <table class="settings-finance-payment__info-total">
-                    <tr>
-                        <td class="settings-finance-payment__info-total_title">Итого к оплате</td>
-                        <td class="settings-finance-payment__info-total_subtitle">{{initialData.price}}₽</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="settings-finance-payment__method">
-                <div class="settings-finance-payment__method_title">Способ оплаты</div>
+                
+                <div class="settings-finance-payment__method_title">Способ оплаты:</div>
                 <div class="settings-finance-payment__method_type">
                     <div :id = "type[0].id" class="settings-finance-payment__method_type-card" :class="{'settings-finance-payment__method_type-active' : type[0].active}" @click="searchType(type[0])">
                         Банковской картой 
@@ -68,16 +65,22 @@
                     </div>
                 </div>
             </div>
+            <table class="settings-finance-payment__info-total">
+                    <tr class="settings-finance-payment__info_row">
+                        <td class="settings-finance-payment__info-total_title settings-finance-payment__info_cell">Итого к оплате:</td>
+                        <td class="settings-finance-payment__info-total_subtitle settings-finance-payment__info_cell">{{defaultPrice.price}}₽</td>
+                    </tr>
+                </table>
             <div class="settings-finance-payment__buttons">
-                <button class="settings-finance-payment__buttons_cancel" @click="closePay">Отмена</button>
-                <a :href="linkPayment.link"><button class="settings-finance-payment__buttons_payment" @click="payment()">Оплатить</button></a>
+                <div class="settings-finance-payment__buttons_cancel" @click="closePay">Отмена</div>
+                <a><div class="settings-finance-payment__buttons_payment" @click="payment()">Оплатить</div></a>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import { ref, onUpdated } from 'vue'
+    import { ref, watch, onUpdated } from 'vue'
     import { useFinance } from "@/composition/useFinance";
     export default {
     props: {
@@ -86,7 +89,57 @@
     },
     setup(props, {emit}){
         
-        const {returnFinance, finance, getFinance, getSingleFinance, /* getFinanceHistory, */ returnFinanceHistory, paymentFinance, linkPayment} = useFinance()
+        const {initialData, createFinance, paymentFinance} = useFinance()
+
+        const mounths = ref([
+            {name: "1 месяц", seil: "", active: false, id: 1, value: 0, count: 1,},
+            {name: "3 месяца", seil: "Скидка - 10%", active: false, id: 2, value: 10, count: 3,},
+            {name: "6 месяцев", seil: "Скидка - 15%", active: false, id: 3, value: 15, count: 6,},
+            {name: "1 год", seil: "Скидка - 20%", active: false, id: 4, value: 20, count: 12,},
+        ])
+
+        const defaultPrice = ref({
+            price: 0,
+            priceOneWhats: 1500,
+            priceOneInst: 1500,
+            })
+
+        const initialValues = ref({
+           /*  user_tariff_id: 0,
+            whatsapp_tariff_id: 0,
+            instagram_tariff_id: 0, */
+            sale_id: 1,
+            parameters: [
+                {
+                    whatsapp: 0,
+                    instagram: 0,
+                }
+            ]
+        })
+
+        const openUpdate = () => {
+            initialValues.value.sale_id = initialData.value.sale_id
+            initialValues.value.parameters[0].whatsapp = initialData.value.parameters[0].whatsapp
+            initialValues.value.parameters[0].instagram = initialData.value.parameters[0].instagram
+
+            for(i = 0; i< Object.keys(mounths.value).length; i++){
+                if(initialValues.value.sale_id == mounths.value[i].id){
+                    mounths.value[i].active = true
+                }
+            }
+        }
+
+        const updateValues = () => {
+            for(i = 0; i< Object.keys(mounths.value).length; i++){
+                if(mounths.value[i].active){
+                    let priceWithoutSeil = 0
+                    priceWithoutSeil = (initialValues.value.parameters[0].whatsapp * defaultPrice.value.priceOneWhats * mounths.value[i].count) + (initialValues.value.parameters[0].instagram * defaultPrice.value.priceOneInst * mounths.value[i].count)
+                    defaultPrice.value.price = priceWithoutSeil - ((priceWithoutSeil * mounths.value[i].value)/100)
+                }
+            }
+        }
+
+        openUpdate()
 
         const modalPay = ref({
             show: false
@@ -94,55 +147,70 @@
         const closePay = () => {
             emit('closePay');
         }
-        const type = ref([   //initial type tariff block
+        const type = ref([
             {id:0, active:true},
             {id:1, active:false},
         ])
-        const searchType = (element) => { //assigning an active class to a block
+        const searchType = (element) => {
             for (let i = 0; i<type.value.length; i++) {
                 type.value[i].active = false;
             }
             type.value[element.id].active=true;
         }
 
-        /* console.log(returnFinanceHistory) */
-
-        const initialData = ref({
-            price: 0,
-            countNum: 0,
-        })
-
-        const updateData = () => {
-            initialData.value.price = returnFinanceHistory.value.price
-            initialData.value.countNum = returnFinanceHistory.value.parameters[0].whatsapp + returnFinanceHistory.value.parameters[0].instagram
-        }
-
-        onUpdated(() => {
-            updateData()
-            /* getSingleFinance(finance.value.user_tariff_id) */
-        })
-
-        /* console.log(finance.value.user_tariff_id) */
-
-        const payment = () => {
+        const searchMounth = (id) => {
+            for (let i = 0; i < Object.keys(mounths.value).length; i++){
+                mounths.value[i].active = false;
+                
+            }
+            mounths.value[id-1].active = true
+            initialValues.value.sale_id = mounths.value[id-1].id
             
         }
 
+         onUpdated(() => {
+            console.log(initialValues.value.sale_id)
+        })
+
+        const payment = () => {
+            createFinance(initialValues.value)
+            .then( r => {
+                initialValues.value.user_tariff_id = r.user_tariff_id
+                console.log(r.user_tariff_id)
+                console.log(initialValues.value.user_tariff_id)
+                paymentFinance({user_tariff_id: initialValues.value.user_tariff_id})
+                .then( r => {
+                    document.location.href = r.link
+                    return r;
+                })
+                
+                return r;
+            })
+        }
+
+        watch(() => {
+          updateValues()  
+        })
+        
+
         return {
-            searchType,
             type,
+            mounths,
+
             modalPay,
             closePay,
 
-            initialData,
-            updateData,
+            searchType,
+            searchMounth,
 
-            finance,
-            returnFinance,
-            returnFinanceHistory,
+            defaultPrice,
+            initialValues,
+
+            updateValues,
+            openUpdate,
 
             payment,
-            linkPayment,
+            paymentFinance,
         }
     }
 }

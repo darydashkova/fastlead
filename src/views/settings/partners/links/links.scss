@@ -1,0 +1,117 @@
+.links-header{
+    max-width: 1200px;
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    padding: 41px 31px 41px 31px;
+    &__block{
+        display: flex;
+        justify-content: space-between;
+        width: 150px;
+        &_question{
+            cursor: pointer;
+            &:hover .settings-partners__message{
+                display: block;
+                transition: all 0.3s;
+                z-index: 1;
+            }
+        }
+    }
+    &__title{
+        font-size: 18px;
+        color: #CFCFE4;
+        margin-top: -4px;
+    }
+    &__generation-links{
+        padding-top: 16px;
+        &_title{
+            font-size: 12px;
+            color: #CFCFE4;
+        }
+    }
+    &__generation-links-create{
+        padding-top: 6px;
+        &_input{
+            background: #252544;
+            padding: 10px 10px 10px 10px;
+            max-width: 475px;
+            width: 100%;
+            border-radius: 6px;
+            margin-right: 16px;
+            color: #CFCFE4;
+            &::placeholder{
+                color: #40406B;
+            }
+        }
+        &_button{
+            padding: 10px 12px 10px 12px;
+            background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+            border-radius: 6px;
+            color: #1D1D35;
+            cursor: pointer;
+        }
+    }
+}
+
+.links__bottom{
+    width: 100%;
+    text-align: left;
+    padding-right: 40px;
+    padding-bottom: 50px;
+    &_table{
+        margin-left: 33px;
+        max-width: 98%;
+        width: 100%;
+        padding: 32px 0px 0px 32px;
+        border-collapse: collapse;
+        &-row{
+            background: #34345e;
+            border-radius: 6px 6px 0px 0px;
+            display: flex;
+            justify-content: space-between;
+        }
+        &-cell{
+            font-size: 10px;
+            color: #9797BB;
+            padding: 12px 20px 12px 20px;
+            &:nth-child(1){
+                width: 200px;
+            }
+            &:nth-child(2){
+                width: 350px;
+            }
+            &:nth-child(3){
+                width: 235px;
+            }
+        }
+    }
+}
+
+.settings-partners__message{
+    position: absolute;
+    margin-top: -8px;
+    margin-left: 20px;
+    display: none;
+    &-arrov{
+        border: 10px solid transparent;
+        border-bottom: 10px solid #F0F0FA;
+        width: 5px;
+        margin-left: -22px;
+    }
+    &-text{
+        width: 400px;
+        background: #F0F0FA;
+        color: #252544;
+        padding: 18px 18px 18px 18px;
+        border-radius: 6px;
+        margin-left: -35px;
+        font-size: 12px;
+    }
+}
+
+.row-data-none{
+    color: #9797BB;
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+}
