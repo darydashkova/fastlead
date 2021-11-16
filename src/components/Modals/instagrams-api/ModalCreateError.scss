@@ -1,0 +1,61 @@
+.error-accaunt {
+    &__shadows {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.311);
+    }
+
+    &__content {
+        padding: 20px 30px;
+        width: 350px;
+        height: 200px;
+        background: #252544;
+        border-radius: 6px;
+        margin: 20% auto;
+        text-align: left;
+        &_header {
+            width: 100%;
+            padding-bottom: 20px;
+            color: #CFCFE4;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        &_main {
+           color: #9797BB;
+           text-align: center;
+           font-size: 16px;
+        }
+
+        &_bottom {
+            padding-top: 18px;
+            &-buttons {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 17px;
+                &_connect{
+                    background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+                    color: #252544;
+                    font-size: 16px;
+                    padding: 8px 26px;
+                    border-radius: 6px;
+                    font-weight: 500;
+                    cursor: pointer;
+                }
+                &_cancel{
+                    background: none;
+                    color: #84D160;
+                    font-size: 16px;
+                    padding: 8px 26px;
+                    border-radius: 6px;
+                    font-weight: 400;      
+                    border: 1px solid #84D160;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

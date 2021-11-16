@@ -1,0 +1,110 @@
+.settings-instagrams-api__header {
+    height: 78px;
+    padding: 16px 45px;
+    position: relative;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--separator-color);
+  
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 29px;
+    color: var(--settings-header-color);
+  }
+  .settings-instagrams-api__cap{
+    padding: 34px 32px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+      &_title{
+        color: var(--settings-header-color);
+        font-size: 18px;
+        font-weight: 600;
+      }
+      &_button{
+        padding: 8px 24px 8px 10px;
+        color: #1D1D35;
+        background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+  }
+  .settings-instagrams-api__scroll-container {
+    height: calc(100% - 79px);
+    position: relative;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .settings-instagrams-api__content {
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 18px 45px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .settings-instagrams-api__element{
+    width: 258px;
+    height: 174px;
+    background: #252544;
+    padding: 18px 18px;
+    text-align: left;
+    border-radius: 6px;
+    &_user-name{
+      color: #CFCFE4;
+      font-size: 18px;
+    }
+    &_status{
+      padding-top: 16px;
+      color: #9797BB;
+      font-size: 14px;
+    }
+    &_folder{
+      padding-top: 8px;
+      color: #9797BB;
+      font-size: 14px;
+    }
+    &_buttons{
+      padding-top: 27px;
+      display: flex;
+      justify-content: center;
+      &-delete{
+        color: #EB5757;
+        font-size: 14px;
+        border: 1px solid #40406B;
+        padding: 4px 12px;
+        background: none;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+      &-change{
+        color: #9797BB;
+        font-size: 14px;
+        border: 1px solid #40406B;
+        padding: 4px 12px;
+        background: none;
+        cursor: pointer;
+        border-radius: 6px;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .element-none{
+    width: 100%;
+    color: #F0F0FA;
+    font-size: 24px;
+    background: #252544;
+    text-align: center;
+    align-items: center;
+    /* height: calc(100vh - 30vh); */
+    padding: 180px;
+    border-radius: 6px;
+  }

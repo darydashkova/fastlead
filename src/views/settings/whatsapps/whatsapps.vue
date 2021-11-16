@@ -2,7 +2,7 @@
     <div class="settings-whatsapss">
         <div class="settings-whatsapps__header">
             <div>
-                WhatsApp аккаунты
+                Созданные аккаунты
             </div>
             <BaseButton class="base-button_enter base-button_p6-40" @click="create">Добавить новый</BaseButton>
         </div>
@@ -11,6 +11,7 @@
                 <div class="scroll__bar" ref="scrollbar"></div>
             </div>
             <div class="settings-whatsapps__content" ref="content">
+            <div class="element-none" v-if="!whatsapps">У вас еще нет подключенных аккаунтов</div>
                 <div class="settings-whatsapps__element" v-for="whatsapp in whatsapps"
                      :key="whatsapp.whatsapp_id+'SettingsWhatsapp'">
                     <div class="settings-whatsapps__name">
@@ -68,6 +69,8 @@
     import {onMounted} from "vue";
     import {useModalsWhatsapps} from "../../../composition/useModalsWhatsapps";
     import {useModalConfirmDelete} from "../../../composition/useModalConfirmDelete";
+    import {useInstagramApi} from "@/composition/useInstagramApi"
+
     export default {
         components: { BaseButton },
         setup() {
@@ -75,6 +78,10 @@
             const { toggleModalCreateWhatsapp, selectedWhatsappToAction, toggleModalSyncWhatsapp, toggleModalChoiceActivationMethod } = useModalsWhatsapps()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
+            const {routerActiveLink} = useInstagramApi()
+
+            routerActiveLink.value.link = "/settings/whatsapps"
+
             onMounted( () => {
                 init();
             })
@@ -119,6 +126,8 @@
                 content,
                 scrollbar,
                 scrollTo,
+
+                routerActiveLink,
             }
         }
     }

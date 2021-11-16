@@ -1,0 +1,214 @@
+.settings-finance-change__shadow{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.39);
+}
+
+.settings-finance-change{
+    margin: 8% auto;
+    width: 520px;
+    height: 600px;
+    background: #1D1D35;
+    text-align: left;
+    border-radius: 6px;
+    
+    &__header{
+        border-radius: 6px;
+        height: 100px;
+        background: #252544;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 26px 24px 0px 24px;
+        &_title{
+            font-size: 30px;
+            color: #CFCFE4;
+        }
+        &_close{
+            cursor: pointer;
+        }
+    }
+    &__main{
+        width: 100%;
+        padding: 0px 24px 0px 24px;
+        &-name{
+            font-size: 16px;
+            color: #CFCFE4;
+            font-weight: normal;
+        }
+        &_tariff{
+            display: flex;
+            justify-content: center;
+            &-select{
+                height: 85px;
+                width: 232px;
+                padding: 14px;
+                background: #252544;
+                border-radius: 6px;
+                border: 1px solid #1D1D35;
+                color: #F0F0FA;
+                cursor: pointer;
+                &-pro{
+                    height: 85px;
+                    width: 464px;
+                    padding: 14px;
+                    background: #252544;
+                    border-radius: 6px;
+                    border: 1px solid #1D1D35;
+                    color: #F0F0FA;
+                    cursor: pointer;
+                }
+                &:first-child{
+                    margin-right: 8px;
+                }
+                &_price{
+                    color:#9797BB;
+                    font-size: 14px;
+                    padding-top: 12px;
+                }
+            }
+        }
+    }
+    &__mounth{
+        padding: 0px 24px 0px 24px;
+        &-wrapper{
+            display: flex;
+            justify-content: space-between;
+            &_name{
+                font-size: 16px;
+                color: #9797BB;
+            }
+            &_change{
+                color: #9797BB;
+                &-btn_plus{
+                    margin-left: 12px;
+                }
+                &_count{
+                    position: absolute;
+                    font-size: 14px;
+                    margin-top: 2px;
+                }
+            }
+        }
+    }
+
+    &__cannals{
+        padding: 0px 24px 0px 24px;
+        &-wrapper{
+            display: flex;
+            justify-content: space-between;
+            &:last-child{
+                margin-top: 10px;
+                border-bottom: 1px solid #40406B;
+                padding-bottom: 26px;
+            }
+            &_name{
+                font-size: 16px;
+                color: #9797BB;
+            }
+            &_change{
+                color: #9797BB;
+                &-btn_plus{
+                    margin-left: 12px;
+                }
+                &_count{
+                    position: absolute;
+                    font-size: 14px;
+                    margin-top: 2px;
+                }
+            }
+        }
+    }
+   
+
+
+    &__bottom{
+        color: #CFCFE4;
+        padding: 0px 24px 0px 24px;
+        &_total-price{
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            & h3:last-child{
+                color:#7ad54fe4;
+            }
+        }
+    }
+    &__buttons{
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px 24px 20px 24px;
+        height: auto;
+        background: #252544;
+        &-cancel{
+            padding: 8px 32px 8px 32px;
+            cursor: pointer;
+            border-radius: 6px;
+            background: none;
+            border: 1px solid #7ad54fe4;
+            color: #7ad54fe4;
+        }
+        &-done{
+            padding: 8px 32px 8px 32px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 6px;
+            background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+            font-weight: 500;
+        }
+    }
+}
+
+.tariff-active{
+    border: 1px solid #84D160;
+    color: #84D160;
+    background: #40406B;
+}
+
+.settings-finance__btn{
+    display: flex;
+    &_minus{
+        background: none;
+        padding-right: 15px;
+        cursor: pointer;
+        & svg:hover{
+            border-radius: 3px;
+            background: #ffffff67;
+        }
+        & svg:active{
+            background: #40406B;
+            transition: all 0.3s;
+            & rect{
+                stroke: #84D160;
+            }
+            & path{
+                fill: #84D160;
+            }
+        }
+    }
+    &_plus{
+        background: none;
+        padding-left: 12px;
+        cursor: pointer;
+        & svg:hover{
+            border-radius: 3px;
+            background: #ffffff67;
+            transition: all 0.3s;
+        }
+        & svg:active{
+            background: #40406B;
+            & rect{
+                stroke: #84D160;
+            }
+            & path{
+                fill: #84D160;
+            }
+        }
+    }
+    &_count{
+       width: 10px;
+    }
+}

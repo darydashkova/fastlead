@@ -1,23 +1,27 @@
 .settings-finance__list{
-    
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
     &_titles{
         height: 37px;
         background-color: #191933;
         &-items{
             text-align: left;
-            width: 80px;
             color: #9797BB;
             font-size: 10px;
+            padding-right: 140px;
             &:first-child{
-                padding: 0px 20px 0px 20px;
+                padding: 0px 200px 0px 20px;
                 border-top-left-radius: 10px;
             }
             &:last-child{
                 text-align: right;
                 padding-right: 20px;
                 border-top-right-radius: 10px
+            }
+
+            &:nth-child(5){
+                /* padding-left: 100px; */
             }
         }
     }
@@ -32,8 +36,13 @@
         color: #CFCFE4;
         font-size: 12px;
         &:first-child{
+            display: flex;
+            padding-top: 30px;
             padding-left: 20px;
             font-size: 14px;
+            & img{
+                margin-right: 10px;
+            }
         }
         &:last-child{
             text-align: right;
@@ -41,24 +50,14 @@
     }
     &:last-child{
         border-bottom: none ;
-        .settings-finance-createAmenities__cell{
-            &:first-child{
-                border-bottom-left-radius: 10px;
-            }
-            &:last-child{
-                border-bottom-right-radius: 10px;
-            }
-        }
     }
     &__instagram{
-        padding-top: 20px;
         display: flex;
         &_text{
             padding-left: 9px;
         }
     }
     &__whatsapp{
-        padding: 10px 0px 20px 0px;
         display: flex;
         &_text{
             padding-left: 9px;
@@ -69,8 +68,7 @@
         &_name-error{
             color: #EB5757;
             background: #eb575731;
-            width: 100px;
-            min-width: 100px;
+            width: 150px;
             text-align: center;
             padding: 4px 12px 4px 12px;
             border-radius: 22px;
@@ -78,8 +76,7 @@
         &_name-successful{
             color: #5EC075;
             background: #5EC07531;
-            width: 100px;
-            min-width: 100px;
+            width: 150px;
             text-align: center;
             padding: 4px 12px 4px 12px;
             border-radius: 22px;
@@ -87,7 +84,7 @@
         &_name-completed{
             color: #DACB4A;
             background: #DACB4A31;
-            width: 100px;
+            width: 150px;
             min-width: 100px;
             text-align: center;
             padding: 4px 12px 4px 12px;
@@ -96,7 +93,6 @@
     }
     
     &__button{
-        
         &_change{
             background: #141427;
             color: #9797BB;
@@ -105,6 +101,14 @@
             padding: 4px 20px 4px 20px;
             cursor: pointer;
             margin-right: 10px;
+            &-disabled{
+                background: #2e2e5a;
+                color: #c2c7c36b;
+                border: 1px solid #252544;
+                border-radius: 6px;
+                padding: 4px 20px 4px 20px;
+                margin-right: 10px;
+            }
         }
         &_payment{
             background: #141427;
@@ -114,14 +118,26 @@
             padding: 4px 20px 4px 20px;
             cursor: pointer;
             margin-right: 20px;
-        }
-        &_disabled{
-            background: #2e2e5a;
-            color: #c2c7c36b;
-            border: 1px solid #252544;
-            border-radius: 6px;
-            padding: 4px 20px 4px 20px;
-            margin-right: 20px;
+            &-disabled{
+                background: #2e2e5a;
+                color: #c2c7c36b;
+                border: 1px solid #252544;
+                border-radius: 6px;
+                padding: 4px 20px 4px 20px;
+                margin-right: 20px;
+            }
         }
     }
+}
+
+.row-data-none{
+    color: #9797BB;
+    justify-content: center;
+    padding: 100px;
+    width: 100%;
+}
+
+.img-instagram{
+    background: linear-gradient(49.12deg, #FFDD55 6.62%, #FF543E 50.06%, #C837AB 93.5%);
+    border-radius: 6px;
 }

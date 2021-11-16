@@ -12,22 +12,36 @@ const routerTrue = ref({link: ""})
 const finances = reactive({
     data: [],
 })
+
+const initialData = ref({
+    sale_id: 1,
+    parameters: [
+        {
+            whatsapp: 0,
+            instagram: 0,
+        }
+    ]
+})
+
 document.querySelector(".subscription-message")
 export function useFinance() {
 
     const createFinance = async (data) => {
         return await financeActions.createFinance(data);
     }
+    
     const  getFinance = async () => {
+
         return await financeActions.getFinance()
             .then(r => {
-                finances.data = [...r.user_tariff];
+                finances.data = {...r.user_tariff}
                 return r.user_tariff;
             })
     }
-    const getSingleFinance = async (id) => {
+    
+    const getSingleFinance = async (tariff_name,id) => {
         
-        return await financeActions.getSingleFinance(id)
+        return await financeActions.getSingleFinance(tariff_name,id)
             .then(r => {
             returnFinance.value = {...r};
             returnFinanceHistory.value = {...r};
@@ -43,6 +57,17 @@ export function useFinance() {
         return await financeActions.paymentFinance(data)
     }
 
+    const returnSale = async (data) => {
+        return await financeActions.returnSale(data)
+    }
+
+    const updateSuccessTariff = async (data) => {
+        return await financeActions.updateSuccessTariff(data)
+    }
+
+    const extentionTariff = async (data) => {
+        return await financeActions.extentionTariff(data)
+    }
 
     return {
         getFinance,
@@ -50,7 +75,15 @@ export function useFinance() {
         getSingleFinance,
         updateFinance,
         paymentFinance,
+        
+        returnSale,
+
+        updateSuccessTariff,
+
+        extentionTariff,
+
         linkPayment,
+        initialData,
         finances: computed(() => finances.data),
         returnFinance,
         returnFinanceHistory,

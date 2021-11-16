@@ -12,7 +12,7 @@
                         Это ваша реферальная ссылка. Вы можете указывать ее на ваших ресурсах для привлечения клиентов по партнерской программе.<br><br>
                         Когда клиент переходит по ссылке, ваш реферальный код сохраняется в cookies браузера. Если через какое-то время клиент решит зарегистрироваться в fastlead - 
                         он будет привязан к вашему партнерскому аккаунту, и вы будете получать вознаграждение от всех его платежей.<br><br>
-                        Вы можете направлять клиента не только на главную, но и на любую другую страницу нашего сайта. Если у вас остались вопросы пишите на partner@fastlead.app.
+                        Если у вас остались вопросы пишите на partner@fastlead.app.
                     </div>
                 </div>
             </div>
@@ -22,19 +22,25 @@
             <p class="links-header__generation-links_title">Название реферальной ссылки:</p>
             <div class="links-header__generation-links-create">
                 <input v-model="newLink.url_name" placeholder="Ввести" class="links-header__generation-links-create_input">
-                <button type="button" class="links-header__generation-links-create_button" @click="createPartnersLink()">Сгенирировать ссылку</button>
+                <button type="button" class="links-header__generation-links-create_button" >Сгенирировать ссылку</button> <!--@click="createPartnersLink()"-->
             </div>
         </div>
     </div>
     <div class="links__bottom">
-        <table class="links__bottom_table">
-            <tr class="links__bottom_table-row">
-                <td class="links__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
-            </tr>
-            <PartnersLinks @openModalChange="openModalChange()" @deleteLink="deleteLink" v-for="(partner, index) in partners" :key="index" :partner="partner"></PartnersLinks>
-        </table>
+        
+            <table class="links__bottom_table">
+                <tr class="links__bottom_table-row">
+                    <td class="links__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
+                </tr>
+                <tr class="settings-partners-links__table_row row-data-none" v-if="!partners[0]">Отсутсвуют данные</tr>
+                <PartnersLinks @openModalChange="openModalChange()" @deleteLink="deleteLink" 
+                v-for="(partner, index) in partners" :key="index" :partner="partner"></PartnersLinks>
+            </table>
+
     </div>
-    <PartnersLinksChange v-if="modalChangeLinks" @closeModalChange="closeModalChange()"></PartnersLinksChange>
+    <PartnersLinksChange v-if="modalChangeLinks" @closeModalChange="closeModalChange()"
+    @sellUpdateLink="sellUpdateLink"
+    ></PartnersLinksChange>
 </template>
 
 <script>
@@ -49,7 +55,7 @@ export default {
         PartnersLinksChange,
     },
     setup(props, {emit}) {
-        const {partners, routerActiveLink, createPartners, deletePartners, getPartners} = usePartners()
+        const {partners, returnPartners, routerActiveLink, createPartners, deletePartners, getPartners, updatePartners} = usePartners()
 
         routerActiveLink.value.link = "/settings/partners/links"
 
@@ -115,19 +121,25 @@ export default {
             getPartners() 
         }
 
+        onUpdated(() => {
+            getPartners() 
+        })
+
         return{
             nameCells,
             isClickGen,
             modalChangeLinks,
             openModalChange,
             closeModalChange,
+            deleteLink,
 
             newLink,
             createPartnersLink,
 
-            deleteLink,
+            
 
             partners,
+            returnPartners,
 
             routerActiveLink,
         }

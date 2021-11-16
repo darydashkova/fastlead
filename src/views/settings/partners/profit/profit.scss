@@ -80,6 +80,7 @@
     width: 100%;
     text-align: left;
     padding-right: 40px;
+    padding-bottom: 50px;
     &_title{
         padding: 32px 0px 32px 32px;
         font-size: 18px;
@@ -87,7 +88,7 @@
     }
     &_table{
         margin-left: 33px;
-        max-width: 1200px;
+        max-width: 98%;
         width: 100%;
         padding: 32px 0px 0px 32px;
         border-collapse: collapse;
@@ -106,4 +107,10 @@
             }
         }
     }
+}
+.row-data-none{
+    color: #9797BB;
+    display: flex;
+    justify-content: center;
+    padding: 100px;
 }

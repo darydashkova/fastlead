@@ -12,8 +12,8 @@ export default {
         return api.fetch('GET', 'get/all/user-tariff', null, true);
     },
 
-    getSingleFinance: (id) => {
-        return api.fetch('GET', `get/user-tariff?user_tariff_id=${id}`, null, true)
+    getSingleFinance: (tariff_name, id) => {
+        return api.fetch('GET', `get/user-tariff?${tariff_name}=${id}`, null, true)
     },
 
     updateFinance: (data) => {
@@ -29,14 +29,30 @@ export default {
             ...data,
             csrf_token: localStorage.getItem('x-csrf')
         }
-        return api.fetch('POST', 'link/robokassa', body, true)
+        return api.fetch('POST', 'link/robokassa', data, true)
     },
 
-   /*  restoreFinances: (data) => {
+    returnSale: (data) => {
         let body = {
-            mass_sending_ids: data,
-            csrf_token: localStorage.getItem('x-csrf'),
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf')
         }
-        return api.fetch('POST', 'mass-sending/start', body, true)
-    }, */
+        return api.fetch('POST', 'get/sales', body, true)
+    },
+
+    updateSuccessTariff: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf')
+        }
+        return api.fetch('POST', 'add/channels/user-tariff', body, true)
+    },
+
+    extentionTariff: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf')
+        }
+        return api.fetch('POST', 'extention/user-tariff', body, true)
+    },
 }
