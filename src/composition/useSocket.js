@@ -46,6 +46,7 @@ export function useSocket() {
                 }
                 if (selectedDialog.value === mes.dialog_id) {
                     addMessage(mes.last_message);
+                    console.log(dialogs.value.filter(i => i.dialog_id !== mes.dialog_id))
                     let locDialogs = [{ ...mes }, ...dialogs.value.filter(i => i.dialog_id !== mes.dialog_id)];
                     setDialogs(locDialogs);
 
@@ -61,9 +62,9 @@ export function useSocket() {
             }
             if (mes.status == 'ok') {
                 const request = mes.request_uid;
-                let findeUid = messages.value.message.findIndex(message => message.request_uid == request);
+                let findeUid = messages.value.messages.findIndex(message => message.request_uid == request);
                 if(findeUid!=-1){
-                    messages.value.message[findeUid].message_uid = mes.message_uid;
+                    messages.value.messages[findeUid].message_uid = mes.message_uid;
                 }
             }
         }
@@ -107,6 +108,7 @@ export function useSocket() {
         socketSend,
         socketInit,
         status,
+        dialogs,
         refreshSocket,
     }
 }

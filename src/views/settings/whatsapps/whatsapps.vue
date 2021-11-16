@@ -11,6 +11,7 @@
                 <div class="scroll__bar" ref="scrollbar"></div>
             </div>
             <div class="settings-whatsapps__content" ref="content">
+
             <div class="element-none" v-if="!whatsapps">У вас еще нет подключенных аккаунтов</div>
                 <div class="settings-whatsapps__element" v-for="whatsapp in whatsapps"
                      :key="whatsapp.whatsapp_id+'SettingsWhatsapp'">

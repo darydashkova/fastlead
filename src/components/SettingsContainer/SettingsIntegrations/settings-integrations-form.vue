@@ -429,7 +429,7 @@
                     console.log(allFolders.value)
                     for(let j = 0; j < allFolders.value.length; j++ ){
                         if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
-                            folderChoose.value[i] = [, allFolders.value[j].name, form.data.data.funnel_actions[i].folder_id]
+                            folderChoose.value[i] = [ allFolders.value[j].name, form.data.data.funnel_actions[i].folder_id]
                         }
                     }
                      //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
@@ -682,6 +682,9 @@
                 let isValid = '';
       
                 const isFunnel = ref(false)
+                if(form.data.data.funnel_actions!=null){
+
+                
                 for (let i = 0; i<form.data.data.funnel_actions.length; i++){
                     if(form.data.data.funnel_actions[i].hasOwnProperty('funnel_id')){
                         isFunnel.value = true
@@ -693,11 +696,17 @@
                         isFunnel.value = false
                         form.data.data.funnel_actions=form.data.data.funnel_actions.filter((item, index) => index!=i)
                     }
-                }
-                if(form.data.data.funnel_actions.length==0){
+                }}
+               else{
+                     if(form.data.data.new_dialog_action===null){
+                            errors.value.new_dialog_action.funnel_id = null;
+                            errors.value.new_dialog_action.column_uid = null;
+                        valid=false
+                     }
+                    
                         isFunnel.value = false
                 }
-                if(!form.data.data.funnel_actions||(form.data.data.funnel_actions.funnel_id==='undefined '&&form.data.data.funnel_actions.column_uid=== 'undefined ')||!isFunnel.value){ console.log('no')
+                if(!form.data.data.funnel_actions||(form.data.data.funnel_actions.funnel_id==='undefined '&&form.data.data.funnel_actions.column_uid=== 'undefined '&&form.data.data.funnel_actions.folder_id=== null&&form.data.data.funnel_actions.message.data=== '')||!isFunnel.value){ console.log('no')
                     if(form.data.data.new_dialog_action!=null){
                         if(form.data.data.new_dialog_action?.column_uid===null||form.data.data.new_dialog_action?.funnel_id===null){
                             errors.value.new_dialog_action.funnel_id = null;
@@ -706,8 +715,8 @@
                             valid= false;
                         }
                         else{
-                            errors.value.new_dialog_action.funnel_id = null;
-                            errors.value.new_dialog_action.column_uid = null; 
+                            // errors.value.new_dialog_action.funnel_id = null;
+                            // errors.value.new_dialog_action.column_uid = null; 
                             valid= true;
                             isValid = true;
                         }  
@@ -719,10 +728,18 @@
                             valid= false;
                     }
                 } 
-                else{  console.log(form.data.data.new_dialog_action)
-                console.log('yup')
+                else{  console.log('est')
+                         
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.column_uid!=null);
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.funnel_id!=null);
+                        for(let i = 0; i <  form.data.data.funnel_actions.length; i++){
+                            if(folderChoose.value.length!=0){
+                                 if(folderChoose.value[i][0]){
+                                    form.data.data.funnel_actions[i].folder_id = folderChoose.value[i][0]  
+                                }
+                            }
+                               
+                            }
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.folder_id!=null);
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.message.data!="");
                         //   form.data.data.funnel_actions=form.data.data.funnel_actions.filter( lIndex => lIndex.length!=0);
@@ -742,11 +759,7 @@
                             else{
                                    valid=true;
                             }
-                            for(let i = 0; i <  form.data.data.funnel_actions.length; i++){
-                                if(folderChoose.value[i][0]){
-                                    form.data.data.funnel_actions[i].folder_id = folderChoose.value[i][0]  
-                                }
-                            }
+                           
                         }
                             else{
                                 if(form.data.data.new_dialog_action!=null){
@@ -799,12 +812,7 @@
                         //    }  
                     }
                    
-                     if(form.data.data.funnel_actions.length==0&&form.data.data.new_dialog_action===null){
-                            errors.value.new_dialog_action.funnel_id = null;
-                            errors.value.new_dialog_action.column_uid = null;
-                        valid=false
-                     }
-                    
+                   
           
 
                 // errors.value.new_dialog_action = form.data.data.new_dialog_action;
@@ -967,10 +975,13 @@
                 }
                
             })
+            
             const isActiveScroll = ref(false);
          const sizeGoToBottom = () => {
               content.value.scrollTop =  content.value.scrollHeight + 300;
-         }
+             
+         } 
+         const getFunnelItem=ref(true);
             watch(()=>{
                
                  
@@ -983,6 +994,12 @@
                     })
                     createpdateFolder.value=false
             }  
+             if(phone.value!=''&&getFunnelItem.value){
+                    if(form.data.data.funnel_actions==null){console.log('watch')
+                      form.addAction()
+                      addFunnel.value = false
+                    } 
+                }
             })
             const folderAmo = ref(null);
             const folderSave = (index, modal, item) =>{
@@ -1052,7 +1069,8 @@
                 closeFolder,
                 addFunnel,
                 loading,
-                clearError
+                clearError,
+                getFunnelItem
         
             }
         }
