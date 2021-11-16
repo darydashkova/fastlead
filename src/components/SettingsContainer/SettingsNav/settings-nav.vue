@@ -91,8 +91,6 @@
                             Аккаунты
                     </router-link>
 
-                    </transition>
-             
                     <router-link to="/settings/integrations"
                                  class="settings-nav__link settings-nav__link_default"
                               
@@ -104,7 +102,7 @@
                         </svg>
                         Интеграции
                     </router-link>
-         
+                  </div>
                     
                     <router-link
                                 class="settings-nav__link settings-nav__link_default"
