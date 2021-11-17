@@ -426,10 +426,9 @@
                    if(form.data.data.funnel_actions!=null){
                      for(let i = 0; i<form.data.data.funnel_actions.length; i++){
                     // openModalFolder.value.push(false);
-                    console.log(allFolders.value)
                     for(let j = 0; j < allFolders.value.length; j++ ){
                         if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
-                            folderChoose.value[i] = [ allFolders.value[j].name, form.data.data.funnel_actions[i].folder_id]
+                            folderChoose.value[i] = [form.data.data.funnel_actions[i].folder_id, allFolders.value[j].name ]
                         }
                     }
                      //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id

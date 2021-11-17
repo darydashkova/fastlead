@@ -46,11 +46,15 @@
                 </tr>
                 <tr>
                     <td colspan="3" class="settings-ignore__data-table_padding">
-                        <div class="settings-ignore__data-table-scroll" v-if="searchArrayData&&searchArrayData.length!=0">
+                        <div v-if="NumberNotFound" class="settings-ignore__empty"> 
+                            <div class="settings-ignore__empty-text">Номер не добавлен в игнор-лист</div>
+                        </div>
+                        <div class="settings-ignore__data-table-scroll" v-else-if="searchArrayData&&searchArrayData.length!=0">
                             <table class="settings-ignore__data-table-scroll-row" >
                                 <IgnoreRow  @getPhone="getEditPhone" :data="searchArrayData"  :search="searchArrayData" @del="delPhone"></IgnoreRow>
                             </table>
                         </div>
+                         
                         <div v-else class="settings-ignore__empty"> 
                             <div class="settings-ignore__empty-text">У вас еще нет подключенных</div>
                         </div>
@@ -133,9 +137,16 @@
             const channgeTitle  = (title) => {
                 titleModal.value = title
             }
+            const NumberNotFound = ref(false)
             const searchNumber = (number) => {
                 if(number){
-                searchArrayData.value =  Object.values(arrNumbers.value).filter(item => item.phone.startsWith(number))   
+                searchArrayData.value =  Object.values(arrNumbers.value).filter(item => item.phone.startsWith(number))
+                if(searchArrayData.value.length==0){
+                    NumberNotFound.value = true;
+                }
+                else{
+                    NumberNotFound.value = false;
+                }
                 }
                 else{
                 searchArrayData.value  = arrNumbers.value
@@ -158,7 +169,8 @@
                 getAllNumbers,
                 delPhone,
                 loading,
-                emptyData
+                emptyData,
+                NumberNotFound
             }
         },
     }
