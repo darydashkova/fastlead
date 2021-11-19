@@ -31,6 +31,9 @@ export function useIntegrations() {
     const deleteIdAmocrm = async (id) => {
         return await integrationActions.amocrmActions.deleteIdAmocrm(id);
     }
+    const getTaskById = async (data) => {
+        return await integrationActions.amocrmActions.getTaskById(data);
+    }
     const connectAmocrm = async () => {
         let client_id = amocrm_client_id,
             state = Math.random().toString(36).substring(2),
@@ -149,6 +152,7 @@ export function useIntegrations() {
         delYclient,
         getAllTasksAmo,
         deleteIdAmocrm,
-        testMessage
+        testMessage,
+        getTaskById
     }
 }

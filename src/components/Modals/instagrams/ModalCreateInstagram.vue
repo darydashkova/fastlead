@@ -132,6 +132,7 @@
                 } else {
                     createInstagram(infoToSend)
                         .then((r) => {
+                            console.log(r)
                             loading.value = false;
                             if (r.error) {
                                 errors.login = true;

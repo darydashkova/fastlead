@@ -71,9 +71,10 @@
                     activeUpdate.value  = r.status
                  });
             }
-            const createdTasksEditActiveated = (index) => {
+            const createdTasksEditActiveated = (index, name) => {
                 const gg = document.querySelector('.settings-integrations__header-pages-link a ')
-                getDateForChange(index);
+                const data = [index, name]
+                getDateForChange(data);
                  gg.click();
             }
             const addTask = () => {
