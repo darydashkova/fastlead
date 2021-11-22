@@ -295,8 +295,7 @@
 
             initialValues.value.priceWithSeil = additionalPayment + additionalPaymentNew
 
-            console.log(additionalPayment)
-            console.log(additionalPaymentNew)
+           
 
         }
 

@@ -67,7 +67,7 @@
             const updateTasks =  (data) => {
                  deleteIdAmocrm(data)
                  .then(r => {
-                     console.log(r)
+                  
                     activeUpdate.value  = r.status
                  });
             }
@@ -99,10 +99,10 @@
                 
              });
              const del = (indx) => {
-                 console.log(amo.value.funnel_actions)
+              
                   amo.value.funnel_actions=amo.value.funnel_actions.filter(index => index!=0)
                   amo.value.funnel_actions = amo.value.funnel_actions
-                  console.log(indx)
+                
                    amo.value.funnel_actions.splice(0,1)
                   
              }

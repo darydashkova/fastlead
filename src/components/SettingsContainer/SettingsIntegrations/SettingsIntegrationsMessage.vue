@@ -64,7 +64,7 @@ export default {
             const addEmoji = (emoji) => {
                textMessage.value += emoji.native
                 textarea.value.value+=emoji.native
-                 console.log( textMessage.value + '////text')
+              
             }
             const wrapTab = (text) => {
                 return text.replace(/\n/g, '<br>')

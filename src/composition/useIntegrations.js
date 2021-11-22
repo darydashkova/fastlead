@@ -110,7 +110,6 @@ export function useIntegrations() {
         return await integrationActions.yclientsActions.updateYclients(data);
     }
     const postBirthdayTask = async (data) => {
-        console.log(data)
         return await integrationActions.yclientsActions.postBirthdayTask(data)
     }
     const getAllTask = async () => {

@@ -128,7 +128,6 @@ export default {
             }
         }
          const validChoise = () => {
-             console.log(check.value)
              if(!check.value[0]&&!check.value[1]&&!check.value[2]){
                 error.value.validChoise = true
                  

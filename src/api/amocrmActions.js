@@ -44,7 +44,6 @@ export default {
         let lData = {
             ...data,
         }
-        console.log(lData)
          return api.fetch('POST', `get/amocrm/channel?id=${lData.id}&type=${lData.type}`, lData, true)
     },
 

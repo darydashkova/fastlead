@@ -598,7 +598,6 @@
                         const data = ref({...r}.amocrm_integration)
                        
                         form.data.data = data
-                        console.log(data.value)
                         loading.value=false;
                          getAllFolders()
                             .then ( (r) => {

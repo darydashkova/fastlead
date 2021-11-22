@@ -14,7 +14,6 @@ export default {
         let lData = {
            phone:data,
         }
-        console.log(lData)
         return api.fetch('POST', 'delete/phone/ignore', lData, true)
     },
     updateIgnoreNumber: (data) => {

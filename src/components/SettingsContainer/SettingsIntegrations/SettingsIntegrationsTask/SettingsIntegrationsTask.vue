@@ -49,7 +49,6 @@ export default {
             }
             if(type=='instagram'){
             task.value = instagrams.value.find(elem => elem.instagram_id==id)
-            console.log(task.value)
              fullName.value = String(task.value?.login + ' / ' + task.value?.is_active)   
             }
             

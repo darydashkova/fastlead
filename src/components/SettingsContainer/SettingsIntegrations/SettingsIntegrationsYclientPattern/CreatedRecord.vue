@@ -324,7 +324,6 @@ export default {
                  if(data.value.parameters[0].instagram_id==null){
                         delete data.value.parameters[0].instagram_id
                     }
-                    console.log(error.value)
                 return valid.value
             }
             const checkOpenModal = (item) => {
