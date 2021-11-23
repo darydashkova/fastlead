@@ -46,7 +46,7 @@ export function useSocket() {
                 }
                 if (selectedDialog.value === mes.dialog_id) {
                     addMessage(mes.last_message);
-                    console.log(dialogs.value.filter(i => i.dialog_id !== mes.dialog_id))
+            
                     let locDialogs = [{ ...mes }, ...dialogs.value.filter(i => i.dialog_id !== mes.dialog_id)];
                     setDialogs(locDialogs);
 

@@ -153,13 +153,13 @@
             if(boolen.value && returnFinance.value.hasOwnProperty('status')) {
                 openUpdate()
                 boolen.value = false    
-                console.log(initialValues.value.parameters[0])
+          
             }
-            console.log(returnFinance.value)
+          
         })
 
         onUpdated(() => {
-            console.log(initialValues.value.sale_id)
+            
         })
 
         const modalPay = ref({

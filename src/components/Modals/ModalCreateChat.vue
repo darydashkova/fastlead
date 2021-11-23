@@ -746,7 +746,7 @@
     }
 
     .modal-create-chat__main-scroll-wrapper {
-        height: 600px;
+        height: 500px;
         overflow: hidden;
         position: relative;
         ::-webkit-scrollbar {
@@ -760,7 +760,6 @@
     .modal-create-chat__input-file {
         display: none;
     }
-
 
 
     .height-transition-enter-active, .height-transition-leave-active {

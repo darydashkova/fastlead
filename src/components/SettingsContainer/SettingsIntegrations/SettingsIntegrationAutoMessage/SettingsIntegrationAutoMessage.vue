@@ -64,8 +64,6 @@ export default {
         setup(props, {emit}) {
         const { showPopup, isPopup, automessage, indexPopup, showText, message,automessageArray, emptyMessage } = ModalInputAutomessageFunc()
         const save = (data) => {
-            console.log(data)
-             console.log('data')
             emit('saveText', data, props.indexItem)
           }
           watch(()=>{

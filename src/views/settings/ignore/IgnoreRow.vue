@@ -1,5 +1,5 @@
 <template>
-    <tr class="settings-ignore-row" v-for="(ignoreItem, index, item) in data" :key="index">
+    <tr class="settings-ignore-row" v-for="(ignoreItem, index) in data" :key="index">
         <td class="settings-ignore__data-table-text-left settings-ignore-row-td settings-ignore-w20" >{{formatedPhone(ignoreItem.phone)}}</td>
         <td class="settings-ignore__data-table-text-left settings-ignore-row-td settings-ignore-w60">
             <template v-if="ignoreItem.is_amocrm">

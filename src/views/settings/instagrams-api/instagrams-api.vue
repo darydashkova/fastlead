@@ -59,13 +59,13 @@ export default {
                         var uid = response.authResponse.userID;
                         var accessToken = response.authResponse.accessToken;
                         /* logoutUser() */
-                        console.log("connected")
+               
                     } else if (response.status === 'authorization_expired') {
-                        console.log("authorization_expired")
+                     
                     } else if (response.status === 'not_authorized') {
-                        console.log("not_authorized")
+                        
                     } else {
-                         console.log("else")
+                         
                     }
                 });
         }

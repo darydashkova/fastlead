@@ -4,16 +4,16 @@
         <div class="settings-integrations-form__date settings-integrations-form__record-time ">
             <div class="settings-integrations-form__date-column">
                 <div>Наименования</div>               
-                <input class="settings-integrations-form__input_test " v-model="name"  placeholder="Ввести">  
+                <input class="settings-integrations-form__input_test " v-model="name"  placeholder="Ввести"  :class="{'yclient-pattern__error':error.name}">  
             </div>
             <div class="settings-integrations-form__date-column">
                 <div>ID филиала</div>
-                    <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial"> 
+                    <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial"  :class="{'yclient-pattern__error':error.id}"> 
             </div>
             <div class="settings-integrations-form__date-column">
                 <div>Аккаунт</div>
                 <div class="settings-integrations-form__container">
-                    <button @click="openAcc" class="settings-integrations-form__input_test " :class="{'settings-integrations-form__select_active': statusAccSelect }"> 
+                    <button @click="openAcc" class="settings-integrations-form__input_test " :class="{'settings-integrations-form__select_active': statusAccSelect, 'yclient-pattern__error':error.textOption}"> 
                         <div class="settings-integrations-form__dropdown-inner" :class="{'settings-integrations-form__dropdown-inner_placeholder':(textOption=='Выбрать')}"> {{textOption}}
                             <svg class="settings-integrations-form__dropdown-inner-arrow" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB">
@@ -35,7 +35,7 @@
                                             </svg>
                                         {{whatsapp.name}} / {{whatsapp.phone}} / {{whatsapp.status}}
                             </div>
-                            <!-- <div  class="settings-integrations-form__dropdown-item" v-for=" (instagram, index) in instagrams" :key="index" @click="chooseOption(instagram.login), chooseId(instagram.instagram_id, 'instagram')">
+                             <div  class="settings-integrations-form__dropdown-item" v-for=" (instagram, index) in instagrams" :key="index" @click="chooseOption(instagram.login), chooseId(instagram.instagram_id, 'instagram')">
                                 <svg class="settings-integrations-form__dropdown-image" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_675:3241)">
                                     <path d="M1.0003 1.08868C-0.257038 2.39468 0.000295601 3.78201 0.000295601 7.99668C0.000295601 11.4967 -0.610371 15.0053 2.58563 15.8313C3.58363 16.088 12.4263 16.088 13.423 15.83C14.7536 15.4867 15.8363 14.4073 15.9843 12.5253C16.005 12.2627 16.005 3.73534 15.9836 3.46734C15.8263 1.46268 14.5923 0.307344 12.9663 0.0733439C12.5936 0.0193439 12.519 0.00334392 10.607 1.05856e-05C3.82496 0.00334392 2.3383 -0.298656 1.0003 1.08868V1.08868Z" fill="url(#paint0_linear_675:3241)"/>
@@ -53,7 +53,7 @@
                                     </defs>
                                 </svg>
                                          {{instagram.login}} / {{instagram.status}}
-                            </div> -->
+                            </div> 
                         </div>
                     </button>
                 </div>
@@ -111,7 +111,9 @@
     </div>
     <div class="settings-integrations-form__field ">
         <div class=" settings-integrations-form__create-message">
-            <SettingsIntegrationsMessage @dataFile='checkData' @propText="getText" :text='textMess' :nameFile='propFileData'></SettingsIntegrationsMessage>
+            <SettingsIntegrationsMessage @dataFile='checkData' @propText="getText" :text='textMess' :nameFile='propFileData'
+             :class="{'settings-integrations-form__create-message_error':error.message}"
+            ></SettingsIntegrationsMessage>
             <SettingsIntegrationsVariables></SettingsIntegrationsVariables>
         </div>
          <TestCheck @send='testSend'></TestCheck> 
@@ -158,11 +160,12 @@ export default {
         const name = ref('');
         const filial = ref('');
         const message = ref('');
-        const whatsappId=ref();
+        const whatsappId=ref('');
         const textMess = ref('')
         const fileData = ref([])
         const propFileData = ref('');
         const propsCheck = ref(true);
+        const instId=ref('');
         getWhatsapps()
         const data = ref({
                 type: "PostCreatedNotification",
@@ -174,16 +177,31 @@ export default {
                             type: "text",
                             data: "",
                         },
+                        instagram_id : null,
                         whatsapp_id : null,
                         company_id : null
                     }
                 ]
             })
+        
             const getText = (text) => {
                 message.value = text;
             }
-            const chooseId = (id) => {
-                whatsappId.value = id
+            const chooseId = (id, name) => {
+              if(name==='whatsapp'){
+                    whatsappId.value = id
+                    if(data.value.parameters[0].hasOwnProperty('instagram_id')){
+                         instId.value = null;
+                        delete data.value.parameters[0].instagram_id
+                    }
+                }
+                else{
+                      whatsappId.value = null;
+                    instId.value = id;
+                    if(data.value.parameters[0].hasOwnProperty('whatsapp_id')){
+                        delete data.value.parameters[0].whatsapp_id
+                    }
+                }
             }
             const checkData = (data) => {
                 if(data.length!=0){                
@@ -191,21 +209,64 @@ export default {
                   
                 }
             }
+            const error = ref(
+            {
+                textOption:false,
+                id:false,
+                message:false,
+                name:false,
+            })
             const ValidateDate = () => {
+                const valid = ref(true);
                 if(textOption.value=='Выбрать'){
                     data.value.parameters[0].company_id ='';
-                    return false
+                    error.value.textOption = true;
+                      valid.value= false
                 }
                 else{
                     data.value.parameters[0].company_id = filial.value; 
+                       valid.value= true
                 }
                
-                 if(whatsappId.value=='undefined'){
-                    return false
+                 if(whatsappId.value==''){
+                        if(instId.value==''){
+                             error.value.id = true;
+                             valid.value= false
+                        }
+                        else{
+                             data.value.parameters[0].instagram_id =  instId.value;   
+                              valid.value= true
+                        }
                 }
-                else{
-                    data.value.parameters[0].whatsapp_id =  whatsappId.value;    
+               
+               else if (whatsappId.value==null){
+                      if(data.value.parameters[0].hasOwnProperty('whatsapp_id')){
+                        delete data.value.parameters[0].whatsapp_id
+                    }
                 }
+                 else{
+                    data.value.parameters[0].whatsapp_id =  whatsappId.value;   
+                     valid.value= true 
+                }
+                if (instId.value==null){
+                      if(data.value.parameters[0].hasOwnProperty('instagram_id')){
+                        delete data.value.parameters[0].instagram_id
+                    }
+                }
+                  if(instId.value==''){
+                    if(whatsappId.value==''){
+                           error.value.id = true;
+                           valid.value= false
+                    }
+                    else{
+                          data.value.parameters[0].whatsapp_id =  whatsappId.value;    
+                           valid.value= true
+                    }
+                  }
+                  else{
+                        data.value.parameters[0].instagram_id =  instId.value;
+                         valid.value= true
+                  }
                 
                 if((message.value=='')||(message.value=='undefined')){
                     if(props.Propdata.parameters){
@@ -238,7 +299,8 @@ export default {
                     }
                     
                 else{
-                    return false   
+                       error.value.message = true;
+                   valid.value= false 
                     }
                 }
                 else{
@@ -252,12 +314,17 @@ export default {
                     }   
                 }  
                 if(((name.value=='')||(name.value=='undefined'))){
-                      return false  
+                       error.value.name = true;
+                     valid.value= false
                 }
                 else {
+                     valid.value= true
                        data.value.task_name =  name.value;    
                 }
-                return true
+                 if(data.value.parameters[0].instagram_id==null){
+                        delete data.value.parameters[0].instagram_id
+                    }
+                return valid.value
             }
             const checkOpenModal = (item) => {
                 statusAccSelect.value=false;
@@ -290,8 +357,10 @@ export default {
                 
             } 
         }
+        const checkUpdate = ref(true);
         watch(()=>{
             if(props.Propdata.parameters){
+                 if(checkUpdate.value){
                 if(props.Propdata.parameters[0].message.Caption!=null){
                     textMess.value = props.Propdata.parameters[0].message.Caption
                     // if(textMess.value = props.Propdata.parameters[0].message.Img!=null){
@@ -305,17 +374,29 @@ export default {
                 
                 name.value=props.Propdata.task_name;
                 filial.value=props.Propdata.parameters[0].company_id
-                whatsappId.value=props.Propdata.parameters[0].whatsapp_id
-                 if(propsCheck.value){
-                   for(let i =0; i< whatsapps.value.length; i++){
+               if(props.Propdata.parameters[0].hasOwnProperty('whatsapp_id')){
+                    whatsappId.value=props.Propdata.parameters[0].whatsapp_id
+                }
+                else{
+                    instId.value = props.Propdata.parameters[0].instagram_id;
+                }
+                if(propsCheck.value){
+                for(let i =0; i< whatsapps.value.length; i++){
                     if(whatsapps.value[i].whatsapp_id==whatsappId.value){
                         const phone =whatsapps.value[i].phone
                         textOption.value = phone
                     } 
-                }    
-                propsCheck.value = false 
-                 }
-                
+                }
+                for(let i =0; i< instagrams.value.length; i++){
+                    if(instagrams.value[i].instagram_id==instId.value){
+                         const phone =instagrams.value[i].login
+                          textOption.value = phone
+                    } 
+                } 
+               propsCheck.value = false;  
+             }
+                 checkUpdate.value = false
+                 } 
              
             }
         })
@@ -420,7 +501,10 @@ export default {
             propFileData,
             instagrams,
             propsCheck,
-            testSend
+            testSend,
+            instId,
+            checkUpdate,
+            error
         }
     },
 }
@@ -552,4 +636,9 @@ justify-content: flex-end;
         font-weight: 500;
     }
     }
+    .settings-integrations-form__create-message_error{
+.settings-integrations-form__input_test{
+     border: 0.7px solid var(--red-color);
+}
+}
 </style>

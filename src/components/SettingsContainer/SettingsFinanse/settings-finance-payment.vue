@@ -169,15 +169,13 @@
         }
 
          onUpdated(() => {
-            console.log(initialValues.value.sale_id)
+
         })
 
         const payment = () => {
             createFinance(initialValues.value)
             .then( r => {
                 initialValues.value.user_tariff_id = r.user_tariff_id
-                console.log(r.user_tariff_id)
-                console.log(initialValues.value.user_tariff_id)
                 paymentFinance({user_tariff_id: initialValues.value.user_tariff_id})
                 .then( r => {
                     document.location.href = r.link

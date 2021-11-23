@@ -67,7 +67,7 @@
                                             </svg>
                                        <div class="settings-integrations-form_elipsis"> {{whatsapp.name}} / {{whatsapp.phone}} / {{whatsapp.status}}</div>
                                     </div>
-                                     <!-- <div class="settings-integrations-form__dropdown-item"
+                                     <div class="settings-integrations-form__dropdown-item"
                                           v-for="(instagram, index) in instagrams"
                                          :key="index"
                                          @click="channelChoise(instagram.instagram_id, 'instagram')">
@@ -88,7 +88,7 @@
                                                 </defs>
                                             </svg>
                                         {{instagram.login}} / {{instagram.status}}
-                                    </div> -->
+                                    </div>
                                 </div>
                             </button>
                             </div>
@@ -420,28 +420,13 @@
                 createpdateFolder
             } = useFolder();
             const allFolders = ref({});
-            getAllFolders()
-            .then ( (r) => {
-                allFolders.value = r
-                   if(form.data.data.funnel_actions!=null){
-                     for(let i = 0; i<form.data.data.funnel_actions.length; i++){
-                    // openModalFolder.value.push(false);
-                    console.log(allFolders.value)
-                    for(let j = 0; j < allFolders.value.length; j++ ){
-                        if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
-                            folderChoose.value[i] = [ allFolders.value[j].name, form.data.data.funnel_actions[i].folder_id]
-                        }
-                    }
-                     //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
-                } 
-                   }
-            })
+           
             const folderChoose = ref([]);
             const {editDate} = integrationTasks()
             const { whatsapps, getWhatsapps } = useWhatsapp()
             const {getInstagrams, instagrams} = useInstagram()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-            const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm, testMessage } = useIntegrations()
+            const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm, testMessage, getTaskById } = useIntegrations()
             const { showPopup, isPopup, automessage, indexPopup, automessageArray } = ModalInputAutomessageFunc()
             const openTestModal = ref([])
             const addFunnel = ref(true);
@@ -454,7 +439,7 @@
                         funnel_id: null,
                         column_uid: null,
                         id: phoneId.value,
-                        type: 'whatsapp',
+                        type: typeName.value,
                         folder_id:null,
                         message: {
                             type: 'text',
@@ -472,7 +457,7 @@
                     column_uid: 'not_null',
                 }
             });
-
+            const typeName = ref('');
             const testSend = (item, index) => {
                 const phone = ref();
                 phone.value = item.replace(/\s/g, '').replace(/-/g, '').replace("(", '').replace(")", '');
@@ -529,7 +514,6 @@
                 // form.data.data.funnel_actions[index].message.data=text
                 // form.data.data.funnel_actions[index].message.data
                 // form.data.data.funnel_actions[index].message.data
-                console.log(  form.data.data.funnel_actions[index] )
             }
            
             const openedDropdown = reactive({
@@ -585,22 +569,99 @@
             })
            const phone = ref('')
            const phoneId = ref();
+           const loadInfo = ref('false');
             const channelChoise = (id, name) => {
+                
+                folderChoose.value=[]
                 if(id!=null){
                     phoneId.value=id;
-                    console.log(name)
+                    const data = ref({
+                            id : id,
+                            type : name
+                        })
                     if(name==='whatsapp'){
+                        loading.value=true;
+                        getTaskById(data.value)
+                        .then ((r) => {
                         let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)   
                         phone.value = whatsapps.value[index].phone;
+                         if (!form.data.data.new_dialog_action) {
+                        form.data.data.new_dialog_action = {
+                        funnel_id: null,
+                        column_uid: null,
+                        id: null,
+                            }
+                        }
                         form.data.data.new_dialog_action.id=id;
-                        form.data.data.new_dialog_action.type='whatsapp';  
+                        form.data.data.new_dialog_action.type='whatsapp'; 
+                        typeName.value='whatsapp'; 
+                        const data = ref({...r}.amocrm_integration)
+                       
+                        form.data.data = data
+                        loading.value=false;
+                         getAllFolders()
+                            .then ( (r) => {
+                                allFolders.value = r
+                                loadInfo.value = true;
+                                if(form.data.data.funnel_actions!=null){
+                                    for(let i = 0; i<form.data.data.funnel_actions.length; i++){
+                                    // openModalFolder.value.push(false);
+                                    for(let j = 0; j < allFolders.value.length; j++ ){
+                                        if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
+                                            folderChoose.value[i] = [form.data.data.funnel_actions[i].folder_id, allFolders.value[j].name ]
+                                        }
+                                    }
+                                    //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
+                                } 
+                                }
+                            })
+                        })
+                         
                     }
                       else{
+                        loading.value=true;
+                        getTaskById(data.value)
+                        .then ((r) => {
                         let index = instagrams.value.findIndex(item => item.instagram_id==id)   
-                        console.log(index)
                         phone.value = instagrams.value[index].login;
+                         if (!form.data.data.new_dialog_action) {
+                            form.data.data.new_dialog_action = {
+                                funnel_id: null,
+                                column_uid: null,
+                                id: null,
+                            }
+                        }
                         form.data.data.new_dialog_action.id=id;
+                        typeName.value='instagram'; 
                         form.data.data.new_dialog_action.type='instagram';  
+                         const data = ref({...r.amocrm_integration})
+                          form.data.data = data
+                        //   form.data.data.funnel_actions.type='instagram'
+                          loading.value=false;
+                          getAllFolders()
+                            .then ( (r) => {
+                                allFolders.value = r
+                                loadInfo.value = true;
+                                if(form.data.data.funnel_actions!=null){
+                                          for(let i = 0; i<form.data.data.funnel_actions.length; i++){
+                                    // openModalFolder.value.push(false);
+                                    for(let j = 0; j < allFolders.value.length; j++ ){
+                                        if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
+                                            folderChoose.value[i] = [form.data.data.funnel_actions[i].folder_id, allFolders.value[j].name ]
+                                        }
+                                    }
+                                    //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
+                                 
+                                    
+                                    }
+                                    
+                                }
+                                
+                            })
+                        })
+
+
+                       
                       }  
                 }
                 return phone
@@ -680,9 +741,11 @@
                 errors.value.new_dialog_action.funnel_id = 'not_null';
                 errors.value.new_dialog_action.column_uid = 'not_null'; 
                 let isValid = '';
-      
                 const isFunnel = ref(false)
-                if(form.data.data.funnel_actions!=null){
+                if(form.data.data.funnel_actions.length=0){
+                    
+                }
+                if(form.data.data.funnel_actions!=null ){
 
                 
                 for (let i = 0; i<form.data.data.funnel_actions.length; i++){
@@ -691,6 +754,7 @@
                         if(form.data.data.funnel_actions[i].funnel_id===null&&form.data.data.funnel_actions[i].column_uid===null){
                             form.data.data.funnel_actions=form.data.data.funnel_actions.filter((item, index) => index!=i) 
                         }
+                         form.data.data.funnel_actions[i].id=phoneId.value
                     }
                     else{
                         isFunnel.value = false
@@ -706,12 +770,11 @@
                     
                         isFunnel.value = false
                 }
-                if(!form.data.data.funnel_actions||(form.data.data.funnel_actions.funnel_id==='undefined '&&form.data.data.funnel_actions.column_uid=== 'undefined '&&form.data.data.funnel_actions.folder_id=== null&&form.data.data.funnel_actions.message.data=== '')||!isFunnel.value){ console.log('no')
+                if(!form.data.data.funnel_actions||(form.data.data.funnel_actions.funnel_id==='undefined '&&form.data.data.funnel_actions.column_uid=== 'undefined '&&form.data.data.funnel_actions.folder_id=== null&&form.data.data.funnel_actions.message.data=== '')||!isFunnel.value){ 
                     if(form.data.data.new_dialog_action!=null){
                         if(form.data.data.new_dialog_action?.column_uid===null||form.data.data.new_dialog_action?.funnel_id===null){
                             errors.value.new_dialog_action.funnel_id = null;
                             errors.value.new_dialog_action.column_uid = null; 
-                          console.log('1')
                             valid= false;
                         }
                         else{
@@ -721,15 +784,14 @@
                             isValid = true;
                         }  
                     }
-                    else{ console.log('7')
+                    else{ 
                          errors.value.new_dialog_action.funnel_id = null;
-                            errors.value.new_dialog_action.column_uid = null; 
-                         console.log(errors.value.new_dialog_action)
+                        errors.value.new_dialog_action.column_uid = null; 
+
                             valid= false;
                     }
                 } 
-                else{  console.log('est')
-                         
+                else{  
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.column_uid!=null);
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.funnel_id!=null);
                         for(let i = 0; i <  form.data.data.funnel_actions.length; i++){
@@ -839,7 +901,6 @@
             const save = () => {
                  loading.value = true;
                   if (validation()) { 
-                      console.log('valid')
                 //     if (form.data.name === 'bitrix') {
                 //         updateBitrix(form.data.data)
                 //             .then(r => {
@@ -866,10 +927,9 @@
                             })
                 }
                 else{
-                      console.log('ne-valid')
                      loading.value = false; 
                 }
-                console.log(validation())
+           
             }
             const test = (itemForm) => {
                 if (validation()) { 
@@ -887,7 +947,6 @@
                 automessageArray.value = automessageArray.value.filter((i, lIndex) => lIndex !== index);
                 form.data.data.funnel_actions = form.data.data.funnel_actions.filter((i, lIndex) => lIndex !== index);
                 folderChoose.value =  folderChoose.value.filter((i, lIndex) => lIndex !== index)
-               console.log(form.data.data.funnel_actions)
             }
           
             onMounted(() => {
@@ -939,7 +998,7 @@
                 } 
                 }
 
-                
+               
 
             })
             const closeFolder = () => {
@@ -961,12 +1020,7 @@
                sizeGoToBottom()     
                     isActiveScroll.value=false
                 }
-                if(editDate.value!=null){
-                    const id = editDate.value
-                    channelChoise(id, 'whatsapp')
-                    editDate.value=null
-                    
-                }
+                
                 if(addFunnel.value&&phone.value!=''){
                     if(form.data.data.funnel_actions==null){
                       form.addAction()
@@ -995,10 +1049,25 @@
                     createpdateFolder.value=false
             }  
              if(phone.value!=''&&getFunnelItem.value){
-                    if(form.data.data.funnel_actions==null){console.log('watch')
+                    if(form.data.data.funnel_actions==null){
                       form.addAction()
                       addFunnel.value = false
                     } 
+                }
+                 if(editDate.value!=null){
+                    loading.value=true;
+                    if( props.formData.data.funnel_actions){
+                    const id = editDate.value[0]
+                    if(editDate.value[1]=='whatsapp'){
+                        channelChoise(id, 'whatsapp')
+                    }
+                    if(editDate.value[1]=='instagram'){
+                         channelChoise(id, 'instagram')
+                    }
+                    editDate.value=null 
+                    loadInfo.value=false
+                    }
+                    
                 }
             })
             const folderAmo = ref(null);
@@ -1015,7 +1084,7 @@
             folderChoose.value[index]=[item.folder_id,item.name]
          }
          
-         
+          
             return {
                 container,
                 sizeGoToBottom,
@@ -1070,7 +1139,8 @@
                 addFunnel,
                 loading,
                 clearError,
-                getFunnelItem
+                getFunnelItem,
+                loadInfo
         
             }
         }
