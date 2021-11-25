@@ -529,7 +529,9 @@
                         form.data.data[prop][index][name] = id;
 
                     } else {
-                        
+                        if(prop=='new_dialog_action'){
+                            
+                        }
                         form.data.data[prop][name] = id;
                     }
                     setTimeout(() => {
@@ -585,7 +587,9 @@
                         .then ((r) => {
                         let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)   
                         phone.value = whatsapps.value[index].phone;
-                         if (!form.data.data.new_dialog_action) {
+                      const data = ref({...r}.amocrm_integration)
+                        form.data.data = data 
+                        if (!form.data.data.new_dialog_action||form.data.data.new_dialog_action==null) {
                         form.data.data.new_dialog_action = {
                         funnel_id: null,
                         column_uid: null,
@@ -595,9 +599,8 @@
                         form.data.data.new_dialog_action.id=id;
                         form.data.data.new_dialog_action.type='whatsapp'; 
                         typeName.value='whatsapp'; 
-                        const data = ref({...r}.amocrm_integration)
-                       
-                        form.data.data = data
+                        
+                          
                         loading.value=false;
                          getAllFolders()
                             .then ( (r) => {
@@ -616,7 +619,7 @@
                                 }
                             })
                         })
-                         
+          
                     }
                       else{
                         loading.value=true;
@@ -624,7 +627,9 @@
                         .then ((r) => {
                         let index = instagrams.value.findIndex(item => item.instagram_id==id)   
                         phone.value = instagrams.value[index].login;
-                         if (!form.data.data.new_dialog_action) {
+                      const data = ref({...r.amocrm_integration})
+                          form.data.data = data
+                           if (!form.data.data.new_dialog_action||form.data.data.new_dialog_action==null) {
                             form.data.data.new_dialog_action = {
                                 funnel_id: null,
                                 column_uid: null,
@@ -634,8 +639,8 @@
                         form.data.data.new_dialog_action.id=id;
                         typeName.value='instagram'; 
                         form.data.data.new_dialog_action.type='instagram';  
-                         const data = ref({...r.amocrm_integration})
-                          form.data.data = data
+                           
+                          
                         //   form.data.data.funnel_actions.type='instagram'
                           loading.value=false;
                           getAllFolders()
@@ -742,25 +747,27 @@
                 errors.value.new_dialog_action.column_uid = 'not_null'; 
                 let isValid = '';
                 const isFunnel = ref(false)
-                if(form.data.data.funnel_actions.length=0){
-                    
-                }
-                if(form.data.data.funnel_actions!=null ){
+
+                if(form.data.data.funnel_actions!=null&&form.data.data.funnel_actions.length!=0&&form.data.data.funnel_actions[0].hasOwnProperty('id')){
 
                 
                 for (let i = 0; i<form.data.data.funnel_actions.length; i++){
-                    if(form.data.data.funnel_actions[i].hasOwnProperty('funnel_id')){
+                    if(form.data.data.funnel_actions[i].hasOwnProperty('funnel_id')&&form.data.data.funnel_actions.length!=0){
                         isFunnel.value = true
                         if(form.data.data.funnel_actions[i].funnel_id===null&&form.data.data.funnel_actions[i].column_uid===null){
                             form.data.data.funnel_actions=form.data.data.funnel_actions.filter((item, index) => index!=i) 
                         }
-                         form.data.data.funnel_actions[i].id=phoneId.value
+                        else{
+                           form.data.data.funnel_actions[i].id=phoneId.value 
+                        }
+                         
                     }
                     else{
                         isFunnel.value = false
                         form.data.data.funnel_actions=form.data.data.funnel_actions.filter((item, index) => index!=i)
                     }
-                }}
+                }
+                }
                else{
                      if(form.data.data.new_dialog_action===null){
                             errors.value.new_dialog_action.funnel_id = null;
@@ -1056,7 +1063,9 @@
                 }
                  if(editDate.value!=null){
                     loading.value=true;
-                    if( props.formData.data.funnel_actions){
+                    console.log( props.formData.data)
+                    if( props.formData.data.hasOwnProperty('funnel_actions') ){
+                        
                     const id = editDate.value[0]
                     if(editDate.value[1]=='whatsapp'){
                         channelChoise(id, 'whatsapp')
