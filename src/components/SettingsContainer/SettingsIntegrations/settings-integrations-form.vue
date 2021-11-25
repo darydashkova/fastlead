@@ -747,21 +747,20 @@
                 errors.value.new_dialog_action.column_uid = 'not_null'; 
                 let isValid = '';
                 const isFunnel = ref(false)
-                // if(form.data.data.funnel_actions.length=0){
-                    
-                // }
-        
-                if(form.data.data.funnel_actions!=null ||!form.data.data.funnel_actions.hasOwnProperty('id')){
+
+                if(form.data.data.funnel_actions!=null&&form.data.data.funnel_actions.length!=0&&form.data.data.funnel_actions[0].hasOwnProperty('id')){
 
                 
                 for (let i = 0; i<form.data.data.funnel_actions.length; i++){
-                    if(form.data.data.funnel_actions[i].hasOwnProperty('funnel_id')){
+                    if(form.data.data.funnel_actions[i].hasOwnProperty('funnel_id')&&form.data.data.funnel_actions.length!=0){
                         isFunnel.value = true
                         if(form.data.data.funnel_actions[i].funnel_id===null&&form.data.data.funnel_actions[i].column_uid===null){
-                            console.log('1')
                             form.data.data.funnel_actions=form.data.data.funnel_actions.filter((item, index) => index!=i) 
                         }
-                         form.data.data.funnel_actions[i].id=phoneId.value
+                        else{
+                           form.data.data.funnel_actions[i].id=phoneId.value 
+                        }
+                         
                     }
                     else{
                         isFunnel.value = false
