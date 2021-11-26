@@ -86,7 +86,7 @@
             const { validDate } = useDate()
             const formatedPhone = computed(() => {
             let phone = props.chatInfo.name;
-            if(phone.match(/^\d+$/)){
+            if(phone.match(/^\d+$/)&&phone.length==11){
                 let match = phone.match(/^(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})$/);
                 const num = match[1] + ' (' + match[2]+ ') '+ match[3] + '-'+ match[4]+ '-'+match[5];
                 phone =num;
@@ -97,8 +97,6 @@
                 emit('toggleSelecting');
             }
             const { wrapEmoji } = useEmoji();
-
-
             return {
                 wrapEmoji,
                 chatInfo: props.chatInfo,
