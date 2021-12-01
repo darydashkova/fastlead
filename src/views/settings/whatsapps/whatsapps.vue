@@ -11,8 +11,7 @@
                 <div class="scroll__bar" ref="scrollbar"></div>
             </div>
             <div class="settings-whatsapps__content" ref="content">
-
-            <div class="element-none" v-if="!whatsapps">У вас еще нет подключенных аккаунтов</div>
+            <div class="element-none" v-if="!whatsapps[0]">У вас еще нет подключенных аккаунтов</div>
                 <div class="settings-whatsapps__element" v-for="whatsapp in whatsapps"
                      :key="whatsapp.whatsapp_id+'SettingsWhatsapp'">
                     <div class="settings-whatsapps__name">
@@ -56,6 +55,7 @@
                             v-if="whatsapp.is_active">Синхронизировать</div>
                     <div
                             @click="activate(whatsapp)"
+
                             class="base-button_cancel base-button_p5-15 base-button_w-100"
                             v-else>Активировать</div> -->
                               <div
@@ -80,7 +80,7 @@
         components: { BaseButton },
         setup() {
             const { whatsapps, getWhatsapps, deleteWhatsapps } = useWhatsapp()
-            const { toggleModalCreateWhatsapp, selectedWhatsappToAction, toggleModalSyncWhatsapp, toggleModalChoiceActivationMethod } = useModalsWhatsapps()
+            const { toggleModalCreateWhatsapp, selectedWhatsappToAction, toggleModalSyncWhatsapp, toggleModalChoiceActivationMethod,toggleModalChoiceActivationMethodMyself } = useModalsWhatsapps()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
             const {routerActiveLink} = useInstagramApi()
@@ -111,7 +111,7 @@
             }
             const activate = (whatsapp) => {
                 selectedWhatsappToAction.value = whatsapp;
-                toggleModalChoiceActivationMethod(true);
+                toggleModalChoiceActivationMethodMyself(true);
             }
             const create = () => {
                 selectedWhatsappToAction.value = null;
