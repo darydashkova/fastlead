@@ -5,7 +5,8 @@
             <div class="scroll" ref="container" @click.self="scrollTo">
                 <div class="scroll__bar" ref="scrollbar"></div>
             </div>
-            <textarea class="settings-integration-message__input-text settings-integrations-form__input_test" placeholder="" ref="content" v-model="textMessage" @change="checkMesage"></textarea>
+            <textarea class="settings-integration-message__input-text settings-integrations-form__input_test" 
+            placeholder="" ref="content" v-model="textMessage" @change="checkMesage"></textarea>
                <div class="settings-integration-message__input-elems">
                 <div class="settings-integration-message__input-elems-flex">
                     <div class="settings-integration-message__input-elems-emoji pointer">
@@ -63,7 +64,7 @@ export default {
             const addEmoji = (emoji) => {
                textMessage.value += emoji.native
                 textarea.value.value+=emoji.native
-                 console.log( textMessage.value + '////text')
+              
             }
             const wrapTab = (text) => {
                 return text.replace(/\n/g, '<br>')
@@ -144,7 +145,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         position: absolute;
-        bottom: 4px;
+        bottom: 5px;
         padding: 0px 10px;
         background-color:var(--modal-element-hover-bg-color);
         height: 35px;
@@ -173,7 +174,6 @@ export default {
       }
 }
 
-    
 
 
 .elem

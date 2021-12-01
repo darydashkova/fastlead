@@ -381,10 +381,10 @@
                         'var(--left-bar-color)';
                     console.log(mxConstants.OUTLINE_COLOR) */
 
-                    console.log(mxConstants.VERTEX_SELECTION_COLOR)
+                    // console.log(mxConstants.VERTEX_SELECTION_COLOR)
                     mxConstants.VERTEX_SELECTION_COLOR =                    //ME
                         'none';
-                    console.log(mxConstants.VERTEX_SELECTION_COLOR)
+                    // console.log(mxConstants.VERTEX_SELECTION_COLOR)
               ////////////////////////////////////////////////////////////////////////////////////////////////////      
 
 

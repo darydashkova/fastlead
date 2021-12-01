@@ -104,7 +104,6 @@ const maxLength = (evt) => {
 
             const save = () => {
                 errors.login = false;
-        console.log(login.value)
          
                 if (!login.value) {
                     errors.login = true;
@@ -117,7 +116,6 @@ const maxLength = (evt) => {
                 const dataNew = 
                 twoFactorInstagram(data.value)
                 .then ((r) => {
-                    console.log(r)
                     loading.value = false;
                       if (r.error) {
                           emit("succesInstagram", false)

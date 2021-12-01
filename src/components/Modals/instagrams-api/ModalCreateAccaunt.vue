@@ -77,7 +77,6 @@
                     if (response.status === 'connected') {
                         initialResponce.value.uid = response.authResponse.userID;
                         initialResponce.value.accessToken = response.authResponse.accessToken;
-                        console.log("connected")
                         checkConnect()
                     }
                 });
@@ -133,8 +132,6 @@
                 showModalError.value = true
             }  
 
-
-            console.log(returnInstagrams.value)
 
             watch(() => {
                 sdk()

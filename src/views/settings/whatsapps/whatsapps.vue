@@ -49,14 +49,19 @@
                     >
                         {{whatsapp.status}}
                     </div>
-                    <div
+                    <!-- <div
                             @click="sync(whatsapp)"
                             class="base-button_cancel base-button_p5-15 base-button_w-100"
                             v-if="whatsapp.is_active">Синхронизировать</div>
                     <div
                             @click="activate(whatsapp)"
-                            class="base-button_cancel base-button_p5-15 base-button_w-100 pointer"
-                            v-else>Активировать</div>
+
+                            class="base-button_cancel base-button_p5-15 base-button_w-100"
+                            v-else>Активировать</div> -->
+                              <div
+                            @click="activate(whatsapp)"
+                            class="base-button_cancel base-button_p5-15 base-button_w-100"
+                             v-if="!whatsapp.is_active">Активировать</div>
                 </div>
             </div>
         </div>

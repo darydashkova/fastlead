@@ -116,7 +116,7 @@
                 }
             ]
         })
-        console.log(returnFinance.value)
+    
         const openUpdate = () => {
             initialValues.value.sale_id = returnFinance.value.sale_id
             if (returnFinance.value.whatsapp_tariff_id){
@@ -148,7 +148,7 @@
         })
 
         onUpdated(() => {
-            console.log(initialValues.value.sale_id)
+            
         })
 
 

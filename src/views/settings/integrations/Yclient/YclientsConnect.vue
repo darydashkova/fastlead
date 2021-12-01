@@ -1,9 +1,7 @@
 <template>
 <div>
-    <div class="scroll" ref="container" @click.self="scrollTo">
-        <div class="scroll__bar" ref="scrollbar"></div>
-    </div> 
-    <div class="settings-integrations settings-integrations-yclient " ref="content">
+
+    <div class="settings-integrations settings-integrations-yclient " >
        <integrationHeaderCommon :date="date" @pageOpen ="openPattern"></integrationHeaderCommon>
        <div v-if="numberPattern[0]==='Настройка Yclients' && numberPattern[1]==='true'||defaultPattern">
            <div class="settings-integrations-yclient__pattern-tasks">
@@ -148,6 +146,13 @@
 </script>
 <style lang="scss">
 .settings-integrations-yclient{
+     overflow-y:auto;
+     //position:relative;
+     max-height:100%;
+     height: 100%;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+     &::-webkit-scrollbar { width: 0; }
   .settings-integrations-form__dropdown-item{
       line-height: 19px;
   }  

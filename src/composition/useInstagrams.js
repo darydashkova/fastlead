@@ -9,8 +9,7 @@ export function useInstagram() {
         return await instagramActions.getInstagrams()
             .then(r => {
                 instagrams.data = [...r.instagrams]
-                console.log(instagrams)
-                console.log('instagrams')
+
                 return r;
             })
     }
