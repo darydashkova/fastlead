@@ -8,5 +8,6 @@ services:
                 - VUE_APP_API_URL=https://api.fastlead.app
                 - VUE_APP_SOCKET_URL=wss://ws.fastlead.app
                 - VUE_APP_AMOCRM_ID=00f233b0-25bc-46e0-ab09-a5ffd4c8862a
-        network_mode: host
+        ports:
+            - "80:80"
         restart: always
