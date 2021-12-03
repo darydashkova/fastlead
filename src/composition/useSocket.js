@@ -48,7 +48,7 @@ export function useSocket() {
                     addMessage(mes.last_message);
                     console.log(dialogs.value.filter(i => i.dialog_id !== mes.dialog_id))
                     let locDialogs = [{ ...mes }, ...dialogs.value.filter(i => i.dialog_id !== mes.dialog_id)];
-                    setDialogs(locDialogs);
+                    // setDialogs(locDialogs);
 
                 } else {
                     if (mes.folder_id === selectedFolder.value) {
