@@ -1,22 +1,24 @@
 <template>
     <div class="modal-create-instagram" @mousedown.self="close">
         <div class="modal-create-instagram__body">
-            <BaseModalHeader>
-                {{header}}
-            </BaseModalHeader>
+            <div class="modal-create-instagram__header">
+                Активация канала
+                <img class="pointer" src="@/assets/close.svg" @click.self="close">
+            </div>
+            <div class="modal-create-instagram__body_title">Instagram</div>
             <div class="modal-create-instagram__input-group modal-create-instagram__input-group_padding-20">
-                <BaseModalLabel for-id="modal-create-instagram__input" :class="{'base-modal-label_error': errors.login}">
+                <div for-id="modal-create-instagram__input" class="modal-create-instagram__input-group_name" :class="{'base-modal-label_error': errors.login}">
                     {{errors.login? 'Проверьте правильность ввода' : 'Логин'}}
-                </BaseModalLabel>
+                </div>
                 <input id="modal-create-instagram__input"
                        type="text"
                        class="modal-create-instagram__input"
                        v-model="login">
             </div>
             <div class="modal-create-instagram__input-group modal-create-instagram__input-group_padding-20">
-                <BaseModalLabel for-id="modal-create-instagram__input-pass" :class="{'base-modal-label_error': errors.password}">
+                <div for-id="modal-create-instagram__input-pass" class="modal-create-instagram__input-group_name" :class="{'base-modal-label_error': errors.password}">
                     {{errors.password? 'Проверьте правильность ввода' : 'Пароль'}}
-                </BaseModalLabel>
+                </div>
                 <input id="modal-create-instagram__input-pass"
                        type="password"
                        class="modal-create-instagram__input"
@@ -24,18 +26,18 @@
                 >
             </div>
             <div class="modal-create-instagram__buttons">
-                <BaseButton
-                        class="base-button_enter"
+                <div
+                        class="modal-create-instagram__buttons_accept pointer"
                         @click="save"
                 >
                     Сохранить
-                </BaseButton>
-                <BaseButton
-                        class="base-button_cancel"
+                </div>
+                <div
+                        class="modal-create-instagram__buttons_close pointer"
                         @click.self="close"
                 >
                     Отмена
-                </BaseButton>
+                </div>
             </div>
         </div>
         <teleport to="body" v-if="loading">
@@ -200,17 +202,37 @@ watch(()=>{
         }
     }
     .modal-create-instagram__body {
-        width: 364px;
-        background: var(--modal-bg-color);
+        width: 520px;
+        height: 420px;
+        background: #252544;
         border-radius: 9px;
-        padding: 20px 0;
         text-align: left;
+        padding: 20px 0px;
+        &_title{
+            color: #9797BB;
+            font-size: 16px;
+            margin-top: 20px;
+            padding: 0 24px 17px;
+            border-bottom: 1px solid #1D1D35;
+        }
+    }
+    .modal-create-instagram__header{
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 24px;
+        color: #F0F0FA;
+        weight: 700;
+        font-size: 24px;
     }
     .modal-create-instagram__input-group {
         width: 100%;
         display: flex;
         flex-direction: column;
-        margin: 31px 0 29px;
+        margin: 25px 0 29px;
+        &_name{
+            color: #CFCFE4;
+            font-size: 14px;
+        }
         &.modal-create-instagram__input-group_padding-20 {
             padding: 0 20px;
         }
@@ -223,19 +245,30 @@ watch(()=>{
         line-height: 21px;
         margin-top: 6px;
         width: 100%;
-        padding: 6px 10px;
+        padding: 12px 10px;
 
         color: var(--modal-font-color);
-        background: var(--modal-element-hover-bg-color);
-        border: 0.7px solid var(--modal-input-border-color);
+        background: #1D1D35;
         box-sizing: border-box;
         border-radius: 3px;
     }
     .modal-create-instagram__buttons {
-        padding: 0 20px;
+        padding: 20px 24px;
         width: 100%;
         display: flex;
         justify-content: space-between;
-        margin-top: 44px;
+        &_accept{
+            padding: 8px 26px;
+            border-radius: 6px;
+            background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+            color: #252544;
+        }
+        &_close{
+            padding: 8px 26px;
+            border-radius: 6px;
+            border: 1px solid #5EC075;
+            color: #5EC075;
+            margin-left: 22px;
+        }
     }
 </style>

@@ -10,10 +10,30 @@
 
   font-style: normal;
   font-weight: normal;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 29px;
   color: var(--settings-header-color);
+  &_enter{
+    color: #1D1D35;
+    font-size: 12px;
+    padding: 8px 24px 8px 14px;
+    background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+    border-radius: 6px;
+    font-weight: 400;
+    &-svg{
+      padding-right: 10px;
+      font-weight: 500;
+    }
+  }
 }
+
+.settings-instagrams__folder{
+  display: flex;
+  color: #9797BB;
+  margin: 5px 0px;
+  font-size: 14px;
+}
+
 .settings-instagrams__scroll-container {
   height: calc(100% - 79px);
   position: relative;
@@ -30,10 +50,10 @@
   flex-wrap: wrap;
 }
 .settings-instagrams__element {
-  width: 257px;
-  height: 150px;
+  width: 275px;
+  height: 175px;
   border-radius: 9px;
-  background: var(--settings-whatsapp-color);
+  background: #252544;
   margin: 0 8px 27px;
   padding: 16px;
 
@@ -44,7 +64,7 @@
 .settings-instagrams__name {
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   color: var(--settings-whatsapp-name-color);
 
@@ -66,11 +86,10 @@
 .settings-instagrams__phone {
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 21px;
   color: var(--settings-whatsapp-sub-color);
   text-align: left;
-  margin: 0 0 auto;
   &.settings-instagrams__phone_active {
     background: var(--green-color);
     -webkit-background-clip: text;
@@ -106,12 +125,24 @@
 
 .element-none{
   width: 100%;
-  color: #F0F0FA;
-  font-size: 24px;
+  color: #9797BB;
+  font-size: 18px;
   background: #252544;
   text-align: center;
   align-items: center;
   /* height: calc(100vh - 30vh); */
-  padding: 180px;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  min-height: 600px;
+  max-height: 1500px;
   border-radius: 6px;
+  flex-direction: column;
+  &__button{
+    margin-top: 34px;
+    color: #1D1D35;
+    background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+    padding: 8px 26px;
+    border-radius: 6px;
+  }
 }
