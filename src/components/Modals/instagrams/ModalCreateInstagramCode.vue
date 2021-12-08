@@ -9,11 +9,10 @@
                     {{errors.login? 'Проверьте правильность ввода' : 'Введите 6-значный код из SMS'}}
                 </BaseModalLabel>
                 <input id="modal-create-instagram__input"
-                       type="number"
-                       class="modal-create-instagram__input"
-                       v-model="login"
-                     maxlength = "6"
-                     @input="maxLength(login)"
+                        type="number"
+                        class="modal-create-instagram__input"
+                        v-model="login"
+                        v-maska="'######'"
                        >
             </div>
           
@@ -60,21 +59,20 @@
         },
         emits:["succesInstagram"],
         setup(props, {emit}) {
-const loading = ref(false);
+            const loading = ref(false);
             const { createInstagram, updateInstagram, getInstagrams, twoFactorInstagram } = useInstagram()
-const max = ref();
-const maxLength = (evt) => {
-    if(evt.length<6){
+            const max = ref();
+            const maxLength = (evt) => {
+            if(evt.length<6){
 
-    }
-    else if(evt.length==6){
-    max.value = evt;
-    }
-    else{
-    login.value = max.value
-    }
-   
-}
+            }
+            else if(evt.length==6){
+                max.value = evt;
+            }
+            else{
+                login.value = max.value
+            }
+        }
        
             const login = ref('');
             const errors = reactive({
