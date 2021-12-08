@@ -109,7 +109,7 @@
                 }
                 const data = ref({});
                 data.value.instagram_id = props.index;
-                data.value.code = Number(login.value);
+                data.value.code = login.value;
                 loading.value = true;
                 const dataNew = 
                 twoFactorInstagram(data.value)
