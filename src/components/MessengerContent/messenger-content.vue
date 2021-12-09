@@ -2,7 +2,6 @@
     <div class="messenger-content">
         <MessengerContentNav
         ></MessengerContentNav>
-
         <MessengerContentSidebar
                 v-if="!openedUserInfo"
                 class="messenger-content__middle-bar"
@@ -11,7 +10,6 @@
                 v-else
                 class="messenger-content__middle-bar"
         ></UserInfo>
-
         <MessengerContentPersonalMessages
         ></MessengerContentPersonalMessages>
     </div>
