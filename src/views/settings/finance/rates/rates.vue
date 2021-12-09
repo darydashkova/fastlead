@@ -177,7 +177,7 @@ export default {
 
         watch(() => {
             calculation()
-            console.log(initialData.value)
+
         })
 
         

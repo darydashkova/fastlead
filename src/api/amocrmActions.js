@@ -39,6 +39,12 @@ export default {
             ...data,
         }
          return api.fetch('POST', `send/test/message`, lData, true)
-    }
+    },
+    getTaskById: (data) => {
+        let lData = {
+            ...data,
+        }
+         return api.fetch('POST', `get/amocrm/channel?id=${lData.id}&type=${lData.type}`, lData, true)
+    },
 
 }

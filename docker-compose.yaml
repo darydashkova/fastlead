@@ -5,8 +5,9 @@ services:
             context: .
             dockerfile: Dockerfile
             args: 
-                - VUE_APP_API_URL=https://example.com
-                - VUE_APP_SOCKET_URL=wss://example.com:3000
-                - VUE_APP_AMOCRM_ID=adb03ea5-c2be-4347-9915-6118fa70e5a4
-        network_mode: host
+                - VUE_APP_API_URL=https://api.fastlead.app
+                - VUE_APP_SOCKET_URL=wss://ws.fastlead.app
+                - VUE_APP_AMOCRM_ID=00f233b0-25bc-46e0-ab09-a5ffd4c8862a
+        ports:
+            - "80:80"
         restart: always

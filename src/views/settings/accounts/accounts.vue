@@ -26,7 +26,7 @@ export default {
 
         const routerLinks = ref([
             {name: "WhatsApp", link: "/settings/whatsapps"},
-            {name: "Instagrams", link: "/settings/instagrams"},
+            {name: "Instagram", link: "/settings/instagrams"},
            /*  {name: "InstagramsApi", link: "/settings/instagrams-api"}, */
         ])
 

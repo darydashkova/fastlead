@@ -220,7 +220,6 @@
         },
         methods: {
             save() {
-                console.log('save',this.cellValues);
                 this.$emit('changeForced', this.cellValues);
             },
             inputMessageSettingsLinks($event, index) {

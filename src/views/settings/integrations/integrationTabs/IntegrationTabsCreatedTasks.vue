@@ -67,13 +67,14 @@
             const updateTasks =  (data) => {
                  deleteIdAmocrm(data)
                  .then(r => {
-                     console.log(r)
+                  
                     activeUpdate.value  = r.status
                  });
             }
-            const createdTasksEditActiveated = (index) => {
+            const createdTasksEditActiveated = (index, name) => {
                 const gg = document.querySelector('.settings-integrations__header-pages-link a ')
-                getDateForChange(index);
+                const data = [index, name]
+                getDateForChange(data);
                  gg.click();
             }
             const addTask = () => {
@@ -98,10 +99,10 @@
                 
              });
              const del = (indx) => {
-                 console.log(amo.value.funnel_actions)
+              
                   amo.value.funnel_actions=amo.value.funnel_actions.filter(index => index!=0)
                   amo.value.funnel_actions = amo.value.funnel_actions
-                  console.log(indx)
+                
                    amo.value.funnel_actions.splice(0,1)
                   
              }
