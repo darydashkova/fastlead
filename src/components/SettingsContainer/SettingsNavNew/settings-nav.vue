@@ -107,43 +107,15 @@
                         </div>
                            <div class="settings-nav__link-list" :class="{'active-link' : activeDialogs}">
                             <SlideUpDown v-model="activeDialogs" :duration="1000" class="settings-nav__link-list-slider">
-                                <template>
-                                <transition name="base-folder-transition" >
-                                <div v-if="selectedParentFolder"   class="settings-nav__link_folders">
-                                
-                                    <div
-                                            v-for="folder in foldersInSelectedFolder"
-                                            :key="`${folder.folder_id}withandwithoutSelectedParent`"
-                                            :class="{
-                                            'base-folder_active': selectedFolder === folder.folder_id,
-                                        
-                                        }"
-                                        
-                                            @click="choseFolder(folder.folder_id)"
-                                            @contextmenu.prevent="(folder.is_default || !folder.editing_possible)? null : openContextMenu($event, {id: folder.folder_id, itemName: 'folder', item: folder.name,})"
-                                    >
-                                    <router-link to="/"   class="settings-nav__link settings-nav__link_default ">
-                                        <div class="base-folder__text">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
-                                                <circle cx="8" cy="8" r="2" fill="#9797BB"/>
-                                                </svg>  {{folder.name}}
-                                        </div>
-
-                                        </router-link>
-                                    </div>
-                                   
-                                
-                                </div>
-
-                                
-                            </transition> 
-                                <div class="base-folder__text"  @click="toggleModalEditFolders(true, null)">
-                                     Ред.
-                                </div>
-
-                                </template>
-                            <transition name="base-folder-transition" >
-                                <div v-if="!selectedParentFolder" class="settings-nav__link_folders">
+                              
+                                     <div class="settings-nav__link-list-edit settings-nav__link settings-nav__link_default pointer"  @click="toggleModalEditFolders(true, null)">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
+                                        <circle cx="8" cy="8" r="2" fill="#9797BB"/>
+                                        </svg>
+                                        Редактирование папок
+                                    </div> 
+                            <transition name="base-folder-transition">
+                                <div  class="settings-nav__link_folders">
                                     <div
                                             v-for="folder in folders"
                                             :key="`${folder.folder_id}withandwithoutSelectedParent`"
@@ -153,7 +125,7 @@
                                             @click="choseFolder(folder.folder_id)"
                                             @contextmenu.prevent="(folder.is_default || !folder.editing_possible)? null : openContextMenu($event, {id: folder.folder_id, itemName: 'folder', item: folder.name,})"
                                     >  
-                                    <router-link to="/"   class="settings-nav__link settings-nav__link_default ">
+                                    <router-link to="/messanger"   class="settings-nav__link settings-nav__link_default ">
                                         <div class="base-folder__text">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
                                                 <circle cx="8" cy="8" r="2" fill="#9797BB"/>
@@ -161,17 +133,13 @@
                                         </div>
                                     </router-link>
                                     </div>
-                                   
                                 </div>
                             </transition>
                         </SlideUpDown>
-                         <div class="base-folder__text"   @click="toggleModalEditFolders(true, null)">
-                            Ред.
-                        </div>
                     </div>  
                     <router-link
                             class="settings-nav__link settings-nav__link_default"
-                            to="/settings/whatsapps">
+                            to="/">
                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
                             <path d="M15.0427 0.956254C13.4598 -0.626571 11.0961 -0.240532 7.99966 2.0897C4.90386 -0.240532 2.54083 -0.627238 0.956591 0.956254C-0.62765 2.53974 -0.240258 4.90265 2.0901 7.99896C-0.240258 11.0946 -0.626983 13.4582 0.956591 15.0417C1.2535 15.3495 1.61029 15.5933 2.00498 15.7581C2.39968 15.9229 2.82393 16.0051 3.25161 15.9998C4.5658 15.9998 6.15271 15.2983 7.99966 13.9089C9.84594 15.2983 11.4328 15.9998 12.7477 15.9998C13.1754 16.0051 13.5996 15.9229 13.9943 15.7581C14.389 15.5933 14.7458 15.3495 15.0427 15.0417C16.6263 13.4582 16.2429 11.0953 13.9092 7.99896C16.2396 4.90265 16.6263 2.53974 15.0427 0.956254ZM12.7237 1.35029C12.9785 1.34262 13.2322 1.3871 13.4692 1.481C13.7062 1.5749 13.9215 1.71624 14.1019 1.89635C15.2661 3.06113 14.406 5.03866 13.0431 6.92285C12.4843 6.26412 11.8549 5.57938 11.1375 4.86131C10.42 4.14324 9.73326 3.51384 9.07449 2.95445C10.34 2.03903 11.6482 1.35029 12.7237 1.35029ZM12.2076 7.99896C11.5335 8.81237 10.8194 9.57311 10.1967 10.1992C9.5739 10.8252 8.81312 11.5326 7.99966 12.2067C7.1862 11.5326 6.42542 10.8186 5.80266 10.1992C5.1799 9.57978 4.46579 8.81237 3.79169 7.99896C4.46579 7.18554 5.1799 6.42413 5.80266 5.80207C6.42542 5.18001 7.1862 4.46527 7.99966 3.79054C8.81312 4.46394 9.5739 5.17934 10.2 5.80207C10.8261 6.4248 11.5335 7.18554 12.2076 7.99896ZM1.8974 1.89701C2.07761 1.7166 2.29286 1.57501 2.5299 1.48098C2.76694 1.38695 3.02072 1.34247 3.27561 1.35029C4.35111 1.35029 5.6593 2.03903 6.92483 2.95445C6.26606 3.51384 5.58063 4.14324 4.86185 4.86131C4.14307 5.57938 3.51498 6.26145 2.95556 6.92285C1.59335 5.03866 0.73189 3.06113 1.8974 1.89701ZM1.8974 14.0982C0.733223 12.9341 1.59335 10.9559 2.95556 9.0724C3.51498 9.73113 4.14441 10.4159 4.86185 11.1339C5.57929 11.852 6.26206 12.4827 6.9215 13.0415C5.03788 14.4056 3.06024 15.2663 1.8974 14.1009V14.0982ZM14.0993 14.0982C12.9357 15.261 10.9588 14.4029 9.07516 13.0415C9.73259 12.4827 10.418 11.85 11.1348 11.1339C11.8516 10.4179 12.4817 9.7338 13.0404 9.0724C14.406 10.9593 15.2674 12.9368 14.1019 14.1009L14.0993 14.0982Z" fill="#9797BB"/>
                             <path d="M8 9C8.55228 9 9 8.55228 9 8C9 7.44772 8.55228 7 8 7C7.44772 7 7 7.44772 7 8C7 8.55228 7.44772 9 8 9Z" fill="#9797BB"/>
@@ -196,13 +164,10 @@
                         Чат-бот
                     </router-link>
                       <div class="settings-nav__link settings-nav__link_default" @click="activeMailing=!activeMailing, activeSettings=false,activeDialogs=false"
-                       :class="{'router-link-exact-active active-link' : activeMailing}"
-                      >
+                       :class="{'router-link-exact-active active-link' : activeMailing}">
                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"  class="settings-nav__icon">
                         <path d="M12.6667 1H3.33333C2.4496 1.00101 1.60237 1.33656 0.97748 1.93305C0.352588 2.52954 0.00105857 3.33826 0 4.18182L0 11.8182C0.00105857 12.6617 0.352588 13.4705 0.97748 14.067C1.60237 14.6634 2.4496 14.999 3.33333 15H12.6667C13.5504 14.999 14.3976 14.6634 15.0225 14.067C15.6474 13.4705 15.9989 12.6617 16 11.8182V4.18182C15.9989 3.33826 15.6474 2.52954 15.0225 1.93305C14.3976 1.33656 13.5504 1.00101 12.6667 1ZM3.33333 2.27273H12.6667C13.0659 2.27348 13.4557 2.38824 13.786 2.60224C14.1163 2.81624 14.3719 3.11969 14.52 3.47355L9.41467 8.34745C9.03895 8.70465 8.53028 8.90521 8 8.90521C7.46972 8.90521 6.96105 8.70465 6.58533 8.34745L1.48 3.47355C1.6281 3.11969 1.88374 2.81624 2.21403 2.60224C2.54432 2.38824 2.93414 2.27348 3.33333 2.27273ZM12.6667 13.7273H3.33333C2.8029 13.7273 2.29419 13.5261 1.91912 13.1681C1.54405 12.8101 1.33333 12.3245 1.33333 11.8182V5.13636L5.64267 9.24727C6.26842 9.84307 7.11617 10.1777 8 10.1777C8.88383 10.1777 9.73158 9.84307 10.3573 9.24727L14.6667 5.13636V11.8182C14.6667 12.3245 14.456 12.8101 14.0809 13.1681C13.7058 13.5261 13.1971 13.7273 12.6667 13.7273Z" fill="#9797BB"/>
                         </svg>
-                        <router-link  to="/settings/mailings"></router-link>
-
                         <div  class="settings-nav__link-arrow">   Рассылки  
                              <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__link-arrow-svg">
                             <path d="M2.14546 9.43867C2.19194 9.48554 2.24724 9.52273 2.30817 9.54812C2.3691 9.5735 2.43445 9.58657 2.50046 9.58657C2.56646 9.58657 2.63182 9.5735 2.69275 9.54812C2.75368 9.52273 2.80898 9.48554 2.85546 9.43867L5.14546 7.14868C5.19194 7.10181 5.24724 7.06462 5.30817 7.03923C5.3691 7.01385 5.43445 7.00078 5.50046 7.00078C5.56646 7.00078 5.63182 7.01385 5.69275 7.03923C5.75368 7.06462 5.80898 7.10181 5.85546 7.14868L8.14546 9.43867C8.19194 9.48554 8.24724 9.52273 8.30817 9.54812C8.3691 9.5735 8.43445 9.58657 8.50046 9.58657C8.56646 9.58657 8.63182 9.5735 8.69275 9.54812C8.75368 9.52273 8.80898 9.48554 8.85546 9.43867C8.94858 9.34499 9.00085 9.21827 9.00085 9.08617C9.00085 8.95408 8.94858 8.82735 8.85546 8.73367L6.56046 6.43868C6.27921 6.15778 5.89796 6 5.50046 6C5.10296 6 4.72171 6.15778 4.44046 6.43868L2.14546 8.73367C2.05233 8.82736 2.00006 8.95408 2.00006 9.08617C2.00006 9.21827 2.05233 9.34499 2.14546 9.43867Z" fill="#F0F0FA"/>
@@ -213,7 +178,7 @@
                             <SlideUpDown v-model="activeMailing" :duration="1000" class="settings-nav__link-list-slider">
                                 <router-link
                                     class="settings-nav__link settings-nav__link_default"
-                                    to="/settings/whatsapps">
+                                    to="/">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
                                     <circle cx="8" cy="8" r="2" fill="#9797BB"/>
                                     </svg>
@@ -277,7 +242,7 @@
                         </div>
                     </div>
                      <div class="settings-nav__link-list"  :class="{'active-link' : activeSettings}">
-                            <SlideUpDown v-model="activeSettings" :duration="1000" class="settings-nav__link-list-slider">
+                            <SlideUpDown v-model="activeSettings" :duration="1000" class="settings-nav__link-list-slider settings-nav__link-list-slider_settings">
                                 <router-link v-for="(setting, index) in settings" :key="index"
                                     class="settings-nav__link settings-nav__link_default"
                                     :to="setting[1]">
@@ -345,7 +310,7 @@
     import BaseCircleIcon from "../../Base/BaseCircleIcon";
     import BaseFolder from "../../Base/BaseFolder";
     import SlideUpDown from 'vue3-slide-up-down';
-    import {inject, computed, onMounted, ref} from "vue";
+    import {inject, computed, onMounted, ref, watch} from "vue";
     import {useDialogs} from "../../../composition/useDialogs";
     import {useFolder} from "../../../composition/useFolder";
     import {useContextMenu} from "../../../composition/useContextMenu";
@@ -362,7 +327,8 @@
             const activeDialogs = ref(false)
             const activeSettings = ref(false);
             const openedAccounts = ref(false);
-            const activeMailing = ref(false)
+            const activeMailing = ref(false);
+
             const settings = ref([
                 ['Каналы', '/settings/whatsapps'], 
                 ['Интеграции', '/settings/integrations'],
@@ -373,9 +339,9 @@
                 ['Управление менеджерами', '/'],
                 ['Игнор лист', '/settings/ignore'],
                 ['Валидация базы', '/'],
-            ]
-            )
+            ])
             const { getFolder, activeFolder } = MessengerContentInput()
+
             const { getDialogs, selectedGroupDialogs, toggleAllSelectedGroupDialogs } = useDialogs()
 
             const { selectedFolder, folders, selectFolder, getAllFoldersInFolder, selectedParentFolder, foldersInSelectedFolder, selectParentFolder, getAllFolders } = useFolder()
@@ -389,7 +355,8 @@
             const { isLoadingDialogs } = useLoader()
 
             const { user } = useUser()
-            getAllFolders();
+
+           
             const openContextMenu = ($event, context) => {
                 setContext({
                     top: $event.clientY,
@@ -415,11 +382,36 @@
             const parentFolderName = computed(() => {
                 return folders.value.find(i => i.folder_id === selectedParentFolder.value).name
             })
-
+            const isGetFolder = ref(false);
+            const checkLink = () => {
+                isGetFolder.value = true;
+                getAllFolders()
+                .then((r)=>{
+                     const href = window.location.pathname;
+                if ( href == '/settings/mailings'){
+                    activeMailing.value = true;
+                }
+                if ( href == '/messenger'){
+                    activeDialogs.value = true;
+                }
+                if (href.startsWith('/settings/')){
+                    const elem = document.querySelector('.router-link-active')
+                    const parent = elem.parentNode.classList[2] ;
+                    if(parent=='settings-nav__link-list-slider_settings'){
+                        activeSettings.value=true;
+                         
+                    }
+                }  
+                })
+                ; 
+             
+            }
 
             onMounted( () => {
                 init()
+                checkLink();
             })
+            
             return {
                 container,
                 content,
@@ -457,7 +449,9 @@
                 selectedParentFolder,
 
                 selectedGroupDialogs,
-                getAllFolders
+                getAllFolders,
+                checkLink,
+                isGetFolder
             }
 
         }

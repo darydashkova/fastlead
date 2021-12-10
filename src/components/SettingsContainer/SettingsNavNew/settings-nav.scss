@@ -1,5 +1,5 @@
 .settings-nav {
-  position: relative;
+  position: absolute;
   height: 100%;
   background: var(--settings-nav-color);
   width: 48px;
@@ -41,6 +41,7 @@
  &__link_folders{
   flex-direction: column;
   display: flex;
+
 }
 }
 .settings-nav__container {
@@ -143,6 +144,17 @@
   &.settings-nav__link_jst-between {
     justify-content: space-between;
   }
+  &-list-edit{
+    
+    .settings-nav__icon {
+      min-width: 16px;
+      min-height: 16px;
+      margin: 0 16px;
+        path {
+          transition: .2s ease;
+      }
+  }
+  }
 }
 .settings-nav__list-container {
   height: calc(100% - 78px);
@@ -162,7 +174,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  
 
 }
 .settings-nav__dropdown {
