@@ -2,17 +2,23 @@
     <div class="messenger-content">
         <!-- <MessengerContentNav
         ></MessengerContentNav> -->
-        <SettingsNavNew></SettingsNavNew>
-        <MessengerContentSidebar
-                v-if="!openedUserInfo"
-                class="messenger-content__middle-bar"
-        ></MessengerContentSidebar>
-        <UserInfo
-                v-else
-                class="messenger-content__middle-bar"
-        ></UserInfo>
-        <MessengerContentPersonalMessages
-        ></MessengerContentPersonalMessages>
+        <SettingsNavNew @getDialogs="addParentFolder"></SettingsNavNew>
+        <div class="messenger-content_column">
+            <MessengerContentHeader ></MessengerContentHeader>
+            <div class="messenger-content_column-dialogs">
+                <MessengerContentSidebar
+                    v-if="!openedUserInfo"
+                    class="messenger-content__middle-bar"
+                ></MessengerContentSidebar>
+                <UserInfo
+                    v-else
+                    class="messenger-content__middle-bar"
+                ></UserInfo>
+                <MessengerContentPersonalMessages
+                ></MessengerContentPersonalMessages>
+            </div>
+        </div>
+        
     </div>
 </template>
 

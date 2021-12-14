@@ -25,14 +25,18 @@
  
     }
   }
-  .active-link{
-    background: var(--settings-active-link)!important;
-    max-height: 245px;
-    overflow-y: auto;
-  }
-  &__list_flex{
+  .slide-up-down__container{
 
+    // transition: height 5000ms ease-in-out 0s !important;
+ overflow-y: auto;
+ background: var(--settings-active-link) !important;
+ }
+  .settings-nav__link-list_max-width{
+      .slide-up-down__container{
+       max-height: 245px;
+    }
   }
+
  .base-folder-transition{
    a{
      text-decoration: none;
@@ -41,7 +45,19 @@
  &__link_folders{
   flex-direction: column;
   display: flex;
+  max-height: 245px;
+  overflow-y: auto;
 
+}
+.base-folder_active{
+  color: var(--font-color)!important;
+  background: var(--settings-active-link)!important;
+  .settings-nav__icon path,.settings-nav__icon circle {
+    fill: url(#paint0_linear)!important;
+  }
+  .settings-nav__link-arrow-svg{
+    transform: rotate(180deg);
+  }
 }
 }
 .settings-nav__container {
@@ -64,7 +80,7 @@
   text-align: left;
   display: flex;
   align-items: center;
-  
+
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -73,6 +89,11 @@
   text-decoration: none;
   transition: .2s ease;
   height: 40px;
+  &-list_max-width{
+max-height: 245px;
+overflow: hidden;
+background: var(--settings-active-link)!important;
+  }
   &-arrow{
     width: 100%;
     display: flex;
@@ -131,7 +152,7 @@
       }
     }
   }
-  &.router-link-exact-active, &.settings-nav__link_active {
+  &.router-link-exact-active, &.settings-nav__link_active  .base-folder_active{
     color: var(--font-color)!important;
     background: var(--settings-active-link)!important;
     .settings-nav__icon path,.settings-nav__icon circle {
@@ -145,7 +166,7 @@
     justify-content: space-between;
   }
   &-list-edit{
-    
+    padding: 12px 0px;
     .settings-nav__icon {
       min-width: 16px;
       min-height: 16px;
@@ -154,6 +175,17 @@
           transition: .2s ease;
       }
   }
+  }
+  .base-folder__text{
+    display: flex;
+    align-items: center;
+  }
+  &-list-slider_settings{
+    .router-link-active{
+      background: var(--green-color) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent;
+    }
   }
 }
 .settings-nav__list-container {

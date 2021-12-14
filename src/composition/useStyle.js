@@ -20,6 +20,7 @@ export function useStyle() {
         }
         const dark = {
             ...common,
+            'main-font-color':'#9797BB', //главный цвет текста 
             'left-bar-color': '#141427', //цвет панели с папками --> var(--left-bar-color)
             'default-svg-fill': '#575773',
             'hover-svg-fill': '#FBFBFE',

@@ -101,24 +101,31 @@
                                 </svg>
                          <div  class="settings-nav__link-arrow">   Диалоги  
                              <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__link-arrow-svg">
-                            <path d="M2.14546 9.43867C2.19194 9.48554 2.24724 9.52273 2.30817 9.54812C2.3691 9.5735 2.43445 9.58657 2.50046 9.58657C2.56646 9.58657 2.63182 9.5735 2.69275 9.54812C2.75368 9.52273 2.80898 9.48554 2.85546 9.43867L5.14546 7.14868C5.19194 7.10181 5.24724 7.06462 5.30817 7.03923C5.3691 7.01385 5.43445 7.00078 5.50046 7.00078C5.56646 7.00078 5.63182 7.01385 5.69275 7.03923C5.75368 7.06462 5.80898 7.10181 5.85546 7.14868L8.14546 9.43867C8.19194 9.48554 8.24724 9.52273 8.30817 9.54812C8.3691 9.5735 8.43445 9.58657 8.50046 9.58657C8.56646 9.58657 8.63182 9.5735 8.69275 9.54812C8.75368 9.52273 8.80898 9.48554 8.85546 9.43867C8.94858 9.34499 9.00085 9.21827 9.00085 9.08617C9.00085 8.95408 8.94858 8.82735 8.85546 8.73367L6.56046 6.43868C6.27921 6.15778 5.89796 6 5.50046 6C5.10296 6 4.72171 6.15778 4.44046 6.43868L2.14546 8.73367C2.05233 8.82736 2.00006 8.95408 2.00006 9.08617C2.00006 9.21827 2.05233 9.34499 2.14546 9.43867Z" fill="#F0F0FA"/>
-                            </svg>
+                                <path d="M8.85552 6.56132C8.80904 6.51446 8.75374 6.47726 8.69281 6.45187C8.63188 6.42649 8.56653 6.41342 8.50052 6.41342C8.43451 6.41342 8.36916 6.42649 8.30823 6.45187C8.2473 6.47726 8.192 6.51446 8.14552 6.56132L5.85552 8.85132C5.80904 8.89818 5.75374 8.93538 5.69281 8.96076C5.63188 8.98615 5.56652 8.99921 5.50052 8.99921C5.43451 8.99921 5.36916 8.98615 5.30823 8.96076C5.2473 8.93538 5.192 8.89818 5.14552 8.85132L2.85552 6.56132C2.80904 6.51446 2.75374 6.47726 2.69281 6.45187C2.63188 6.42649 2.56652 6.41342 2.50052 6.41342C2.43451 6.41342 2.36916 6.42649 2.30823 6.45187C2.2473 6.47726 2.192 6.51446 2.14552 6.56132C2.05239 6.655 2.00012 6.78173 2.00012 6.91382C2.00012 7.04591 2.05239 7.17264 2.14552 7.26632L4.44052 9.56131C4.72177 9.84221 5.10302 9.99999 5.50052 9.99999C5.89802 9.99999 6.27927 9.84221 6.56052 9.56131L8.85552 7.26632C8.94864 7.17264 9.00092 7.04591 9.00092 6.91382C9.00092 6.78173 8.94864 6.655 8.85552 6.56132V6.56132Z" fill="#9797BB"/>
+                                <linearGradient id="paint0_linear" x1="9.09877" y1="30.6914" x2="26.6173" y2="-4.20987" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#22A595"/>
+                                    <stop offset="1" stop-color="#84D160"/>
+                                    </linearGradient>
+                                </svg>
+
+                             
+                            
+                        </div>    
                         </div>
-                        </div>
-                           <div class="settings-nav__link-list" :class="{'active-link' : activeDialogs}">
+                           <div class="settings-nav__link-list settings-nav__link-list_max-width " :class="{'active-link' : activeDialogs}">
                             <SlideUpDown v-model="activeDialogs" :duration="1000" class="settings-nav__link-list-slider">
-                              
-                                     <div class="settings-nav__link-list-edit settings-nav__link settings-nav__link_default pointer"  @click="toggleModalEditFolders(true, null)">
+                               
+                            <transition name="base-folder-transition">
+
+                                <div  class="settings-nav__link_folders">      
+                                    <div class="settings-nav__link-list-edit settings-nav__link settings-nav__link_default pointer"  @click="toggleModalEditFolders(true, null)">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
                                         <circle cx="8" cy="8" r="2" fill="#9797BB"/>
                                         </svg>
                                         Редактирование папок
                                     </div> 
-                            <transition name="base-folder-transition">
-                                <div  class="settings-nav__link_folders">
+                                    <template v-for="(folder, index) in folders" :key="index">
                                     <div
-                                            v-for="folder in folders"
-                                            :key="`${folder.folder_id}withandwithoutSelectedParent`"
                                             :class="{
                                             'base-folder_active': selectedFolder === folder.folder_id,
                                         }"
@@ -133,6 +140,25 @@
                                         </div>
                                     </router-link>
                                     </div>
+                                    <template v-if="folder.folders">
+                                        <div
+                                            v-for="childfolder in folder.folders"
+                                            :key="`${childfolder.folder_id}withandwithoutSelectedParent`"
+                                            :class="{
+                                            'base-folder_active': selectedFolder === childfolder.folder_id,}"
+                                            @click="choseFolder(childfolder.folder_id)"
+                                            @contextmenu.prevent="(childfolder.is_default || !childfolder.editing_possible)? null : openContextMenu($event, {id: childfolder.folder_id, itemName: 'folder', item: childfolder.name,})"
+                                        >  
+                                        <router-link to="/messanger"   class="settings-nav__link settings-nav__link_default ">
+                                            <div class="base-folder__text">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
+                                                <circle cx="8" cy="8" r="2" fill="#9797BB"/>
+                                            </svg>    {{childfolder.name}}
+                                            </div>
+                                        </router-link>
+                                        </div>
+                                        </template>
+                                    </template>
                                 </div>
                             </transition>
                         </SlideUpDown>
@@ -163,7 +189,15 @@
                             </svg>
                         Чат-бот
                     </router-link>
-                      <div class="settings-nav__link settings-nav__link_default" @click="activeMailing=!activeMailing, activeSettings=false,activeDialogs=false"
+                    <router-link
+                            class="settings-nav__link settings-nav__link_default"
+                            to="/settings/mailings">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"  class="settings-nav__icon">
+                        <path d="M12.6667 1H3.33333C2.4496 1.00101 1.60237 1.33656 0.97748 1.93305C0.352588 2.52954 0.00105857 3.33826 0 4.18182L0 11.8182C0.00105857 12.6617 0.352588 13.4705 0.97748 14.067C1.60237 14.6634 2.4496 14.999 3.33333 15H12.6667C13.5504 14.999 14.3976 14.6634 15.0225 14.067C15.6474 13.4705 15.9989 12.6617 16 11.8182V4.18182C15.9989 3.33826 15.6474 2.52954 15.0225 1.93305C14.3976 1.33656 13.5504 1.00101 12.6667 1ZM3.33333 2.27273H12.6667C13.0659 2.27348 13.4557 2.38824 13.786 2.60224C14.1163 2.81624 14.3719 3.11969 14.52 3.47355L9.41467 8.34745C9.03895 8.70465 8.53028 8.90521 8 8.90521C7.46972 8.90521 6.96105 8.70465 6.58533 8.34745L1.48 3.47355C1.6281 3.11969 1.88374 2.81624 2.21403 2.60224C2.54432 2.38824 2.93414 2.27348 3.33333 2.27273ZM12.6667 13.7273H3.33333C2.8029 13.7273 2.29419 13.5261 1.91912 13.1681C1.54405 12.8101 1.33333 12.3245 1.33333 11.8182V5.13636L5.64267 9.24727C6.26842 9.84307 7.11617 10.1777 8 10.1777C8.88383 10.1777 9.73158 9.84307 10.3573 9.24727L14.6667 5.13636V11.8182C14.6667 12.3245 14.456 12.8101 14.0809 13.1681C13.7058 13.5261 13.1971 13.7273 12.6667 13.7273Z" fill="#9797BB"/>
+                        </svg>
+                        Рассылки
+                    </router-link>
+                      <!-- <div class="settings-nav__link settings-nav__link_default" @click="activeMailing=!activeMailing, activeSettings=false,activeDialogs=false"
                        :class="{'router-link-exact-active active-link' : activeMailing}">
                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"  class="settings-nav__icon">
                         <path d="M12.6667 1H3.33333C2.4496 1.00101 1.60237 1.33656 0.97748 1.93305C0.352588 2.52954 0.00105857 3.33826 0 4.18182L0 11.8182C0.00105857 12.6617 0.352588 13.4705 0.97748 14.067C1.60237 14.6634 2.4496 14.999 3.33333 15H12.6667C13.5504 14.999 14.3976 14.6634 15.0225 14.067C15.6474 13.4705 15.9989 12.6617 16 11.8182V4.18182C15.9989 3.33826 15.6474 2.52954 15.0225 1.93305C14.3976 1.33656 13.5504 1.00101 12.6667 1ZM3.33333 2.27273H12.6667C13.0659 2.27348 13.4557 2.38824 13.786 2.60224C14.1163 2.81624 14.3719 3.11969 14.52 3.47355L9.41467 8.34745C9.03895 8.70465 8.53028 8.90521 8 8.90521C7.46972 8.90521 6.96105 8.70465 6.58533 8.34745L1.48 3.47355C1.6281 3.11969 1.88374 2.81624 2.21403 2.60224C2.54432 2.38824 2.93414 2.27348 3.33333 2.27273ZM12.6667 13.7273H3.33333C2.8029 13.7273 2.29419 13.5261 1.91912 13.1681C1.54405 12.8101 1.33333 12.3245 1.33333 11.8182V5.13636L5.64267 9.24727C6.26842 9.84307 7.11617 10.1777 8 10.1777C8.88383 10.1777 9.73158 9.84307 10.3573 9.24727L14.6667 5.13636V11.8182C14.6667 12.3245 14.456 12.8101 14.0809 13.1681C13.7058 13.5261 13.1971 13.7273 12.6667 13.7273Z" fill="#9797BB"/>
@@ -173,8 +207,8 @@
                             <path d="M2.14546 9.43867C2.19194 9.48554 2.24724 9.52273 2.30817 9.54812C2.3691 9.5735 2.43445 9.58657 2.50046 9.58657C2.56646 9.58657 2.63182 9.5735 2.69275 9.54812C2.75368 9.52273 2.80898 9.48554 2.85546 9.43867L5.14546 7.14868C5.19194 7.10181 5.24724 7.06462 5.30817 7.03923C5.3691 7.01385 5.43445 7.00078 5.50046 7.00078C5.56646 7.00078 5.63182 7.01385 5.69275 7.03923C5.75368 7.06462 5.80898 7.10181 5.85546 7.14868L8.14546 9.43867C8.19194 9.48554 8.24724 9.52273 8.30817 9.54812C8.3691 9.5735 8.43445 9.58657 8.50046 9.58657C8.56646 9.58657 8.63182 9.5735 8.69275 9.54812C8.75368 9.52273 8.80898 9.48554 8.85546 9.43867C8.94858 9.34499 9.00085 9.21827 9.00085 9.08617C9.00085 8.95408 8.94858 8.82735 8.85546 8.73367L6.56046 6.43868C6.27921 6.15778 5.89796 6 5.50046 6C5.10296 6 4.72171 6.15778 4.44046 6.43868L2.14546 8.73367C2.05233 8.82736 2.00006 8.95408 2.00006 9.08617C2.00006 9.21827 2.05233 9.34499 2.14546 9.43867Z" fill="#F0F0FA"/>
                             </svg>
                         </div>
-                    </div>
-                    <div class="settings-nav__link-list"  :class="{'active-link' : activeMailing}">
+                    </div> -->
+                    <!-- <div class="settings-nav__link-list"  :class="{'active-link' : activeMailing}">
                             <SlideUpDown v-model="activeMailing" :duration="1000" class="settings-nav__link-list-slider">
                                 <router-link
                                     class="settings-nav__link settings-nav__link_default"
@@ -193,7 +227,7 @@
                                     Пользовательские
                                 </router-link>
                             </SlideUpDown>
-                        </div>
+                        </div> -->
                        <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/partners/profit">
@@ -236,12 +270,12 @@
                         </defs>
                         </svg>
                         <div class="settings-nav__link-arrow">   Настройки  
-                             <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__link-arrow-svg">
-                            <path d="M2.14546 9.43867C2.19194 9.48554 2.24724 9.52273 2.30817 9.54812C2.3691 9.5735 2.43445 9.58657 2.50046 9.58657C2.56646 9.58657 2.63182 9.5735 2.69275 9.54812C2.75368 9.52273 2.80898 9.48554 2.85546 9.43867L5.14546 7.14868C5.19194 7.10181 5.24724 7.06462 5.30817 7.03923C5.3691 7.01385 5.43445 7.00078 5.50046 7.00078C5.56646 7.00078 5.63182 7.01385 5.69275 7.03923C5.75368 7.06462 5.80898 7.10181 5.85546 7.14868L8.14546 9.43867C8.19194 9.48554 8.24724 9.52273 8.30817 9.54812C8.3691 9.5735 8.43445 9.58657 8.50046 9.58657C8.56646 9.58657 8.63182 9.5735 8.69275 9.54812C8.75368 9.52273 8.80898 9.48554 8.85546 9.43867C8.94858 9.34499 9.00085 9.21827 9.00085 9.08617C9.00085 8.95408 8.94858 8.82735 8.85546 8.73367L6.56046 6.43868C6.27921 6.15778 5.89796 6 5.50046 6C5.10296 6 4.72171 6.15778 4.44046 6.43868L2.14546 8.73367C2.05233 8.82736 2.00006 8.95408 2.00006 9.08617C2.00006 9.21827 2.05233 9.34499 2.14546 9.43867Z" fill="#F0F0FA"/>
+                            <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__link-arrow-svg">
+                                <path d="M8.85552 6.56132C8.80904 6.51446 8.75374 6.47726 8.69281 6.45187C8.63188 6.42649 8.56653 6.41342 8.50052 6.41342C8.43451 6.41342 8.36916 6.42649 8.30823 6.45187C8.2473 6.47726 8.192 6.51446 8.14552 6.56132L5.85552 8.85132C5.80904 8.89818 5.75374 8.93538 5.69281 8.96076C5.63188 8.98615 5.56652 8.99921 5.50052 8.99921C5.43451 8.99921 5.36916 8.98615 5.30823 8.96076C5.2473 8.93538 5.192 8.89818 5.14552 8.85132L2.85552 6.56132C2.80904 6.51446 2.75374 6.47726 2.69281 6.45187C2.63188 6.42649 2.56652 6.41342 2.50052 6.41342C2.43451 6.41342 2.36916 6.42649 2.30823 6.45187C2.2473 6.47726 2.192 6.51446 2.14552 6.56132C2.05239 6.655 2.00012 6.78173 2.00012 6.91382C2.00012 7.04591 2.05239 7.17264 2.14552 7.26632L4.44052 9.56131C4.72177 9.84221 5.10302 9.99999 5.50052 9.99999C5.89802 9.99999 6.27927 9.84221 6.56052 9.56131L8.85552 7.26632C8.94864 7.17264 9.00092 7.04591 9.00092 6.91382C9.00092 6.78173 8.94864 6.655 8.85552 6.56132V6.56132Z" fill="#9797BB"/>
                             </svg>
                         </div>
                     </div>
-                     <div class="settings-nav__link-list"  :class="{'active-link' : activeSettings}">
+                     <div class="settings-nav__link-list "  >
                             <SlideUpDown v-model="activeSettings" :duration="1000" class="settings-nav__link-list-slider settings-nav__link-list-slider_settings">
                                 <router-link v-for="(setting, index) in settings" :key="index"
                                     class="settings-nav__link settings-nav__link_default"
@@ -370,8 +404,24 @@
                     isLoadingDialogs.value = true;
                     getAllFoldersInFolder(id, true);
                     getDialogs(id)
-                        .then(() => {
+                        .then((r) => {
                             isLoadingDialogs.value = false;
+                            const isGetDialog = ref([])
+                            const foldersNew = ref([]);
+                            foldersNew.value = folders.value
+                            if(  foldersNew.value.filter(i=>i.folder_id==selectedFolder.value)){
+                                isGetDialog.value = foldersNew.value.filter(i=>i.folder_id==selectedFolder.value);
+                                   if(r){
+                                    emit("getDialogs")
+                                } 
+                            }
+                             else{
+                                  isGetDialog.value = foldersNew.value.folders.filter(i=>i.folder_id=selectedFolder.value);
+                                     if(r){
+                                    emit("getDialogs")
+                                } 
+                             }
+                          
                         })
                 }
                 toggleAllSelectedGroupDialogs(false);
@@ -390,15 +440,18 @@
                      const href = window.location.pathname;
                 if ( href == '/settings/mailings'){
                     activeMailing.value = true;
+                    selectedFolder.value = null
                 }
                 if ( href == '/messenger'){
                     activeDialogs.value = true;
                 }
                 if (href.startsWith('/settings/')){
+                    selectedFolder.value = null
                     const elem = document.querySelector('.router-link-active')
                     const parent = elem.parentNode.classList[2] ;
                     if(parent=='settings-nav__link-list-slider_settings'){
                         activeSettings.value=true;
+                         
                          
                     }
                 }  
