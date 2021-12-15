@@ -18,8 +18,12 @@ export default {
     },
     setup() {
         const { openedUserInfo } = useUserInfo()
+        const addParentFolder = ()=>{
+            console.log('yup')
+        }
         return {
             openedUserInfo,
+            addParentFolder
         }
     }
 }

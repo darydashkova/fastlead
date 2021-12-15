@@ -2,7 +2,7 @@
     <div class="messenger-content">
         <!-- <MessengerContentNav
         ></MessengerContentNav> -->
-        <SettingsNavNew @getDialogs="addParentFolder"></SettingsNavNew>
+        <SettingsNavNew @getDialogs="addParentFolder()"></SettingsNavNew>
         <div class="messenger-content_column">
             <MessengerContentHeader ></MessengerContentHeader>
             <div class="messenger-content_column-dialogs">

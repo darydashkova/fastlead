@@ -114,9 +114,7 @@
                         </div>
                            <div class="settings-nav__link-list settings-nav__link-list_max-width " :class="{'active-link' : activeDialogs}">
                             <SlideUpDown v-model="activeDialogs" :duration="1000" class="settings-nav__link-list-slider">
-                               
                             <transition name="base-folder-transition">
-
                                 <div  class="settings-nav__link_folders">      
                                     <div class="settings-nav__link-list-edit settings-nav__link settings-nav__link_default pointer"  @click="toggleModalEditFolders(true, null)">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
@@ -126,9 +124,8 @@
                                     </div> 
                                     <template v-for="(folder, index) in folders" :key="index">
                                     <div
-                                            :class="{
-                                            'base-folder_active': selectedFolder === folder.folder_id,
-                                        }"
+                                        :class="{
+                                        'base-folder_active': selectedFolder === folder.folder_id}"
                                             @click="choseFolder(folder.folder_id)"
                                             @contextmenu.prevent="(folder.is_default || !folder.editing_possible)? null : openContextMenu($event, {id: folder.folder_id, itemName: 'folder', item: folder.name,})"
                                     >  
@@ -140,7 +137,7 @@
                                         </div>
                                     </router-link>
                                     </div>
-                                    <template v-if="folder.folders">
+                                    <!-- <template v-if="folder.folders">
                                         <div
                                             v-for="childfolder in folder.folders"
                                             :key="`${childfolder.folder_id}withandwithoutSelectedParent`"
@@ -157,7 +154,7 @@
                                             </div>
                                         </router-link>
                                         </div>
-                                        </template>
+                                        </template> -->
                                     </template>
                                 </div>
                             </transition>
@@ -354,7 +351,8 @@
     import {MessengerContentInput} from "../../../components/MessengerContent/MessengerContentNav/messenger-content-nav.js";
     export default {
         components: {SlideUpDown, BaseCircleIcon, BaseFolder},
-        setup() {
+        props: {},
+        setup(props, {emit}) {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
              const { outAuth } = useAuth();
 
@@ -400,11 +398,12 @@
 
             const choseFolder = (id) => {
                 if (selectedFolder.value !== id) {
-                    selectFolder(id);
+                    selectFolder(id); console.log('f')
                     isLoadingDialogs.value = true;
                     getAllFoldersInFolder(id, true);
                     getDialogs(id)
                         .then((r) => {
+                            console.log('f')
                             isLoadingDialogs.value = false;
                             const isGetDialog = ref([])
                             const foldersNew = ref([]);
@@ -463,6 +462,7 @@
             onMounted( () => {
                 init()
                 checkLink();
+            
             })
             
             return {
