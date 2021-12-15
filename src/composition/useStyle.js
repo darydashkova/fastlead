@@ -35,17 +35,18 @@ export function useStyle() {
             'foreign-messages-font-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
             'messenger-search-input-bg': '#575773',
             'user-icon-name' : '#575773',
-            'messages-input-wrapper-bg': '#141427',
+            'messages-input-wrapper-bg': '#252544',
 
             'font-color': '#9797BB', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#575773',
-            'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
+            'main-color': '#141427', //цвет фона с перепиской --> var(--main-color)
             'messages-color': '#414159', //цвет чужого сообщения var(--messages-color)
             'context-background-color': '#2E2E4E', //цвет бг контекстного меню
             'placeholder-color': '#575773',
             'settings-active-list':'#141427',//цвет открытого пункта меню со вложенным списком
 
             'modal-bg-color': '#1D1D35',
+            'header-color':'#1D1D35', //цвет Header в диалогах
             'modal-element-hover-bg-color': '#2E2E4E',
             'settings-active-link' : '#141427', //цвет активной ссылки в меню
             'modal-font-color': '#FBFBFE', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
@@ -95,6 +96,8 @@ export function useStyle() {
             'base-checkbox-group-font-color': '#757589',
 
             'empty-photo-bg': 'rgba(29, 29, 53, 0.88)',
+            'border-active' : '#5EC075', //зеленые/активный border
+            'messanger-content' : '#252544'
         }
         const light = {
             ...common,
@@ -167,6 +170,7 @@ export function useStyle() {
             'base-checkbox-group-font-color': '#404054',
 
             'empty-photo-bg': 'rgba(64, 64, 84, 0.56)',
+           
         }
 
         let setProperties = (property) => {

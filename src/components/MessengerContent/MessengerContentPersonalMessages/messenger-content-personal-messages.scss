@@ -1,12 +1,16 @@
 .messenger-content-personal-messages{
   position: relative;
-  width: calc(100% - 90px - 365px);
-  max-width: calc(100% - 90px - 365px);
+  width: calc(100% - 156px - 365px);
+  max-width: calc(100% - 156px - 365px);
+  height: calc(100% - 124px);
+  top: 30px;
+  border-radius: 7px;
   flex-shrink: 5;
-  left: 65px;
+  overflow: hidden;
+  left: 96px;
   @media(max-width: 1440px) {
     width: calc(calc(100% - 90px) * 0.725);
-    max-width: calc(calc(100% - 90px) * 0.725);
+    max-width: calc(calc(100% - 166px) * 0.725);
   }
 }
 
@@ -15,6 +19,7 @@
   display: flex;
   align-items: center;
   padding: 0 45px;
+  background-color: var(--messanger-content);
   &.messenger-content-personal-messages__header_header {
     background: var(--left-bar-color);
     align-items: flex-start;

@@ -5,6 +5,7 @@
   width: 48px;
   overflow: hidden;
   transition: width .2s ease;
+  border-right: 1px solid var(--settings-nav-border);
  &__line{
     height: 1px;
     width: 24px;

@@ -1,9 +1,10 @@
 .messenger-content-header{
-    width: 100%;
+    width: 97%;
     position: relative;
     display: flex;
     align-items: center;
     left: 48px;
+    background-color: var(--header-color);
     &__title{
         padding: 20px 40px 20px 30px ;
         font-weight: bold;
@@ -71,13 +72,28 @@
             height: 100%;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid transparent;
-            border-image: var(--green-color);
-            -moz-border-image: -moz-linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
-            -webkit-border-image: -webkit-linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
-            border-image-slice: 1;
+            position: relative;
+            &:after{
+                content: '';
+                position: absolute;
+                height: 2px;
+                width: 100%;
+                background: var(--green-color);
+                right: 0;
+                left: auto;
+                bottom: 0px;
+            }
         }
       
+    }
+    &__info{
+        position: absolute;  
+        right: 30px;
+        left: auto;
+        border: 1px solid var(--border-active);
+        padding: 8px 24px;
+        border-radius: 5px;
+        color: var(--border-active);
     }
 }  
     .hidden {

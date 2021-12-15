@@ -1,32 +1,32 @@
 <template>
-    <div class="messenger-content-header"> 
-       <div class="messenger-content-header__title">Чаты</div>
-    
-<template v-if="foldersSlider&&foldersSlider.folders">   
-    <div class="messenger-content-header__slider "  v-if="!isSlider" :class="{ 'hidden' :isHidden}">
-        <div  class="pointer" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}"
-        @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder">{{foldersSlider.name}}</div>
-        <div  v-for="(folder, index) in foldersSlider.folders"  @click="choseFolder(folder.folder_id)"  :key="index" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}"
-         class="messenger-content-header__slider_no-slide pointer"> {{folder.name}}</div>
-</div>
-    <swiper class="messenger-content-header__slider" v-if="isSlider"
-        :slides-per-view="4"
-        :slides-per-group="1"
-        :navigation="true"
-        :scrollbar="{ draggable: true }"
-        :space-between="20"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
-        virtual>
-        <swiper-slide  class="pointer" @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder" >
-            <div :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}">{{foldersSlider.name}}</div>
-        </swiper-slide>
-        <swiper-slide v-for="(folder, index) in foldersSlider.folders" :virtualIndex="index" :key="index" class="pointer" @click="choseFolder(folder.folder_id)">
-            <div  :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}">{{folder.name}}</div>
-        </swiper-slide>
-    </swiper>   
+    <div class="messenger-content-header">
+            <div class="messenger-content-header__title">Чаты</div>
+            <template v-if="foldersSlider&&foldersSlider.folders">   
+                <div class="messenger-content-header__slider "  v-if="!isSlider" :class="{ 'hidden' :isHidden}">
+                    <div  class="pointer" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}"
+                    @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder">{{foldersSlider.name}}</div>
+                    <div  v-for="(folder, index) in foldersSlider.folders"  @click="choseFolder(folder.folder_id)"  :key="index" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}"
+                    class="messenger-content-header__slider_no-slide pointer"> {{folder.name}}</div>
+                </div>
+                <swiper class="messenger-content-header__slider" v-if="isSlider"
+                    :slides-per-view="4"
+                    :slides-per-group="1"
+                    :navigation="true"
+                    :scrollbar="{ draggable: true }"
+                    :space-between="20"
+                    @swiper="onSwiper"
+                    @slideChange="onSlideChange"
+                    virtual>
+                    <swiper-slide  class="pointer" @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder" >
+                        <div :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}">{{foldersSlider.name}}</div>
+                    </swiper-slide>
+                    <swiper-slide v-for="(folder, index) in foldersSlider.folders" :virtualIndex="index" :key="index" class="pointer" @click="choseFolder(folder.folder_id)">
+                        <div  :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}">{{folder.name}}</div>
+                    </swiper-slide>
+                </swiper>   
 
-</template>
+            </template>
+      <div class="messenger-content-header__info pointer">Как это работает?</div>
     </div>
 </template>
 <script>

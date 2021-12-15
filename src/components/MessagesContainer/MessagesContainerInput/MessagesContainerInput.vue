@@ -456,7 +456,7 @@
         padding: 13px 50px 16px 63px;
         border-radius: 31px;
 
-        background: var(--main-color);
+        background: var(--messages-input-wrapper-bg);
         color: var(--font-color);
         text-align: left;
         &::-webkit-scrollbar {

@@ -29,10 +29,12 @@
 
 .messenger-content__middle-bar {
   position: relative;
-  left: 48px;
-  height: 100%;
+  left: 78px;
+  height: calc(100% - 124px);
   width: 365px;
+  top:30px ;
   flex-shrink: 1;
+  border-radius: 7px;
   background: var(--messenger-middle-bar-bg);
   @media(max-width: 1440px) {
     width: 27.5%;
