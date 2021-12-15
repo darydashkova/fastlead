@@ -77,5 +77,10 @@
             -webkit-border-image: -webkit-linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
             border-image-slice: 1;
         }
+      
     }
-}
+}  
+    .hidden {
+           height: 0 !important;
+           overflow: hidden;
+        }

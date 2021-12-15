@@ -59,6 +59,18 @@
     transform: rotate(180deg);
   }
 }
+.active-link_border{
+    &:after {
+      content: '';
+      position: relative;
+      height: 26px;
+      width: 2px;
+      background: var(--green-color);
+      right: 0;
+      left: auto;
+      top: 0px;
+  }
+}
 }
 .settings-nav__container {
   width: 250px;

@@ -2,28 +2,31 @@
     <div class="messenger-content-header"> 
        <div class="messenger-content-header__title">Чаты</div>
     
-<template v-if="foldersSlider&&foldersSlider.folders">
-    <swiper class="messenger-content-header__slider" v-if="checkWidth"
-            :slides-per-view="4"
-            :slides-per-group="1"
-            :navigation="true"
-            :scrollbar="{ draggable: true }"
-            :space-between="20"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
-            virtual>
-        <swiper-slide  class="pointer" @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder" 
-        ><div :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}">{{foldersSlider.name}}</div></swiper-slide>
-        <swiper-slide v-for="(folder, index) in foldersSlider.folders" :virtualIndex="index" :key="index" class="pointer" @click="choseFolder(folder.folder_id)"
-        ><div  :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}">{{folder.name}}</div></swiper-slide>
-    </swiper>   
-    <div class="messenger-content-header__slider " v-if="!checkWidth" >
-          <div  class="pointer" @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder"
-        >{{foldersSlider.name}}</div>
-    <div  v-for="(folder, index) in foldersSlider.folders" :key="index" class="messenger-content-header__slider_no-slide"> {{folder.name}}</div>
+<template v-if="foldersSlider&&foldersSlider.folders">   
+    <div class="messenger-content-header__slider "  v-if="!isSlider" :class="{ 'hidden' :isHidden}">
+        <div  class="pointer" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}"
+        @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder">{{foldersSlider.name}}</div>
+        <div  v-for="(folder, index) in foldersSlider.folders"  @click="choseFolder(folder.folder_id)"  :key="index" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}"
+         class="messenger-content-header__slider_no-slide pointer"> {{folder.name}}</div>
 </div>
-</template>
+    <swiper class="messenger-content-header__slider" v-if="isSlider"
+        :slides-per-view="4"
+        :slides-per-group="1"
+        :navigation="true"
+        :scrollbar="{ draggable: true }"
+        :space-between="20"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+        virtual>
+        <swiper-slide  class="pointer" @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder" >
+            <div :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}">{{foldersSlider.name}}</div>
+        </swiper-slide>
+        <swiper-slide v-for="(folder, index) in foldersSlider.folders" :virtualIndex="index" :key="index" class="pointer" @click="choseFolder(folder.folder_id)">
+            <div  :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}">{{folder.name}}</div>
+        </swiper-slide>
+    </swiper>   
 
+</template>
     </div>
 </template>
 <script>
@@ -33,7 +36,7 @@
     import { Swiper, SwiperSlide } from "swiper/vue";
     import "swiper/swiper-bundle.css";
     import {onMounted, ref, watch} from "vue"
-     import { useUserInfo } from "../../../composition/useUserInfo";
+    import { useUserInfo } from "../../../composition/useUserInfo";
     import 'swiper/components/navigation';
     import {useDialogs} from "../../../composition/useDialogs";
     import {MessengerContentInput} from "../../../components/MessengerContent/MessengerContentNav/messenger-content-nav.js";
@@ -54,16 +57,19 @@
             const onSlideChange = () => {
                 console.log('click');
             }
-            const isSlider = ref(false);
+            const isSlider = ref(null);
+            const isHidden = ref(true);
             const checkWidth =  () => {
             const widthSlider = document.querySelector('.messenger-content-header__slider') ;
                 if(foldersSlider.value&&foldersSlider.value.folders&&widthSlider){
                     if(widthSlider.clientWidth<widthSlider.scrollWidth){
-                        return true
+                        isSlider.value =  true
                     }   
                     else{
-                        return false
+                        isSlider.value =  false
+                        isHidden.value = false
                     } 
+
                 }
             }
             const foldersSlider = ref([]);
@@ -138,6 +144,7 @@
                 dialogs,
                 isSelectedNewFolder,
                 mainDialogFolder,
+                isHidden
                 
             }
         },
