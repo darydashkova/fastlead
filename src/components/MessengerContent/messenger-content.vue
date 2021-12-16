@@ -6,7 +6,7 @@
         <div class="messenger-content_column">
             <MessengerContentHeader ></MessengerContentHeader>
             <div class="messenger-content_column-dialogs">
-                <MessengerContentSidebar
+                         <MessengerContentSidebar
                     v-if="!openedUserInfo"
                     class="messenger-content__middle-bar"
                 ></MessengerContentSidebar>
@@ -14,8 +14,10 @@
                     v-else
                     class="messenger-content__middle-bar"
                 ></UserInfo>
+                
                 <MessengerContentPersonalMessages
                 ></MessengerContentPersonalMessages>
+                
             </div>
         </div>
         

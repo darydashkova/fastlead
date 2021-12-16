@@ -2,7 +2,7 @@
   position: relative;
   width: calc(100% - 156px - 365px);
   max-width: calc(100% - 156px - 365px);
-  height: calc(100% - 124px);
+  height: calc(100% - 50px);
   top: 30px;
   border-radius: 7px;
   flex-shrink: 5;
@@ -57,7 +57,7 @@
   font-weight: normal;
   font-size: 20px;
   line-height: 27px;
-  color: var(--font-color);
+  color: var(--color-messanger-name);
   text-align: left;
 }
 .messenger-content-personal-messages__date{

@@ -14,7 +14,7 @@ export function useStyle() {
 
             'folder-color': '#757589',
             'webkit-scroll-color': '#B7B7BE',
-            'font-my-message-color': '#EDEDEF',
+            'font-my-message-color': '#252544',
 
 
         }
@@ -33,18 +33,20 @@ export function useStyle() {
             'user-info-settings-default-setting-name': '#F0F0FA',
             'user-info-settings-hover-setting-bg': '#575773',
             'foreign-messages-font-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
-            'messenger-search-input-bg': '#575773',
+            'messenger-search-input-bg': '#40406B',
+            'messenger-search-input-bg-active': '#1D1D35', 
             'user-icon-name' : '#575773',
             'messages-input-wrapper-bg': '#252544',
 
             'font-color': '#9797BB', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#575773',
             'main-color': '#141427', //цвет фона с перепиской --> var(--main-color)
-            'messages-color': '#414159', //цвет чужого сообщения var(--messages-color)
+            'messages-color': '#252544', //цвет чужого сообщения var(--messages-color)
             'context-background-color': '#2E2E4E', //цвет бг контекстного меню
             'placeholder-color': '#575773',
             'settings-active-list':'#141427',//цвет открытого пункта меню со вложенным списком
-
+            'color-messanger':'#CFCFE4', //цвет в диалогах
+            'color-messanger-name' :'#F0F0FA', //цвет имени в диалоге
             'modal-bg-color': '#1D1D35',
             'header-color':'#1D1D35', //цвет Header в диалогах
             'modal-element-hover-bg-color': '#2E2E4E',
@@ -81,7 +83,7 @@ export function useStyle() {
 
 
 
-            'sub-text-color': '#B7B7BE', //цвет шрифта(вторичный) var(--sub-text-color),
+            'sub-text-color': '#9797BB', //цвет шрифта(вторичный) var(--sub-text-color),
             'date-in-message-color': '#EDEDEF', //цвет текста в отображении даты
             'stripe-instead-ava': '#FFFFFF', //цвет полосок вместо авы
             'mailings-cancel-button-color': '#4A4A5D',
@@ -97,7 +99,9 @@ export function useStyle() {
 
             'empty-photo-bg': 'rgba(29, 29, 53, 0.88)',
             'border-active' : '#5EC075', //зеленые/активный border
-            'messanger-content' : '#252544'
+            'messanger-content' : '#252544',
+            'time-message-my' : '#2A5F5F', 
+            'my-message-bg' : '#5EC075' //цвет моего сообщения в диалоге
         }
         const light = {
             ...common,

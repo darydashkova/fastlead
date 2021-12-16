@@ -12,7 +12,7 @@
     height: 100%;
     &-dialogs{
       display: flex;
-      height: 100%;
+      height: calc(100% - 64px);
     }
   }
 }
@@ -30,12 +30,13 @@
 .messenger-content__middle-bar {
   position: relative;
   left: 78px;
-  height: calc(100% - 124px);
+  height: calc(100% - 50px);
+  overflow: hidden;
   width: 365px;
   top:30px ;
   flex-shrink: 1;
   border-radius: 7px;
-  background: var(--messenger-middle-bar-bg);
+  background: var(--messanger-content);
   @media(max-width: 1440px) {
     width: 27.5%;
   }

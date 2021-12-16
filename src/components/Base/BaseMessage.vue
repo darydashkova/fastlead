@@ -323,9 +323,12 @@
         justify-content: flex-end;
         .base-message__container {
             border-radius: 9px 0px 9px 9px;
-            background: var(--green-color);
+            background: var(--my-message-bg);
             color: var(--font-my-message-color);
         }
+         .base-message__state{
+            color: var(--time-message-my);
+            }
     }
     .base-message_not-my {
         justify-content: flex-start;
@@ -334,7 +337,7 @@
         }
         .base-message__container {
             background: var(--messages-color);
-            color: var(--font-color);
+            color: var(--color-messanger);
         }
         .base-message__state{
             color: var(--sub-text-color);

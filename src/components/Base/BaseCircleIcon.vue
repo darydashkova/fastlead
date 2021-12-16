@@ -8,21 +8,23 @@
     >
         <div v-if="isNeedSelecting" class="base-circle-icon__selector"
              :class="{'base-circle-icon__selector_active': isSelected}"
-            @click.stop="toggleSelecting"
-        >
+            @click.stop="toggleSelecting">
             <div class="base-circle-icon__inside-selector">
-                <svg v-if="isSelected" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 7.44359L4.3114 9.99983L11.225 1.479" stroke="url(#paint0_linear)" stroke-width="1.5" stroke-linecap="round"/>
-                    <defs>
-                        <linearGradient id="paint0_linear" x1="-3.22886" y1="13.3661" x2="10.4344" y2="-2.65579" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#00BF6D"/>
-                            <stop offset="1" stop-color="#98D730"/>
-                        </linearGradient>
-                    </defs>
+                <svg width="12"  height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="base-circle-icon__inside-selector-check">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5574 1.22258C11.8184 0.900918 11.7692 0.428598 11.4475 0.167618C11.1259 -0.093362 10.6536 -0.044182 10.3926 0.277478L3.94026 8.22982L1.20833 6.12092C0.880452 5.86781 0.409462 5.92843 0.156352 6.25631C-0.0967581 6.58422 -0.036148 7.05522 0.291732 7.30832L3.60314 9.86452L4.18261 10.3118L4.64384 9.74342L11.5574 1.22258Z" fill="#252544"/>
                 </svg>
             </div>
         </div>
-        <div class="base-circle-icon__image"
+
+        <template v-if="icon">
+            <div class="base-circle-icon__image" v-if="icon.hasOwnProperty('instagram_id')">
+                <img src="../../assets/instagram-icon.svg">
+            </div>
+            <div class="base-circle-icon__image"  v-if="icon.hasOwnProperty('whatsapp_id')">
+                 <img src="../../assets/whatsapp-icon.svg">
+            </div>
+        </template>
+        <div class="base-circle-icon__image" v-else
             :style="isActive?iconStylesDisabled(src):iconStyles(src)"
         ></div>
     </div>
@@ -37,6 +39,7 @@
             src: String,
             isNeedSelecting: Boolean,
             isSelected: Boolean,
+            icon: Boolean,
         },
         setup(props, {emit}) {
             const { getImage } = useImages()
@@ -179,6 +182,17 @@
                 .base-circle-icon__image {
                     display: none;
                 }
+            .base-circle-icon__selector {
+                background: #252544 !important;
+                .base-circle-icon__inside-selector{
+                    background: #252544 !important;
+                    &-check{
+                        path {
+                            fill: #40406B;
+                        }
+                    }
+                }  
+            }
             }
         }
         &.base-circle-icon_selected {
@@ -193,22 +207,27 @@
     .base-circle-icon__selector {
         width: 22px;
         height: 22px;
-        background: #9797BB;
+        background: var(--green-color);
         border-radius: 5px;
         padding: 1.6px;
         justify-content: center;
         align-items: center;
         display: none;
-    }
+        
+    }  
     .base-circle-icon__inside-selector {
-        background: #FBFBFE;
+       background: var(--green-color);
         border-radius: 5px;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         height: 100%;
+       
+         
     }
+  
+      
     .base-circle-icon__selector_active {
         background: var(--green-color);
     }

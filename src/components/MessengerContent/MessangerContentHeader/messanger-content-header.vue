@@ -26,7 +26,7 @@
                 </swiper>   
 
             </template>
-      <div class="messenger-content-header__info pointer">Как это работает?</div>
+      <!-- <div class="messenger-content-header__info pointer">Как это работает?</div> -->
     </div>
 </template>
 <script>

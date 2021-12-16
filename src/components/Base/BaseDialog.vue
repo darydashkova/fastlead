@@ -6,6 +6,7 @@
             :isSelected="isSelected"
             :isActive="isActive"
             @toggleSelecting="toggleSelecting"
+            :icon='chatInfo'
         ></BaseCircleIcon>
         <div class="base-dialog__container">
             <div class="base-dialog__row">
@@ -53,7 +54,6 @@
                         <div v-else class="base-dialog__status base-dialog__status_none"></div>
                     </template>
                 </template>
-
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
             const { validDate } = useDate()
             const formatedPhone = computed(() => {
             let phone = props.chatInfo.name;
-            if(phone.match(/^\d+$/)&&phone.length==11){
+            if (phone.match(/^\d+$/)&&phone.length == 11){
                 let match = phone.match(/^(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})$/);
                 const num = match[1] + ' (' + match[2]+ ') '+ match[3] + '-'+ match[4]+ '-'+match[5];
                 phone =num;
@@ -114,7 +114,7 @@
     .base-dialog{
         cursor: pointer;
         width: 100%;
-        height: 82px;
+        height: 70px;
         display: flex;
         align-items: center;
         padding: 0 16px;
@@ -124,7 +124,7 @@
             background: var(--messenger-search-input-bg);
         }
         &.base-dialog_active {
-            background: var(--messenger-search-input-bg);
+            background: var(--messenger-search-input-bg-active);
             &:after {
                 content: '';
                 position: absolute;
@@ -180,7 +180,6 @@
         overflow: hidden;
         display: flex;
         align-items: center;
-
     }
     .base-dialog__date {
         font-style: normal;
@@ -195,17 +194,16 @@
     .base-dialog__status_count{
         background: var(--green-color);
         border-radius: 5px;
-        padding: 0 5px;
-        height: 17px;
+        padding: 1px 5px;
+        height: 16px;
         font-style: normal;
         font-weight: 600;
-        font-size: 12px;
-        line-height: 16px;
-
-        color: #FFFFFF;
+        font-size: 10px;
+        line-height: 130%;
+        color: #1D1D35;
     }
     .base-dialog__name {
-        color: var(--font-color);
+        color: var(--color-messanger-name);
     }
     .base-dialog__text {
         color: var(--search-input-placeholder-color);
