@@ -148,7 +148,7 @@
             <SettingsMailingsCreateInput
                 :message="infoToSend.message.data"
                 :error="errors.find(i => i === 'message')"
-                @changeMessage="infoToSend.message.data = $event"
+                @changeMessage="infoToSend.message.data = $event.replace(/<br>/g, '\n')"
             ></SettingsMailingsCreateInput>
         </template>
 
@@ -439,7 +439,6 @@
                             }
                         }
                     }
-
                 }
             })
 

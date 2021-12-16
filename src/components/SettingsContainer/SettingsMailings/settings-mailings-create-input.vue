@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import { onMounted, ref, computed } from 'vue'
+    import { onMounted, ref, computed, watch } from 'vue'
     import {useEmoji} from "../../../composition/useEmoji";
     import { Picker } from "../../emoji-component/src";
     export default {
@@ -67,11 +67,14 @@
                 div.querySelectorAll('img').forEach(img => {
                     img.replaceWith(img.getAttribute('data-text'))
                 })
-                div.innerHTML = div.innerHTML.replace(/<br>/g, '\n');
-                div.innerHTML = div.innerHTML.replace(/\n\n/g, '\n');
-                div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' ');
+                /* div.innerHTML = div.innerHTML.replace(/<br>/g, '\n'); */
+                div.innerHTML = div.innerHTML.replace(/\n/g, ''); 
+                /* div.innerHTML = div.innerHTML.replace(/\n\n/g, '\n'); */
+                /* div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' '); */
                 emit('changeMessage', div.innerHTML);
+                console.log(textarea.value.innerHTML)
             }
+
             const addEmoji = (emoji) => {
                 if (!textarea.value.innerHTML.length
                     || !window.getSelection()
