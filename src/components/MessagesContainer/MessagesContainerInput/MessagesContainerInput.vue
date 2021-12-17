@@ -25,7 +25,7 @@
                  v-if="!isActiveDialog"
             >Этот диалог неактивен</div>
              <svg 
-                 @click="send"
+                 @click="send"  v-if="value"
                  class="messages-container-input__icon messages-container-input__icon_airplane"
                  width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M24.4516 9.12261L3.47412 0.198642C2.59038 -0.177351 1.59196 -0.011949 0.868585 0.630081C0.145205 1.27222 -0.15735 2.2616 0.079088 3.2121L1.94627 10.719H11.0882C11.5089 10.719 11.85 11.0687 11.85 11.5C11.85 11.9313 11.5089 12.281 11.0882 12.281H1.94627L0.079088 19.7879C-0.15735 20.7385 0.145154 21.7278 0.868585 22.3699C1.59344 23.0133 2.59195 23.1766 3.47417 22.8014L24.4516 13.8774C25.4067 13.4712 26 12.5602 26 11.5C26 10.4399 25.4067 9.52885 24.4516 9.12261Z" fill="url(#paint0_linear)"/>
@@ -434,7 +434,7 @@
         outline: none;
         resize: none;
         border: none;
-
+        padding-left: 57px;
         /*display: flex;*/
         /*align-items: center;*/
         width: 100%;
@@ -449,15 +449,16 @@
         font-size: 16px;
         line-height: 21px;
 
-        min-height: 50px;
+
         max-height: 150px;
 
 
-        padding: 13px 50px 16px 63px;
+        // padding: 13px 50px 16px 63px;
         border-radius: 31px;
 
         background: var(--messages-input-wrapper-bg);
         color: var(--font-color);
+        caret-color: var(--cursor-input-active);
         text-align: left;
         &::-webkit-scrollbar {
             display: none;
@@ -480,12 +481,14 @@
     .messages-container-input__icon_include {
         position: absolute;
         left: 17px;
-        bottom: 14px;
+        top: 21px;
+        transform: translateY(-21px);
     }
 
     .messages-container-input__icon_smile {
         position: relative;
-        bottom: 14px;
+         top: 21px;
+        transform: translateY(-21px);
         margin-left: 21px;
         min-width: 22px;
         min-height: 22px;
@@ -502,11 +505,13 @@
 
     .messages-container-input__icon_airplane {
         position: relative;
-        bottom: 14px;
+     
         margin-left: 16px;
         min-width: 23px;
         min-height: 22px;
         cursor: pointer;
+        top: 21px;
+        transform: translateY(-21px);
     }
     .messages-container-input__attachments {
         position: absolute;

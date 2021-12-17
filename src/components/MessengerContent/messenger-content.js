@@ -6,6 +6,8 @@ import MessengerContentPersonalMessages from './MessengerContentPersonalMessages
 import MessengerContentHeader from './MessangerContentHeader/messanger-content-header'
 import UserInfo from '../UserInfo/user-info.vue'
 import { useUserInfo } from "../../composition/useUserInfo";
+import { useDialogs } from "../../composition/useDialogs";
+import {ref} from 'vue'
 
 export default {
     components: { 
@@ -18,12 +20,21 @@ export default {
     },
     setup() {
         const { openedUserInfo } = useUserInfo()
+        const { selectedDialog } = useDialogs();
         const addParentFolder = ()=>{
-            console.log('yup')
+       
         }
+        const isId = ref()
+        const getId = (id) => {
+            isId.value = id
+        }
+        
         return {
             openedUserInfo,
-            addParentFolder
+            addParentFolder,
+            getId,
+            isId,
+            selectedDialog
         }
     }
 }

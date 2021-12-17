@@ -160,8 +160,8 @@
         font-weight: normal;
         font-size: 18px;
         line-height: 24px;
-        max-width: 86%;
-        width: 86%;
+        max-width: 75%;
+        width: 75%;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -173,8 +173,8 @@
         font-weight: normal;
         font-size: 14px;
         line-height: 19px;
-        max-width: 77%;
-        width: 77%;
+        max-width: 75%;
+        width: 75%;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -194,7 +194,7 @@
     .base-dialog__status_count{
         background: var(--green-color);
         border-radius: 5px;
-        padding: 1px 5px;
+        padding: 2px 5px;
         height: 16px;
         font-style: normal;
         font-weight: 600;

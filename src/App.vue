@@ -37,6 +37,7 @@
     outline: none;
     resize: none;
     border: none;
+     caret-color:var(--cursor-input-active);
   }
   * {
     box-sizing: border-box;

@@ -23,7 +23,7 @@
                   </div>
                     <div class="messenger-content-personal-messages__name-container">
                         <div class="messenger-content-personal-messages__name">{{messages.name}}</div>
-                        <div class="messenger-content-personal-messages__name-icon">
+                        <!-- <div class="messenger-content-personal-messages__name-icon">
                             <template v-if="messages.type=='WhatsappDialog'" >
                                 <img src="../../../assets/whatsapp.svg" class="messenger-content-personal-messages__img" >
                                 <div class="messenger-content-personal-messages__account"> {{messages.whatsapp.name}}</div>
@@ -32,7 +32,32 @@
                                 <img src="../../../assets/instagram.svg" class="messenger-content-personal-messages__img"> 
                                 <div class="messenger-content-personal-messages__account"> {{messages.instagram.login}}</div>
                             </template>
-                            </div>
+                            </div> -->
+                            
+                            <div class="messenger-content-personal-messages__tags">Теги
+                                 <swiper class=" messenger-content-personal-messages__slider" v-if="tags&&tags[0]&&isSlider" 
+                                    :slides-per-view="3"
+                                    :slides-per-group="1"
+                                    :navigation="true"
+                                    :scrollbar="{ draggable: true }"
+                                    :space-between="20"
+                                    @swiper="onSwiper"
+                                    @slideChange="onSlideChange"
+                                    virtual>
+              
+                    <swiper-slide v-for="(tag, index) in tags[0].tags" :virtualIndex="index" :key="index" class="pointer" >
+                        <div class="messenger-content-personal-messages__slider-tag" >   {{tag}}</div>
+                    </swiper-slide>
+                </swiper>   
+                <div v-if="!isSlider&&tags&&tags[0]" class="messenger-content-personal-messages__no-slider">
+                      <div class="messenger-content-personal-messages__no-slider-tag "  v-for="(tag, index) in tags[0].tags"  :key="index">
+                        {{ tag}}</div>
+                </div>
+
+
+
+                
+                             </div>
                     </div>
                     <button class="messenger-content-personal-messages__info-button pointer"
                             @click="toggleOpenedActions()"
@@ -74,14 +99,32 @@
     import { useDialogs } from "../../../composition/useDialogs";
     import {useFolder} from "../../../composition/useFolder";
     import {useModals} from "../../../composition/useModals";
-    import { reactive, ref, onUpdated } from 'vue'
+    import { reactive, ref, onUpdated, watch, computed, onMounted } from 'vue'
     import {useModalConfirmDelete} from "../../../composition/useModalConfirmDelete";
     import {useUserInfo} from "../../../composition/useUserInfo";
     import { useSocket } from "../../../composition/useSocket";
-    export default {
-        components: { BaseCircleIcon, MessagesContainer, DialogSelections },
 
-        setup() {
+
+     import  SwiperCore, { Virtual }  from "swiper";
+    import { Navigation, Pagination, Scrollbar  } from 'swiper';
+    import { Swiper, SwiperSlide } from "swiper/vue";
+    import "swiper/swiper-bundle.css";
+    import 'swiper/components/navigation';
+    SwiperCore.use([Virtual, Navigation]);
+    export default {
+        components: { 
+            BaseCircleIcon,
+            MessagesContainer, 
+            DialogSelections,      
+            Swiper,
+            SwiperSlide,
+            Navigation },
+
+            props:{
+                id:Number
+                },
+
+        setup(props) {
             let { messages, isActiveDialog } = useMessages();
             const { socketSend } = useSocket();
             const { selectedFolder } = useFolder();
@@ -133,6 +176,64 @@
                 messages.is_online= messages.value.is_online ;
              };
             setInterval(() => {  statusUser();}, 300000);
+            const tags = ref();
+            const getTags = () => {
+                if(props.id){
+                     if( dialogs.value){
+                    tags.value = dialogs.value.filter(i => i.dialog_id == props.id)
+                }
+                }
+                else{
+                  if( dialogs.value){
+                    tags.value = dialogs.value.filter(i => i.dialog_id == selectedDialog.value)
+                }   
+                }
+               
+                
+                
+            }
+            const isSlider = ref(null)
+               const checkWidth =  () => {
+            const widthSlider = document.querySelector('.messenger-content-personal-messages__no-slider') ;
+            console.log(widthSlider.clientWidth)
+            console.log(widthSlider.scrollWidth)
+                 if(tags.value&&tags.value[0]&&widthSlider){
+                    if(widthSlider.clientWidth<widthSlider.scrollWidth){
+                        isSlider.value =  true
+                    }   
+                    else{
+                        isSlider.value =  false
+                 
+                     } 
+
+                }
+            }
+            watch(()=>{
+                if(selectedDialog.value){
+                    getTags()
+                }
+                
+                console.log(selectedDialog.value)
+                if(tags.value&&tags.value[0]){
+                    console.log('1')
+                     if(document.querySelector('.messenger-content-personal-messages__no-slider')){
+                    checkWidth() 
+                    console.log(document.querySelector('.messenger-content-personal-messages__no-slider'))
+                } 
+               
+                }
+                  
+            })
+            onUpdated(()=>{
+                 if(tags.value&&tags.value[0]){
+                    console.log('1')
+                     if(document.querySelector('.messenger-content-personal-messages__no-slider')){
+                    checkWidth() 
+                    console.log(document.querySelector('.messenger-content-personal-messages__no-slider'))
+                } 
+               
+                }
+            })
             return {
                 messages,
                 selectedDialog,
@@ -147,6 +248,10 @@
                 statusUser,
                 toggleOpenedUserInfo,
                 isActiveDialog,
+                tags,
+                checkWidth,
+                isSlider
+              
             }
         }
     }

@@ -25,7 +25,7 @@ export function useSearch() {
         let params = [];
         selectedParameter.value
             ? params.push(selectedParameter.value)
-            : params = ['name', 'phone', 'messages'];
+            : params = ['name', 'phone', 'messages','login','tags'];
         return await searchActions.searchDialogs(value, params)
     }
 

@@ -65,7 +65,7 @@
     }
     .messenger-content-dialog_searching {
         margin-top: 0;
-        height: calc(100% - 34px - 9px - 29px - 22px + 9px);
+        height: calc(100% - 180px);
     }
 
     .messenger-content-dialog__content {

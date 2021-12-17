@@ -38,7 +38,7 @@ export function useStyle() {
             'user-icon-name' : '#575773',
             'messages-input-wrapper-bg': '#252544',
 
-            'font-color': '#9797BB', //цвет шрифта(основной) --> var(--font-color)
+            'font-color': ' #CFCFE4', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#575773',
             'main-color': '#141427', //цвет фона с перепиской --> var(--main-color)
             'messages-color': '#252544', //цвет чужого сообщения var(--messages-color)
@@ -66,7 +66,7 @@ export function useStyle() {
             'settings-nav-border' : '#252544',//цвет border в меню
 
             'settings-left-bar-hover': '#1D1D35',
-            'settings-main-color': '#1D1D35',
+            'settings-main-color': '#141427',
             'settings-header-color': '#F0F0FA',
             'settings-whatsapp-color': '#141427', //цвет ватсаппа
             'settings-whatsapp-name-color': '#F0F0FA', //цвет названия ватсаппа
@@ -91,6 +91,7 @@ export function useStyle() {
             'calendar-border-color': '#1D1D35',
             'calendar-font-color': '#B7B7BE',
             'calendar-active-font-color': '#FFFFFF',
+            'cursor-input-active':' #5EC075', //цвет курсора
 
 
             'settings-autoresponders-actions-input-bg-color': '#141427',

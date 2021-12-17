@@ -26,15 +26,27 @@
         <template v-if="openedSearch">
             <div class="messenger-content-dialogs__parameters-container pointer" @click="toggleSearchParameters(!openedSearchParameters)">
                 <span class="messenger-content-dialogs__parameters-button">
-                    <template v-if="selectParamName"> Искать по {{selectParamName}}</template>
-                     <template v-else-if="selectParamName=='Искать все'"> Искать  {{selectParamName}}</template>
-                    <template v-else>22</template>
+                    <template v-if="selectedParameter"> Искать по {{parameters.find(i => i.value === selectedParameter).name}}</template>
+                    
+                    <template v-else>  {{parameters.find(i => i.value === selectedParameter).name}} </template>
+                   
+                    
+              
                 </span>
                 <svg class="messenger-content-dialogs__parameters-icon"
-                     :class="{'messenger-content-dialogs__parameters-icon_reverse': openedSearchParameters}"
-                     width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L6.12399 6L11 1" stroke="var(--font-color)" stroke-width="1.2" stroke-linecap="round"/>
+                     :class="{'messenger-content-dialogs__parameters-icon_reverse': openedSearchParameters}" 
+                     width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1405 6.1972C12.0786 6.13471 12.0048 6.08512 11.9236 6.05127C11.8423 6.01743 11.7552 
+                6 11.6672 6C11.5792 6 11.4921 6.01743 11.4108 6.05127C11.3296 6.08512 11.2558 6.13471 11.1939 6.1972L8.14053
+                 9.25052C8.07855 9.31301 8.00482 9.3626 7.92358 9.39645C7.84234 9.43029 7.7552 9.44772 7.6672 9.44772C7.57919 
+                 9.44772 7.49205 9.43029 7.41081 9.39645C7.32957 9.3626 7.25584 9.31301 7.19386 9.25052L4.14053 6.1972C4.07855
+                  6.13471 4.00482 6.08512 3.92358 6.05127C3.84234 6.01743 3.7552 6 3.6672 6C3.57919 6 3.49205 6.01743 3.41081 
+                  6.05127C3.32957 6.08512 3.25584 6.13471 3.19386 6.1972C3.06969 6.32211 3 6.49107 3 6.6672C3 6.84332 3.06969 
+                  7.01229 3.19386 7.1372L6.25386 10.1972C6.62886 10.5717 7.13719 10.7821 7.6672 10.7821C8.1972 10.7821 8.70553 
+                  10.5717 9.08053 10.1972L12.1405 7.1372C12.2647 7.01229 12.3344 6.84332 12.3344 6.6672C12.3344 6.49107 12.2647
+                   6.32211 12.1405 6.1972Z" fill="#9797BB"/>
                 </svg>
+
             </div>
             <MessengerContentDialog :need-loading-more="false"
                 class="messenger-content-dialog_searching"
@@ -50,9 +62,9 @@
                 </transition>
                 <div class="messenger-search-group" v-for="folderGroup in dialogsInFolders"
                 :key="folderGroup.folder_id+'folder_group'">
-                    <BaseFolderName>
+                    <!-- <BaseFolderName>
                         {{folders.find(i => i.folder_id === folderGroup.folder_id).name}}
-                    </BaseFolderName>
+                    </BaseFolderName> -->
                     <div class="messenger-search-group__dialogs">
                         <div class="messenger-search-group__dialog"
                              v-for="(dialog, index) in folderGroup.dialogs"
@@ -60,7 +72,6 @@
                         >
                             <BaseDialog
                                     :chatInfo="dialog"
-                                   
                                     class="base-dialog_not-padding"
                                     @click="select(dialog.dialog_id)"
                                     @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, itemName: 'dialog', item: dialog.name})"
@@ -114,7 +125,9 @@
     import {useContextMenu} from "../../../composition/useContextMenu";
     export default {
         components: { BaseSearchInput, BaseDialog, BaseFolderName, BaseLoader, MessengerContentDialog },
-        setup() {
+        props:{},
+        emits:['getId'],
+        setup(props,{emit}) {
             const { dialogs, selectDialog, selectedDialog, toggleSelectedGroupDialogs, selectedGroupDialogs } = useDialogs();
             const { selectedFolder, folders } = useFolder();
             const { search, selectedParameter, selectParameter, openedSearch, openedSearchParameters, toggleSearchParameters, toggleSearch } = useSearch();
@@ -146,7 +159,7 @@
                 value: 'tags'
             },
              {
-                name: 'всем',
+                name: 'Искать все',
                 value: null
             },
             ]
@@ -184,12 +197,17 @@
                     searchHandler(lastSearchValue);
                 }
                 toggleSearchParameters(false);
-               selectParamName.value =  parameters.value.find(i => i.value === selectedParameter).name
+            
             }
 
             const select = (dialog_id) => {
-                selectDialog(dialog_id);
-                getMessagesFromDialog(dialog_id);
+                selectDialog(dialog_id)
+               
+                getMessagesFromDialog(dialog_id)
+                .then((r) => {
+                    emit('getId', dialog_id)
+                });
+                
             }
 
             const dialogsInFolders = reactive({
@@ -201,13 +219,14 @@
 
             const searchHandler = (value) => {
                 lastSearchValue = value;
+                dialogsInFolders.data = [];
                 let newTime = new Date().getTime();
                 time = newTime;
                 setTimeout(() => {
                     if (newTime === time) {
                         search(value)
                             .then(r => {
-                                dialogsInFolders.data = [];
+                                
                                 r.dialogues.forEach(item => {
                                     let findingItem = dialogsInFolders.data.find(i => i.folder_id === item.folder_id)
                                     if (findingItem) {
