@@ -127,7 +127,6 @@
             const modalFactorOpen = ref(false)
             const instagramIndex = ref(null)
             const twoFactorModal = (item, index) => {
-                console.log( modalFactorOpen.value, item)
             modalFactorOpen.value = item;
             instagramIndex.value = index
             }
@@ -141,7 +140,6 @@
             }
             const succes = ref(false)
             const succesInstagram = (item) => {
-                console.log(item, '  kokil')
                 modalFactorOpen.value = false;
             succes.value = item
             }
