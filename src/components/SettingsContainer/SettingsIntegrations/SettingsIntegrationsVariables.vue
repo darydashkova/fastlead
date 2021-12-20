@@ -101,8 +101,8 @@ export default {
         width: 100%;
         padding: 8px 10px;
         color: var(--modal-font-color);
-        background: var(--modal-element-hover-bg-color);
-        border: 0.7px solid var(--modal-input-border-color);
+        background:var(--messenger-search-input-bg-active);
+        border: 0.7px solid var(--settings-nav-border);
         border-radius: 3px;
         margin-bottom: 4px;
         &-hyphen{

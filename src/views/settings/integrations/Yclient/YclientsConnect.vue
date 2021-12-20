@@ -46,6 +46,9 @@
             <div v-if="textOption==='Уведомление о созданной записи'">
               <CreatedRecord :Propdata = 'cooseDate'></CreatedRecord>
             </div>
+            <div v-if="textOption==='Уведомление об изменении записи'">
+              <ChangedRecord :Propdata = 'cooseDate'></ChangedRecord>
+            </div>
            </div>
        </div>
         <!-- <div v-if="numberPattern[0]==='Созданные задачи' && numberPattern[1]==='true'">22222</div>
@@ -65,10 +68,11 @@
     import ReminderRecordingTime   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/ReminderRecordingTime"
     import RequestReviewAfterVisit   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/RequestReviewAfterVisit"
     import CreatedRecord   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/CreatedRecord"
+    import ChangedRecord   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/ChangedRecord"
     import {useCustomScroll} from "../../../../composition/useCustomScroll";
     import {useIntegrations} from "../../../../composition/useIntegrations";
     export default {
-        components: {integrationHeaderCommon, BirthdayPattern, ReminderRecordingTime, RequestReviewAfterVisit, CreatedRecord},
+        components: {integrationHeaderCommon, BirthdayPattern, ReminderRecordingTime, RequestReviewAfterVisit, CreatedRecord,ChangedRecord},
         setup() {
             const statusSelect = ref(false);
             const textOption = ref('');
@@ -79,7 +83,13 @@
              const data = ref({})
             const buttonDisabled = ref(true);
             const values = reactive( {
-                 title: ['Поздравление с днём рождения','Напоминание о записи в заданное время','Запрос отзыва после визита','Уведомление о созданной записи']
+                 title: [
+                    'Поздравление с днём рождения',
+                    'Напоминание о записи в заданное время',
+                    'Запрос отзыва после визита',
+                    'Уведомление о созданной записи',
+                    'Уведомление об изменении записи'
+                 ]
             });
             const cooseDate=ref({});
             const getAllTaskYclient =  (index) => {
@@ -106,7 +116,8 @@
             const openSelect = () => {
                 statusSelect.value = !statusSelect.value;
             }
-            const links = ref([['Настройка Yclients','true', '/settings/integrations/yclients/connect'],['Созданные задачи','false', '/settings/integrations/yclients/create']]); 
+            const links = ref([['Настройка Yclients','true', '/settings/integrations/yclients/connect'],
+            ['Созданные задачи','false', '/settings/integrations/yclients/create']]); 
             //,['Игнор лист', 'false', '/settings/integrations/yclients/connect']
            
              const date  = ref({links:links, name:'yclient'})
@@ -175,9 +186,13 @@
         line-height: 19px;
         color: #EDEDEF;
         position: relative;
+        
+        
         &-arrow{
             position: absolute;
             right: 0;
+            transform: rotate(0deg);
+            transition: 0.3s ease;
         }
     }
     .settings-integrations-form__dropdown-list{

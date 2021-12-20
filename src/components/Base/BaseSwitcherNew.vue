@@ -1,8 +1,11 @@
 <template>
-  <label class="switch">
-    <input class="switch__input" type="checkbox" v-model="check" />
-    <span class="slider round"></span>
-  </label>
+<div class="switcher">
+    <label class="switcher__label">
+      <input class="switcher__input" type="checkbox" v-model="check" />
+      <span class="slider round"></span>
+    </label>
+    <div>{{title}}</div>
+  </div>
 </template>
 
 <script>
@@ -10,6 +13,7 @@ import {onUpdated, ref} from "vue"
 export default {
   props:{
     model:Boolean,
+    title:String,
     index: Number,
   },
   emits:["model"],
@@ -30,10 +34,14 @@ export default {
 }
 </script>
 <style lang="scss">
-.switch { 
+.switcher{
+display: flex;
+align-items: center;
+.switcher__label { 
   position: relative; 
   display: inline-block; 
   width: 31px; 
+  margin-right: 16px;
   height: 18px;
 input {  
   opacity: 0; 
@@ -93,4 +101,5 @@ input:checked + .slider:before {
   border-radius: 50%; 
 } 
 } 
+}
 </style>

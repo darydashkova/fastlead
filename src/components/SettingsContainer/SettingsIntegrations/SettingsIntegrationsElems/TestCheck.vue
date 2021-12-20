@@ -60,9 +60,9 @@ export default {
             line-height: 19px;
             width: 100%;
             padding: 8px 10px;
-            color: var(--modal-font-color);
-            background: var(--modal-element-hover-bg-color);
-            border: 0.7px solid var(--modal-input-border-color);
+            color: #40406B;
+            background:var(--messenger-search-input-bg-active);
+            border: 0.7px solid var(--settings-nav-border);
             box-sizing: border-box;
             border-radius: 3px;
             text-align: left;
