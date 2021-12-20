@@ -114,7 +114,6 @@
     import BaseFolderName from '../../Base/BaseFolderName';
     import BaseLoader from '../../Base/BaseLoader';
     import MessengerContentDialog from './MessengerContentDialog/MessengerContentDialog.vue'
-
     import { useDialogs } from "../../../composition/useDialogs";
     import { useFolder } from "../../../composition/useFolder";
     import { useMessages } from "../../../composition/useMessages";
@@ -132,15 +131,10 @@
             const { selectedFolder, folders } = useFolder();
             const { search, selectedParameter, selectParameter, openedSearch, openedSearchParameters, toggleSearchParameters, toggleSearch } = useSearch();
             const { toggleModalCreateChat } = useModals();
-
             const { setContext } = useContextMenu();
-
             const { isLoadingDialogs } = useLoader();
-
             const { getMessagesFromDialog } = useMessages();
-
             const folderName = ref();
-
             const parameters = [{
                 name: 'имени',
                 value: 'name'
@@ -163,7 +157,6 @@
                 value: null
             },
             ]
-
             const getFolderName = () => {
                 const name = ref()
                 if(folders.value) {
@@ -182,7 +175,6 @@
                             }
                         }
                     }
-
                 }
                 }
             }
@@ -199,7 +191,6 @@
                 toggleSearchParameters(false);
             
             }
-
             const select = (dialog_id) => {
                 selectDialog(dialog_id)
                
@@ -209,14 +200,11 @@
                 });
                 
             }
-
             const dialogsInFolders = reactive({
                 data: [],
             })
-
             let time = new Date().getTime();
             let lastSearchValue = '';
-
             const searchHandler = (value) => {
                 lastSearchValue = value;
                 dialogsInFolders.data = [];
@@ -239,7 +227,6 @@
                     }
                 }, 500)
             }
-
             const openContextMenu = ($event, context) => {
                 setContext({
                     top: $event.clientY,
@@ -248,31 +235,23 @@
             }
             return {
                 scrollTo,
-
                 folders,
                 selectedFolder,
-
                 openContextMenu,
                 select,
-
                 dialogs,
                 selectedDialog,
-
                 openedSearch,
                 openedSearchParameters,
                 toggleSearchParameters,
                 toggleSearch,
-
                 searchHandler,
                 selectedParameter,
                 selectParam,
                 parameters,
-
                 dialogsInFolders: computed(() => dialogsInFolders.data),
-
                 toggleSelectedGroupDialogs,
                 selectedGroupDialogs,
-
                 isLoadingDialogs,
                 folderName,
                 toggleModalCreateChat,
@@ -280,7 +259,6 @@
                 selectParamName
             }
         }
-
     }
 </script>
 
