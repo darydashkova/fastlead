@@ -1,5 +1,9 @@
 <template>
     <div class="profit__header">
+        <div class="partners__header">
+            <div class="partners__header_title">Ваша прибыль</div>
+            <div class="partners__header_button pointer" @click="openModalCashback()">Вывести</div>
+        </div>
         <div class="profit__header-list">
             <div class="profit__header-list_item">
                 <p class="profit__header-list_item-status">Ваш статус:</p>
@@ -30,18 +34,21 @@
            </table>
     </div>
     <PartnersCashback v-if="modalCashback" @closeModalCashback="closeModalCashback()"></PartnersCashback>
+    <!--<PartnersRules></PartnersRules>-->
 </template>
 
 <script>
 import { ref, onUpdated, watch, onBeforeMount, onMounted, onBeforeUpdate, returnRegPartners } from 'vue'
 import PartnersReferal from '@/components/SettingsContainer/SettingsPartners/settings-partners-referal.vue'
 import PartnersCashback from '@/components/SettingsContainer/SettingsPartners/settings-partners-profit-cashback.vue'
+import PartnersRules from '@/components/SettingsContainer/SettingsPartners/settings-partners-rules.vue'
 import { usePartners } from "@/composition/usePartners";
 
 export default {
     components: {
         PartnersReferal,
         PartnersCashback,
+        PartnersRules,
     },
     setup() {
         const {routerActiveLink, returnInfoPartner, getInfoRefferals, returnRegPartners} = usePartners()

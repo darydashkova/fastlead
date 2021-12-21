@@ -6,7 +6,7 @@
         width: 100%;
         display: flex;
         margin-left: 32px;
-        padding: 40px 14px 32px 0px;
+        padding: 20px 14px 32px 0px;
         border-bottom: 2px solid #40406B;
         &_item{
             height: 108px;
@@ -82,9 +82,10 @@
     padding-right: 40px;
     padding-bottom: 50px;
     &_title{
-        padding: 32px 0px 32px 32px;
-        font-size: 18px;
+        padding: 30px 0px 20px 32px;
         color: #CFCFE4;
+        font-size: 18px;
+        font-weight: 400;
     }
     &_table{
         margin-left: 33px;
@@ -106,6 +107,23 @@
                 border-radius: 6px 0px 0px 0px;
             }
         }
+    }
+}
+.partners__header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    margin-left: 30px;
+    &_title{
+        color: #CFCFE4;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    &_button{
+        padding: 10px 33px 10px 33px;
+        border-radius: 6px;
+        background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+        color: #1D1D35;
     }
 }
 .row-data-none{
