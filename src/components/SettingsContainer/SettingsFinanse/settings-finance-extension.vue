@@ -26,22 +26,18 @@
                     <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle" v-if="initialValues.parameters[0].whatsapp != 0">
                         <td>WhatsApp -  
                              <span>{{initialValues.parameters[0].whatsapp}}</span>
-                         </td>
-                         <template>
-                            <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">
-                               
-                            </td>
-                        </template>
+                        </td> 
+                        <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">
+                            <span>{{defaultPrice.price.toLocaleString('ru')}}₽</span>
+                        </td>
                     </tr>
                     <tr class="settings-finance-payment__info_row settings-finance-payment__info-main_subtitle" v-else-if="initialValues.parameters[0].instagram != 0">
                         <td>Instagram -  
                             <span>{{initialValues.parameters[0].instagram}}</span>
                         </td>
-                        <template>
-                            <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">
-                          
-                            </td>
-                        </template>
+                        <td class="settings-finance-payment__info_cell settings-finance-payment__info-main_title">
+                            <span>{{defaultPrice.price.toLocaleString('ru')}}₽</span>
+                        </td>
                     </tr>
                 </table>
                 
@@ -49,11 +45,6 @@
                 <div class="settings-finance-payment__method_type">
                     <div :id = "type[0].id" class="settings-finance-payment__method_type-card" :class="{'settings-finance-payment__method_type-active' : type[0].active}" @click="searchType(type[0])">
                         Банковской картой 
-                        <span>
-                            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8777 0.790585C12.0272 0.633889 12.1991 0.555542 12.3935 0.555542C12.5878 0.555542 12.7598 0.633889 12.9093 0.790585C13.0438 0.931611 13.1111 1.10789 13.1111 1.31943C13.1111 1.53097 13.0438 1.70725 12.9093 1.84828L5.75535 9.39315C5.7404 9.40882 5.72545 9.42449 5.7105 9.44016C5.69555 9.45583 5.6806 9.4715 5.66565 9.48717C5.53109 9.64386 5.3629 9.72221 5.16106 9.72221C4.95922 9.72221 4.79103 9.64386 4.65647 9.48717L1.09072 5.77349C0.956167 5.63246 0.888889 5.45618 0.888889 5.24464C0.888889 5.03311 0.956167 4.85683 1.09072 4.7158C1.24023 4.5591 1.41216 4.48076 1.60652 4.48076C1.80088 4.48076 1.97282 4.5591 2.12232 4.7158L5.14985 7.88888L11.8777 0.790585Z" fill="#40406B"/>
-                            </svg>
-                        </span>
                     </div>
                     <div style="display:none;" :id = "type[1].id" class="settings-finance-payment__method_type-cash" :class="{'settings-finance-payment__method_type-active' : type[1].active}" @click="searchType(type[1])">
                         Безналичный расчет
@@ -68,7 +59,7 @@
             <table class="settings-finance-payment__info-total">
                     <tr class="settings-finance-payment__info_row">
                         <td class="settings-finance-payment__info-total_title settings-finance-payment__info_cell">Итого к оплате:</td>
-                        <td class="settings-finance-payment__info-total_subtitle settings-finance-payment__info_cell">{{defaultPrice.price}}₽</td>
+                        <td class="settings-finance-payment__info-total_subtitle settings-finance-payment__info_cell">{{defaultPrice.price.toLocaleString('ru')}}₽</td>
                     </tr>
                 </table>
             <div class="settings-finance-payment__buttons">
@@ -116,7 +107,6 @@
                 }
             ]
         })
-        console.log(returnFinance.value)
         const openUpdate = () => {
             initialValues.value.sale_id = returnFinance.value.sale_id
             if (returnFinance.value.whatsapp_tariff_id){
@@ -128,12 +118,20 @@
             }
         }
 
+        const totalPriceCannals = ref({
+            totalWhatsapp: 0,
+            totalInstagram: 0,
+        })
+
         const updateValues = () => {
             for(i = 0; i< Object.keys(mounths.value).length; i++){
                 if(mounths.value[i].active){
                     let priceWithoutSeil = 0
                     priceWithoutSeil = (initialValues.value.parameters[0].whatsapp * defaultPrice.value.priceOneWhats * mounths.value[i].count) + (initialValues.value.parameters[0].instagram * defaultPrice.value.priceOneInst * mounths.value[i].count)
                     defaultPrice.value.price = priceWithoutSeil - ((priceWithoutSeil * mounths.value[i].value)/100)
+
+                    totalPriceCannals.value.totalWhatsapp = (initialValues.value.parameters[0].whatsapp * defaultPrice.value.priceOneWhats * mounths.value[i].count) - (((initialValues.value.parameters[0].whatsapp * defaultPrice.value.priceOneWhats * mounths.value[i].count) * mounths.value[i].value)/100)
+                    totalPriceCannals.value.totalInstagram = (initialValues.value.parameters[0].instagram * defaultPrice.value.priceOneInst * mounths.value[i].count) - (((initialValues.value.parameters[0].instagram * defaultPrice.value.priceOneInst * mounths.value[i].count) * mounths.value[i].value)/100)
                 }
             }
 
@@ -141,16 +139,10 @@
 
         const boolen = ref(true)
 
-        
-
         watch(() => {
             openUpdate()
+            initialValues.value.sale_id = 1
         })
-
-        onUpdated(() => {
-            console.log(initialValues.value.sale_id)
-        })
-
 
         const modalPay = ref({
             show: false
@@ -227,6 +219,8 @@
 
             returnFinance,
             boolen,
+
+            totalPriceCannals,
         }
     }
 }

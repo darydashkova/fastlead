@@ -16,7 +16,7 @@
                     :class="{'tariff-active' : arr[index].active}"
                     @click="searchElemnt(arr[index])">
                         {{tariff.name}}
-                        <div class="settings-finance-change__main_tariff-select_price">{{tariff.price}}₽/мес</div>
+                        <div class="settings-finance-change__main_tariff-select_price">{{tariff.price.toLocaleString('ru')}}₽/мес</div>
                     </div>
 
                     <div class="settings-finance-change__main_tariff-select-pro "
@@ -25,7 +25,7 @@
                     :class="{'tariff-active' : arr[1].active}"
                     @click="searchElemnt(arr[1])">
                         {{tariffs[1].name}}
-                        <div class="settings-finance-change__main_tariff-select_price">{{tariffs[1].price}}₽/мес</div>
+                        <div class="settings-finance-change__main_tariff-select_price">{{tariffs[1].price.toLocaleString('ru')}}₽/мес</div>
                     </div>
                 </div>
             </div>
@@ -60,8 +60,8 @@
             <div class="settings-finance-change__cannals">
                 <h3 class="settings-finance-change__main-name">Каналы:</h3>
                 <div class="settings-finance-change__cannals-wrapper">
-                     <span class="settings-finance-change__cannals-wrapper_name" v-if="arr[0].active">WhatsApp - {{tariffs[0].price}} ₽/мес</span>
-                     <span class="settings-finance-change__cannals-wrapper_name" v-else>WhatsApp - {{tariffs[1].price}} ₽/мес</span>
+                     <span class="settings-finance-change__cannals-wrapper_name" v-if="arr[0].active">WhatsApp - {{tariffs[0].price.toLocaleString('ru')}} ₽/мес</span>
+                     <span class="settings-finance-change__cannals-wrapper_name" v-else>WhatsApp - {{tariffs[1].price.toLocaleString('ru')}} ₽/мес</span>
                      <span class="settings-finance-change__cannals-wrapper_change">
                          <button class="settings-finance-change__mounth-wrapper_change-btn_minus settings-finance__btn_minus" @click="decrimentCountWhats()">
                              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,8 +86,8 @@
                      </span>
                 </div>   
                 <div class="settings-finance-change__cannals-wrapper">
-                     <span class="settings-finance-change__cannals-wrapper_name" v-if="arr[0].active">Instagram - {{tariffs[0].price}} ₽/мес </span>
-                     <span class="settings-finance-change__cannals-wrapper_name" v-else>Instagram - {{tariffs[1].price}} ₽/мес </span>
+                     <span class="settings-finance-change__cannals-wrapper_name" v-if="arr[0].active">Instagram - {{tariffs[0].price.toLocaleString('ru')}} ₽/мес </span>
+                     <span class="settings-finance-change__cannals-wrapper_name" v-else>Instagram - {{tariffs[1].price.toLocaleString('ru')}} ₽/мес </span>
                      <span class="settings-finance-change__cannals-wrapper_change">
                          <button class="settings-finance-change__mounth-wrapper_change-btn_minus settings-finance__btn_minus" @click="decrimentCountInst()">
                              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -294,10 +294,6 @@
             let additionalPaymentNew = oneDayNewTariff * returnFinance.value.remainig_days
 
             initialValues.value.priceWithSeil = additionalPayment + additionalPaymentNew
-
-            console.log(additionalPayment)
-            console.log(additionalPaymentNew)
-
         }
 
         onUpdated(() => {

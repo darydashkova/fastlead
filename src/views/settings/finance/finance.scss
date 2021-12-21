@@ -41,3 +41,19 @@
         border-bottom: 3px solid #60d17c;
       }
   }
+
+  .settings-finance__block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .finance-question{
+    border: 1px solid #5EC075;
+    padding: 0px 10px 0px;
+    text-align: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14px;
+  }
