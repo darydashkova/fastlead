@@ -168,7 +168,7 @@
             initialValues.value.sale_id = mounths.value[id-1].id
             
         }
-
+        
         const payment = () => {
             createFinance(initialValues.value)
             .then( r => {

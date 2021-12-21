@@ -124,6 +124,9 @@ const routes = [
         path: 'autoresponder', component: () => import('../views/settings/autoresponder/autoresponder.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчики' }
       },
       {
+        path: 'ignore', component: () => import('../views/settings/ignore/ignore.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчики' }
+      },
+      {
         path: 'message-templates', component: () => import('../views/settings/message-templates/message-templates.vue'), meta: { requiresAuth: true, title: 'Fastlead - Шаблоны сообщений' }
       },
       {
@@ -141,9 +144,9 @@ const routes = [
           {
             path: 'create', component: () => import('../views/settings/integrations/integrationTabs/IntegrationTabsCreatedTasks.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
           },
-          {
-            path: 'ignore', component: () => import('../views/settings/integrations/integrationTabs/integrationTabsIgnore.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
-          },
+          // {
+          //   path: 'ignore', component: () => import('../views/settings/integrations/integrationTabs/integrationTabsIgnore.vue'), meta: { requiresAuth: true, title: 'Fastlead - Интеграции' },
+          // },
           {
             path: 'yclients/connect', component: () => import('../views/settings/integrations/Yclient/YclientsConnect.vue'), meta: { requiresAuth: false, title: 'Fastlead - Интеграции' },
           },

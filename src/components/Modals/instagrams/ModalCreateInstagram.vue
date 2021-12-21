@@ -150,8 +150,6 @@
                                     success.value = true; 
                                 }
                             }
-                               console.log(r)
-                            console.log(r.two_factor, r.status)
                         })
                 }
                

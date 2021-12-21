@@ -175,8 +175,7 @@ export default {
             })
     const del = (elem) => {
         // formData
-        console.log(elem)
-        console.log(formData.value);
+     
     }
     // const  getYclientsWrapper = () => {
     //      getYclients()

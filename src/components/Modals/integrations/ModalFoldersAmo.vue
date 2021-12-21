@@ -81,9 +81,7 @@ export default {
             }
             else{
                 allFolders.value = r
-            }
-        console.log(allFolders.value)
-            
+            }   
         })
         }
         const styleActive = ref([]);

@@ -31,6 +31,9 @@ export function useIntegrations() {
     const deleteIdAmocrm = async (id) => {
         return await integrationActions.amocrmActions.deleteIdAmocrm(id);
     }
+    const getTaskById = async (data) => {
+        return await integrationActions.amocrmActions.getTaskById(data);
+    }
     const connectAmocrm = async () => {
         let client_id = amocrm_client_id,
             state = Math.random().toString(36).substring(2),
@@ -107,7 +110,6 @@ export function useIntegrations() {
         return await integrationActions.yclientsActions.updateYclients(data);
     }
     const postBirthdayTask = async (data) => {
-        console.log(data)
         return await integrationActions.yclientsActions.postBirthdayTask(data)
     }
     const getAllTask = async () => {
@@ -149,6 +151,7 @@ export function useIntegrations() {
         delYclient,
         getAllTasksAmo,
         deleteIdAmocrm,
-        testMessage
+        testMessage,
+        getTaskById
     }
 }

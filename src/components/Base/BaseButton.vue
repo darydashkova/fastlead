@@ -10,7 +10,7 @@
         font-weight: 550;
         font-size: 16px;
         line-height: 21px;
-        color: #F0F0FA;
+        color: #252544;
         padding: 8px 32px;
         border-radius: 6px;
         cursor: pointer;

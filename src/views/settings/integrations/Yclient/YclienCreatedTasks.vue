@@ -6,6 +6,9 @@
         <div class="yclient-created-tasks__content" ref="content">
             <integrationHeaderCommon :date="date" ></integrationHeaderCommon>
             <div class="yclient-created-tasks__block">
+                <teleport to="body" v-if="loading">
+                <FullScreenLoader ></FullScreenLoader>
+                </teleport>
                 <template v-if="data.yclients_task">
                 <div class="yclient-created-tasks__title">
                     <div class="yclient-created-tasks__title-name">Наименования</div>
@@ -22,7 +25,8 @@
                         </svg>
                     </div>
                 </template>
-                <template v-else>
+                  
+                <template v-else-if="!data.yclients_task&&!loading">
                     <div class="empty-list">
                         <div class="empty-list__title">У вас еще нет задач</div>
                         <div class="empty-list__button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
@@ -35,15 +39,17 @@
 </template>
 
 <script>
-  import { ref, onBeforeUpdate } from "vue";
+    import { ref, onBeforeUpdate } from "vue";
     import integrationHeaderCommon from "../integrationHeaderCommon/integrationHeaderCommon";
     import {useCustomScroll} from "../../../../composition/useCustomScroll";
+    import FullScreenLoader from "../../../../components//FullScreenLoader";
     import {useIntegrations} from "../../../../composition/useIntegrations";
     import {yclientFunction} from "./yclient.js";
     import { useRouter, useRoute}  from 'vue-router'
 export default {
     components: {
         integrationHeaderCommon,
+        FullScreenLoader, 
     },
     props: {},
     emit: ["editTask"],
@@ -52,9 +58,12 @@ export default {
         const data = ref({})
         const router = useRouter();
         const {editTaskYclient, checkEdit, indexTask} = yclientFunction()
+        const loading = ref(false);
         const getAllTaskYclient =  () => {
+            loading.value = true;
             getAllTask()
              .then(r => {
+                 loading.value = false;
                 data.value = {...r}
             })
         }  
@@ -98,7 +107,8 @@ export default {
             editTaskYclient,
             checkEdit,
             indexTask,
-            checkUpdate
+            checkUpdate,
+            loading
         }
     },
 }

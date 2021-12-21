@@ -3,7 +3,8 @@
         <div class="scroll" ref="container" @click.self="scrollTo">
             <div class="scroll__bar" ref="scrollbar"></div>
         </div>
-        <div class="settings-integrations-form__body" ref="content">
+        <div class="settings-integrations-form__body " ref="content" 
+        >
             <template v-if="form.data.data">
                  <div class="settings-integrations-form__field settings-integrations-form__channel">
                      <div class="settings-integrations-form__label" >Канал</div>
@@ -36,7 +37,7 @@
                             
                             <button class="settings-integrations-form__input settings-integrations-form__input_width "
                              :class="{'settings-integrations-form__select_active': showChannelsActive }"
-                                    @click="showChannels()"
+                                    @click="showChannels(), closeFolder()"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
                                 <template v-if="phone==''">Введите</template>
@@ -46,7 +47,7 @@
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
-                                <div class="settings-integrations-form__dropdown-list"
+                                <div class="settings-integrations-form__dropdown-list settings-integrations-form__input_height-scroll"
                                 v-if="showChannelsActive"
                                 >
                                     <div class="settings-integrations-form__dropdown-item"
@@ -64,9 +65,9 @@
                                                 </clipPath>
                                                 </defs>
                                             </svg>
-                                        {{whatsapp.name}} / {{whatsapp.phone}} / {{whatsapp.status}}
+                                       <div class="settings-integrations-form_elipsis"> {{whatsapp.name}} / {{whatsapp.phone}} / {{whatsapp.status}}</div>
                                     </div>
-                                     <!-- <div class="settings-integrations-form__dropdown-item"
+                                     <div class="settings-integrations-form__dropdown-item"
                                           v-for="(instagram, index) in instagrams"
                                          :key="index"
                                          @click="channelChoise(instagram.instagram_id, 'instagram')">
@@ -87,7 +88,7 @@
                                                 </defs>
                                             </svg>
                                         {{instagram.login}} / {{instagram.status}}
-                                    </div> -->
+                                    </div>
                                 </div>
                             </button>
                             </div>
@@ -105,23 +106,23 @@
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].funnel_id === null),
                                     'settings-integrations-form__select_active':openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === index}"
-                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', index)"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', index), closeFolder()"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                     <div class="settings-integrations-form__dropdown-inner">
-                                        {{validFunnelName(funnelAction.funnel_id)}}
+                                        <div class="settings-integrations-form_elipsis"> {{validFunnelName(funnelAction.funnel_id)}}</div>
                                         <svg  :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === index }" class='settings-integrations-form__dropdown-inner-svg' width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                         </svg>
                                     </div>
                                     
-                                    <div class="settings-integrations-form__dropdown-list"
+                                    <div class="settings-integrations-form__dropdown-list settings-integrations-form__input_height-scroll"
                                          v-if="openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === index"
                                     >
                                         <div  class="settings-integrations-form__dropdown-item" v-for="funnel in funnels" :key="funnel.funnel_id"
-                                              @click="openedDropdown.select('funnel_actions', 'funnel_id', funnel.funnel_id, index)"
+                                              @click="openedDropdown.select('funnel_actions', 'funnel_id', funnel.funnel_id, index), clearError()"
                                         >
-                                            {{funnel.name}}
+                                          <div class="settings-integrations-form_elipsis">   {{funnel.name}}</div>
                                         </div>
                                     </div>
 
@@ -132,20 +133,43 @@
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.funnel_actions[index] && (errors.funnel_actions[index].column_uid === null),
                                      'settings-integrations-form__select_active': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === index }"
-                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', index)"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', index), closeFolder()"
                                     @blur="openedDropdown.toggleOpened(null, null)"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
-                                    {{validColumnName(funnelAction.funnel_id, funnelAction.column_uid)}}
+                                 <div class="settings-integrations-form_elipsis">    {{validColumnName(funnelAction.funnel_id, funnelAction.column_uid)}}</div>
                                     <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === index }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
-                                <div class="settings-integrations-form__dropdown-list"
+                                <div class="settings-integrations-form__dropdown-list settings-integrations-form__input_height-scroll"
                                      v-if="openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === index">
                                     <div  class="settings-integrations-form__dropdown-item" v-for="column in funnels.find(item => item.funnel_id === funnelAction.funnel_id).columns" :key="column.column_uid"
                                          @click="openedDropdown.select('funnel_actions', 'column_uid', column.column_uid, index)">
-                                        {{column.name}}
+                                       <div class="settings-integrations-form_elipsis">  {{column.name}}</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_mr-13">
+                            <div class="settings-integrations-form__label" v-if="index === 0">Поместить в папку</div>
+                            <button class="settings-integrations-form__input"
+                                @click="openModal(index,!openFolder[index] ), showChannelsActive=false, clearError();"
+                                :class="{ 'settings-integrations-form__select_active':  openFolder[index]==true}">
+                                <div class="settings-integrations-form__dropdown-inner">
+                                    <template v-if="!folderChoose[index]||folderChoose[index].length==0">Выбрать</template>
+                                    <template v-else>  <div class="settings-integrations-form_elipsis">{{folderChoose[index][1]}}</div></template>
+                                    <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openFolder[index]==true }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
+                                    </svg>
+                                </div>
+                                <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown_height " v-if="openFolder[index]==true">
+                                     <div  class="settings-integrations-form__dropdown-item settings-integrations-form__dropdown-create" 
+                                         @click="createNewFolder">
+                                        Создать папку
+                                    </div>
+                                    <div  class="settings-integrations-form__dropdown-item" v-for="(folder, indx) in allFolders" :key='indx'  @mousedown="openModal(index,false ),getFolder(index, folder)">
+                                       <div class="settings-integrations-form_elipsis">  {{folder.name}}</div>
                                     </div>
                                 </div>
                             </button>
@@ -158,28 +182,35 @@
                                     <SettingsIntegrationAutoMessage @saveText="saveMessage" 
                                     :updateMessage="funnelAction.message" :automesage="automessage" 
                                     :indexItem='index' :arrNum='form.data.data.funnel_actions.length' 
-                                    @click="checkAutomessage(funnelAction, index)"
+                                    @click="checkAutomessage(funnelAction, index), closeFolder(), clearError()"
                                     ></SettingsIntegrationAutoMessage>       
                                 </div>
                             </div>
                         </div>
-                            <ModalFoldersAmo v-if="openModalFolder[index]" @closeModal="openModal" @folderSave ="folderSave" :index='index'></ModalFoldersAmo>
-                            <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer settings-integrations-form__folder" @click="openModal(index,true)" >
-                            <path d="M17.4167 1.81818H11.4327C11.2909 1.81911 11.1508 1.78802 11.0229 1.72727L8.12992 0.287273C7.74803 0.0986774 7.32729 0.00035122 6.90067 0H4.58333C3.3682 0.00144351 2.20326 0.480802 1.34403 1.33293C0.484808 2.18505 0.00145554 3.34037 0 4.54545L0 15.4545C0.00145554 16.6596 0.484808 17.8149 1.34403 18.6671C2.20326 19.5192 3.3682 19.9986 4.58333 20H17.4167C18.6318 19.9986 19.7967 19.5192 20.656 18.6671C21.5152 17.8149 21.9985 16.6596 22 15.4545V6.36364C21.9985 5.15855 21.5152 4.00323 20.656 3.15111C19.7967 2.29898 18.6318 1.81963 17.4167 1.81818V1.81818ZM4.58333 1.81818H6.90067C7.04244 1.81725 7.18256 1.84834 7.31042 1.90909L10.2034 3.34455C10.5849 3.53471 11.0057 3.6346 11.4327 3.63636H17.4167C17.9649 3.63725 18.5003 3.80061 18.9542 4.10547C19.4081 4.41032 19.7598 4.84276 19.9641 5.34727L1.83333 5.44909V4.54545C1.83333 3.82214 2.12306 3.12844 2.63879 2.61698C3.15451 2.10552 3.85399 1.81818 4.58333 1.81818V1.81818ZM17.4167 18.1818H4.58333C3.85399 18.1818 3.15451 17.8945 2.63879 17.383C2.12306 16.8716 1.83333 16.1779 1.83333 15.4545V7.26727L20.1667 7.16455V15.4545C20.1667 16.1779 19.8769 16.8716 19.3612 17.383C18.8455 17.8945 18.146 18.1818 17.4167 18.1818Z" fill="#9797BB"/>
-                            </svg>
-                            <svg width="18" @click="del(index)" class="pointer settings-integrations-form__delete" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1 3.33333H14.31C14.1011 2.39284 13.5484 1.54779 12.7451 0.940598C11.9418 0.333408 10.937 0.0012121 9.9 0H8.1C7.06302 0.0012121 6.05819 0.333408 5.25487 0.940598C4.45156 1.54779 3.89889 2.39284 3.69 3.33333H0.9C0.661305 3.33333 0.432387 3.42113 0.263604 3.57741C0.0948211 3.73369 0 3.94565 0 4.16667C0 4.38768 0.0948211 4.59964 0.263604 4.75592C0.432387 4.9122 0.661305 5 0.9 5H1.8V15.8333C1.80143 16.938 2.27599 17.997 3.1196 18.7782C3.9632 19.5593 5.10696 19.9987 6.3 20H11.7C12.893 19.9987 14.0368 19.5593 14.8804 18.7782C15.724 17.997 16.1986 16.938 16.2 15.8333V5H17.1C17.3387 5 17.5676 4.9122 17.7364 4.75592C17.9052 4.59964 18 4.38768 18 4.16667C18 3.94565 17.9052 3.73369 17.7364 3.57741C17.5676 3.42113 17.3387 3.33333 17.1 3.33333ZM8.1 1.66667H9.9C10.4582 1.6673 11.0026 1.82781 11.4585 2.1262C11.9143 2.42459 12.2593 2.84624 12.4461 3.33333H5.5539C5.74072 2.84624 6.08571 2.42459 6.54155 2.1262C6.99739 1.82781 7.54175 1.6673 8.1 1.66667ZM14.4 15.8333C14.4 16.4964 14.1155 17.1323 13.6092 17.6011C13.1028 18.0699 12.4161 18.3333 11.7 18.3333H6.3C5.58392 18.3333 4.89716 18.0699 4.39081 17.6011C3.88446 17.1323 3.6 16.4964 3.6 15.8333V5H14.4V15.8333ZM7.20005 14.9999C7.43874 14.9999 7.66766 14.9121 7.83644 14.7558C8.00522 14.5995 8.10005 14.3876 8.10005 14.1666V9.16658C8.10005 8.94557 8.00522 8.73361 7.83644 8.57733C7.66766 8.42105 7.43874 8.33325 7.20005 8.33325C6.96135 8.33325 6.73243 8.42105 6.56365 8.57733C6.39487 8.73361 6.30005 8.94557 6.30005 9.16658V14.1666C6.30005 14.3876 6.39487 14.5995 6.56365 14.7558C6.73243 14.9121 6.96135 14.9999 7.20005 14.9999ZM11.4364 14.7558C11.2676 14.9121 11.0387 14.9999 10.8 14.9999C10.5613 14.9999 10.3324 14.9121 10.1636 14.7558C9.99479 14.5995 9.89996 14.3876 9.89996 14.1666V9.16658C9.89996 8.94557 9.99479 8.73361 10.1636 8.57733C10.3324 8.42105 10.5613 8.33325 10.8 8.33325C11.0387 8.33325 11.2676 8.42105 11.4364 8.57733C11.6052 8.73361 11.7 8.94557 11.7 9.16658V14.1666C11.7 14.3876 11.6052 14.5995 11.4364 14.7558Z" fill="#EB5757"/>
-                            </svg>
-                                
                         </div>
-                          <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_width" >
+                        <div class="settings-integrations-form__img">
+                            <!-- <ModalFoldersAmo v-if="openModalFolder[index]" @closeModal="openModal" @folderSave ="folderSave" :index='index'></ModalFoldersAmo>
+                                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer settings-integrations-form__folder" @click="openModal(index,true)" >
+                                <path d="M17.4167 1.81818H11.4327C11.2909 1.81911 11.1508 1.78802 11.0229 1.72727L8.12992 0.287273C7.74803 0.0986774 7.32729 0.00035122 6.90067 0H4.58333C3.3682 0.00144351 2.20326 0.480802 1.34403 1.33293C0.484808 2.18505 0.00145554 3.34037 0 4.54545L0 15.4545C0.00145554 16.6596 0.484808 17.8149 1.34403 18.6671C2.20326 19.5192 3.3682 19.9986 4.58333 20H17.4167C18.6318 19.9986 19.7967 19.5192 20.656 18.6671C21.5152 17.8149 21.9985 16.6596 22 15.4545V6.36364C21.9985 5.15855 21.5152 4.00323 20.656 3.15111C19.7967 2.29898 18.6318 1.81963 17.4167 1.81818V1.81818ZM4.58333 1.81818H6.90067C7.04244 1.81725 7.18256 1.84834 7.31042 1.90909L10.2034 3.34455C10.5849 3.53471 11.0057 3.6346 11.4327 3.63636H17.4167C17.9649 3.63725 18.5003 3.80061 18.9542 4.10547C19.4081 4.41032 19.7598 4.84276 19.9641 5.34727L1.83333 5.44909V4.54545C1.83333 3.82214 2.12306 3.12844 2.63879 2.61698C3.15451 2.10552 3.85399 1.81818 4.58333 1.81818V1.81818ZM17.4167 18.1818H4.58333C3.85399 18.1818 3.15451 17.8945 2.63879 17.383C2.12306 16.8716 1.83333 16.1779 1.83333 15.4545V7.26727L20.1667 7.16455V15.4545C20.1667 16.1779 19.8769 16.8716 19.3612 17.383C18.8455 17.8945 18.146 18.1818 17.4167 18.1818Z" fill="#9797BB"/>
+                                </svg> -->
+                                <SettingsTestSend v-if="openTestModal[index]==true" @test="testSend" :index="index" @close="openTestModal[index] = false" ></SettingsTestSend> 
+                            <svg class="pointer settings-integrations-form__folder"
+                            @click="openTestModal[index] = true, clearError()" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.2636 0.734503C18.9648 0.432109 18.5931 0.211882 18.1844 0.0951C17.7756 -0.0216824 17.3437 -0.0310727 16.9303 0.0678363L3.59694 2.87617C2.82908 2.98147 2.10588 3.29907 1.50877 3.79318C0.911663 4.28729 0.464365 4.9383 0.21725 5.67289C-0.0298654 6.40748 -0.0669817 7.19647 0.110081 7.95102C0.287143 8.70556 0.671351 9.39568 1.21944 9.94367L2.6511 11.3745C2.72859 11.452 2.79004 11.544 2.83194 11.6452C2.87384 11.7464 2.89536 11.8549 2.89527 11.9645V14.6045C2.89711 14.9757 2.98256 15.3417 3.14527 15.6753L3.1386 15.6812L3.16027 15.7028C3.40445 16.1938 3.80326 16.5908 4.29527 16.8328L4.31694 16.8545L4.32277 16.8478C4.6564 17.0105 5.02241 17.096 5.3936 17.0978H8.0336C8.25448 17.0977 8.46639 17.1852 8.62277 17.3412L10.0536 18.772C10.4374 19.16 10.8941 19.4683 11.3976 19.6789C11.901 19.8896 12.4412 19.9986 12.9869 19.9995C13.4417 19.9989 13.8934 19.9246 14.3244 19.7795C15.0523 19.5405 15.6989 19.1028 16.1913 18.5159C16.6837 17.929 17.0023 17.2162 17.1111 16.4578L19.9236 3.09534C20.0276 2.67837 20.0215 2.24152 19.9058 1.82764C19.7901 1.41376 19.5688 1.03706 19.2636 0.734503ZM3.8311 10.1978L2.3986 8.767C2.06504 8.44147 1.83125 8.02754 1.72468 7.5738C1.6181 7.12006 1.64317 6.64533 1.79694 6.20534C1.94602 5.75394 2.22161 5.35486 2.59093 5.05556C2.96026 4.75625 3.40778 4.56932 3.88027 4.517L17.0811 1.73784L4.56027 14.2603V11.9645C4.56153 11.6364 4.49774 11.3114 4.37258 11.0082C4.24742 10.7049 4.06338 10.4295 3.8311 10.1978ZM15.4736 16.1728C15.4096 16.6331 15.2186 17.0665 14.922 17.4242C14.6254 17.782 14.235 18.05 13.7945 18.1981C13.3541 18.3463 12.8811 18.3688 12.4285 18.263C11.976 18.1573 11.5619 17.9275 11.2328 17.5995L9.79944 16.1662C9.56808 15.9335 9.29289 15.7491 8.98979 15.6235C8.68669 15.4979 8.36169 15.4337 8.0336 15.4345H5.73777L18.2603 2.91617L15.4736 16.1728Z" fill="#9797BB"/>
+                                </svg>
+                                <svg width="18" @click="del(index), clearError()" class="pointer settings-integrations-form__delete" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1 3.33333H14.31C14.1011 2.39284 13.5484 1.54779 12.7451 0.940598C11.9418 0.333408 10.937 0.0012121 9.9 0H8.1C7.06302 0.0012121 6.05819 0.333408 5.25487 0.940598C4.45156 1.54779 3.89889 2.39284 3.69 3.33333H0.9C0.661305 3.33333 0.432387 3.42113 0.263604 3.57741C0.0948211 3.73369 0 3.94565 0 4.16667C0 4.38768 0.0948211 4.59964 0.263604 4.75592C0.432387 4.9122 0.661305 5 0.9 5H1.8V15.8333C1.80143 16.938 2.27599 17.997 3.1196 18.7782C3.9632 19.5593 5.10696 19.9987 6.3 20H11.7C12.893 19.9987 14.0368 19.5593 14.8804 18.7782C15.724 17.997 16.1986 16.938 16.2 15.8333V5H17.1C17.3387 5 17.5676 4.9122 17.7364 4.75592C17.9052 4.59964 18 4.38768 18 4.16667C18 3.94565 17.9052 3.73369 17.7364 3.57741C17.5676 3.42113 17.3387 3.33333 17.1 3.33333ZM8.1 1.66667H9.9C10.4582 1.6673 11.0026 1.82781 11.4585 2.1262C11.9143 2.42459 12.2593 2.84624 12.4461 3.33333H5.5539C5.74072 2.84624 6.08571 2.42459 6.54155 2.1262C6.99739 1.82781 7.54175 1.6673 8.1 1.66667ZM14.4 15.8333C14.4 16.4964 14.1155 17.1323 13.6092 17.6011C13.1028 18.0699 12.4161 18.3333 11.7 18.3333H6.3C5.58392 18.3333 4.89716 18.0699 4.39081 17.6011C3.88446 17.1323 3.6 16.4964 3.6 15.8333V5H14.4V15.8333ZM7.20005 14.9999C7.43874 14.9999 7.66766 14.9121 7.83644 14.7558C8.00522 14.5995 8.10005 14.3876 8.10005 14.1666V9.16658C8.10005 8.94557 8.00522 8.73361 7.83644 8.57733C7.66766 8.42105 7.43874 8.33325 7.20005 8.33325C6.96135 8.33325 6.73243 8.42105 6.56365 8.57733C6.39487 8.73361 6.30005 8.94557 6.30005 9.16658V14.1666C6.30005 14.3876 6.39487 14.5995 6.56365 14.7558C6.73243 14.9121 6.96135 14.9999 7.20005 14.9999ZM11.4364 14.7558C11.2676 14.9121 11.0387 14.9999 10.8 14.9999C10.5613 14.9999 10.3324 14.9121 10.1636 14.7558C9.99479 14.5995 9.89996 14.3876 9.89996 14.1666V9.16658C9.89996 8.94557 9.99479 8.73361 10.1636 8.57733C10.3324 8.42105 10.5613 8.33325 10.8 8.33325C11.0387 8.33325 11.2676 8.42105 11.4364 8.57733C11.6052 8.73361 11.7 8.94557 11.7 9.16658V14.1666C11.7 14.3876 11.6052 14.5995 11.4364 14.7558Z" fill="#EB5757"/>
+                                </svg>
+                        </div>
+                          <!-- <div class="settongs-integrations-form__input-group settongs-integrations-form__input-group_width" >
                             <div class="settings-integrations-form__label" v-if="index === 0">Тестовая отправка</div>
                             <div class="settings-integrations-form__label-test">
-                               <input class="settings-integrations-form__input_test "  v-maska="'7 (###) ###-##-##'" placeholder="7 (###) ###-##-##" v-model="phoneTest[index]"> 
+                               <input class="settings-integrations-form__input_test "  v-maska="'7 (###) ###-##-##'" placeholder="7 (###) ###-##-##" v-model="phoneTest[index]"> -->
                             <!-- <div class="settings-integrations-form__label-test-button pointer" @click="test(form.data.data.funnel_actions[index])">Отправить</div> -->
-                             <div class="settings-integrations-form__label-test-button pointer" @click="testSend(phoneTest[index], index)">Отправить</div>
+                            <!-- <div class="settings-integrations-form__label-test-button pointer" @click="testSend(phoneTest[index], index)">Отправить</div>
                             </div>
-                        </div>
+                        </div> -->
+                          
 
                         
                     </div>
@@ -193,64 +224,69 @@
                     <div class="settings-integrations-form__header settings-integrations-form__header_mb-30">
                        Если клиента  нет в CRM системе и его нужно добавить  в сделку 
                     </div>
-                    <div class="settings-integrations-form__row">
-                        <div class="settongs-integrations-form__input-group">
+                    <div class=" settings-integrations-form__row_width">
+                        <div class="settongs-integrations-form__input-group_max">
                             <div class="settings-integrations-form__label">Воронка</div>
                             <button class="settings-integrations-form__input"
 
                                     :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null),
                                     'settings-integrations-form__select_active': openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === 'action' }"
-                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', 'action')"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('funnel', 'action'),isActiveScroll=!isActiveScroll "
                                     @blur="openedDropdown.toggleOpened(null, null)"
+                                 
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
-                                    {{validFunnelName(form.data.data?.new_dialog_action?.funnel_id)}}
+                                    <div class="settings-integrations-form_elipsis"> {{validFunnelName(form.data.data?.new_dialog_action?.funnel_id)}}</div>
                                     <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === 'action' }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
-                                <div class="settings-integrations-form__dropdown-list"
+                                <div class="settings-integrations-form__dropdown-list settings-integrations-form__input_height-scroll"
                                      v-if="openedDropdown.openedProp === 'funnel' && openedDropdown.openedIndex === 'action'">
                                     <div class="settings-integrations-form__dropdown-item"
                                           v-for="funnel in funnels"
                                          :key="funnel.funnel_id"
                                          @click="openedDropdown.select('new_dialog_action', 'funnel_id', funnel.funnel_id)">
                                          <!--.select('new_dialog_action', 'funnel_id',  funnel.funnel_id)" -->
-                                        {{funnel.name}}
+                                         <div class="settings-integrations-form_elipsis">{{funnel.name}}</div>
                                     </div>
                                 </div>
                             </button>
                         </div>
-                        <div class="settongs-integrations-form__input-group">
+                        <div class="settongs-integrations-form__input-group_max">
                             <div class="settings-integrations-form__label">Этап</div>
                             <button class="settings-integrations-form__input"
                                     :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.column_uid === null),
                                      'settings-integrations-form__select_active': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === 'action' }"
-                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', 'action')"
+                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('column', 'action'), isActiveScroll=!isActiveScroll"
                                     @blur="openedDropdown.toggleOpened(null, null)"
+                                  
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
-                                    {{validColumnName(form.data.data?.new_dialog_action?.funnel_id, form.data.data?.new_dialog_action?.column_uid)}}
+                                   <div class="settings-integrations-form_elipsis">  {{validColumnName(form.data.data?.new_dialog_action?.funnel_id, form.data.data?.new_dialog_action?.column_uid)}}</div>
                                     <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === 'action' }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                                     </svg>
                                 </div>
-                                <div class="settings-integrations-form__dropdown-list"
+                                <div class="settings-integrations-form__dropdown-list settings-integrations-form__input_height-scroll"
                                      v-if="openedDropdown.openedProp === 'column' && openedDropdown.openedIndex === 'action'">
                                     <div  class="settings-integrations-form__dropdown-item"
                                           v-for="column in funnels.find(item => item.funnel_id === form.data.data?.new_dialog_action?.funnel_id).columns" :key="column.column_uid"
                                           @click="openedDropdown.select('new_dialog_action', 'column_uid', column.column_uid)"
                                     >
                                     <!--.select('new_dialog_action', 'column_uid',  funnel.funnel_id)" -->
-                                        {{column.name}}
+                                      <div class="settings-integrations-form_elipsis">   {{column.name}}</div>
                                     </div>
                                 </div>
                             </button>
                         </div>
-                        <div class="settongs-integrations-form__input-group"></div>
+                     
                     </div>
                 </div>
-</div>
+            </div>
+            <teleport to="body" v-if="loading">
+                <FullScreenLoader ></FullScreenLoader>
+                </teleport>
 <!--                Пока нет Сотрудников и Ролей v-if=false-->
                 <div class="settings-integrations-form__field" v-if="false">
                     <div class="settings-integrations-form__header">
@@ -324,19 +360,20 @@
                     </table>
                 </div>
             </template>
-
-        </div>
-    </div>
-
-    <div class="settings-integrations-form__footer" v-if="phone!=''">
+ <div class="settings-integrations-form__footer" v-if="phone!=''">
         <BaseButton class="base-button_border-green" @click="$router.go(0)">Отмена</BaseButton>
         <BaseButton class="base-button_enter base-button_p5-15" @click="save">Сохранить</BaseButton>
     </div>
+        </div>
+        
+    </div>
+
+   
     
 </template>
 <script>
     import {useCustomScroll} from "../../../composition/useCustomScroll";
-    import {onMounted, reactive, ref, computed, onUpdated} from "vue";
+    import {onMounted, reactive, ref, computed, onUpdated, watch} from "vue";
     import ModalIntegrationBitrix from "../../Modals/integrations/ModalIntegrationBitrix";
     import ModalIntegrationAmoCRM from "../../Modals/integrations/ModalIntegrationAmoCRM";
     import {ModalInputAutomessageFunc} from "../../Modals/integrations/ModalInputAutomessage/modal-input-automessage";
@@ -349,6 +386,10 @@
     import { useWhatsapp } from "../../../composition/useWhatsapp";
     import { useInstagram } from "../../../composition/useInstagrams";
     import { integrationTasks } from "../../../views/settings/integrations/integrationTabs/integration-tabs-created-tasks"
+    import SettingsTestSend from "./SettingsTestSend/SettingsTestSend"
+    import {useModals} from "../../../composition/useModals";
+    import {useFolder} from "../../../composition/useFolder";
+    import FullScreenLoader from "../../FullScreenLoader";
 
     export default {
         components: {
@@ -358,7 +399,9 @@
             BaseButton,
             ModalInputAutomessage,
             SettingsIntegrationAutoMessage,
-            ModalFoldersAmo
+            ModalFoldersAmo,
+            SettingsTestSend,
+            FullScreenLoader
         },
         props: {
             formData: Object
@@ -367,12 +410,26 @@
         setup(props, {emit}) {
             const phoneTest = ref([]);
             const openModalFolder = ref([]);
+            const loading = ref(false);
+            const { toggleModalEditFolders, toggleModalCreateFolder, setCloseCallbackCreateFolder, createFolderParentId } = useModals();
+             const { folders,
+                getAllFolders,
+                selectedParentFolder,
+                foldersInSelectedFolder ,
+                getAllFoldersInFolder,
+                createpdateFolder
+            } = useFolder();
+            const allFolders = ref({});
+           
+            const folderChoose = ref([]);
             const {editDate} = integrationTasks()
             const { whatsapps, getWhatsapps } = useWhatsapp()
-           const {getInstagrams, instagrams} = useInstagram()
+            const {getInstagrams, instagrams} = useInstagram()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
-            const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm, testMessage } = useIntegrations()
-           const { showPopup, isPopup, automessage, indexPopup, automessageArray } = ModalInputAutomessageFunc()
+            const { getFunnelsBitrix, getFunnelsAmocrm, updateBitrix, updateAmocrm, testMessage, getTaskById } = useIntegrations()
+            const { showPopup, isPopup, automessage, indexPopup, automessageArray } = ModalInputAutomessageFunc()
+            const openTestModal = ref([])
+            const addFunnel = ref(true);
             getWhatsapps();
             getInstagrams();
             const form = reactive({
@@ -382,7 +439,8 @@
                         funnel_id: null,
                         column_uid: null,
                         id: phoneId.value,
-                        type: 'whatsapp',
+                        type: typeName.value,
+                        folder_id:null,
                         message: {
                             type: 'text',
                             data: '',
@@ -391,7 +449,7 @@
                     form.data.data.funnel_actions = Array.isArray(form.data.data.funnel_actions) ? [...form.data.data.funnel_actions, objToAdd] : [objToAdd]
                 }
             })
-         
+         const openFolder = ref([]);
             const errors = ref({
                 funnel_actions: [],
                 new_dialog_action: {
@@ -399,10 +457,10 @@
                     column_uid: 'not_null',
                 }
             });
+            const typeName = ref('');
             const testSend = (item, index) => {
                 const phone = ref();
                 phone.value = item.replace(/\s/g, '').replace(/-/g, '').replace("(", '').replace(")", '');
-                console.log(phone.value)
                 const data = form.data.data.funnel_actions[index] ;
                 const dataTest = ref({});
                 if (data.column_uid!==null&&data.funnel_id!==null&&data.message.data!=''){
@@ -418,38 +476,26 @@
                         dataTest.value.data = data.message.data;
                         dataTest.value.type = data.message.type;
                     }
-                    
                 }
                 else{
                     dataTest.value.data = data.message.data;
                     dataTest.value.type = data.message.type;
                 }
                 }
-
-
-                // testMessage(dataTest.value)
-                console.log(dataTest)
+                 testMessage(dataTest.value)
             }
             const arrAutoSms = ref([]);
             const saveMessage = (text, index) => {
-                console.log(text )
-                  console.log('---------------')
-                  form.data.data.funnel_actions[index].message={}
-             if(Array.isArray(text)){
-                 console.log('array')
-                 
-                
-               
+                form.data.data.funnel_actions[index].message={}
+                if(Array.isArray(text)){
                 arrAutoSms.value.push(index)
                 if(text[1]===null){
-                     console.log('array222');
                    form.data.data.funnel_actions[index].message.data=text[0] ;
                     form.data.data.funnel_actions[index].message.type='text'
                 }
                 else{
-                    console.log('array333');
                     form.data.data.funnel_actions[index].message.data=text[1][0][2][0]
-                form.data.data.funnel_actions[index].message.caption = text[0]
+                    form.data.data.funnel_actions[index].message.caption = text[0]
                  if(text[1][0][0].type.startsWith('im')){
                   form.data.data.funnel_actions[index].message.type= 'img'
                 }
@@ -468,7 +514,6 @@
                 // form.data.data.funnel_actions[index].message.data=text
                 // form.data.data.funnel_actions[index].message.data
                 // form.data.data.funnel_actions[index].message.data
-                console.log(  form.data.data.funnel_actions[index] )
             }
            
             const openedDropdown = reactive({
@@ -484,16 +529,26 @@
                         form.data.data[prop][index][name] = id;
 
                     } else {
-                        
+                        if(prop=='new_dialog_action'){
+                            
+                        }
                         form.data.data[prop][name] = id;
-                  
                     }
                     setTimeout(() => {
                         openedDropdown.toggleOpened(null, null);
                     }, 100)
                 }
+                
             })
-           
+            const createNewFolder = () => {
+                if (selectedParentFolder.value) {
+                    setCloseCallbackCreateFolder(() => getAllFoldersInFolder(selectedParentFolder.value, true))
+                    createFolderParentId.value = selectedParentFolder.value;
+                    createpdateFolder.value = true;
+                }
+                toggleModalCreateFolder(true);
+
+            }
             const showChannelsActive = ref(false)
             const showChannels = () => {
                 showChannelsActive.value=!showChannelsActive.value
@@ -516,29 +571,106 @@
             })
            const phone = ref('')
            const phoneId = ref();
+           const loadInfo = ref('false');
             const channelChoise = (id, name) => {
+                
+                folderChoose.value=[]
                 if(id!=null){
                     phoneId.value=id;
-                    console.log(name)
+                    const data = ref({
+                            id : id,
+                            type : name
+                        })
                     if(name==='whatsapp'){
+                        loading.value=true;
+                        getTaskById(data.value)
+                        .then ((r) => {
                         let index = whatsapps.value.findIndex(item => item.whatsapp_id==id)   
                         phone.value = whatsapps.value[index].phone;
+                      const data = ref({...r}.amocrm_integration)
+                        form.data.data = data 
+                        if (!form.data.data.new_dialog_action||form.data.data.new_dialog_action==null) {
+                        form.data.data.new_dialog_action = {
+                        funnel_id: null,
+                        column_uid: null,
+                        id: null,
+                            }
+                        }
                         form.data.data.new_dialog_action.id=id;
-                        form.data.data.new_dialog_action.type='whatsapp';  
+                        form.data.data.new_dialog_action.type='whatsapp'; 
+                        typeName.value='whatsapp'; 
+                        
+                          
+                        loading.value=false;
+                         getAllFolders()
+                            .then ( (r) => {
+                                allFolders.value = r
+                                loadInfo.value = true;
+                                if(form.data.data.funnel_actions!=null){
+                                    for(let i = 0; i<form.data.data.funnel_actions.length; i++){
+                                    // openModalFolder.value.push(false);
+                                    for(let j = 0; j < allFolders.value.length; j++ ){
+                                        if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
+                                            folderChoose.value[i] = [form.data.data.funnel_actions[i].folder_id, allFolders.value[j].name ]
+                                        }
+                                    }
+                                    //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
+                                } 
+                                }
+                            })
+                        })
+          
                     }
                       else{
+                        loading.value=true;
+                        getTaskById(data.value)
+                        .then ((r) => {
                         let index = instagrams.value.findIndex(item => item.instagram_id==id)   
-                        console.log(index)
                         phone.value = instagrams.value[index].login;
+                      const data = ref({...r.amocrm_integration})
+                          form.data.data = data
+                           if (!form.data.data.new_dialog_action||form.data.data.new_dialog_action==null) {
+                            form.data.data.new_dialog_action = {
+                                funnel_id: null,
+                                column_uid: null,
+                                id: null,
+                            }
+                        }
                         form.data.data.new_dialog_action.id=id;
+                        typeName.value='instagram'; 
                         form.data.data.new_dialog_action.type='instagram';  
-                      }
-                      
+                           
+                          
+                        //   form.data.data.funnel_actions.type='instagram'
+                          loading.value=false;
+                          getAllFolders()
+                            .then ( (r) => {
+                                allFolders.value = r
+                                loadInfo.value = true;
+                                if(form.data.data.funnel_actions!=null){
+                                          for(let i = 0; i<form.data.data.funnel_actions.length; i++){
+                                    // openModalFolder.value.push(false);
+                                    for(let j = 0; j < allFolders.value.length; j++ ){
+                                        if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
+                                            folderChoose.value[i] = [form.data.data.funnel_actions[i].folder_id, allFolders.value[j].name ]
+                                        }
+                                    }
+                                    //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
+                                 
+                                    
+                                    }
+                                    
+                                }
+                                
+                            })
+                        })
+
+
+                       
+                      }  
                 }
-               
                 return phone
             }
-          
             const validFunnelName = computed(() => {
                                 return (id) => {
                     let name = 'Выбрать';
@@ -595,66 +727,167 @@
                     }
                 }
           }
+          
             const checkAutomessage = (message, index) => {
                 form.data.data.funnel_actions[index].message.data=message.message.data;
                 
                 return message
             }
             const funnels = ref(null);
-
+            const clearError = () => {
+                 errors.value.new_dialog_action = {};
+                 errors.value.new_dialog_action.funnel_id = 'not_null';
+                errors.value.new_dialog_action.column_uid = 'not_null'; 
+            }
             const validation = () => {
                 let valid = true;
                 errors.value.funnel_actions = [];
                 errors.value.new_dialog_action = {};
-                 errors.value.new_dialog_action.funnel_id = 'not_null';
+                errors.value.new_dialog_action.funnel_id = 'not_null';
                 errors.value.new_dialog_action.column_uid = 'not_null'; 
-                let isValid = false;
-        
-                if(!form.data.data.funnel_actions){
-                    if(form.data.data.new_dialog_action){
+                let isValid = '';
+                const isFunnel = ref(false)
+
+                if(form.data.data.funnel_actions!=null&&form.data.data.funnel_actions.length!=0&&form.data.data.funnel_actions[0].hasOwnProperty('id')){
+
+                
+                for (let i = 0; i<form.data.data.funnel_actions.length; i++){
+                    if(form.data.data.funnel_actions[i].hasOwnProperty('funnel_id')&&form.data.data.funnel_actions.length!=0){
+                        isFunnel.value = true
+                        if(form.data.data.funnel_actions[i].funnel_id===null&&form.data.data.funnel_actions[i].column_uid===null){
+                            form.data.data.funnel_actions=form.data.data.funnel_actions.filter((item, index) => index!=i) 
+                        }
+                        else{
+                           form.data.data.funnel_actions[i].id=phoneId.value 
+                        }
+                         
+                    }
+                    else{
+                        isFunnel.value = false
+                        form.data.data.funnel_actions=form.data.data.funnel_actions.filter((item, index) => index!=i)
+                    }
+                }
+                }
+               else{
+                     if(form.data.data.new_dialog_action===null){
+                            errors.value.new_dialog_action.funnel_id = null;
+                            errors.value.new_dialog_action.column_uid = null;
+                        valid=false
+                     }
+                    
+                        isFunnel.value = false
+                }
+                if(!form.data.data.funnel_actions||(form.data.data.funnel_actions.funnel_id==='undefined '&&form.data.data.funnel_actions.column_uid=== 'undefined '&&form.data.data.funnel_actions.folder_id=== null&&form.data.data.funnel_actions.message.data=== '')||!isFunnel.value){ 
+                    if(form.data.data.new_dialog_action!=null){
                         if(form.data.data.new_dialog_action?.column_uid===null||form.data.data.new_dialog_action?.funnel_id===null){
                             errors.value.new_dialog_action.funnel_id = null;
                             errors.value.new_dialog_action.column_uid = null; 
-                          
                             valid= false;
                         }
                         else{
-                            errors.value.new_dialog_action.funnel_id = 'not_null';
-                            errors.value.new_dialog_action.column_uid = 'not_null'; 
+                            // errors.value.new_dialog_action.funnel_id = null;
+                            // errors.value.new_dialog_action.column_uid = null; 
                             valid= true;
                             isValid = true;
                         }  
                     }
-                   
+                    else{ 
+                         errors.value.new_dialog_action.funnel_id = null;
+                        errors.value.new_dialog_action.column_uid = null; 
+
+                            valid= false;
+                    }
                 } 
-                else{
-                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.column_uid!=null);
-                          form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.funnel_id!=null);
-                          form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.message.data!="");
-                         
+                else{  
+                        form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.column_uid!=null);
+                        form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.funnel_id!=null);
+                        for(let i = 0; i <  form.data.data.funnel_actions.length; i++){
+                            if(folderChoose.value.length!=0){
+                                 if(folderChoose.value[i][0]){
+                                    form.data.data.funnel_actions[i].folder_id = folderChoose.value[i][0]  
+                                }
+                            }
+                               
+                            }
+                        form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.folder_id!=null);
+                        form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.message.data!="");
                         //   form.data.data.funnel_actions=form.data.data.funnel_actions.filter( lIndex => lIndex.length!=0);
-                        if(form.data.data.new_dialog_action.column_uid===null||form.data.data.new_dialog_action.funnel_id===null){
-                                form.data.data.new_dialog_action=null;
-                             isValid=false;
-                           }
-                          if(form.data.data.funnel_actions.length!=0){
-                            errors.value.new_dialog_action.funnel_id = 'not_null';
-                            errors.value.new_dialog_action.column_uid = 'not_null'; 
-                            valid=true; 
-                            
-                          }
-                           else{
-                           form.data.data.funnel_actions=null    
-                          if(!isValid){
-                            valid=false; 
-                          }
-                            else{
-                                 valid=true;  
+                        if(form.data.data.funnel_actions.length!=0){
+                            if(form.data.data.new_dialog_action!=null){
+                            if(form.data.data.new_dialog_action.column_uid===null&&form.data.data.new_dialog_action.funnel_id===null){
+                                    form.data.data.new_dialog_action=null;
+                                        valid=true; 
+                            }
+                            else if ((form.data.data.new_dialog_action.column_uid!=null&&form.data.data.new_dialog_action.funnel_id===null)||(form.data.data.new_dialog_action.column_uid===null&&form.data.data.new_dialog_action.funnel_id!=null)){
+                                    form.data.data.new_dialog_action=null;
+                                    errors.value.new_dialog_action.funnel_id = null;
+                                    errors.value.new_dialog_action.column_uid = null;
+                                    valid=false; 
                             }
                            }
+                            else{
+                                   valid=true;
+                            }
                            
+                        }
+                            else{
+                                if(form.data.data.new_dialog_action!=null){
+                                    if(form.data.data.new_dialog_action.column_uid===null&&form.data.data.new_dialog_action.funnel_id===null){
+                                    form.data.data.new_dialog_action=null;
+                                        valid=true; 
+                            }
+                            else if((form.data.data.new_dialog_action.column_uid!=null&&form.data.data.new_dialog_action.funnel_id===null)||(form.data.data.new_dialog_action.column_uid===null&&form.data.data.new_dialog_action.funnel_id!=null)){
+                                    form.data.data.new_dialog_action=null;
+                                    errors.value.new_dialog_action.funnel_id = null;
+                                    errors.value.new_dialog_action.column_uid = null;
+                                    valid=false; 
+                            }
+                                }  
+                                else{
+                                      form.data.data.new_dialog_action=null;
+                                     errors.value.new_dialog_action.funnel_id = null;
+                                    errors.value.new_dialog_action.column_uid = null;
+                                     valid=false;   
+                                }
+                            } 
+                            
+                        //    else{
+                        //       if(form.data.data.funnel_actions.length!=0){console.log('11111')
+                        //     errors.value.new_dialog_action.funnel_id = 'not_null';
+                        //     errors.value.new_dialog_action.column_uid = 'not_null'; 
+                        //     valid=true; 
+                      
+                            
+                        //   }
+                        //   else if(form.data.data.funnel_actions.column_uid===null||form.data.data.funnel_actions.funnel_id===null){console.log('5555')
+                        //        form.data.data.funnel_actions=null
+                        //        if( form.data.data.funnel_actions=null&&form.data.data.new_dialog_action==null){
+                        //                errors.value.new_dialog_action.funnel_id = null;
+                        //         errors.value.new_dialog_action.column_uid = null;
+                        //         valid=false; 
+                        //        }
+                        //   }
+                        //    else{console.log('999')
+                        //     form.data.data.funnel_actions=null     
+                        // valid=false;
+                        // //   if(form.data.data.new_dialog_action==null){
+                        // //         errors.value.new_dialog_action.funnel_id = null;
+                        // //         errors.value.new_dialog_action.column_uid = null;
+                        // //         valid=false; 
+                        // //   }
+                             
+                         
+                        //    }   
+                        //    }  
                     }
-                errors.value.new_dialog_action = form.data.data.new_dialog_action;
+                   
+                   
+          
+
+                // errors.value.new_dialog_action = form.data.data.new_dialog_action;
+
+
+
                 // for(let i = 0; i <form.data.data.funnel_actions.length; i++){
                 //         if(form.data.data.funnel_actions[i].folder_id)
                 // }
@@ -673,9 +906,8 @@
             }
             const condition = ref();
             const save = () => {
-                 console.log('not-yet-valid')
+                 loading.value = true;
                   if (validation()) { 
-                      console.log('valid')
                 //     if (form.data.name === 'bitrix') {
                 //         updateBitrix(form.data.data)
                 //             .then(r => {
@@ -691,8 +923,8 @@
               validAutomessage();
                         updateAmocrm(form.data.data)
                             .then(r => {
+                                  loading.value = false;
                                 if (r.error) {
-                                
                                     return;
                                 }
                                 automessageArray.value = [];
@@ -700,9 +932,11 @@
                                 emit('close');
                                  emit('updateDateSave');
                             })
-                        //  location.reload();
-                //      }
                 }
+                else{
+                     loading.value = false; 
+                }
+           
             }
             const test = (itemForm) => {
                 if (validation()) { 
@@ -717,14 +951,15 @@
                           }
             }
             const del = (index) => {
-             automessageArray.value = automessageArray.value.filter((i, lIndex) => lIndex !== index);
-                 form.data.data.funnel_actions = form.data.data.funnel_actions.filter((i, lIndex) => lIndex !== index);
-               
+                automessageArray.value = automessageArray.value.filter((i, lIndex) => lIndex !== index);
+                form.data.data.funnel_actions = form.data.data.funnel_actions.filter((i, lIndex) => lIndex !== index);
+                folderChoose.value =  folderChoose.value.filter((i, lIndex) => lIndex !== index)
             }
           
             onMounted(() => {
+              
+               
                 init();
-       
                 form.data = props.formData;
                 if (!form.data.data.new_dialog_action) {
                     form.data.data.new_dialog_action = {
@@ -769,32 +1004,100 @@
                     openModalFolder.value.push(false)
                 } 
                 }
-                
+
+               
+
             })
+            const closeFolder = () => {
+                if(openFolder.value.length!=0){
+                    for(let i =0; i< openFolder.value.length;i++){
+                        openFolder.value[i] = false;
+                    }   
+                }  
+            }
             const openModal = (index,item) => {
-                    openModalFolder.value[index] = item;
+                openedDropdown.toggleOpened(null, null)
+                for(let i =0; i< openFolder.value.length;i++){
+                     openFolder.value[i] = false;
+                }
+                    openFolder.value[index] = item;
             }
          onUpdated(() => {
-                if(editDate.value!=null){
-                    const id = editDate.value
-
-                 channelChoise(id, 'whatsapp')
-                editDate.value=null
+              if(isActiveScroll.value){
+               sizeGoToBottom()     
+                    isActiveScroll.value=false
                 }
                 
+                if(addFunnel.value&&phone.value!=''){
+                    if(form.data.data.funnel_actions==null){
+                      form.addAction()
+                      addFunnel.value = false
+                    } 
+                }
+               
+            })
+            
+            const isActiveScroll = ref(false);
+         const sizeGoToBottom = () => {
+              content.value.scrollTop =  content.value.scrollHeight + 300;
+             
+         } 
+         const getFunnelItem=ref(true);
+            watch(()=>{
+               
+                 
+     
+              if(createpdateFolder.value){
+                 getAllFolders()
+                    .then ( (r) => {
+                        allFolders.value = r
+                      
+                    })
+                    createpdateFolder.value=false
+            }  
+             if(phone.value!=''&&getFunnelItem.value){
+                    if(form.data.data.funnel_actions==null){
+                      form.addAction()
+                      addFunnel.value = false
+                    } 
+                }
+                 if(editDate.value!=null){
+                    loading.value=true;
+                    console.log( props.formData.data)
+                    if( props.formData.data.hasOwnProperty('funnel_actions') ){
+                        
+                    const id = editDate.value[0]
+                    if(editDate.value[1]=='whatsapp'){
+                        channelChoise(id, 'whatsapp')
+                    }
+                    if(editDate.value[1]=='instagram'){
+                         channelChoise(id, 'instagram')
+                    }
+                    editDate.value=null 
+                    loadInfo.value=false
+                    }
+                    
+                }
             })
             const folderAmo = ref(null);
             const folderSave = (index, modal, item) =>{
-                console.log(index, modal, item)
+           
             openModal(index,modal);
             folderAmo.value = item;
             form.data.data.funnel_actions[index].folder_id=item
          }
          const giveFolderItem = (index) => {
-             console.log(index)
+         
          }
+         const getFolder = (index, item) => {
+            folderChoose.value[index]=[item.folder_id,item.name]
+         }
+         
+          
             return {
                 container,
+                sizeGoToBottom,
+                isActiveScroll,
                 content,
                 scrollbar,
                 folderAmo,
@@ -832,7 +1135,21 @@
                 instagrams,
                 openModalFolder,
                 openModal,
-                folderSave
+                folderSave,
+                openTestModal,
+                folders,
+                allFolders,
+                openFolder,
+                folderChoose,
+                getFolder,
+                createNewFolder,
+                createpdateFolder,
+                closeFolder,
+                addFunnel,
+                loading,
+                clearError,
+                getFunnelItem,
+                loadInfo
         
             }
         }

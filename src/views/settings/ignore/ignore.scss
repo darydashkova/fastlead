@@ -1,0 +1,187 @@
+.settings-ignore{
+    background-color: #141427 !important;
+    &__header{
+        padding: 27px 32px;
+        background-color:  #1D1D35;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &-nav{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+          &-title{
+            text-align: left;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 24px;
+            
+            color: #D6D7E3;
+            padding-left: 37px;
+        }  
+        }
+        
+    }
+    &__add{
+        display: flex;
+        justify-content: space-between;
+        padding: 40px 32px 22px;
+        &-search{
+            background-color: #1D1D35;
+            display: flex;
+            align-items: center;
+            padding:0px 10px ;
+            width: 357px;
+            border-radius: 4px;
+            border: 1px solid #252544;
+            &-input{
+                background-color: transparent;
+                padding-left: 8px;
+                border-left: 1px solid #252544;
+                width: 100%;
+                color: #CFCFE4;
+                height: 100%;
+                &::placeholder{
+                    color: #40406B
+                }
+            }
+            &-img{
+                margin-right: 8px;
+                width: 16px;
+                height: 16px;
+            }
+        
+        }
+        &-button{
+            display: flex;
+            justify-content: flex-start;
+            padding: 9px 30px 9px 16px;
+            align-items: center;
+            &-title{
+                padding-left: 10px;
+                font-size: 12px;
+                line-height: 130%;
+                text-align: center;
+                color: #1D1D35;
+            }
+        }
+    }
+    &__data{
+        padding:22px 32px ;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        &-table{
+            width: 100%;
+            border-spacing: 0px;
+            border-collapse: separate;
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
+            overflow: hidden;
+            &-th{
+                font-size: 10px;
+                line-height: 130%;
+                /* identical to box height, or 13px */
+                padding: 12px 0px;
+                text-transform: uppercase;
+                text-align: left;
+                font-weight: normal;
+                /* 005 */
+                color: #9797BB;
+                
+            }  
+            &-tr-title{
+                background: #252544;  
+                border-radius: 8px;
+                
+            } 
+            &-text-left{
+                text-align: left;
+                padding-left: 20px;
+            }
+            &-text-center{
+                text-align: center;
+            }
+            &-text-right{
+                text-align: right;
+                padding-right: 20px;
+            }
+            &-scroll{
+                height: 420px;
+                overflow-y: scroll;
+                &::-webkit-scrollbar {
+                    display: none;
+                  }
+                &-row{
+                    overflow: hidden;
+                    width: 100%;
+                    border-spacing: 0px;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                    border-collapse: collapse;
+                }
+            }
+            &_padding{
+                padding: 0;
+            }
+        }
+        &-table_border-bottom{
+            border-radius: 8px;
+           
+        }
+        
+    }
+    &-w20{
+        width: 30%;
+    }
+    &-w60{
+        width: 40%;
+    }
+    &_max{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+        .settings-ignore__add, .settings-ignore__data{
+            max-width: 1400px;
+            width: 100%;
+        }
+    }
+    &-row{
+        &-td{
+            padding-top: 22px;
+            padding-bottom: 22px;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 130%;
+            color: #CFCFE4;
+            background-color: #1D1D35;
+        }
+       
+        &__buttons{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            &-edit{
+                margin-right: 13px;
+            }
+        }
+    }
+    &__empty{
+        height:450px ;
+        background-color: #1D1D35;
+        position: relative;
+        &-text{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            width:100%;
+            font-size: 16px;
+            line-height: 140%;
+            color: #9797BB;
+
+        }
+    }
+}

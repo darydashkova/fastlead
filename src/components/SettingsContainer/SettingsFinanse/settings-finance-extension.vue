@@ -143,7 +143,6 @@
             openUpdate()
             initialValues.value.sale_id = 1
         })
-
         const modalPay = ref({
             show: false
         })

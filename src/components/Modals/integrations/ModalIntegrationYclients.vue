@@ -56,7 +56,6 @@
             const save = () => {
                 checkValidate();
             emit('connectYclient', login, pass)  
-            console.log(login.value, pass.value)
 
             }
             const login = ref();
