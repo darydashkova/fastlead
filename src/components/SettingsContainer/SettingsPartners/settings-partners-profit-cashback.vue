@@ -17,14 +17,14 @@
             </div>
             <div class="settings-partners-profit-cashback__block_main">
                 <p class="settings-partners-profit-cashback__block_main-title">Сумма</p>
-                <input type="number" placeholder="Ввести" class="settings-partners-profit-cashback__block_main-input">
+                <input v-model="sumPayment" type="number" placeholder="Ввести (Минимум 3 000 ₽)" class="settings-partners-profit-cashback__block_main-input">
             </div>
-            <div class="settings-partners-profit-cashback__block_main">
+            <div class="settings-partners-profit-cashback__block_main main-card">
                 <p class="settings-partners-profit-cashback__block_main-title">Номер карты</p>
-                <input v-maska="'####—####—####—####'" type="text" maxlength="19" placeholder="Ввести" class="settings-partners-profit-cashback__block_main-input">
+                <input v-model="cardNumber" v-maska="'#### #### #### ####'" type="text" maxlength="19" placeholder="Ввести" class="settings-partners-profit-cashback__block_main-input">
             </div>
             <div class="settings-partners-profit-cashback__block_buttons">
-                <button type="button" class="settings-partners-profit-cashback__block_buttons-access">Готово</button>
+                <button type="button" class="settings-partners-profit-cashback__block_buttons-access" @click="createNewPayment()">Готово</button>
                 <button type="button" class="settings-partners-profit-cashback__block_buttons-cansel" @click="closeModalCashback">Отмена</button>
             </div>
         </div>
@@ -33,8 +33,10 @@
 
 <script>
 import { ref, onUpdated } from 'vue'
+import { usePartners } from "@/composition/usePartners";
 export default {
     setup(props, {emit}){
+        const {getPayment, createPayment, payments} = usePartners()
 
         const closeModalCashback = () => {
             emit('closeModalCashback');
@@ -57,13 +59,24 @@ export default {
             option.value[element.id].active=true;
         }
 
-        
+        const sumPayment = ref("")
+        const cardNumber = ref("")
+
+        const createNewPayment = () => {
+            createPayment({card_number: cardNumber.value,
+                            sum: Number(sumPayment.value)})
+            getPayment()
+        }
 
         return {
            closeModalCashback,
            buttonNames,
            option,
            searchOption,
+           createNewPayment,
+           sumPayment,
+           cardNumber,
+           payments,
         }
     }
 }

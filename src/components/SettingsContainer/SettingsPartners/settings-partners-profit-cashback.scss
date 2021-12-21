@@ -6,15 +6,15 @@
     top: 0;
     left: 0;
     &__block{
-        padding: 0px 24px 24px 24px;
         width: 520px;
-        height: 450px;
+        height: 430px;
         background: #252544;
         text-align: left;
         border-radius: 6px;
         margin: 20% auto;
         &_header{
-            padding: 24px 24px 24px 24px;
+            padding: 22px 24px 22px;
+            border-bottom: 1px solid #1D1D35;
             height: 80px;
             width: 100%;
             display: flex;
@@ -31,7 +31,7 @@
         }
         &_option{
             width: 100%;
-            padding-top: 15px;
+            padding: 18px 24px 0px;
             &-button{
                 width: 50%;
                 padding: 13px 19px 13px 19px;
@@ -40,6 +40,8 @@
                 border: 1px solid #1d1d3500;
                 color: #9797BB;
                 cursor: pointer;
+                font-size: 16px;
+                font-weight: 400;
                 &:hover{
                     background: #40406B;
                     transition: all 0.3s;
@@ -47,11 +49,12 @@
             }
         }
         &_main{
-            padding-top: 24px;
+            padding: 0px 24px;
+            margin-top: 25px;
             &-title{
-                margin: 0px;
                 font-size: 14px;
                 color: #CFCFE4;
+                margin: 0;
             }
             &-input{
                 margin-top: 8px;
@@ -59,8 +62,6 @@
                 color: #CFCFE4;
                 width: 100%;
                 border-radius: 6px;
-                letter-spacing: 2px;
-
                 background: #1D1D35;
                 &::placeholder{
                     color: #40406B;
@@ -68,13 +69,14 @@
             }
         }
         &_buttons{
-            padding-top: 47px;
+            padding: 22px 24px;
             &-access{
                 padding: 8px 32px 8px 32px;
                 background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
                 color: #252544;
                 border-radius: 6px;
-
+                font-size: 16px;
+                font-weight: 500;
                 cursor: pointer;
             }
             &-cansel{
@@ -82,11 +84,12 @@
                 margin-left: 20px;
 
                 background: none;
-                color: #84D160;
+                color: #5EC075;
     
-                border: 1px solid #84D160;
+                border: 1px solid #5EC075;
                 border-radius: 6px;
-
+                font-size: 16px;
+                font-weight: 500;
                 cursor: pointer;
             }
         }
@@ -108,4 +111,9 @@ input[type="number"] {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 	display: none;
+}
+
+.main-card{
+    border-bottom: 1px solid #1D1D35;
+    padding-bottom: 22px;
 }

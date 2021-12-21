@@ -22,12 +22,11 @@
             <p class="links-header__generation-links_title">Название реферальной ссылки:</p>
             <div class="links-header__generation-links-create">
                 <input v-model="newLink.url_name" placeholder="Ввести" class="links-header__generation-links-create_input">
-                <button type="button" class="links-header__generation-links-create_button" >Сгенирировать ссылку</button> <!--@click="createPartnersLink()"-->
+                <button type="button" class="links-header__generation-links-create_button" @click="createPartnersLink()">Сгенирировать ссылку</button> <!--@click="createPartnersLink()"-->
             </div>
         </div>
     </div>
     <div class="links__bottom">
-        
             <table class="links__bottom_table">
                 <tr class="links__bottom_table-row">
                     <td class="links__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>

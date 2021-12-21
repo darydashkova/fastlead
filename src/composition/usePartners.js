@@ -15,6 +15,8 @@ const partners = reactive({
     data: [],
 })
 
+const payments = ref({})
+
 export function usePartners() {
 
     const createPartners = async (data) => {
@@ -62,6 +64,18 @@ export function usePartners() {
         })
     }
 
+    const createPayment = async (data) => {
+        return await partnersActions.createPayment(data)
+    }
+
+    const getPayment = async () => {
+        return await partnersActions.getPayment()
+            .then(r => {
+                payments.value = {...r.operation};
+                return r.operation;
+            })
+    }
+
     return {
         createPartners,
         getPartners,
@@ -70,12 +84,15 @@ export function usePartners() {
         updatePartners,
         getInfoRefferals,
         getRegRefferals,
+        createPayment,
+        getPayment,
 
         returnPartners,
         routerActiveLink,
         partners,
         returnInfoPartner,
         returnRegPartners,
+        payments,
         partners: computed(() => partners.data),
         returnInfoPartner: computed(() => returnInfoPartner.profit),
     }
