@@ -160,6 +160,28 @@ export default {
           height: 200px;
         }
     }
+.settings-integrations-form__input_test{
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  width: 100%;
+  margin-left: 50px;
+  padding: 8px 10px;
+  color: var(--modal-font-color);
+  background: var(--modal-element-hover-bg-color);
+  border: .7px solid var(--modal-input-border-color);
+  box-sizing: border-box;
+  border-radius: 3px;
+  text-align: left;
+  min-width: 159px;
+  position: relative;
+  &::placeholder{
+    color: #40406B;
+  }
+}
+
     .settings-integrations-form__input_test{
         margin-left: 0px; 
          padding-bottom: 45px;
@@ -173,9 +195,6 @@ export default {
       height: 0;
       }
 }
-
-
-
 .elem
     .emoji-mart-static{
         position: inherit !important;

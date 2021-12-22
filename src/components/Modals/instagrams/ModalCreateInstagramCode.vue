@@ -1,24 +1,33 @@
 <template>
     <div class="modal-create-instagram" @mousedown.self="close">
-        <div class="modal-create-instagram__body">
-            <BaseModalHeader>
+        <div class="modal-create-instagram__bodys">
+        <div class="modal-create-instagram__headers">
+            <div class="modal-create-instagram__headers_title">
                Введите свой код безопасности
-            </BaseModalHeader>
+            </div>
+            <div class="modal-create-instagram__headers_close">
+               <img class="pointer" src="@/assets/close.svg" @click.self="close">
+            </div>
+        </div>
             <div class="modal-create-instagram__input-group modal-create-instagram__input-group_padding-20">
-                <BaseModalLabel for-id="modal-create-instagram__input" :class="{'base-modal-label_error': errors.login}">
-                    {{errors.login? 'Проверьте правильность ввода' : 'Введите 6-значный код из SMS'}}
-                </BaseModalLabel>
-                <input id="modal-create-instagram__input"
-                        type="number"
-                        class="modal-create-instagram__input"
-                        v-model="login"
-                        v-maska="'######'"
-                       >
+                <div for-id="modal-create-instagram__input" class="modal-create-instagram__input-group_title" :class="{'base-modal-label_error': errors.login}">
+                    {{errors.login? 'Проверьте правильность ввода' : '6-значный код из SMS'}}
+                </div>
+                <!--<input id="modal-create-instagram__input"
+                       type="number"
+                       class="modal-create-instagram__input"
+                       v-model="login"
+                     maxlength = "6"
+                     @input="maxLength(login)"
+                       >-->
+                    <div class="modal-create-instagram__code">
+                        <input type="number" v-maska="'#'" v-for="(inputCode, index) in inputCodes" :key="index" class="modal-create-instagram__code_input" v-model="inputCode.value">
+                    </div>
             </div>
           
             <div class="modal-create-instagram__buttons">
                 <BaseButton
-                        class="base-button_enter"
+                        class="base-button_enter modal-create-instagram__buttons_access"
                         @click="save"
                 >
                     Отправить
@@ -48,7 +57,7 @@
     import BaseModalHeader from '../../Base/BaseModalHeader.vue'
     import ModalCreateInstagramSuccess from './ModalCreateInstagramSuccess.vue'
 
-    import { onMounted, ref, reactive, computed } from "vue";
+    import { onMounted, ref, reactive, computed, onUpdated } from "vue";
     import {useInstagram} from "../../../composition/useInstagrams";
     import FullScreenLoader from "../../FullScreenLoader";
 
@@ -63,31 +72,47 @@
             const { createInstagram, updateInstagram, getInstagrams, twoFactorInstagram } = useInstagram()
             const max = ref();
             const maxLength = (evt) => {
-            if(evt.length<6){
+                if(evt.length<6){
 
-            }
-            else if(evt.length==6){
+                }
+                else if(evt.length==6){
                 max.value = evt;
-            }
-            else{
+                }
+                else{
                 login.value = max.value
+                }
             }
-        }
+
+            const inputCodes = ref([
+                {id: 1, value: ""},
+                {id: 2, value: ""},
+                {id: 3, value: ""},
+                {id: 4, value: ""},
+                {id: 5, value: ""},
+                {id: 6, value: ""},
+            ])
        
             const login = ref('');
+
+            const initialLogin = () => {
+                login.value= inputCodes.value[0].value + inputCodes.value[1].value + inputCodes.value[2].value + inputCodes.value[3].value + inputCodes.value[4].value + inputCodes.value[5].value
+            }
+
+            onUpdated(() => {
+              initialLogin()  
+            })
+
             const errors = reactive({
                 login: false,
                
             })
 
-        
             const success = ref(false);
 
             const close = () => {
                 emit('close', false)
             }
 
-           
             onMounted(() => {
                 if (props.selectedInstagram) {
                
@@ -102,6 +127,7 @@
 
             const save = () => {
                 errors.login = false;
+                console.log(login.value)
          
                 if (!login.value) {
                     errors.login = true;
@@ -114,6 +140,7 @@
                 const dataNew = 
                 twoFactorInstagram(data.value)
                 .then ((r) => {
+                    console.log(r)
                     loading.value = false;
                       if (r.error) {
                           emit("succesInstagram", false)
@@ -126,9 +153,8 @@
                   
                     login: login.value,
                 }
-            
-
             }
+
             return {
                 login,
                 max,
@@ -136,8 +162,10 @@
                 errors,
                 close,
                 maxLength,
-           loading,
+                loading,
                 success,
+                inputCodes,
+                initialLogin,
             }
         }
     }
@@ -160,49 +188,78 @@
             z-index: 1400;
         }
     }
-    .modal-create-instagram__body {
-        width: 364px;
-        background: var(--modal-bg-color);
+    .modal-create-instagram__bodys{
+         width: 520px;
+        height: 360px;
+        background: #252544;
         border-radius: 9px;
         padding: 20px 0;
         text-align: left;
+    }
+    .modal-create-instagram__headers{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid #1D1D35;
+        padding: 0px 24px 32px;
+        &_title{
+            font-size: 24px;
+            color: #F0F0FA;
+        }
+        &_close{
+            padding-top: 4px;
+        }
     }
     .modal-create-instagram__input-group {
         width: 100%;
         display: flex;
         flex-direction: column;
         margin: 31px 0 29px;
+        &_title{
+            color: #CFCFE4;
+            font-size: 14px;
+            font-weight: 400px;
+        }
         &.modal-create-instagram__input-group_padding-20 {
-            padding: 0 20px;
+            padding: 0 24px;  
         }
     }
-    .modal-create-instagram__input {
+    .modal-create-instagram__code {
         font-family: Segoe UI;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 21px;
-        margin-top: 6px;
-        width: 100%;
-        padding: 6px 10px;
-
-        color: var(--modal-font-color);
-        background: var(--modal-element-hover-bg-color);
-        border: 0.7px solid var(--modal-input-border-color);
-        box-sizing: border-box;
-        border-radius: 3px;
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-            /* display: none; <- Crashes Chrome on hover */
-            -webkit-appearance: none;
-            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        display: flex;
+        padding: 9px 0px;
+        &_input{
+            font-style: normal;
+            font-weight: normal;
+            font-size: 64px;
+            text-align: center;
+            margin-top: 6px;
+            padding: 6px 10px;
+            color: var(--modal-font-color);
+            background: var(--modal-element-hover-bg-color);
+            border-radius: 3px;
+            width: 73.67px;
+            height: 90px;
+            margin-right: 6px;
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                /* display: none; <- Crashes Chrome on hover */
+                -webkit-appearance: none;
+                margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+            }
         }
     }
     .modal-create-instagram__buttons {
-        padding: 0 20px;
+        padding: 18px 24px;
         width: 100%;
         display: flex;
-        justify-content: space-between;
-        margin-top: 44px;
+        margin-top: 30px;
+        justify-content: flex-start;
+        border-top: 1px solid #1D1D35;
+        &_access{
+            color: #252544;
+            padding-top: 10px;
+            margin-right: 22px;
+        }
     }
 </style>

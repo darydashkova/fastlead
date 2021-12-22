@@ -133,7 +133,7 @@
             justify-content: space-between;
             font-size: 18px;
             & h3:last-child{
-                color:#7ad54fe4;
+                color: #5EC075;
             }
         }
     }
@@ -148,8 +148,8 @@
             cursor: pointer;
             border-radius: 6px;
             background: none;
-            border: 1px solid #7ad54fe4;
-            color: #7ad54fe4;
+            border: 1px solid #5EC075;
+            color: #5EC075;
         }
         &-done{
             padding: 8px 32px 8px 32px;
@@ -163,8 +163,8 @@
 }
 
 .tariff-active{
-    border: 1px solid #84D160;
-    color: #84D160;
+    border: 1px solid #5EC075;
+    color: #5EC075;
     background: #40406B;
 }
 
@@ -182,10 +182,10 @@
             background: #40406B;
             transition: all 0.3s;
             & rect{
-                stroke: #84D160;
+                stroke: #5EC075;
             }
             & path{
-                fill: #84D160;
+                fill: #5EC075;
             }
         }
     }
@@ -201,10 +201,10 @@
         & svg:active{
             background: #40406B;
             & rect{
-                stroke: #84D160;
+                stroke: #5EC075;
             }
             & path{
-                fill: #84D160;
+                fill: #5EC075;
             }
         }
     }

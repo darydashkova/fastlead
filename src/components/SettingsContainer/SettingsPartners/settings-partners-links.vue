@@ -54,8 +54,6 @@ export default {
                 copy.value = tableCells.value.link + url
         }
 
-        
-
         const copyLink = (url) => {
             link(url)
             try {
@@ -64,7 +62,6 @@ export default {
                 throw e
             }
         }
-
 
         return{
             tableCells,

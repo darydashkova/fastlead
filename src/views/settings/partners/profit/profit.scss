@@ -7,15 +7,15 @@
         display: flex;
         margin-left: 32px;
         padding: 40px 14px 32px 0px;
-        border-bottom: 2px solid #40406B;
+        border-bottom: 2px solid #252544;
         &_item{
             height: 108px;
             width: 204px;
-            background: #252544;
+            background: #1D1D35;
             border-radius: 6px;
-            border: 1px solid #363663;
+            border: 1px solid #252544;
             text-align: left;
-            padding: 14px 14px 14px 14px;
+            padding: 14px 10px 14px 10px;
             display: flex;
             flex-direction: column;
             margin-right: 14px;
@@ -30,6 +30,7 @@
                 margin: 0px;
                 padding: 6px 0px 10px;
                 border-bottom: 2px solid #40406B;
+                font-weight: 600;
             }
             &-percent{
                 font-size: 12px;
@@ -40,7 +41,8 @@
                 font-size: 18px;
                 color: #F0F0FA;
                 margin: 0px;
-                padding-top: 42px;
+                padding-top: 52px;
+                position: absolute;
             }
         }
         &_withdrawal{
@@ -64,8 +66,8 @@
                 }
             }
             &-button{
-                margin-top: 15px;
-                padding: 10px 33px 10px 33px;
+                margin-top: 55px;
+                padding: 10px 20px 10px 20px;
                 border-radius: 6px;
                 background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
                 width: 116px;
@@ -85,6 +87,8 @@
         padding: 32px 0px 32px 32px;
         font-size: 18px;
         color: #CFCFE4;
+        font-weight: 400;
+        margin: 0;
     }
     &_table{
         margin-left: 33px;
@@ -93,24 +97,39 @@
         padding: 32px 0px 0px 32px;
         border-collapse: collapse;
         &-row{
-            background: #34345e;
+            background: #252544;
             border-radius: 6px 6px 0px 0px;
             display: flex;
-            justify-content: space-between;
+            
+            padding: 12px 20px;
         }
         &-cell{
             font-size: 10px;
             color: #9797BB;
-            padding: 12px 20px 12px 20px;
-            :first-child{
-                border-radius: 6px 0px 0px 0px;
+            width: 20%;
+            &:nth-child(1){
+                width: 20%;
+            }
+            &:nth-child(2){
+                width: 20%;
+            }
+            &:nth-child(4){
+                width: 25%;
+            }
+            &:last-child{
+                text-align: right;
+                margin-left: auto;
+                width: 130px;
             }
         }
     }
 }
-.row-data-none{
+.data-none{
     color: #9797BB;
     display: flex;
     justify-content: center;
-    padding: 100px;
+    align-items: center;
+    height: auto;
+    min-height: 370px;
+    background: #1D1D35;
 }

@@ -55,4 +55,11 @@ export default {
         }
         return api.fetch('POST', 'extention/user-tariff', body, true)
     },
+    deleteFinance: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'delete/user-tariff', body, true)
+    },
 }

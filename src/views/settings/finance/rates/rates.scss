@@ -1,9 +1,15 @@
 .settings-finance__rates{
     padding: 20px 32px 0px 32px;
+    &_title{
+        text-align: left;
+        color: #CFCFE4;
+        font-size: 18px;
+        margin-top: 28px;
+    }
 }
 .tariff_active{
-    border: 1px solid #60d17c;
-    color: #60d17c;
+    border: 1px solid #5EC075;
+    color: #5EC075;
 }
 .settings-finance__payment{
     margin-top: 25px;
@@ -37,24 +43,24 @@
             padding-top: 6px;
         }
         &:hover{
-            border: 1px solid #60d17c;
+            border: 1px solid #5EC075;
             cursor: pointer;
             transition: all 0.3s;
         }
     }
 }
 .tariff_active-payment{
-    border: 1px solid #60d17c;
-    color: #60d17c;
-    background: #40406B;
+    border: 1px solid #5EC075;
+    color: #5EC075;
+    background: #252544;
 }
 .settings-finance__calculator{
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     margin-top: 18px;
     width: 100%;
     border-collapse: collapse;
+    height: 300px;
     &_titles{
         height: 37px;
         background-color: #252544;
@@ -85,7 +91,7 @@
     }
     &_values{
         height: 60px;
-        background-color: #1b1b32;
+        background-color: #1D1D35;
         border-bottom: 1px solid #252544;
         display: flex;
         align-items: center;
@@ -165,11 +171,10 @@
 }
 /* .settings-finance__calculator_values */
 .settings-finance__total{
-    margin-top: 25px;
+    margin-top: 50px;
     text-align: left;
     display: flex;
     justify-content: space-between;
-    margin-top: calc(100vh - 70vh);
     & h2{
         color: #CFCFE4;
         font-size: 18px;
@@ -213,7 +218,7 @@
     justify-content: flex-end;
     padding-right: 10px;
     &-button{
-        padding: 8px 32px 8px 32px;
+        padding: 8px 26px;
         font-size: 16px;
         background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
         border-radius: 6px;
@@ -238,10 +243,10 @@
             background: #40406B;
             transition: all 0.3s;
             & rect{
-                stroke: #84D160;
+                stroke: #5EC075;
             }
             & path{
-                fill: #84D160;
+                fill: #5EC075;
             }
         }
     }
@@ -257,10 +262,10 @@
         & svg:active{
             background: #40406B;
             & rect{
-                stroke: #84D160;
+                stroke: #5EC075;
             }
             & path{
-                fill: #84D160;
+                fill: #5EC075;
             }
         }
     }
@@ -320,14 +325,14 @@
 }
   
 input:checked + .slider {
-    border: 1px solid #84D160;
+    border: 1px solid #5EC075;
 }
 
 input:checked + .slider:before {
     -webkit-transform: translateX(13px);
     -ms-transform: translateX(13px);
     transform: translateX(13px);
-    background: #84D160;
+    background: #5EC075;
 }
   
 .slider.round {

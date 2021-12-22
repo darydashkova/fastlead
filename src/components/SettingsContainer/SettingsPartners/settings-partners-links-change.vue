@@ -43,8 +43,6 @@ export default {
             returnPartners.value.affiliate[0].url_name = initialUpdate.value.url_name
         }
 
-        
-
         onUpdated(() => {
             updateParametrs()
         })
@@ -57,7 +55,6 @@ export default {
                     return;
                 }
             })
-
             emit('closeModalChange'); 
         }
 

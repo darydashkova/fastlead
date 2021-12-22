@@ -4,13 +4,16 @@
             <div>
                 Финансы
             </div>
-            <div class="settings-finance__navigation">
-                <router-link class="navigation-link" to="/settings/finance/rates">
-                <p :id = "arr[0].id" @click="toggle(arr[0])" :class="{'navigation-link_active' :  routerTrue.link == arr[0].link}">Тарифы</p>
-                </router-link>
-                <router-link class="navigation-link" to="/settings/finance/history">
-                <p :id = "arr[1].id" @click="toggle(arr[1])" :class="{'navigation-link_active' :  routerTrue.link == arr[1].link}">История платежей</p>
-                </router-link>
+            <div class="settings-finance__block">
+                <div class="settings-finance__navigation">
+                    <router-link class="navigation-link" to="/settings/finance/rates">
+                    <p :id = "arr[0].id" @click="toggle(arr[0])" :class="{'navigation-link_active' :  routerTrue.link == arr[0].link}">Тарифы</p>
+                    </router-link>
+                    <router-link class="navigation-link" to="/settings/finance/history">
+                    <p :id = "arr[1].id" @click="toggle(arr[1])" :class="{'navigation-link_active' :  routerTrue.link == arr[1].link}">История платежей</p>
+                    </router-link>
+                </div>
+                <div class="finance-question pointer" style="display: none;">?</div>
             </div>        
         </div>
         <div class="settings-finance__table">
