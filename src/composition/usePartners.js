@@ -62,6 +62,10 @@ export function usePartners() {
         })
     }
 
+    const acceptPartnersRules = async (data) => {
+        return await partnersActions.acceptPartnersRules(data);
+    }
+
     return {
         createPartners,
         getPartners,
@@ -70,6 +74,7 @@ export function usePartners() {
         updatePartners,
         getInfoRefferals,
         getRegRefferals,
+        acceptPartnersRules,
 
         returnPartners,
         routerActiveLink,

@@ -114,4 +114,18 @@
     display: flex;
     justify-content: center;
     padding: 100px;
+    text-align: center;
+    flex-direction: column;
+    &__button{
+        margin: 27px auto;
+        padding: 8px 24px;
+        background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+        color: #1D1D35;
+        font-size: 12px;
+        border-radius: 5px;
+        width: 230px;
+    }
+    & a{
+        color: #9797BB;
+    }
 }

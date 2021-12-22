@@ -35,4 +35,12 @@ export default {
     getInfoRefferals: () => {
         return api.fetch('GET', `get/patrner/affiliate`, null, true)
     },
+
+    acceptPartnersRules: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'user/grant/rights', body, true)
+    }
 }

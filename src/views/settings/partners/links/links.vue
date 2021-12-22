@@ -20,27 +20,35 @@
         </div>
         <div class="links-header__generation-links">
             <p class="links-header__generation-links_title">Название реферальной ссылки:</p>
-            <div class="links-header__generation-links-create">
+            <div class="links-header__generation-links-create" v-if="!user.rules.partners_rules || user.rules.partners_rules == null">
                 <input v-model="newLink.url_name" placeholder="Ввести" class="links-header__generation-links-create_input">
-                <button type="button" class="links-header__generation-links-create_button" >Сгенирировать ссылку</button> <!--@click="createPartnersLink()"-->
+                <button type="button" class="links-header__generation-links-create_button" @click="openPartnersRules()">Сгенирировать ссылку</button>
+            </div>
+            <div v-else class="links-header__generation-links-create" >
+                <input v-model="newLink.url_name" placeholder="Ввести" class="links-header__generation-links-create_input">
+                <button type="button" class="links-header__generation-links-create_button" @click="createPartnersLink()">Сгенирировать ссылку</button>
             </div>
         </div>
     </div>
     <div class="links__bottom">
-        
-            <table class="links__bottom_table">
-                <tr class="links__bottom_table-row">
-                    <td class="links__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
-                </tr>
-                <tr class="settings-partners-links__table_row row-data-none" v-if="!partners[0]">Отсутсвуют данные</tr>
-                <PartnersLinks @openModalChange="openModalChange()" @deleteLink="deleteLink" 
-                v-for="(partner, index) in partners" :key="index" :partner="partner"></PartnersLinks>
-            </table>
+        <table class="links__bottom_table">
+            <tr class="links__bottom_table-row">
+                <td class="links__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
+            </tr>
+            <tr class="settings-partners-links__table_row row-data-none" v-if="!partners[0] && user.rules.partners_rules">Отсутсвуют данные</tr>
+            <tr class="settings-partners-links__table_row row-data-none" v-else-if="!user.rules.partners_rules || user.rules.partners_rules == null">Для того чтобы стать нашим партнером,<br><a href="/rules-partner-program.pdf" download>примите правила пользования<br>партнерской программой</a>
+                <div class="row-data-none__button pointer" @click="openPartnersRules()">Принять правила пользования</div>
+            </tr>
+            <PartnersLinks @openModalChange="openModalChange()" @deleteLink="deleteLink" 
+            v-for="(partner, index) in partners" :key="index" :partner="partner"></PartnersLinks>
+        </table>
 
     </div>
     <PartnersLinksChange v-if="modalChangeLinks" @closeModalChange="closeModalChange()"
     @sellUpdateLink="sellUpdateLink"
     ></PartnersLinksChange>
+
+    <PartnersRules v-if="togglePartnersRules" @closePartnersRules="closePartnersRules"></PartnersRules>
 </template>
 
 <script>
@@ -49,13 +57,19 @@ import PartnersLinks from '@/components/SettingsContainer/SettingsPartners/setti
 import PartnersLinksChange from '@/components/SettingsContainer/SettingsPartners/settings-partners-links-change.vue'
 import { usePartners } from "@/composition/usePartners";
 
+import { useUser} from "@/composition/useUser"
+
+import PartnersRules from '@/components/SettingsContainer/SettingsPartners/settings-partners-rules.vue'
+
 export default {
      components: {
         PartnersLinks,
         PartnersLinksChange,
+        PartnersRules,
     },
     setup(props, {emit}) {
         const {partners, returnPartners, routerActiveLink, createPartners, deletePartners, getPartners, updatePartners} = usePartners()
+        const {user} = useUser()
 
         routerActiveLink.value.link = "/settings/partners/links"
 
@@ -66,12 +80,18 @@ export default {
             {name: "ДЕЙСТВИЕ"},
         ])
 
-        const modalChangeLinks = ref(false)
+        const togglePartnersRules = ref(false)
+        const closePartnersRules = () => {
+            togglePartnersRules.value = false
+        }
+        const openPartnersRules = () => {
+            togglePartnersRules.value = true
+        }
 
+        const modalChangeLinks = ref(false)
         const openModalChange = () => {
             modalChangeLinks.value = true
         }
-
         const closeModalChange = () => {
             modalChangeLinks.value = false
         }
@@ -136,12 +156,16 @@ export default {
             newLink,
             createPartnersLink,
 
-            
-
             partners,
             returnPartners,
 
             routerActiveLink,
+
+            togglePartnersRules,
+            closePartnersRules,
+            openPartnersRules,
+
+            user,
         }
     }
 }
