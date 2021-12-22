@@ -68,7 +68,7 @@ export default {
   margin-left:20px ;
   margin-top: 20px;
   width: 272px;
-  background-color: var(--settings-whatsapp-color);
+  background-color: var(--messages-input-wrapper-bg);
   border-radius: 9px;
   padding: 22px;
   &__title {

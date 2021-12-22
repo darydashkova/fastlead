@@ -3,23 +3,24 @@
     <div class="settings-integrations-form__field">
         <div class="settings-integrations-form__date settings-integrations-form__record-time ">
             <div class="settings-integrations-form__date-column">
-                <div>Наименования</div>       
-                  <input class="settings-integrations-form__input_test " v-model="name"  placeholder="Ввести"  :class="{'yclient-pattern__error':error.name, 
-                'settings-integrations-form__select_active':focusName}" 
-                @focus="checkOpenModal(), focusName=true" @blur="focusName=false">          
-                    </div>
+                <div>Наименования</div>
+                    <input class="settings-integrations-form__input_test " v-model="name"  placeholder="Ввести"  :class="{'yclient-pattern__error':error.name, 
+                    'settings-integrations-form__select_active':focusName}" 
+                    @focus="checkOpenModal(), focusName=true" @blur="focusName=false">             
+                </div>
             <div class="settings-integrations-form__date-column">
                 <div>ID филиала</div>
-                   <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial" 
+                <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial" 
                      :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}" 
-                   @focus="checkOpenModal(), focusId=true" @blur="focusId=false"> 
-                      </div>
+                   @focus="checkOpenModal(), focusId=true" @blur="focusId=false">
+                     </div>
             <div class="settings-integrations-form__date-column">
                 <div>Аккаунт</div>
                 <div class="settings-integrations-form__container">
                     <button @click="openAcc" class="settings-integrations-form__input_test " :class="{'settings-integrations-form__select_active': statusAccSelect, 'yclient-pattern__error':error.textOption}"> 
                         <div class="settings-integrations-form__dropdown-inner" :class="{'settings-integrations-form__dropdown-inner_placeholder':(textOption=='Выбрать')}"> {{textOption}}
-                           <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusAccSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            
+                              <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusAccSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
                         </svg>
                         </div>
@@ -62,15 +63,16 @@
                 </div>
             </div>
         </div>
-         <!-- <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
+         <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
             <div class="settings-integrations-form__date-column">
                 <div>Дополнительные фильтры</div>
                 <div class="settings-integrations-form__container">
                     <button @click="openFilters" class="settings-integrations-form__input_test" :class="{'settings-integrations-form__select_active': statusFiltersSelect }"> 
                         <div class="settings-integrations-form__dropdown-inner settings-integrations-form__dropdown-inner_placeholder"> Показать
-                          <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusFiltersSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusFiltersSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
                         </svg>
+                            
                         </div>
                     </button> 
                     <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-filters" :class="{' settings-integrations-form__dropdown-list-filters_hidden':!statusFiltersSelect}">
@@ -124,11 +126,11 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
     <div class="settings-integrations-form__field ">
         <div class=" settings-integrations-form__create-message">
-            <SettingsIntegrationsMessage @dataFile='checkData' @propText="getText" :text='textMess' :nameFile='propFileData'  @click="checkOpenModal()"
+            <SettingsIntegrationsMessage @dataFile='checkData' @propText="getText" :text='textMess' :nameFile='propFileData' @click="checkOpenModal()"
              :class="{'settings-integrations-form__create-message_error':error.message}"
             ></SettingsIntegrationsMessage>
             <SettingsIntegrationsVariables></SettingsIntegrationsVariables>
@@ -162,7 +164,7 @@ export default {
   components: { SettingsIntegrationsMessage, SettingsIntegrationsVariables, TestCheck, BaseSwitcherNew, BaseCheckbox },
   props: {
       Propdata:Object,
-      isCloseAll:Boolean
+      isCloseAll:Boolean,
       },
     setup(props) {
          const router = useRouter();
@@ -184,9 +186,9 @@ export default {
         const textMess = ref('')
         const fileData = ref([])
         const propFileData = ref('');
-        const focusName = ref(false);
-        const focusId = ref(false);
         const propsCheck = ref(true);
+         const focusName = ref(false);
+        const focusId = ref(false);
          const check = ref([
              ['Не учитывать смену даты и времени', false],
              ['Учитывать смену мастера', false],
@@ -375,6 +377,7 @@ export default {
                     statusSelect.value=false;
                     statusFiltersSelect.value=false;
                     item.value = true;
+                    
                 }
                 else{
                     statusAccSelect.value=false;
@@ -382,7 +385,6 @@ export default {
                     statusFiltersSelect.value=false;
                     
                 }
-                
             }
             textOption.value = 'Выбрать';
         const post = () => {
@@ -411,7 +413,7 @@ export default {
         }
         const checkUpdate = ref(true);
         watch(()=>{
-             if(props.isCloseAll){
+            if(props.isCloseAll){
                 checkOpenModal()
             }
             if(props.Propdata.parameters){
@@ -622,6 +624,7 @@ export default {
       &-time{
         display: flex;
         padding: 18px;
+      
     }  
     &-filters{
     display: flex;

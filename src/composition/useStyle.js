@@ -37,6 +37,8 @@ export function useStyle() {
             'messenger-search-input-bg-active': '#1D1D35', 
             'user-icon-name' : '#575773',
             'messages-input-wrapper-bg': '#252544',
+            'border-integration-card':'#40406B',
+            
 
             'font-color': ' #CFCFE4', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#575773',

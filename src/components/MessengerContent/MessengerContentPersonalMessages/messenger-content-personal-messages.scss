@@ -82,6 +82,9 @@
   padding: 0;
   margin: 0;
   text-align: left;
+  &-time{
+    background:var(--messages-input-wrapper-bg);
+  }
 }
 .messenger-content-personal-messages__info-element {
   list-style-type: none;

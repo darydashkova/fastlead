@@ -13,18 +13,18 @@
                 <template v-if="cooseDate.type">
                     <button class="settings-integrations-form__input settings-integrations-form__select settings-integrations-form__task" :class="{'settings-integrations-form__select_active': statusSelect }"> 
                     <div class="settings-integrations-form__dropdown-inner" @click="openSelect"  > {{cooseDate.type}}
-                        <svg class="settings-integrations-form__dropdown-inner-arrow" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB">
-                            </path>
+                        <svg    :class="{'settings-integrations-form__dropdown-inner-svg_green': statusSelect }" width="8" class='settings-integrations-form__dropdown-inner-arrow settings-integrations-form__dropdown-inner-svg' height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
                         </svg>
                     </div>
                 </button></template>
                 <template v-else> <button class="settings-integrations-form__input settings-integrations-form__select" :class="{'settings-integrations-form__select_active': statusSelect }"> 
                     <div class="settings-integrations-form__dropdown-inner" @click="openSelect"  > {{textOption}}
-                        <svg class="settings-integrations-form__dropdown-inner-arrow" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB">
-                            </path>
+                   
+                        <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
                         </svg>
+
                         </div>
                         <div class="settings-integrations-form__dropdown-list" v-if="statusSelect">
                             <div  class="settings-integrations-form__dropdown-item" v-for=" (item, index) in values.title" :key="index" @click="chooseOption">
@@ -35,20 +35,30 @@
                 </div>
             </div>
             <div v-if="textOption==='Поздравление с днём рождения'">
-                    <BirthdayPattern :Propdata = 'cooseDate'></BirthdayPattern>
+                    <BirthdayPattern :Propdata = 'cooseDate' :isCloseAll="statusSelect"></BirthdayPattern>
             </div>
             <div v-if="textOption==='Напоминание о записи в заданное время'">
-               <ReminderRecordingTime :Propdata = 'cooseDate'></ReminderRecordingTime>
+               <ReminderRecordingTime :Propdata = 'cooseDate' :isCloseAll="statusSelect"></ReminderRecordingTime>
             </div>
             <div v-if="textOption==='Запрос отзыва после визита'">
-              <RequestReviewAfterVisit :Propdata = 'cooseDate'></RequestReviewAfterVisit>
+              <RequestReviewAfterVisit :Propdata = 'cooseDate' :isCloseAll="statusSelect"></RequestReviewAfterVisit>
             </div>
             <div v-if="textOption==='Уведомление о созданной записи'">
-              <CreatedRecord :Propdata = 'cooseDate'></CreatedRecord>
+              <CreatedRecord :Propdata = 'cooseDate' :isCloseAll="statusSelect"></CreatedRecord>
             </div>
             <div v-if="textOption==='Уведомление об изменении записи'">
-              <ChangedRecord :Propdata = 'cooseDate'></ChangedRecord>
+              <ChangedRecord :Propdata = 'cooseDate' :isCloseAll="statusSelect"></ChangedRecord>
             </div>
+              <div v-if="textOption==='Уведомление об удалении записи'">
+              <DeletedRecord :Propdata = 'cooseDate' :isCloseAll="statusSelect"></DeletedRecord>
+            </div>
+            <div v-if="textOption==='Напоминание о повторном визите'">
+              <RepeatVisit :Propdata = 'cooseDate' :isCloseAll="statusSelect"></RepeatVisit>
+            </div>
+             <div v-if="textOption==='Напоминание о записи'">
+              <ReminderCreatedRecord :Propdata = 'cooseDate' :isCloseAll="statusSelect"></ReminderCreatedRecord>
+            </div>
+            
            </div>
        </div>
         <!-- <div v-if="numberPattern[0]==='Созданные задачи' && numberPattern[1]==='true'">22222</div>
@@ -69,10 +79,14 @@
     import RequestReviewAfterVisit   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/RequestReviewAfterVisit"
     import CreatedRecord   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/CreatedRecord"
     import ChangedRecord   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/ChangedRecord"
+    import DeletedRecord   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/DeletedRecord"
+    import RepeatVisit   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/RepeatVisit"
+    import ReminderCreatedRecord   from "../../../../components/SettingsContainer/SettingsIntegrations/SettingsIntegrationsYclientPattern/ReminderCreatedRecord"
     import {useCustomScroll} from "../../../../composition/useCustomScroll";
     import {useIntegrations} from "../../../../composition/useIntegrations";
     export default {
-        components: {integrationHeaderCommon, BirthdayPattern, ReminderRecordingTime, RequestReviewAfterVisit, CreatedRecord,ChangedRecord},
+        components: {integrationHeaderCommon, BirthdayPattern, ReminderRecordingTime, RequestReviewAfterVisit, CreatedRecord,ChangedRecord,
+         DeletedRecord,RepeatVisit, ReminderCreatedRecord},
         setup() {
             const statusSelect = ref(false);
             const textOption = ref('');
@@ -88,7 +102,10 @@
                     'Напоминание о записи в заданное время',
                     'Запрос отзыва после визита',
                     'Уведомление о созданной записи',
-                    'Уведомление об изменении записи'
+                    'Уведомление об изменении записи',
+                    'Уведомление об удалении записи',
+                    'Напоминание о повторном визите',
+                    'Напоминание о записи'
                  ]
             });
             const cooseDate=ref({});
@@ -180,8 +197,9 @@
     max-width:66.3%;
     min-width:66.3%;
     .settings-integrations-form__dropdown-inner{
-        padding: 8px 10px 8px 5px;
+        padding: 0px ;
         min-height: 34px;
+        
         font-size: 14px;
         line-height: 19px;
         color: #EDEDEF;
@@ -190,7 +208,7 @@
         
         &-arrow{
             position: absolute;
-            right: 0;
+            right: 10px;
             transform: rotate(0deg);
             transition: 0.3s ease;
         }
@@ -265,8 +283,8 @@ margin-left: 10px;
     text-align: left;
     .settings-integrations-form__date-input{
         width: 100% !important;
-        background: #2E2E4E;
-        border: 0.7px solid #414159;
+        background: var(--messenger-search-input-bg-active);
+      
         border-radius: 3px;
         display: flex;
         padding: 8px 10px 8px 7px;
