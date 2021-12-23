@@ -15,7 +15,7 @@
             <div class="profit__header-list_item" v-for="(infoBlock, index) in infoBlocks" :key="index">
                 <p class="profit__header-list_item-status">{{infoBlock.name}}</p>
                 <p class="profit__header-list_item-count" v-if="index == 0">{{infoBlock.count}}</p>
-                <p class="profit__header-list_item-count" v-else>{{infoBlock.count.toLocaleString('ru')}} ₽</p>
+                <p class="profit__header-list_item-count" v-else>{{infoBlock.count}} ₽</p>
             </div>
         </div>
     </div>
@@ -104,7 +104,6 @@ export default {
         })
 
         watch(() => {
-            
             getInfoRefferals()
                .then(r => {
              updateInfoPartners()

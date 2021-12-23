@@ -20,7 +20,7 @@
         </div>
         <div class="links-header__generation-links">
             <p class="links-header__generation-links_title">Название реферальной ссылки:</p>
-            <div class="links-header__generation-links-create" v-if="!user.rules.partners_rules || user.rules == undefined">
+            <div class="links-header__generation-links-create" v-if="!user.rules.partners_rules || user.rules.partner_rules">
                 <input v-model="newLink.url_name" placeholder="Ввести" class="links-header__generation-links-create_input">
                 <button type="button" class="links-header__generation-links-create_button" @click="openPartnersRules()">Сгенирировать ссылку</button>
             </div>
@@ -35,8 +35,8 @@
             <tr class="links__bottom_table-row">
                 <td class="links__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
             </tr>
-            <tr class="settings-partners-links__table_row row-data-none" v-if="!partners[0] && user.rules != undefined">Отсутсвуют данные</tr>
-            <tr class="settings-partners-links__table_row row-data-none" v-else-if="!user.rules.partners_rules || user.rules == undefined">Для того чтобы стать нашим партнером,<br><a href="/rules-partner-program.pdf" download>примите правила пользования<br>партнерской программой</a>
+            <tr class="settings-partners-links__table_row row-data-none" v-if="!partners[0] && user.rules.partner_rules">Отсутсвуют данные</tr>
+            <tr class="settings-partners-links__table_row row-data-none" v-else-if="!user.rules.partners_rules">Для того чтобы стать нашим партнером,<br><a href="/rules-partner-program.pdf" download>примите правила пользования<br>партнерской программой</a>
                 <div class="row-data-none__button pointer" @click="openPartnersRules()">Принять правила пользования</div>
             </tr>
             <PartnersLinks  @openModalChange="openModalChange()" @deleteLink="deleteLink" 
