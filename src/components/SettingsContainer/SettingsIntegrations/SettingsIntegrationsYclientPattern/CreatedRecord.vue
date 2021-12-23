@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-         <!-- <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
+         <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
             <div class="settings-integrations-form__date-column">
                 <div>Дополнительные фильтры</div>
                 <div class="settings-integrations-form__container">
@@ -97,11 +97,29 @@
                                 <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
                             </div>
                         </div>
-                        <div class="settings-integrations-form__dropdown-list-filters-title">Поздравить за N до дня рождения</div>
+                        
+                        <div class="settings-integrations-form__checkbox" >
+                            <div class="settings-integrations-form__checkbox-title"> Выполнять, если у записи статус</div>
+                            <BaseCheckbox :id="index" :title="checkbox[0]" v-for="(checkbox, index) in checkboxs" :key="index" :name="status" 
+                            ></BaseCheckbox>
+                        </div>
+                         <div class="settings-integrations-form__checkbox" >
+                            <div class="settings-integrations-form__checkbox-title"> Выполнять, если у записи тип</div>
+                            <BaseCheckbox :id="checkboxs.length" :title="'Онлайн'" :name="type" 
+                            ></BaseCheckbox>
+                             <BaseCheckbox :id="checkboxs.length+1" :title="'Офлайн'" :name="type" 
+                            ></BaseCheckbox>
+                        </div>
+                         <BaseSwitcherNew :model="item[1]" :index="key" @saveCheck="saveCheck"  v-for=" (item, key) in switcherInput" :key="key" :needInput="true"
+                         class="settings-integrations-form__checkbox"
+                            :title="item[0]"></BaseSwitcherNew>
+                     
+                           <BaseSwitcherNew :model="timeRecording[1]" :index="key" @saveCheck="saveCheck"  :needInput="false"  class="settings-integrations-form__checkbox"
+                            :title="timeRecording[0]"></BaseSwitcherNew>
                         <div class="settings-integrations-form__date-row">
                             <div class="settings-integrations-form__date-column">
                                 <div class="settings-integrations-form__date-column-title">От</div>
-                                <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
+                                <input type="number"   min="0" class="settings-integrations-form__date-input"  placeholder="00">
                             </div>
                             <div class="settings-integrations-form__date-column settings-integrations-form__date-column_end">
                                 <div class="settings-integrations-form__date-column-title">До</div>
@@ -111,7 +129,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
     <div class="settings-integrations-form__field ">
         <div class=" settings-integrations-form__create-message">
@@ -142,9 +160,11 @@ import { useWhatsapp } from "../../../../composition/useWhatsapp";
 import {useIntegrations} from "../../../../composition/useIntegrations"
 import { useRouter, useRoute}  from 'vue-router'
 import { useInstagram } from "../../../../composition/useInstagrams";
+import  BaseSwitcherNew  from "../../../../components/Base/BaseSwitcherNew.vue";
+import  BaseCheckbox  from "../../../../components/Base/BaseCheckbox.vue";
 
 export default {
-  components: { SettingsIntegrationsMessage, SettingsIntegrationsVariables, TestCheck },
+  components: { SettingsIntegrationsMessage, SettingsIntegrationsVariables, TestCheck, BaseSwitcherNew, BaseCheckbox },
   props: {
       Propdata:Object,
       isCloseAll:Boolean
@@ -174,6 +194,27 @@ export default {
         const focusName = ref(false);
         const focusId = ref(false);
         getWhatsapps()
+        const check = ref([
+             ['Не учитывать смену даты и времени', false],
+             ['Учитывать смену мастера', false],
+             ['Учитывать смену статуса записи', false],
+             ['Учитывать смену категории записи', false],
+             ['Учитывать изменение услуг записи', false]]
+         );
+         const timeRecording = ref(['Выполнять, если время записи', false])
+        const checkboxs = ref([
+            ['Ожидание клиента', false],
+            ['Клиент пришел', false],
+            ['Клиент не пришел', false],
+            ['Клиент подтвердил', false],
+        ])
+        const switcherInput = ref([
+            ['Выполнять, если категория записи', false],
+            ['Выполнять, если услуга записи', false],
+            ['Выполнять, если категория клиента', false],
+            ['Выполнять, если сотрудник', false],
+        
+        ])
         const data = ref({
                 type: "PostCreatedNotification",
                 task_name: "Уведомление о созданной записи",
@@ -527,7 +568,11 @@ export default {
             checkUpdate,
             error,
             focusName,
-            focusId
+            focusId,
+            check,
+            timeRecording,
+            checkboxs,
+            switcherInput
         }
     },
 }

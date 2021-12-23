@@ -64,6 +64,11 @@ margin-bottom: 8px;
     padding-bottom: 0 !important;
   }
 }
+&__sigma{
+  display: flex;
+  justify-content:flex-start;
+  padding-top: 22px;
+}
 }
 .settings-integrations-form__checkbox_no-padding{
   padding: 24px 0px 0px;

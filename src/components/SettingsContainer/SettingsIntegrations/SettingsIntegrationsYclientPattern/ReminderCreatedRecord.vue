@@ -282,8 +282,8 @@ export default {
             }
         getWhatsapps()
         const data = ref({
-                type: "Review",
-                task_name: "Запрос отзыва после визита",
+                type: "RecordRemind",
+                task_name: "Напоминание о записи",
                 parameters:
                 [
                     {

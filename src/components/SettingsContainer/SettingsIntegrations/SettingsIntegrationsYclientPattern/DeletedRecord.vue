@@ -77,11 +77,6 @@
                     </button> 
                     <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-filters" :class="{' settings-integrations-form__dropdown-list-filters_hidden':!statusFiltersSelect}">
                         
-                        <div class="settings-integrations-form__switcher">
-                            <BaseSwitcherNew :model="item[1]" :index="inx" @saveCheck="saveCheck"  v-for=" (item, inx) in check" :key="inx"
-                            :title="item[0]"></BaseSwitcherNew>
-                  
-                        </div>
                        
                         <div class="settings-integrations-form__dropdown-list-filters-title">Кол-во посещений</div>
                         <div class="settings-integrations-form__date-row">
@@ -189,13 +184,7 @@ export default {
         const propsCheck = ref(true);
          const focusName = ref(false);
         const focusId = ref(false);
-         const check = ref([
-             ['Не учитывать смену даты и времени', false],
-             ['Учитывать смену мастера', false],
-             ['Учитывать смену статуса записи', false],
-             ['Учитывать смену категории записи', false],
-             ['Учитывать изменение услуг записи', false]]
-         );
+     
          const timeRecording = ref(['Выполнять, если время записи', false])
         const checkboxs = ref([
             ['Ожидание клиента', false],
@@ -213,8 +202,8 @@ export default {
         const instId=ref('');
         getWhatsapps()
         const data = ref({
-                type: "PostCreatedNotification",
-                task_name: "Уведомление о созданной записи",
+                type: "PostDeleteNotification",
+                task_name: "Уведомление об удалении записи",
                 parameters:
                 [
                     {
@@ -562,7 +551,6 @@ export default {
             instId,
             checkUpdate,
             error,
-            check,
             checkboxs,
             switcherInput,
             timeRecording,

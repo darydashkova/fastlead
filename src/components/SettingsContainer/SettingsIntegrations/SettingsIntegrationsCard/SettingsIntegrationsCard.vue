@@ -75,7 +75,7 @@ export default {
     display: flex;
     justify-content: space-between;
     padding-bottom: 16px;
-    border-bottom: 1px solid #252544;
+    border-bottom: 1px solid var(--border-integration-card);
     &_active {
       padding: 4px 8px;
       color: #5ec075;
@@ -120,7 +120,7 @@ export default {
     &-edit {
       font-size: 14px;
       line-height: 130%;
-      border: 1px solid #252544;
+      border: 1px solid var(--border-integration-card);
       padding: 4px 12px;
       border-radius: 4px;
     }
@@ -131,7 +131,7 @@ export default {
       line-height: 130%;
       background: linear-gradient(45.66deg, #22a595 -40.44%, #84d160 120.07%);
       -webkit-background-clip: text;
-       border: 1px solid #252544;
+       border: 1px solid var(--border-integration-card);
        border-radius: 4px;
       -webkit-text-fill-color: transparent;
       display: block;
