@@ -1,5 +1,10 @@
 <template>
     <div class="profit__header">
+        <div class="partners__header">
+            <div class="partners__header_title">Ваша прибыль</div>
+            <div class="partners__header_button-disable pointer" v-if="!user.rules.partners_rules || user.rules.partners_rules == null">Вывести</div>
+            <div class="partners__header_button pointer" v-else @click="openModalCashback()">Вывести</div>
+        </div>
         <div class="profit__header-list">
             <div class="profit__header-list_item">
                 <p class="profit__header-list_item-status">Ваш статус:</p>
@@ -10,27 +15,29 @@
             <div class="profit__header-list_item" v-for="(infoBlock, index) in infoBlocks" :key="index">
                 <p class="profit__header-list_item-status">{{infoBlock.name}}</p>
                 <p class="profit__header-list_item-count" v-if="index == 0">{{infoBlock.count}}</p>
-                <p class="profit__header-list_item-count" v-else>{{infoBlock.count}} ₽</p>
-            </div>
-    
-            <div class="profit__header-list_withdrawal">
-                <p class="profit__header-list_withdrawal-title">Минимум 30000 ₽</p>
-                <!--<input class="profit__header-list_withdrawal-input" placeholder="0 ₽">-->
-                <button type="button" class="profit__header-list_withdrawal-button" @click="openModalCashback()">Вывести</button>
+                <p class="profit__header-list_item-count" v-else>{{infoBlock.count.toLocaleString('ru')}} ₽</p>
             </div>
         </div>
     </div>
     <div class="profit__bottom">
         <h2 class="profit__bottom_title">История выплат</h2>
-           <table class="profit__bottom_table">
+           <table v-if="!payments[0]" class="profit__bottom_table">
                <tr class="profit__bottom_table-row">
                    <td class="profit__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
                </tr>
-               <tr v-if="!payments[0]" class="settings-partners-referal__table_row data-none">Отсутсвуют данные</tr> 
-                <HistoryPayment></HistoryPayment>
+               <tr class="settings-partners-referal__table_row row-data-none">Отсутсвуют данные</tr>
            </table>
+           <div v-else class="scroll-poiner history">
+                <table class="profit__bottom_table">
+                <tr class="profit__bottom_table-row">
+                    <td class="profit__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
+                </tr>
+                        <HistoryPayment></HistoryPayment>
+                </table>
+           </div>
+           
     </div>
-    <PartnersCashback v-if="modalCashback" @closeModalCashback="closeModalCashback()"></PartnersCashback>
+    <PartnersCashback :count="infoBlocks[1].count" v-if="modalCashback" @closeModalCashback="closeModalCashback()"></PartnersCashback>
 </template>
 
 <script>
@@ -38,13 +45,16 @@ import { ref, onUpdated, watch, onBeforeMount, onMounted, onBeforeUpdate, return
 import PartnersCashback from '@/components/SettingsContainer/SettingsPartners/settings-partners-profit-cashback.vue'
 import { usePartners } from "@/composition/usePartners";
 import HistoryPayment from '@/components/SettingsContainer/SettingsPartners/settings-partners-history.vue'
+import { useUser} from "@/composition/useUser"
+
 export default {
     components: {
         PartnersCashback,
         HistoryPayment,
     },
-    setup() {
+    setup(props) {
         const {routerActiveLink, returnInfoPartner, getInfoRefferals, returnRegPartners, getPayment, createPayment, payments} = usePartners()
+        const {user} = useUser()
         
         routerActiveLink.value.link = "/settings/partners/profit"
         getPayment()
@@ -70,6 +80,9 @@ export default {
 
         const closeModalCashback = () => {
             modalCashback.value = false
+            getPayment()
+            getInfoRefferals()
+            updateInfoPartners()
         }
 
         const infoPartner = ref({
@@ -117,6 +130,8 @@ export default {
 
             returnRegPartners,
             payments,
+
+            user,
         }
     }
 }

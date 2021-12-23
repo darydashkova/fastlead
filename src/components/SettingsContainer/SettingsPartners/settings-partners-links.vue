@@ -63,6 +63,10 @@ export default {
             }
         }
 
+        onUpdated(() => {
+            /* link(url) */
+        })
+
         return{
             tableCells,
 

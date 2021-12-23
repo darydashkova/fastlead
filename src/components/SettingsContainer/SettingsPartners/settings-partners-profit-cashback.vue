@@ -9,32 +9,37 @@
                     </svg>
                 </button>
             </div>
-            <div class="settings-partners-profit-cashback__block_option">
+            <!--<div class="settings-partners-profit-cashback__block_option">
                 <button class="settings-partners-profit-cashback__block_option-button"
                 v-for="(buttonName, index) in buttonNames" :key="index"
                 :id = "option[index].id" :class="{'option-active' : option[index].active}" @click="searchOption(option[index])"
                 >{{buttonName.name}}</button>
-            </div>
+            </div>-->
             <div class="settings-partners-profit-cashback__block_main">
                 <p class="settings-partners-profit-cashback__block_main-title">Сумма</p>
-                <input v-model="sumPayment" type="number" placeholder="Ввести (Минимум 3 000 ₽)" class="settings-partners-profit-cashback__block_main-input">
+                <input v-if="!error.available" v-model="sumPayment" type="number" placeholder="Ввести (Минимум 10 000 ₽)" class="settings-partners-profit-cashback__block_main-input" :class="{'placeholder-error': error.introduced}">
+                <input v-else v-model="sumPayment" type="number" placeholder="Недостаточно средств для вывода" class="settings-partners-profit-cashback__block_main-input" :class="{'placeholder-error': error.introduced}">
             </div>
             <div class="settings-partners-profit-cashback__block_main main-card">
                 <p class="settings-partners-profit-cashback__block_main-title">Номер карты</p>
-                <input v-model="cardNumber" v-maska="'#### #### #### ####'" type="text" maxlength="19" placeholder="Ввести" class="settings-partners-profit-cashback__block_main-input">
+                <input v-if="!error.card" v-model="cardNumber" v-maska="'#### #### #### ####'" type="text" maxlength="19" placeholder="Ввести" class="settings-partners-profit-cashback__block_main-input">
+                <input v-else v-model="cardNumber" v-maska="'#### #### #### ####'" type="text" maxlength="19" placeholder="Реквизиты карты введены неверно" class="settings-partners-profit-cashback__block_main-input" :class="{'placeholder-error': error.introduced}">
             </div>
             <div class="settings-partners-profit-cashback__block_buttons">
-                <button type="button" class="settings-partners-profit-cashback__block_buttons-access" @click="createNewPayment()">Готово</button>
-                <button type="button" class="settings-partners-profit-cashback__block_buttons-cansel" @click="closeModalCashback">Отмена</button>
+                <div type="button" class="settings-partners-profit-cashback__block_buttons-access" @click="createNewPayment()">Готово</div>
+                <div type="button" class="settings-partners-profit-cashback__block_buttons-cansel" @click="closeModalCashback">Отмена</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, onUpdated } from 'vue'
+import { ref, computed, onUpdated } from 'vue'
 import { usePartners } from "@/composition/usePartners";
 export default {
+    props: {
+        count: Number,
+    },
     setup(props, {emit}){
         const {getPayment, createPayment, payments} = usePartners()
 
@@ -62,10 +67,29 @@ export default {
         const sumPayment = ref("")
         const cardNumber = ref("")
 
+        const error = ref({
+            available: false,
+            introduced: false,
+            card: false,
+        })
+
         const createNewPayment = () => {
-            createPayment({card_number: cardNumber.value,
-                            sum: Number(sumPayment.value)})
-            getPayment()
+            if(sumPayment.value >= 10000 && props.count >= 10000 && props.count >= sumPayment.value && cardNumber.value.length == 19) {
+                createPayment({card_number: cardNumber.value,
+                                sum: Number(sumPayment.value)})
+                closeModalCashback()
+            } else if (sumPayment.value < 10000) {
+                error.value.introduced = true
+                sumPayment.value = ''
+            } else if (cardNumber.value.length < 19){
+                error.value.card = true
+                error.value.introduced = true
+                cardNumber.value = ''
+            } else {
+                error.value.introduced = true
+                error.value.available = true
+                sumPayment.value = ''
+            }
         }
 
         return {
@@ -77,6 +101,9 @@ export default {
            sumPayment,
            cardNumber,
            payments,
+           error,
+
+           count: computed(() => props.count),
         }
     }
 }

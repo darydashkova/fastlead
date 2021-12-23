@@ -76,6 +76,10 @@ export function usePartners() {
             })
     }
 
+    const acceptPartnersRules = async (data) => {
+        return await partnersActions.acceptPartnersRules(data);
+    }
+
     return {
         createPartners,
         getPartners,
@@ -86,6 +90,7 @@ export function usePartners() {
         getRegRefferals,
         createPayment,
         getPayment,
+        acceptPartnersRules,
 
         returnPartners,
         routerActiveLink,

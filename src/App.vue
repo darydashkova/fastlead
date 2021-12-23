@@ -94,6 +94,21 @@
     align-items: center;
   }
 
+  .scroll-poiner{
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 10px;               /* ширина scrollbar */
+    }
+    &::-webkit-scrollbar-track {
+      background: none;        /* цвет дорожки */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #9797BB;    /* цвет плашки */
+      border-radius: 20px;       /* закругления плашки */
+      border: 3px solid none;  /* padding вокруг плашки */
+    }
+  }
+
 
 </style>
 <style lang="scss" src="./fonts.scss"></style>

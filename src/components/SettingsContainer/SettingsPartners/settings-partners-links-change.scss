@@ -6,7 +6,6 @@
     top: 0;
     left: 0;
     &__block{
-        padding: 0px 24px 24px 24px;
         width: 520px;
         height: 280px;
         background: #252544;
@@ -19,18 +18,19 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1D1D35;
             &-title{
-                margin: 0px;
                 font-size: 30px;
                 color: #F0F0FA;
             }
             &-close{
-                background: none;
-                cursor: pointer;
+            
             }
         }
         &_main{
             padding: 24px 24px 24px 24px;
+            border-bottom: 1px solid #1D1D35;
             &-title{
                 margin: 0px;
                 font-size: 14px;
@@ -45,31 +45,32 @@
 
                 background: #1D1D35;
                 &::placeholder{
-                    color: #CFCFE4;
+                    color: #cfcfe495;
                 }
             }
         }
         &_buttons{
             padding: 24px 24px 24px 24px;
+            display: flex;
             &-access{
                 padding: 8px 32px 8px 32px;
                 background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
                 color: #252544;
                 border-radius: 6px;
-
-                cursor: pointer;
+                font-size: 16px;
+                font-weight: 500;
             }
             &-cansel{
                 padding: 8px 32px 8px 32px;
                 margin-left: 20px;
 
                 background: none;
-                color: #84D160;
+                color: #5EC075;
     
-                border: 1px solid #84D160;
+                border: 1px solid #5EC075;
                 border-radius: 6px;
-
-                cursor: pointer;
+                font-size: 16px;
+                font-weight: 400;
             }
         }
     }    

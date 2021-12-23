@@ -20,7 +20,7 @@
                         >{{listTitle.title}}</td>
                     </tr>
                 </table>
-                <div class="scroll-block" v-if="finances[0]">
+                <div class="scroll-block scroll-poiner" v-if="finances[0]">
                 <table class="settings-finance__list" style="border-radius: 6px;">
                     <tr class="settings-finance-createAmenities" v-for="(finance, index) in finances" :key="index">
                     <td class="settings-finance-createAmenities__cell" v-if="finance.instagram_tariff_id">
@@ -73,7 +73,6 @@ import { onMounted, onBeforeMount, watch } from 'vue';
 import Payment from '@/components/SettingsContainer/SettingsFinanse/settings-finance-payment.vue'
 import FinanceExtension from '@/components/SettingsContainer/SettingsFinanse/settings-finance-extension.vue'
 import PaymentHistory from '@/components/SettingsContainer/SettingsFinanse/settings-finance-pay-history.vue'
-import { useCustomScroll } from "../../../composition/useCustomScroll";
 export default {
     components: {
         Payment,
@@ -84,7 +83,6 @@ export default {
     setup(props, {emit}){
 
         const {getFinance, getSingleFinance, returnFinance, getFinanceHistory, returnFinanceHistory, paymentFinance, linkPayment, finances, deleteFinance} = useFinance()
-        const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
         
         const falseUpdated = ref(true)
 
@@ -216,10 +214,6 @@ export default {
             statusCounts,
             isModalHistory,
             closeHistory,
-            container,
-            content,
-            scrollbar,
-            scrollTo,
             deleteTariff,
         }
     }

@@ -47,4 +47,12 @@ export default {
     getPayment: () => {
         return api.fetch('GET', `get/all/payment/affiliate`, null, true)
     },
+
+    acceptPartnersRules: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'user/grant/rights', body, true)
+    }
 }
