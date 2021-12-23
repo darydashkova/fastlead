@@ -69,6 +69,10 @@ export function useFinance() {
         return await financeActions.extentionTariff(data)
     }
 
+    const deleteFinance = async (data) => {
+        return await financeActions.deleteFinance(data)
+    }
+
     return {
         getFinance,
         createFinance,
@@ -81,6 +85,7 @@ export function useFinance() {
         updateSuccessTariff,
 
         extentionTariff,
+        deleteFinance,
 
         linkPayment,
         initialData,

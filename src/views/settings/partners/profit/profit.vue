@@ -1,5 +1,10 @@
 <template>
     <div class="profit__header">
+        <div class="partners__header">
+            <div class="partners__header_title">Ваша прибыль</div>
+            <div class="partners__header_button-disable pointer" v-if="!user.rules.partners_rules || user.rules.partners_rules == null">Вывести</div>
+            <div class="partners__header_button pointer" v-else @click="openModalCashback()">Вывести</div>
+        </div>
         <div class="profit__header-list">
             <div class="profit__header-list_item">
                 <p class="profit__header-list_item-status">Ваш статус:</p>
@@ -9,56 +14,62 @@
     
             <div class="profit__header-list_item" v-for="(infoBlock, index) in infoBlocks" :key="index">
                 <p class="profit__header-list_item-status">{{infoBlock.name}}</p>
-                <p class="profit__header-list_item-count">{{infoBlock.count}}</p>
+                <p class="profit__header-list_item-count" v-if="index == 0">{{infoBlock.count}}</p>
+                <p class="profit__header-list_item-count" v-else>{{infoBlock.count.toLocaleString('ru')}} ₽</p>
             </div>
-    
-            <!--<div class="profit__header-list_withdrawal">
-                <p class="profit__header-list_withdrawal-title">Минимум 30000 ₽</p>
-                <input class="profit__header-list_withdrawal-input" placeholder="0 ₽">
-                <button type="button" class="profit__header-list_withdrawal-button" @click="openModalCashback()">Вывести</button>
-            </div>-->
         </div>
     </div>
     <div class="profit__bottom">
-        <h2 class="profit__bottom_title">Рефералы</h2>
-           <table class="profit__bottom_table">
+        <h2 class="profit__bottom_title">История выплат</h2>
+           <table v-if="!payments[0]" class="profit__bottom_table">
                <tr class="profit__bottom_table-row">
                    <td class="profit__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
                </tr>
-               <tr class="settings-partners-referal__table_row row-data-none" v-if="!returnRegPartners[0]">Отсутсвуют данные</tr>
-               <PartnersReferal></PartnersReferal>
+               <tr class="settings-partners-referal__table_row row-data-none">Отсутсвуют данные</tr>
            </table>
+           <div v-else class="scroll-poiner history">
+                <table class="profit__bottom_table">
+                <tr class="profit__bottom_table-row">
+                    <td class="profit__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
+                </tr>
+                        <HistoryPayment></HistoryPayment>
+                </table>
+           </div>
+           
     </div>
-    <PartnersCashback v-if="modalCashback" @closeModalCashback="closeModalCashback()"></PartnersCashback>
+    <PartnersCashback :count="infoBlocks[1].count" v-if="modalCashback" @closeModalCashback="closeModalCashback()"></PartnersCashback>
 </template>
 
 <script>
 import { ref, onUpdated, watch, onBeforeMount, onMounted, onBeforeUpdate, returnRegPartners } from 'vue'
-import PartnersReferal from '@/components/SettingsContainer/SettingsPartners/settings-partners-referal.vue'
 import PartnersCashback from '@/components/SettingsContainer/SettingsPartners/settings-partners-profit-cashback.vue'
 import { usePartners } from "@/composition/usePartners";
+import HistoryPayment from '@/components/SettingsContainer/SettingsPartners/settings-partners-history.vue'
+import { useUser} from "@/composition/useUser"
 
 export default {
     components: {
-        PartnersReferal,
         PartnersCashback,
+        HistoryPayment,
     },
-    setup() {
-        const {routerActiveLink, returnInfoPartner, getInfoRefferals, returnRegPartners} = usePartners()
+    setup(props) {
+        const {routerActiveLink, returnInfoPartner, getInfoRefferals, returnRegPartners, getPayment, createPayment, payments} = usePartners()
+        const {user} = useUser()
         
         routerActiveLink.value.link = "/settings/partners/profit"
-
+        getPayment()
         const infoBlocks = ref([
             {name: "Рефералы:", count: 0},
-            {name: "Доход за весь период:", count: 0},
+            {name: "Доступно для вывода:", count: 0},
             {name: "Выведено за весь период:", count: 0},
         ])
 
         const nameCells = ref([
-            {name: "ДАТА РЕГ."},
-            {name: "НОМЕР ТЕЛЕФОНА"},
+            {name: "ДАТА СОЗДАНИЯ"},
+            {name: "ДАТА ВЫПЛАТЫ"},
+            {name: "СУММА"},
+            {name: "НОМЕР КАРТЫ"},
             {name: "СТАТУС"},
-            {name: "ВНЕСЕНО В СИСТЕМУ (₽)"},
         ])
 
         const modalCashback = ref(false)
@@ -69,6 +80,9 @@ export default {
 
         const closeModalCashback = () => {
             modalCashback.value = false
+            getPayment()
+            getInfoRefferals()
+            updateInfoPartners()
         }
 
         const infoPartner = ref({
@@ -83,7 +97,6 @@ export default {
             infoBlocks.value[1].count = returnInfoPartner.value.purse
             infoBlocks.value[2].count = returnInfoPartner.value.operations
         }
-
 
         onUpdated(() => {
             getInfoRefferals()
@@ -116,6 +129,9 @@ export default {
             returnInfoPartner,
 
             returnRegPartners,
+            payments,
+
+            user,
         }
     }
 }

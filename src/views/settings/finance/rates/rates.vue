@@ -1,5 +1,6 @@
 <template>
     <div class="settings-finance__rates">
+    <div class="settings-finance__rates_title">Срок подписки</div>
         <div class="settings-finance__payment">
             <div class="settings-finance__type-payment">
             <div class="settings-finance__type-payment_mounth"
@@ -9,6 +10,7 @@
             </div>
             </div>
         </div>
+        <div class="settings-finance__rates_title">Каналы</div>
         <table class="settings-finance__info_wrapper settings-finance__calculator">
             <tr class="settings-finance__calculator_titles">
             <td v-for="(calculatorTitle, index) in calculatorTitles" :key="calculatorTitle.name">{{calculatorTitle.name}}</td>
@@ -18,7 +20,7 @@
                 <img src="../../../../assets/logos_whatsapp.svg" v-if="cannalInfo.name == 'WhatsApp'">
                 <img class="img-instagram" src="../../../../assets/free-icon-instagram.svg" v-else>
                 {{cannalInfo.name}}</td>
-                <td class="settings-finance__calculator_values-cell">{{cannalInfo.onePriceWithSail}} ₽/канал</td>
+                <td class="settings-finance__calculator_values-cell">{{cannalInfo.onePriceWithSail.toLocaleString('ru')}} ₽/канал</td>
                 <td class="settings-finance__calculator_values-cell settings-finance__btn">
                     <button class="settings-finance__btn_minus" @click="`${cannalInfo.count--}`" v-if="cannalInfo.count > 0">
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,16 +52,16 @@
                 <!--<td class="settings-finance__calculator_values-cell">
                     <button class="settings-finance__btn_reset" @click="resetWhatsNumber()">Очистить</button>
                 </td>-->
-                <td class="settings-finance__calculator_values-cell">{{cannalInfo.totalPrice}}₽</td>
+                <td class="settings-finance__calculator_values-cell">{{cannalInfo.totalPrice.toLocaleString('ru')}}₽</td>
             </tr>
         </table>
         <div class="settings-finance__total">
             <h2>Итого к оплате</h2>
-            <h2>{{initialValues.priceWithSeil}} ₽</h2>
+            <h2>{{initialValues.priceWithSeil.toLocaleString('ru')}} ₽</h2>
         </div>
         <div class="settings-finance__total settings-finance__total_without-discount" v-if="!mounth[0].active && initialValues.priceWithSeil > 0">
             <h2>Цена без скидки</h2>
-            <h2>{{initialValues.totalPrice}} ₽</h2>
+            <h2>{{initialValues.totalPrice.toLocaleString('ru')}} ₽</h2>
         </div>
         <hr class="settings-finance__total_hr">
         <div class="settings-finance__pay">
@@ -146,28 +148,14 @@ export default {
                         initialValues.value.priceWithSeil = cannalsInfo.value[0].totalPrice + cannalsInfo.value[1].totalPrice
                     }
                 }
-
-            
             
             initialData.value.parameters[0].whatsapp = cannalsInfo.value[0].count
             initialData.value.parameters[0].instagram = cannalsInfo.value[1].count
 
         }
-
-        /* const initialData = ref({
-            sale_id: 1,
-            parameters: [
-                {
-                    whatsapp: 0,
-                    instagram: 0,
-                }
-            ]
-        }) */
-
         const isModalOpen = ref(false)
 
         const createSubscription = () => {
-            /* createFinance(initialData.value) */
             isModalOpen.value = true
         }
 
@@ -177,7 +165,6 @@ export default {
 
         watch(() => {
             calculation()
-
         })
 
         
@@ -192,11 +179,8 @@ export default {
             assignmentMounthValues,
 
             calculation,
-
             initialData,
-
             createSubscription,
-
             isModalOpen,
             closePay,
         }
