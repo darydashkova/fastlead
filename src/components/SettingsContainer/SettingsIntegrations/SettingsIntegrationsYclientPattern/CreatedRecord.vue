@@ -366,12 +366,13 @@ export default {
                      valid.value= false
                 }
                 else {
-                     valid.value= true
+                    
                        data.value.task_name =  name.value;    
                 }
                  if(data.value.parameters[0].instagram_id==null){
                         delete data.value.parameters[0].instagram_id
                     }
+               
                 return valid.value
             }
             const checkOpenModal = (item) => {
@@ -395,6 +396,7 @@ export default {
         const post = () => {
             if (ValidateDate()){
                 const dataNew = data.value
+            
                 postBirthdayTask(dataNew)
                 .then(r=> {
                     router.push('/settings/integrations/yclients/create')

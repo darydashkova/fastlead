@@ -360,7 +360,7 @@ export default {
                      valid.value= false
                 }
                 else {
-                     valid.value= true
+               
                        data.value.task_name =  name.value;    
                 }
                  if(data.value.parameters[0].instagram_id==null){
