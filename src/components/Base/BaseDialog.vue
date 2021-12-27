@@ -132,7 +132,8 @@
                 width: 3px;
                 background: var(--green-color);
                 left: 0;
-                top: calc((82px - 46px) / 2);
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
         &.base-dialog_not-padding {

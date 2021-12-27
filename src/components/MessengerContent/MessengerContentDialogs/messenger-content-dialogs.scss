@@ -84,15 +84,39 @@ line-height: 140%;
     margin-top: 17px;
 }
 .messenger-search-group__dialogs {
-   
+   .base-dialog_active{
+       position: relative;
+    background: var(--messenger-search-input-bg-active);
+    &::after{
+        content: '';
+        position: absolute;
+        height: 46px;
+        width: 3px;
+        background: var(--green-color);
+        left: 0;
+        top: 50%; 
+        transform: translateY(-50%);
+    }
+   }
 }
 .messenger-search-group__dialog {
-  margin: 0px 14px; 
-    border-top: 1px solid var(--header-color);
+  padding: 0px 14px; 
+  .base-dialog{
+    transition: none;
+       border-top: 1px solid var(--header-color);
+     
+  }
+  .base-dialog:hover {
+    background: none;
+    transition: none;
+}
     &:nth-child(1){
         border: none;
     }
-
+&:hover{
+    background: var(--messenger-search-input-bg);
+    transition: .2s ease;
+}
 }
 
 .messenger-content-dialogs__loader {

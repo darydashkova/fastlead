@@ -68,12 +68,15 @@
                     <div class="messenger-search-group__dialogs">
                         <div class="messenger-search-group__dialog"
                              v-for="(dialog, index) in folderGroup.dialogs"
-                             :key="dialog.dialog_id*1000 + (dialog.last_message? dialog.last_message.message_id : index * 1321)"
+                             :key="dialog.dialog_id*1000 + (dialog.last_message? dialog.last_message.message_id : index * 1321)" :class="{
+                            'base-dialog_active': selectedDialog === dialog.dialog_id,
+                        }"
                         >
                             <BaseDialog
                                     :chatInfo="dialog"
                                     class="base-dialog_not-padding"
                                     @click="select(dialog.dialog_id)"
+                                    
                                     @contextmenu.prevent="openContextMenu($event, {id: dialog.dialog_id, itemName: 'dialog', item: dialog.name})"
                             ></BaseDialog>
                         </div>
