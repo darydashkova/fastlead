@@ -58,9 +58,9 @@
              <div v-if="textOption==='Напоминание о записи'">
               <ReminderCreatedRecord :Propdata = 'cooseDate' :isCloseAll="statusSelect"></ReminderCreatedRecord>
             </div>
-             <div v-if="textOption==='Интеграция с модулем уведомлений Yclients'">
+             <!-- <div v-if="textOption==='Интеграция с модулем уведомлений Yclients'">
               <NotificationModule :Propdata = 'cooseDate' :isCloseAll="statusSelect"></NotificationModule>
-            </div>
+            </div> -->
             <div v-if="textOption==='Кросс-продажи'">
               <CrossSales :Propdata = 'cooseDate' :isCloseAll="statusSelect"></CrossSales>
             </div>
@@ -114,7 +114,7 @@
                     'Уведомление об удалении записи',
                     'Напоминание о повторном визите',
                     'Напоминание о записи',
-                    'Интеграция с модулем уведомлений Yclients',
+                    // 'Интеграция с модулем уведомлений Yclients',
                     'Кросс-продажи'
                  ]
             });

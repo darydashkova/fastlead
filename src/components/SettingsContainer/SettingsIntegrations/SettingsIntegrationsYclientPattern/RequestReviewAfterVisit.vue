@@ -31,14 +31,15 @@
                 :class="{'yclient-pattern__error':error.ntime, 'settings-integrations-form__select_active':focusTime}" 
                 @focus="checkOpenModal(), focusTime=true" @blur="focusTime=false"> 
             </div>
-        </div>
-        <div class="settings-integrations-form__date settings-integrations-form__birthday settings-integrations-form__date settings-integrations-form__birthday_top">
-            <div class="settings-integrations-form__date-column">
+             <div class="settings-integrations-form__date-column">
                 <div>ID филиала</div>
                     <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" 
                     v-model="filial" :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}"
                      @focus="checkOpenModal(), focusId=true" @blur="focusId=false"> 
                 </div>
+        </div>
+        <div class="settings-integrations-form__date settings-integrations-form__birthday settings-integrations-form__date settings-integrations-form__birthday_top">
+           
                 <div class="settings-integrations-form__date-column">
                     <div>Аккаунт</div>
                     <div class="settings-integrations-form__container">
@@ -87,7 +88,7 @@
                         </button>
                     </div>
                 </div>
-                    <div class="settings-integrations-form__date-column">
+                    <!-- <div class="settings-integrations-form__date-column">
                 <div>Дополнительные фильтры</div>
                 <div class="settings-integrations-form__container">
                     <button @click="openFilters" class="settings-integrations-form__input_test" :class="{'settings-integrations-form__select_active': statusFiltersSelect }"> 
@@ -151,8 +152,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
- 
+            </div> -->
+  <div class="settings-integrations-form__date-column">
+             
+                </div>
+                 <div class="settings-integrations-form__date-column">
+                
+                </div>
             </div>
      </div>
      <div class="settings-integrations-form__field ">

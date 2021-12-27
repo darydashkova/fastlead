@@ -27,6 +27,13 @@
                 </button>
                 </div>
                 </div>  -->
+                   <div class="settings-integrations-form__date-column">
+            <div>ID филиала</div>
+
+                    <input class="settings-integrations-form__input_test "  @focus="checkOpenModal(), focusId=true" @blur="focusId=false"
+                     :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}"
+                     type="number" placeholder="Ввести" v-model="filial"> 
+                </div>
                  <div class="settings-integrations-form__date-column">
                     <div>Время запуска</div>
                     <div class="settings-integrations-form__container">
@@ -83,13 +90,7 @@
             </div>
         </div>
         <div class="settings-integrations-form__date settings-integrations-form__birthday settings-integrations-form__date settings-integrations-form__birthday_top">
-        <div class="settings-integrations-form__date-column">
-            <div>ID филиала</div>
-
-                    <input class="settings-integrations-form__input_test "  @focus="checkOpenModal(), focusId=true" @blur="focusId=false"
-                     :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}"
-                     type="number" placeholder="Ввести" v-model="filial"> 
-                </div>
+     
                 <div class="settings-integrations-form__date-column">
                     <div>Аккаунт</div>
                     <div class="settings-integrations-form__container">
@@ -140,7 +141,7 @@
                 </button>
                 </div>
                 </div>
-                 <div class="settings-integrations-form__date-column">
+                 <!-- <div class="settings-integrations-form__date-column">
                     <div>Дополнительные фильтры</div>
                     <div class="settings-integrations-form__container">
                 <div class="settings-integrations-form__container-arrow ">
@@ -189,7 +190,13 @@
                         
                         </div>
                 </div>
-            </div>
+            </div> -->
+             <div class="settings-integrations-form__date-column">
+                
+                </div>
+                 <div class="settings-integrations-form__date-column">
+                
+                </div>
         </div>
      </div>
      <div class="settings-integrations-form__field ">

@@ -8,7 +8,7 @@
                     'settings-integrations-form__select_active':focusName}"
                      @focus="checkOpenModal(), focusName=true" @blur="focusName=false">  
                 </div>
-                <div class="settings-integrations-form__date-column">
+                <!-- <div class="settings-integrations-form__date-column">
                     <div>Часовой пояс</div>
                     <div class="settings-integrations-form__container">
                 <div class="settings-integrations-form__container-arrow ">
@@ -26,7 +26,7 @@
                         </div>
                 </button>
                 </div>
-                </div>
+                </div> -->
                  <div class="settings-integrations-form__date-column">
                     <div>Время запуска</div>
                     <div class="settings-integrations-form__container">
@@ -78,14 +78,15 @@
                         </div>
                 </div>
             </div>
-        </div>
-        <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top">
-        <div class="settings-integrations-form__date-column">
+             <div class="settings-integrations-form__date-column">
             <div>Напомнить за N дней </div>
                 <input class="settings-integrations-form__input_test " type="number" placeholder="0" v-model="NDay" :class="{'yclient-pattern__error':error.nday,
                   'settings-integrations-form__select_active':focusDay}"
                 @focus="checkOpenModal(), focusDay=true" @blur="focusDay=false"> 
             </div>
+        </div>
+        <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top">
+       
         <div class="settings-integrations-form__date-column">
             <div>ID филиала</div>
                 <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial" :class="{'yclient-pattern__error':error.id,
@@ -142,8 +143,10 @@
                 </button>
                 </div>
                 </div>
+                 <div class="settings-integrations-form__date-column"></div>
         </div>
-           <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
+            
+           <!-- <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
                 <div class="settings-integrations-form__date-column">
                     <div>Дополнительные фильтры</div>
                     <div class="settings-integrations-form__container">
@@ -316,7 +319,7 @@
                         </div>
                 </div>
             </div>
-        </div>
+        </div> -->
      </div>
      <div class="settings-integrations-form__field ">
         <div class=" settings-integrations-form__create-message">

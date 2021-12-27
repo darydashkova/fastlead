@@ -77,15 +77,16 @@
                             </div>
                         </div>
                 </div>
-            </div>
-        </div>
-        <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top">
-        <div class="settings-integrations-form__date-column">
+            </div>  
+            <div class="settings-integrations-form__date-column">
             <div>Напомнить за N дней </div>
                 <input class="settings-integrations-form__input_test " type="number" placeholder="0" v-model="NDay"
                  :class="{'yclient-pattern__error':error.nday, 'settings-integrations-form__select_active':focusDay}"
                   @focus="checkOpenModal(), focusDay=true" @blur="focusDay=false" > 
             </div>
+        </div>
+        <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top">
+      
         <div class="settings-integrations-form__date-column">
             <div>ID филиала</div>
               <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial" 
@@ -142,8 +143,9 @@
                 </button>
                 </div>
                 </div>
+                      <div class="settings-integrations-form__date-column"></div>
         </div>
-         <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
+         <!-- <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top settings-integrations-form__record-time-dop">
                 <div class="settings-integrations-form__date-column">
                     <div>Дополнительные фильтры</div>
                     <div class="settings-integrations-form__container">
@@ -286,7 +288,8 @@
                         </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+   
      </div>
      <div class="settings-integrations-form__field ">
         <div class=" settings-integrations-form__create-message">
