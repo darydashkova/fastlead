@@ -48,7 +48,10 @@
             SwiperSlide,
             Navigation
         },
-        setup() {
+        props:{
+            update:Boolean,
+        },
+        setup(props) {
             const { selectedFolder, folders, getAllFoldersInFolder,  getAllFolders , selectFolder} = useFolder()
              const { getDialogs, selectedGroupDialogs, toggleAllSelectedGroupDialogs, dialogs } = useDialogs()
              const { toggleOpenedUserInfo, openedUserInfo } = useUserInfo()
@@ -112,15 +115,27 @@
             onMounted(()=>{
                 
              }) 
+             const isUpdate = ref(false)
              const isSelectedNewFolder = ref(null);
              watch(()=>{
-               
+              
                  if(folders.value){  
                      if(selectedFolder.value&&(isSelectedNewFolder.value!=selectedFolder.value)){
                      isSelectedNewFolder.value=selectedFolder.value;
                      gerFoldersForSlider();
                  } 
                  }
+                  if (props.update){
+                      isUpdate.value = true
+                  }
+                  if(isUpdate.value){
+
+                       if(selectedFolder.value&&(isSelectedNewFolder.value==selectedFolder.value)){
+              
+                     gerFoldersForSlider();
+                     isUpdate.value=false
+                 } 
+                  }
                 if(document.querySelector('.messenger-content-header__slider')&&foldersSlider.value){
                     checkWidth() 
                 } 
@@ -144,7 +159,8 @@
                 dialogs,
                 isSelectedNewFolder,
                 mainDialogFolder,
-                isHidden
+                isHidden,
+                isUpdate
                 
             }
         },

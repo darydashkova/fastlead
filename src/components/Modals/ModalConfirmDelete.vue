@@ -32,14 +32,22 @@
 
     import {useModalConfirmDelete} from "../../composition/useModalConfirmDelete";
 
+    import {useFolder} from "@/composition/useFolder";
+
     export default {
         components: { BaseButton, BaseModalText, BaseModalHeader },
         setup() {
             const { toggleModalConfirmDelete, textCallbackModalConfirmDelete, onSaveCallbackModalConfirmDelete } = useModalConfirmDelete()
+
+            const {getAllFolders} = useFolder();
+
+
             const close = () => {
+                getAllFolders()
                 toggleModalConfirmDelete(false);
             }
             const save = () => {
+                getAllFolders()
                 toggleModalConfirmDelete(false);
                 onSaveCallbackModalConfirmDelete();
             }

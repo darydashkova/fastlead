@@ -4,9 +4,9 @@
         ></MessengerContentNav> -->
         <SettingsNavNew @getDialogs="addParentFolder()"></SettingsNavNew>
         <div class="messenger-content_column">
-            <MessengerContentHeader ></MessengerContentHeader>
+            <MessengerContentHeader :update="newFolders"></MessengerContentHeader>
             <div class="messenger-content_column-dialogs">
-                <MessengerContentSidebar @getId="getId"
+                <MessengerContentSidebar @getId="getId" @getFolderEdit="getFolderEdit"
                     v-if="!openedUserInfo"
                     class="messenger-content__middle-bar"
                 ></MessengerContentSidebar>
@@ -16,7 +16,10 @@
                 ></UserInfo>
                 <MessengerContentPersonalMessages :id='isId'>
                 </MessengerContentPersonalMessages>
-                
+                  <ModalEditSelectFolder v-if="toggleModalEditSelectFolder" :id="folderId.folder_id" @closeModalEditSelect="toggleModalEditSelectFolder=false" @updateFolderDialog="getFoldersForUpdate()"></ModalEditSelectFolder>
+                <ModalEditSelectFolderChild v-if="toggleModalEditSelectFolderChild" :id="folderId.parent_folder_id"  :child="folderId.folder_id"
+                 @closeModalEditSelectChild="toggleModalEditSelectFolderChild=false" @updateFolderDialog="getFoldersForUpdate()"> 
+                </ModalEditSelectFolderChild>
             </div>
         </div>
         
