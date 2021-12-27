@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <ModalCreateFolderNew v-if="toggleModalCreateNewFolder" :ids="newArrayFolders.folder_id" @closeCreateNewFolder="closeCreateNewFolder()"></ModalCreateFolderNew>
+    <ModalCreateFolderNew v-if="toggleModalCreateNewFolder" :ids="newArrayFolders.folder_id" @closeCreateNewFolder="closeCreateNewFolder()" @updateFolders="updateChildFolders"></ModalCreateFolderNew>
 </template>
 
 <script>
@@ -94,6 +94,13 @@
                     }
                 }
             }
+            
+            const updateChildFolders = () => {
+                getAllFolders()
+                .then((r)=> {
+                    updateNewArrayFolders()
+                })
+            }
 
             const save = () => {
                 if (deletingIds.data.length) {
@@ -136,7 +143,6 @@
                     })
             }
 
-            getAllFolders()
 
             const updateFolderName = () => {
                 updateFolder({
@@ -148,6 +154,7 @@
             watch(() => {
                 updateNewArrayFolders() 
                 updateNewName()
+                
                 childId.value = props.child   
             })
             return {
@@ -176,6 +183,8 @@
                 updateNewName,
                 childId,
                 updateFolderName,
+
+                updateChildFolders,
             }
         }
     }

@@ -10,10 +10,11 @@
                 </div>
             </div>
             <div class="modal-select-parent-folder__search">
-                <BaseSearchInput @handler="getValueSearch"></BaseSearchInput>
+                <BaseSearchInput @handler="getValueSearch" :placeholder="'Поиск'"></BaseSearchInput>
             </div>
             <div class="modal-select-parent-folder__folders-list">
-                <div class="modal-select-parent-folder__element pointer" v-for="(folder, index) in newFoldersArray" :key="index" @click="isActiveParentFolder(index, folder.folder_id)">
+            <template v-for="(folder, index) in newFoldersArray" :key="index">
+                <div class="modal-select-parent-folder__element pointer" v-if="!folder.is_default" @click="isActiveParentFolder(index, folder.folder_id)">
                     <div class="modal-select-parent-folder__select">
                         <svg class="modal-select-parent-folder__select_svg" :class="{'folder-active': countArrayFolder[index].isFolderActive}" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" fill="none"/>
@@ -28,6 +29,7 @@
                         <div class="modal-select-parent-folder__info_subname" v-else>{{folder.folders.length}} папки</div>
                     </div>
                 </div>
+            </template>
             </div>
             <div class="modal-select-parent-folder__buttons">
                 <div class="modal-select-parent-folder__buttons_connect pointer" @click="initialFolderId()">Подключить</div>
@@ -50,7 +52,9 @@
         setup(props, {emit}) {
             const { folders, deleteFolder, getAllFolders, selectedParentFolder, foldersInSelectedFolder, getAllFoldersInFolder, foldersId} = useFolder();
 
-            const isGetFolders = ref(true)
+            const isGetFolders = ref(false)
+
+            const foldersValue = ref(true)
 
             const newFoldersArray = ref()
 
@@ -64,7 +68,6 @@
                 }
                 countArrayFolder.value[index].isFolderActive = true;
                 foldersSelectId.value = folder_id
-                console.log(foldersSelectId.value)
             }
 
             const getValueSearch = (value) => {
@@ -78,10 +81,18 @@
 
             const initialFolderId = () => {
                 foldersId.value = foldersSelectId.value
+                emit('searchSelectFolderId')
                 closeParentFolder()
             }
 
             watch(() => {
+                if(folders.value && foldersValue.value){
+                    newFoldersArray.value = folders.value
+                    for(i=0; i < folders.value.length; i++){
+                            countArrayFolder.value.push({isFolderActive: false})
+                    }
+                    foldersValue.value = false 
+                }
                 if(isGetFolders.value){
                     getAllFolders()
                     .then((r)=> {
@@ -115,6 +126,7 @@
                 foldersId,
                 foldersSelectId,
                 initialFolderId,
+                foldersValue,
             }
         }
     }

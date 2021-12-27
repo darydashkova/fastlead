@@ -13,19 +13,19 @@
                 Мои папки
             </div>
                 <div class="modal-edit-folders-new__search">
-                    <BaseSearchInput @handler="getValueSearch"></BaseSearchInput>
+                    <BaseSearchInput @handler="getValueSearch" :placeholder="'Поиск'"></BaseSearchInput>
                 </div>
             <div class="modal-edit-folders-new__folders-list">
                 <div class="modal-edit-folders-new__container" ref="content">
                     <template v-for="(folder, index) in newFoldersArray" :key="index">
-                        <div class="modal-edit-folders-new__folder" :class="{'folderActive': countArrayFolder[index].isFolderActive}"
+                        <div class="modal-edit-folders-new__folder pointer" :class="{'folderActive': countArrayFolder[index].isFolderActive}" v-if="!folder.is_default"
                              @click="clickParentFolder(index, folder.folder_id)"> <!--v-if="!folder.is_default && folder.editing_possible" "toggleModalCreateFolder(true, folder.folder_id)"-->
                             <div class="modal-edit-folders-new__folder-container">
                                 <div class="modal-edit-folders-new__name">
                                     {{folder.name}}
                                 </div>
                                 <div v-if="!folder.folders" class="modal-edit-folders-new__count">
-                                    {{folder.dialogues_count}} чатов, 0 папок: 
+                                    {{folder.dialogues_count}} чатов, 0 папок
                                 </div>
                                 <div v-else class="modal-edit-folders-new__count">
                                     {{folder.dialogues_count}} чатов, {{folder.folders.length}} папок :
@@ -46,7 +46,7 @@
                                 <path d="M10.9999 16.4998C11.243 16.4998 11.4762 16.4032 11.6481 16.2313C11.82 16.0594 11.9166 15.8263 11.9166 15.5832V10.0832C11.9166 9.84005 11.82 9.6069 11.6481 9.43499C11.4762 9.26308 11.243 9.1665 10.9999 9.1665C10.7568 9.1665 10.5236 9.26308 10.3517 9.43499C10.1798 9.6069 10.0833 9.84005 10.0833 10.0832V15.5832C10.0833 15.8263 10.1798 16.0594 10.3517 16.2313C10.5236 16.4032 10.7568 16.4998 10.9999 16.4998Z" fill="#EB5757"/>
                             </svg>
                         </div>
-                        <div v-if="countArrayFolder[index].isFolderActive" class="modal-edit-folders-new__folder-child" :class="{'folderActive': countArrayFolder[index].isFolderActive}"
+                        <div v-if="countArrayFolder[index].isFolderActive" class="modal-edit-folders-new__folder-child pointer" :class="{'folderActive': countArrayFolder[index].isFolderActive}"
                              @click="openModalEditSelectFolder(folder.folder_id)"> <!--v-if="!folder.is_default && folder.editing_possible" "toggleModalCreateFolder(true, folder.folder_id)"-->
                             <div class="modal-edit-folders-new__folder-container">
                                 <div class="modal-edit-folders-new__name">
@@ -66,7 +66,7 @@
                             </svg>
                         </div>
                          <template v-for="(childFolder, jindex) in folder.folders" :key="jindex">
-                            <div @click="openModalEditSelectFolderChild(folder.folder_id, childFolder.folder_id)" v-if="countArrayFolder[index].isFolderActive" class="modal-edit-folders-new__folder-child"
+                            <div @click="openModalEditSelectFolderChild(folder.folder_id, childFolder.folder_id)" v-if="countArrayFolder[index].isFolderActive" class="modal-edit-folders-new__folder-child pointer"
                                 >
                                 <div class="modal-edit-folders-new__folder-container">
                                     <div class="modal-edit-folders-new__name">
@@ -111,14 +111,14 @@
                 <BaseButton
                         class="base-button_cancel modal-edit-folders-new__buttons_cancel"
                         @click="closeModalFoldersEditNew"
-                >
+                >{{isGetFolders}}
                     Отмена
                 </BaseButton>
             </div>
         </div>
     </div>
     <ModalEditSelectFolder v-if="toggleModalEditSelectFolder" :id="foldersSendId" @closeModalEditSelect="closeModalEditSelect()"></ModalEditSelectFolder>
-    <ModalCreateFolderNew v-if="toggleModalCreateNewFolder" @closeCreateNewFolder="closeCreateNewFolder()"></ModalCreateFolderNew>
+    <ModalCreateFolderNew v-if="toggleModalCreateNewFolder" @closeCreateNewFolder="closeCreateNewFolder()" @updateFolders="isGetFolders=true"></ModalCreateFolderNew>
     <ModalEditSelectFolderChild v-if="toggleModalEditSelectFolderChild" :id="foldersSendId" :child="foldersChildSendId" @closeModalEditSelectChild="closeModalEditSelectChild()"></ModalEditSelectFolderChild>
 </template>
 
@@ -198,10 +198,8 @@
                     setSaveCallbackModalConfirmDelete(saveCallback);
                     setTextModalConfirmDelete(`Вы точно хотите удалить ${deletingIds.data.length} папок?`)
                     toggleModalConfirmDelete(true);
-                    getAllFolders()
                 } else {
                     toggleModalEditFolders(false);
-                    getAllFolders()
                 }
                 getAllFolders()
             }
@@ -259,7 +257,6 @@
                         toggleModalEditSelectFolder.value = true
                         foldersSendId.value = folder_id
                     }
-                getAllFolders()
             }
 
             const foldersSendId = ref(1)
@@ -302,12 +299,12 @@
                         }
                     })
                 } 
-                getAllFolders()
+                console.log(isGetFolders.value)
             })
 
-            onUpdated(() => {
+            /* onUpdated(() => {
                 getAllFolders()
-            })
+            }) */
 
             
 
@@ -361,17 +358,13 @@
 
 <style lang="scss">
     .modal-edit-folders-new {
-        width: 100vw;
-        height: 100vh;
+        
         background: rgba(0, 0, 0, 0.34);
         position: absolute;
-        left: 0;
-        top: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        left: 50%;
+        top: 20%;
         text-align: left;
-        z-index: 1300;
+        transform: translate(-50%, -20%);
         &__body{
             width: 520px;
             background: #252544;
@@ -424,9 +417,13 @@
             display: flex;
             align-items: center;
             transition: .2s ease;
-            cursor: pointer;
+            border-top: 1px solid #252544;
+            &:first-child{
+                border-top: none;
+            }
             &:hover {
                 background: var(--modal-element-hover-bg-color);
+                border-top: 1px solid none;
             }
         }
         &__folder-child{
@@ -519,8 +516,10 @@
             justify-content: flex-start;
             margin-top: 22px;
             border-top: 1px solid #1D1D35;
+            align-items: center;
             &_cancel{
                 margin-left: 22px;
+                padding-top: 7px;
             }
         }
     }

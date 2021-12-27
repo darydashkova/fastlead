@@ -13,6 +13,13 @@
                 <div class="modal-edit-select-folder__parent-folder_title">Название папки</div>
                 <input v-model="newChildName" class="modal-edit-select-folder__parent-folder_name-folder">
             </div>
+            <div class="modal-edit-select-folder__main-folder">
+                <div class="modal-edit-select-folder__main-folder_title">Основная папка</div>
+                <div class="modal-edit-select-folder__main-folder-info">
+                    <div class="modal-edit-select-folder__main-folder-info-title">{{newArrayFolders.name}}</div>
+                    <div class="modal-edit-select-folder__main-folder-info-subtitle">{{newArrayFolders.unread}} чатов</div>
+                </div>
+            </div>
             <div class="modal-edit-select-folder__buttons">
                 <div class="modal-edit-select-folder__buttons_save pointer" @click="save">Сохранить</div>
                 <div class="modal-edit-select-folder__buttons_cancel pointer" @click="closeModalEditSelectChild">Отмена</div>
@@ -193,6 +200,36 @@
                 border-radius: 4px;
                 width: 100%
             }
+        }
+        &__main-folder{
+            padding: 20px 24px 26px;
+            border-top: 1px solid #1D1D35;
+            &_title{
+                color: #CFCFE4;
+            font-size: 14px;
+            font-weight: 400;
+            }
+                &-info{
+                    background: #1D1D35;
+                    width: 100%;
+                    border-radius: 6px;
+                    padding: 12px 12px;
+                    margin-top: 8px;
+                    &-title{
+                        color: #CFCFE4;
+                        font-size: 16px;
+                        font-weight: 400;
+                    }
+                    &-subtitle{
+                        color: #9797BB;
+                        font-size: 12px;
+                        font-weight: 400;
+                        margin-top: 6px;
+                }
+            }
+        }
+        &__main-folder-info{
+            
         }
         &__child-folder{
             padding: 20px 24px 0px;

@@ -29,6 +29,10 @@
             </div>
             <div class="modal-create-folder-new__select-parent" v-if="nameTypeFolders[1].isActive == true && !parentFolderId">
                 <div class="modal-create-folder-new__select-parent_title">Основная папка</div>
+                    <div class="modal-edit-select-folder__main-folder-info" v-if="foldersId != null && newArraySearchFolder != []">
+                        <div class="modal-edit-select-folder__main-folder-info-title">{{newArraySearchFolder.name}}</div>
+                        <div class="modal-edit-select-folder__main-folder-info-subtitle">{{newArraySearchFolder.dialogues_count}} чатов</div>
+                    </div>
                 <div class="modal-create-folder-new__select-parent_button pointer" @click="openParentFolder()">ВЫБРАТЬ ОСНОВНУЮ ПАПКУ</div>
                 <div class="modal-create-folder-new__select-parent_subtitle">Выберите папку, в которую хотите поместить "Новую папку"</div>
             </div>
@@ -38,12 +42,12 @@
                 </div>
         </div>
     </div>
-    <ModalSelectParentFolder v-if="parentFolderSelect" @closeParentFolder="closeParentFolder"></ModalSelectParentFolder>
+    <ModalSelectParentFolder v-if="parentFolderSelect" @closeParentFolder="closeParentFolder" @searchSelectFolderId="searchSelectFolderId"></ModalSelectParentFolder>
 </template>
 
 <script>
     import { useFolder } from "@/composition/useFolder";
-    import { ref, computed, onMounted, watch } from 'vue';
+    import { ref, computed, onMounted, watch, onUpdated } from 'vue';
     import { useModals } from "@/composition/useModals";
     import { useDialogs } from "@/composition/useDialogs";
 
@@ -77,8 +81,6 @@
             const name = ref('');
 
             const error = ref(false);
-
-            getAllFolders()
 
             const nameTypeFolders = ref([
                 {id: 0, name: "Основная", isActive: true},
@@ -121,7 +123,7 @@
             const parentFolderId = ref()
 
             const createNewFolders = () => {
-                if(foldersId == null){
+                if(foldersId.value == null){
                     createFolder({name: name.value,
                             dialog_ids: dialogNewId.value,
                             /* parent_folder_id: parentFolderId.value */})
@@ -132,8 +134,8 @@
                 }
                 /* parentFolderId.value = null */
                 foldersId.value = null
+                emit('updateFolders')
                 closeCreateNewFolder()
-                getAllFolders()
             }
 
             const dialogNewId = ref()
@@ -205,7 +207,16 @@
             const updateParentFolderId = () => {
                 parentFolderId.value = props.ids
                 foldersId.value = props.ids
-                console.log(parentFolderId.value)
+            }
+
+            const newArraySearchFolder = ref([])
+
+            const searchSelectFolderId = () => {
+                for(i = 0; i < folders.value.length; i++){
+                    if(folders.value[i].folder_id == foldersId.value){
+                        newArraySearchFolder.value = folders.value[i]
+                    }
+                }
             }
 
             watch(() => {
@@ -215,7 +226,6 @@
             const closeCreateNewFolder = () => {
                 parentFolderId.value = null
                 foldersId.value = null
-                getAllFolders()
                 emit('closeCreateNewFolder')
             }
 
@@ -261,6 +271,9 @@
                 closeCreateNewFolder,
                 ids: computed(() => props.ids),
                 updateParentFolderId,
+
+                newArraySearchFolder,
+                searchSelectFolderId,
             }
         }
     }
@@ -280,6 +293,9 @@
         text-align: left;
         &.z-index {
             z-index: 1400;
+        }
+        &__select-parent{
+            border-top: 1px solid #1D1D35;
         }
         &__body{
             width: 520px;
@@ -320,7 +336,6 @@
         }
         &__type-folder{
             padding: 18px 24px 16px;
-            border-bottom: 1px solid #1D1D35;
             &_title{
                 font-size: 14px;
                 font-weight: 400;
