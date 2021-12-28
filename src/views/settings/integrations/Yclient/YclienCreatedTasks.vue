@@ -118,11 +118,13 @@ export default {
 <style lang="scss">
 .yclient-created-tasks{
     &__content{
-        
+        width: 100%;
+        height: 100%;
     } 
     &__block{
         padding: 41px 31px;
         width: 100%;
+        height:calc(100% - 62px);
         &-column{
             display: flex;
             justify-content:space-between;
@@ -175,10 +177,12 @@ export default {
         width: 100%;
         position: relative;
         height: 100%;
+        background-color: var(--header-color);
+        border-radius: 9px;
         &__info{
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -47%);
             left: 50%;
-            top: 50%;
+            top: 47%;
             position: absolute;
             width: fit-content;
             display:flex;
