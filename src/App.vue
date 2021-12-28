@@ -86,6 +86,35 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+  .shadows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.39);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .scroll-poiner{
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 10px;               /* ширина scrollbar */
+    }
+    &::-webkit-scrollbar-track {
+      background: none;        /* цвет дорожки */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #9797BB;    /* цвет плашки */
+      border-radius: 20px;       /* закругления плашки */
+      border: 3px solid none;  /* padding вокруг плашки */
+    }
+  }
+
+
 
 </style>
 <style lang="scss" src="./fonts.scss"></style>
