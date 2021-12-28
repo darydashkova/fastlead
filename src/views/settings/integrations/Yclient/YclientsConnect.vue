@@ -61,9 +61,9 @@
              <!-- <div v-if="textOption==='Интеграция с модулем уведомлений Yclients'">
               <NotificationModule :Propdata = 'cooseDate' :isCloseAll="statusSelect"></NotificationModule>
             </div> -->
-            <div v-if="textOption==='Кросс-продажи'">
+            <!-- <div v-if="textOption==='Кросс-продажи'">
               <CrossSales :Propdata = 'cooseDate' :isCloseAll="statusSelect"></CrossSales>
-            </div>
+            </div> -->
             
            </div>
        </div>
@@ -115,7 +115,7 @@
                     'Напоминание о повторном визите',
                     'Напоминание о записи',
                     // 'Интеграция с модулем уведомлений Yclients',
-                    'Кросс-продажи'
+                    // 'Кросс-продажи'
                  ]
             });
             const cooseDate=ref({});

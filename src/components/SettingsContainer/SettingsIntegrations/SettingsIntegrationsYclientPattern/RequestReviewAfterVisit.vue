@@ -3,10 +3,12 @@
      <div class="settings-integrations-form__field">
         <div class="settings-integrations-form__date settings-integrations-form__birthday ">
             <div class="settings-integrations-form__date-column">
-                <div>Наименования</div>               
+                <div>Наименования</div>   
+                 <div class="settings-integrations-form__container">            
                     <input class="settings-integrations-form__input_test " v-model="name"  placeholder="Ввести" :class="{'yclient-pattern__error':error.name,
                     'settings-integrations-form__select_active':focusName}"
                      @focus="checkOpenModal(), focusName=true" @blur="focusName=false">  
+                     </div>
             </div>
             <!-- <div class="settings-integrations-form__date-column">
                 <div>Часовой пояс</div>
@@ -27,15 +29,19 @@
             </div>  -->
             <div class="settings-integrations-form__date-column">
                 <div>Запросить отзыв после визита через N минут</div>
+                 <div class="settings-integrations-form__container">
                 <input class="settings-integrations-form__input_test " type="number" placeholder="0" v-model="ntime" 
                 :class="{'yclient-pattern__error':error.ntime, 'settings-integrations-form__select_active':focusTime}" 
                 @focus="checkOpenModal(), focusTime=true" @blur="focusTime=false"> 
+                </div>
             </div>
              <div class="settings-integrations-form__date-column">
                 <div>ID филиала</div>
-                    <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" 
-                    v-model="filial" :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}"
-                     @focus="checkOpenModal(), focusId=true" @blur="focusId=false"> 
+                 <div class="settings-integrations-form__container">
+                        <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" 
+                        v-model="filial" :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}"
+                        @focus="checkOpenModal(), focusId=true" @blur="focusId=false"> 
+                     </div>
                 </div>
         </div>
         <div class="settings-integrations-form__date settings-integrations-form__birthday settings-integrations-form__date settings-integrations-form__birthday_top">

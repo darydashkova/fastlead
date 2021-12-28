@@ -79,19 +79,22 @@
                 </div>
             </div>  
             <div class="settings-integrations-form__date-column">
-            <div>Напомнить за N дней </div>
+            <div>Напомнить за N дней дней после последнего визита </div>
+            <div class="settings-integrations-form__container">
                 <input class="settings-integrations-form__input_test " type="number" placeholder="0" v-model="NDay"
                  :class="{'yclient-pattern__error':error.nday, 'settings-integrations-form__select_active':focusDay}"
-                  @focus="checkOpenModal(), focusDay=true" @blur="focusDay=false" > 
+                  @focus="checkOpenModal(), focusDay=true" @blur="focusDay=false" > </div>
             </div>
         </div>
         <div class="settings-integrations-form__date settings-integrations-form__record-time settings-integrations-form__date settings-integrations-form__record-time_top">
       
         <div class="settings-integrations-form__date-column">
             <div>ID филиала</div>
-              <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial" 
-                     :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}" 
-                   @focus="checkOpenModal(), focusId=true" @blur="focusId=false">
+             <div class="settings-integrations-form__container">
+                <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial" 
+                        :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}" 
+                    @focus="checkOpenModal(), focusId=true" @blur="focusId=false">
+                </div>
                      </div>
                 <div class="settings-integrations-form__date-column">
                     <div>Аккаунт</div>
