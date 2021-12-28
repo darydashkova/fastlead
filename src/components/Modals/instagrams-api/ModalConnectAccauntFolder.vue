@@ -98,7 +98,7 @@
             }
 
             const sellDataAccaunt = () => {
-                console.log(initialCreateElement.value)
+      
                 createNewAccaunt(initialCreateElement.value)
                 closeAllModals()
                 getInstagramsApi()

@@ -1,7 +1,7 @@
 <template>
     <div class="messenger">
         <teleport to="body">
-            <ModalEditFolders v-if="openedModalEditFolders"></ModalEditFolders>
+            <ModalEditFolders v-if="openedModalEditFolders" @closeModalEditFoldersNew="closeModalEditFoldersNew"></ModalEditFolders>
             <ModalMoveChat v-if="openedModalMoveChat"></ModalMoveChat>
             <ModalCreateFolder v-if="openedModalCreateFolder"></ModalCreateFolder>
             <ModalCreateChat v-if="openedModalCreateChat"></ModalCreateChat>

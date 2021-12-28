@@ -142,7 +142,7 @@
             },
             // возврат обновленного значения в среду mxGraph
             changeObjectValues(newCellValue) {
-                console.log(newCellValue);
+          
                 editor.graph.model.setValue(this.currentCell, newCellValue);
 
                 let model = editor.graph.getModel();

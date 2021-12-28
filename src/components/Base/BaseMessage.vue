@@ -138,7 +138,7 @@
             const { preloaderActive } = useMessages();
             const fullTextMessage = computed(() => {  
                 if (props.message.type === 'text') {
-                    let str = wrapEmoji(props.message.message.replace(/\n/g, '<br>'));
+                    let str ='<div class="base-message__text">' +  wrapEmoji(props.message.message.replace(/\n/g, '<br>')) ;
                     str = str + ` <div class="base-message__state">
                         ${validTime(props.message.time)}`
                   let subst = props.message.is_me? (
@@ -158,7 +158,7 @@
                                 <path d="M1.71436 7.01536L5.02576 9.57161L11.9394 1.05078"
                                       stroke="#2A5F5F" stroke-width="1.5" stroke-linecap="round"/>
                             </svg>`) : '';
-                    return str + subst + `</div>`;  
+                    return str + subst + `</div> </div>`;  
                 }
             })
             const urlDocs = () => {
@@ -244,6 +244,9 @@
         width: 100%;
         display: flex;
         margin: 5px 0;
+        &__text{
+            width: 100%;
+        }
     }
     .base-message__container {
         padding: 8px 10px;
@@ -262,7 +265,7 @@
         word-wrap: break-word;
         text-align: left;
         max-width: 100%;
-        padding: 0 5px 5px;
+        padding: 0 5px ;
         &.base-message__message_full {
             width: 100%;
             min-width: 100%;
@@ -298,8 +301,11 @@
         font-weight: 300;
         font-size: 14px;
         line-height: 19px;
-        min-width: 79px;
-
+        padding-top: 5px;
+        min-width: 30px;
+        float: right;
+        display: flex;
+        align-items: center;
         padding-left: 22px;
         text-align: right;
         &.base-message__state_image {
@@ -318,14 +324,18 @@
     .base-message__is-read {
         margin-left: 3px;
         width: 17px;
+      
     }
     .base-message_my {
         justify-content: flex-end;
         .base-message__container {
-            border-radius: 9px 0px 9px 9px;
-            background: var(--green-color);
+            border-radius: 12px 0px 12px 9px;
+            background: var(--my-message-bg);
             color: var(--font-my-message-color);
         }
+         .base-message__state{
+            color: var(--time-message-my);
+            }
     }
     .base-message_not-my {
         justify-content: flex-start;
@@ -334,7 +344,7 @@
         }
         .base-message__container {
             background: var(--messages-color);
-            color: var(--font-color);
+            color: var(--color-messanger);
         }
         .base-message__state{
             color: var(--sub-text-color);

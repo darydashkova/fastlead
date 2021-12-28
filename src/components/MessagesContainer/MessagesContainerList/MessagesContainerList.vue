@@ -129,6 +129,7 @@
     .messages-container-list {
         height: 100%;
         position: relative;
+        background-color: var(--modal-bg-color);
         overflow: hidden;
         ::-webkit-scrollbar {
             display: none;

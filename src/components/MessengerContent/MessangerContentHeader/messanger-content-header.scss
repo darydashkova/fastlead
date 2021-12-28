@@ -1,0 +1,102 @@
+.messenger-content-header{
+    width: 97%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    left: 48px;
+    background-color: var(--header-color);
+    &__title{
+        padding: 20px 40px 20px 30px ;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        color: var(--settings-header-color);
+    }
+    &__slider{
+        // max-width: 500px;
+        margin-left: 0;
+        width: 100%;
+        max-width: 500px;
+        font-size: 16px;
+        line-height: 140%;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        text-align: center;
+        color: var(--main-font-color);
+        .swiper-button-prev{
+            left: -1px;
+            background-image: url('../../../assets/follderArrovPrev.svg');
+            background-size: auto;
+            background-position: left;
+            background-repeat: no-repeat;
+        }
+        .swiper-button-next{
+            right: -3px; 
+            background-image: url('../../../assets/follderArrovNext.svg');
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .swiper-slide{ 
+            // width: fit-content !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .swiper-button-next::after, .swiper-button-prev::after {
+            content: none;
+        }
+        .swiper-scrollbar{
+            background: none;
+        }
+        .swiper-wrapper{
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        &_no-slide{
+            margin-left: 18px;
+            
+        }
+        &_no-slide:nth-child(1){
+            margin-left: 0;
+        }
+        .swiper-button-disabled{
+            display: none;
+        }
+        &-active {
+            width: fit-content;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            &:after{
+                content: '';
+                position: absolute;
+                height: 2px;
+                width: 100%;
+                background: var(--green-color);
+                right: 0;
+                left: auto;
+                bottom: 0px;
+            }
+        }
+      
+    }
+    &__info{
+        position: absolute;  
+        right: 30px;
+        left: auto;
+        border: 1px solid var(--border-active);
+        padding: 8px 24px;
+        border-radius: 5px;
+        color: var(--border-active);
+    }
+}  
+    .hidden {
+           height: 0 !important;
+           overflow: hidden;
+        }
