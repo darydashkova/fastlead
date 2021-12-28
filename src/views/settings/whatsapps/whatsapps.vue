@@ -4,14 +4,20 @@
             <div>
                 Созданные аккаунты
             </div>
-            <BaseButton class="base-button_enter base-button_p6-40" @click="create">Добавить новый</BaseButton>
+            <BaseButton class="settings-whatsapps__header_enter" @click="create"><span class="settings-whatsapps__header_enter-svg">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.33333 3.33333H4.66667V0.666667C4.66667 0.489856 4.59643 0.320287 4.4714 0.195262C4.34638 0.070238 4.17681 0 4 0C3.82319 0 3.65362 0.070238 3.5286 0.195262C3.40357 0.320287 3.33333 0.489856 3.33333 0.666667V3.33333H0.666667C0.489856 3.33333 0.320287 3.40357 0.195262 3.5286C0.070238 3.65362 0 3.82319 0 4C0 4.17681 0.070238 4.34638 0.195262 4.4714C0.320287 4.59643 0.489856 4.66667 0.666667 4.66667H3.33333V7.33333C3.33333 7.51014 3.40357 7.67971 3.5286 7.80474C3.65362 7.92976 3.82319 8 4 8C4.17681 8 4.34638 7.92976 4.4714 7.80474C4.59643 7.67971 4.66667 7.51014 4.66667 7.33333V4.66667H7.33333C7.51014 4.66667 7.67971 4.59643 7.80474 4.4714C7.92976 4.34638 8 4.17681 8 4C8 3.82319 7.92976 3.65362 7.80474 3.5286C7.67971 3.40357 7.51014 3.33333 7.33333 3.33333Z" fill="#1D1D35"/>
+            </svg></span>
+            Добавить новый</BaseButton>
         </div>
         <div class="settings-whatsapps__scroll-container">
             <div class="scroll" ref="container" @click.self="scrollTo">
                 <div class="scroll__bar" ref="scrollbar"></div>
             </div>
             <div class="settings-whatsapps__content" ref="content">
-            <div class="element-none" v-if="!whatsapps[0]">У вас еще нет подключенных аккаунтов</div>
+            <div class="element-noneWhats" v-if="!whatsapps[0]">У вас еще нет подключенных аккаунтов
+                <div class="element-noneWhats__button pointer" @click="create">Подключить</div>
+            </div>
                 <div class="settings-whatsapps__element" v-for="whatsapp in whatsapps"
                      :key="whatsapp.whatsapp_id+'SettingsWhatsapp'">
                     <div class="settings-whatsapps__name">
@@ -44,25 +50,25 @@
                         :class="{
                             'settings-whatsapps__phone_active': whatsapp.status_id === 1,
                             'settings-whatsapps__phone_warning': whatsapp.status_id === 2,
-                            'settings-whatsapps__phone_error': whatsapp.status_id === 3,
+                            'settings-whatsapps__phone_error': whatsapp.status_id === 3 || whatsapp.status_id === 4,
                         }"
                     >
                         {{whatsapp.status}}
                     </div>
-                    <!-- <div
+                    <!--<div class="settings-whatsapp__folder">{{whatsapp.default_folder.name}}</div>-->
+                    <!--<div
                             @click="sync(whatsapp)"
                             class="base-button_cancel base-button_p5-15 base-button_w-100"
-                            v-if="whatsapp.is_active">Синхронизировать</div>
+                            v-if="whatsapp.is_active">Синхронизировать</div>-->
+                    <div
+                            class="active-button-disabled pointer"
+                            v-if="whatsapp.status_id == 4 || whatsapp.is_active">Активировать</div>
+
                     <div
                             @click="activate(whatsapp)"
-
-                            class="base-button_cancel base-button_p5-15 base-button_w-100"
-                            v-else>Активировать</div> -->
-                              <div
-                            @click="activate(whatsapp)"
-                            class="base-button_cancel base-button_p5-15 base-button_w-100"
-                             v-if="!whatsapp.is_active">Активировать</div>
-                </div>
+                            class="base-button_cancel base-button_p5-15 base-button_w-100 pointer"
+                            v-else>Активировать</div>
+                    </div>
             </div>
         </div>
     </div>
