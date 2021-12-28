@@ -62,6 +62,7 @@
         display: flex;
         align-items: center;
         width: 100%;
+      
         &.base-search-input_m {
             margin: 24px 0 34px;
         }
@@ -82,7 +83,7 @@
         box-shadow: none;
         border:none;
         outline: none;
-
+        font-family: Inter;
         border-radius: 6px;
         width: 100%;
         padding: 5px 20px 5px 42px;

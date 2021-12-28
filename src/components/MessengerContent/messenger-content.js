@@ -72,7 +72,7 @@ export default {
         const getId = (id) => {
             isId.value = id
         }
-        
+         getFoldersForUpdate()
         return {
             openedUserInfo,
             addParentFolder,

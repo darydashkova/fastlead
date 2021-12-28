@@ -4,7 +4,7 @@
             <template v-if="foldersSlider&&foldersSlider.folders">   
                 <div class="messenger-content-header__slider "  v-if="!isSlider" :class="{ 'hidden' :isHidden}">
                     <div  class="pointer" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==foldersSlider.folder_id)}"
-                    @click="choseFolder(foldersSlider.folder_id)" v-if="mainDialogFolder">{{foldersSlider.name}}</div>
+                    @click="choseFolder(foldersSlider.folder_id)" >{{foldersSlider.name}}</div>
                     <div  v-for="(folder, index) in foldersSlider.folders"  @click="choseFolder(folder.folder_id)"  :key="index" :class="{'messenger-content-header__slider-active green-color':(selectedFolder==folder.folder_id)}"
                     class="messenger-content-header__slider_no-slide pointer"> {{folder.name}}</div>
                 </div>
@@ -79,14 +79,36 @@
 
             const mainDialogFolder = ref(false);
             const gerFoldersForSlider = () => {
+               
                 const isParent = ref([])
-                isParent.value=folders.value.find(i => i.folder_id==selectedFolder.value);
+                const isChildren = ref([])
+                isParent.value=folders.value.find(i => i.folder_id==localStorage.getItem('folder_id')); 
+
+               
                 if(isParent.value){
                     if (isParent.value.parent_folder_id!=null){
                         foldersSlider.value = folders.value.find(i => i.folder_id==isParent.value.parent_folder_id);
+                      
                     }
                     else{
                         foldersSlider.value = folders.value.find(i => i.folder_id==selectedFolder.value);
+                       
+                    } 
+                
+                }
+                else {
+                    for(let i = 0; i< folders.value.length; i++){
+                        if(folders.value[i].folders){
+                            isChildren.value  = folders.value[i].folders.find(i => i.folder_id==localStorage.getItem('folder_id')); 
+                            
+                            if(isChildren.value){
+                                foldersSlider.value = folders.value.find(i => i.folder_id==isChildren.value.parent_folder_id)
+                      
+                                return
+                            }
+                            
+
+                        }
                     }
                 }
                  if(dialogs.value){
@@ -97,7 +119,6 @@
                  }
             }
             const choseFolder = (id) => {
-                console.log(id)
                 // if (selectedFolder.value !== id) {
                     selectFolder(id);
                     isLoadingDialogs.value = true;
@@ -125,17 +146,21 @@
                      gerFoldersForSlider();
                  } 
                  }
+                 
                   if (props.update){
                       isUpdate.value = true
-                  }
-                  if(isUpdate.value){
-
-                       if(selectedFolder.value&&(isSelectedNewFolder.value==selectedFolder.value)){
+                     if(isUpdate.value){
+                      if(folders.value){
+                        gerFoldersForSlider();
+                     isUpdate.value=false  
+                      }
+                    //    if(selectedFolder.value&&(isSelectedNewFolder.value==selectedFolder.value)){
               
-                     gerFoldersForSlider();
-                     isUpdate.value=false
-                 } 
+                     
+                //  } 
                   }
+                  }
+                
                 if(document.querySelector('.messenger-content-header__slider')&&foldersSlider.value){
                     checkWidth() 
                 } 

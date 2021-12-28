@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-edit-select-folder">
+    <div class="modal-edit-select-folder" @click="closeModalEditSelectBlock" >
         <div class="modal-edit-select-folder__body">
             <div class="modal-edit-select-folder__header">
                 <div class="modal-edit-select-folder__header_title">Редактировать папку</div>
@@ -94,7 +94,12 @@
                     }
                 }
             }
-            
+               const closeModalEditSelectBlock = (e) => {
+                if(e.target.className=='modal-edit-select-folder'){
+                    emit('closeModalEditSelect')
+                }
+               
+            }
             const updateChildFolders = () => {
                 getAllFolders()
                 .then((r)=> {
@@ -190,6 +195,7 @@
                 updateFolderName,
 
                 updateChildFolders,
+                closeModalEditSelectBlock
             }
         }
     }

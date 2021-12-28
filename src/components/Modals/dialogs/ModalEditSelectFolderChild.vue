@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-edit-select-folder">
+    <div class="modal-edit-select-folder"  @click="closeModalEditSelectChildBlock">
         <div class="modal-edit-select-folder__body">
             <div class="modal-edit-select-folder__header">
                 <div class="modal-edit-select-folder__header_title">Редактировать папку</div>
@@ -81,10 +81,15 @@
                 
             }
 
-            const closeModalEditSelectChild = () => {
+            const closeModalEditSelectChild = (e) => {
                 emit('closeModalEditSelectChild')
             }
-
+              const closeModalEditSelectChildBlock = (e) => {
+                if(e.target.className=='modal-edit-select-folder'){
+                    emit('closeModalEditSelectChild')
+                }
+               
+            }
             const deletingIds = reactive({
                 data: [],
             })
@@ -150,6 +155,7 @@
                 childId,
                 newChildName,
                 updateFolderName,
+                closeModalEditSelectChildBlock
             }
         }
     }
@@ -199,6 +205,7 @@
                 margin-top: 8px;
                 margin-bottom: 12px;
                 background: #1D1D35;
+                font-size:16px;
                 color: #CFCFE4;
                 padding: 12px 12px;
                 border-radius: 4px;
@@ -253,10 +260,10 @@
         &__child-element{
             display: flex;
             justify-content: space-between;
-            padding: 12px 12px;
+            padding: 12px 0px ;
             border-bottom: 1px solid #252544;
-            width: 96%;
-            margin: 0 auto;
+            width: calc(100% - 23px - 12px) ;
+            margin: 0 23px 0 12px;
             align-items: center;
         }
         &__child-element-info{

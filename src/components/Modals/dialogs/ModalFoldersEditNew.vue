@@ -366,7 +366,7 @@
         height: 100%;
         width: 100%;
         background: rgba(0, 0, 0, 0.39);
-       
+        z-index: 999;
         display: flex;
         justify-content: center;
         align-items: center;
