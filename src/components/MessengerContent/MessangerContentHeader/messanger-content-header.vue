@@ -58,7 +58,7 @@
              const { getFolder, activeFolder } = MessengerContentInput()
             const { isLoadingDialogs } = useLoader()
             const onSlideChange = () => {
-                console.log('click');
+  
             }
             const isSlider = ref(null);
             const isHidden = ref(true);
@@ -126,7 +126,7 @@
                     getDialogs(id)
                         .then((r) => {
                             isLoadingDialogs.value = false;
-                            console.log(r)
+                        
                         })
                 // }
                 toggleAllSelectedGroupDialogs(false);

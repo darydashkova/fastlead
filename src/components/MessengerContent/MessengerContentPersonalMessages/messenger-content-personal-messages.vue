@@ -195,8 +195,7 @@
             const isSlider = ref(null)
                const checkWidth =  () => {
             const widthSlider = document.querySelector('.messenger-content-personal-messages__no-slider') ;
-            console.log(widthSlider.clientWidth)
-            console.log(widthSlider.scrollWidth)
+
                  if(tags.value&&tags.value[0]&&widthSlider){
                     if(widthSlider.clientWidth<widthSlider.scrollWidth){
                         isSlider.value =  true
@@ -213,12 +212,9 @@
                     getTags()
                 }
                 
-                console.log(selectedDialog.value)
                 if(tags.value&&tags.value[0]){
-                    console.log('1')
                      if(document.querySelector('.messenger-content-personal-messages__no-slider')){
                     checkWidth() 
-                    console.log(document.querySelector('.messenger-content-personal-messages__no-slider'))
                 } 
                
                 }
@@ -226,10 +222,10 @@
             })
             onUpdated(()=>{
                  if(tags.value&&tags.value[0]){
-                    console.log('1')
+
                      if(document.querySelector('.messenger-content-personal-messages__no-slider')){
                     checkWidth() 
-                    console.log(document.querySelector('.messenger-content-personal-messages__no-slider'))
+                
                 } 
                
                 }

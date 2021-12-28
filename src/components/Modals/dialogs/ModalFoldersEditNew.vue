@@ -299,7 +299,7 @@
                         }
                     })
                 } 
-                console.log(isGetFolders.value)
+             
             })
 
             /* onUpdated(() => {

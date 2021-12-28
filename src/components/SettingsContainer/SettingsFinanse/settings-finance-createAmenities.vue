@@ -174,7 +174,7 @@ export default {
         onBeforeMount(() => {
             getFinance()
             .then(r => {
-                console.log(finances.value)
+  
 
                 return r;
             })
