@@ -492,7 +492,7 @@ export default {
                       valid.value= false
                 }
                 else{
-                    data.value.parameters[0].company_id = filial.value; 
+                    data.value.parameters[0].company_id = String(filial.value); 
                 }
                 if(NDay.value==''){
                     data.value.parameters[0].n_day ='';

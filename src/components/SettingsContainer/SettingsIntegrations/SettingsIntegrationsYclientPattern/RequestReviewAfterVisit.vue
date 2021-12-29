@@ -339,7 +339,7 @@ export default {
                 }
                 else{
                     
-                    data.value.parameters[0].company_id = filial.value; 
+                    data.value.parameters[0].company_id = String(filial.value);  
                 }
                 if(whatsappId.value==''){
                         if(instId.value==''){
