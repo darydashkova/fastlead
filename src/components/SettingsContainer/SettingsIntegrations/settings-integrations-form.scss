@@ -39,7 +39,43 @@ margin-bottom: 8px;
     width: 100%;
   }
 }
+&__switcher{
+  display: flex;
+  flex-direction: column;
+  .switcher{
+    margin-bottom: 14px;
+  }
+}
+&__checkbox{
+  padding: 24px 0px;
+  border-top: 1px solid var(--messenger-search-input-bg);
+  &-title{
+    padding-bottom: 16px;
+  }
 
+}
+&__date-row{
+  &:nth-last-of-type(1){
+    border-bottom: none !important;
+    
+  }
+  .settings-integrations-form__date-column{
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+}
+&__sigma{
+  display: flex;
+  justify-content:flex-start;
+  padding-top: 22px;
+}
+  &__date-input_transparent{
+    width: inherit;
+  }
+}
+.settings-integrations-form__checkbox_no-padding{
+  padding: 24px 0px 0px;
+    border-top: 1px solid var(--messenger-search-input-bg);
 }
 .settings-integrations-form__body {
   width: 100%;
@@ -50,9 +86,10 @@ margin-bottom: 8px;
   flex-direction: column;
 }
 .settings-integrations-form__field {
-  padding: 36px 30px;
+  margin: 0px 32px;
+  padding: 40px 0px 31px;
   border-bottom: 1px solid var(--separator-color);
-  width: 100%;
+  width: initial;
 }
 .settings-integrations-form__header {
   font-style: normal;
@@ -156,10 +193,10 @@ margin-bottom: 8px;
   line-height: 19px;
   width: 100%;
   margin-left: 50px;
-  padding: 8px 10px;
+  padding: 0px 0px 0px 10px;
   color: var(--modal-font-color);
-  background: var(--modal-element-hover-bg-color);
-  border: .7px solid var(--modal-input-border-color);
+  background: var(--messenger-search-input-bg-active) !important;
+  border: 1px solid var(--settings-nav-border) !important;
   box-sizing: border-box;
   border-radius: 3px;
   text-align: left;
@@ -179,8 +216,8 @@ margin-bottom: 8px;
   // padding: 8px 10px;
   padding: 0px 10px;
   color: var(--modal-font-color);
-  background: var(--modal-element-hover-bg-color);
-  border: .7px solid var(--modal-input-border-color);
+  background: var(--messenger-search-input-bg-active);
+  border: .7px solid var(--settings-nav-border);
   box-sizing: border-box;
   border-radius: 3px;
   text-align: left;
@@ -215,13 +252,21 @@ margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 37px;
+  
   cursor: pointer;
   height: 100%;
   &-svg{
     border-left: 1px solid #252544;
     height: 100%;
     padding-left: 10px;
-    min-width: 21px;
+    min-width: 19px !important;
+  }
+  svg{
+    border-left: 1px solid #252544;
+    height: 100%;
+    padding-left: 10px;
+    min-width: 24px;
   }
   &-svg_green{
     border-left: 1px solid #5EC075 !important;
@@ -243,7 +288,7 @@ margin-bottom: 8px;
   left: 0;
   top: calc(100% + 18px);
   border: 1px solid var(--context-background-color);
-  background: var(--context-background-color);
+  background: var(--messages-input-wrapper-bg);
   border-radius: 3px;
   z-index: 111;
 }
@@ -396,6 +441,7 @@ margin-bottom: 8px;
   .settings-integrations-form__input_test {
     margin-left: 0px;
     margin-right: 15px;
+    
   
   }
   .settings-integrations-form__label-test-button{
@@ -419,6 +465,22 @@ margin-bottom: 8px;
 }
 .settings-integrations-form__select_active {
   border: 1px solid #5EC075 !important;
+  .settings-integrations-form__dropdown-inner-arrow{
+    transform: rotate(180deg) !important;
+    transition: 0.3s ease;
+  }
+  .settings-integrations-form__dropdown-inner{
+    svg {
+      border-left: 1px solid #5EC075;
+      path{
+      fill:  #5EC075;
+    }
+  }
+  }
+}
+.settings-integrations-form__dropdown-inner-arrow{
+  transform: rotate(0deg);
+  transition: 0.3s ease;
 }
 .settings-integrations-form__date-column{
   margin-right: 16px;
@@ -439,4 +501,20 @@ margin-bottom: 8px;
   overflow: hidden; 
   text-overflow: ellipsis;
   width:98%;
+}
+.settings-integrations-form__dropdown-list-filters{
+  max-height: 500px;
+  overflow-y: auto;
+  
+&::-webkit-scrollbar { width: 0; }
+
+
+-ms-overflow-style: none; 
+
+ overflow: -moz-scrollbars-none; 
+ .settings-integrations-form__date-column{
+   width: 100%;
+   padding:10px 0px 24px;
+   border-bottom: 1px solid #40406B;
+ }
 }

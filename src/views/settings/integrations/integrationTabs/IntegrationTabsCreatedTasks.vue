@@ -20,10 +20,13 @@
                 </div> 
             </template>
             <template v-else-if="!loading&&(Object.keys(amo).length)">
+                
                 <div class="empty-list">
-                    <div class="empty-list__title">У вас еще нет задач</div>
-                    <div class="empty-list__button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
-                </div>
+                        <div class="empty-list__info">
+                            <div class="empty-list__info-title">У вас еще нет задач</div>
+                            <div class="empty-list__info-button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
+                        </div>
+                    </div>
             </template>
         </div>
     </div>
@@ -139,6 +142,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    height: calc(100% - 64px);
+    width: 100%;
     &-title{
         font-size: 12px;
         line-height: 130%;  
@@ -171,23 +176,30 @@
         }
     }
     .empty-list{
-        transform: translate(-50%, -50%);
-        left: 50%;
-        top: 50%;
-        position: absolute;
-        width: fit-content;
-        display:flex;
-        align-items: center;
-        flex-direction: column;
-        &__title{
-            font-weight: bold;
-            font-size: 24px;
-            line-height: 24px;
-            color: #F0F0FA;
-            padding-bottom:32px;
-        }
-        &__button{
-            color: #1D1D35
+        width: 100%;
+        position: relative;
+        height: 100%;
+        background-color: var(--header-color);
+        border-radius: 9px;
+        &__info{
+            transform: translate(-50%, -47%);
+            left: 50%;
+            top: 47%;
+            position: absolute;
+            width: fit-content;
+            display:flex;
+            align-items: center;
+            flex-direction: column;
+            &-title{
+                font-weight: bold;
+                font-size: 24px;
+                line-height: 24px;
+                color: #F0F0FA;
+                padding-bottom:32px;
+            }
+            &-button{
+                color: #1D1D35
+            }
         }
     }
 }

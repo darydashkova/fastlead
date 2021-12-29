@@ -25,7 +25,7 @@
                  v-if="!isActiveDialog"
             >Этот диалог неактивен</div>
              <svg 
-                 @click="send"
+                 @click="send"  v-if="value"
                  class="messages-container-input__icon messages-container-input__icon_airplane"
                  width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M24.4516 9.12261L3.47412 0.198642C2.59038 -0.177351 1.59196 -0.011949 0.868585 0.630081C0.145205 1.27222 -0.15735 2.2616 0.079088 3.2121L1.94627 10.719H11.0882C11.5089 10.719 11.85 11.0687 11.85 11.5C11.85 11.9313 11.5089 12.281 11.0882 12.281H1.94627L0.079088 19.7879C-0.15735 20.7385 0.145154 21.7278 0.868585 22.3699C1.59344 23.0133 2.59195 23.1766 3.47417 22.8014L24.4516 13.8774C25.4067 13.4712 26 12.5602 26 11.5C26 10.4399 25.4067 9.52885 24.4516 9.12261Z" fill="url(#paint0_linear)"/>
@@ -60,7 +60,7 @@
                           fill="var(--default-svg-fill)"/>
                 </svg>
                 <div class="messages-container-input__attachments" v-if="attachment.isOpened">
-                    <div class="messages-container-input__attachment">
+                    <!-- <div class="messages-container-input__attachment">
                         <div class="messages-container-input__attachment-icon">
                             <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.59258 8.24161C8.82515 8.73608 7.9229 9 6.99992 9C5.76262 8.99881 4.57635 8.52432 3.70145 7.68066C2.82655 6.83701 2.33449 5.69311 2.33325 4.5C2.33325 3.60999 2.60695 2.73996 3.11973 1.99994C3.63251 1.25991 4.36134 0.683138 5.21406 0.342544C6.06678 0.00194979 7.0051 -0.0871652 7.91034 0.0864682C8.81558 0.260102 9.64711 0.688685 10.2998 1.31802C10.9524 1.94736 11.3969 2.74918 11.5769 3.62209C11.757 4.49501 11.6646 5.39981 11.3114 6.22208C10.9581 7.04434 10.36 7.74715 9.59258 8.24161ZM8.72836 2.00559C8.21674 1.67595 7.61524 1.5 6.99992 1.5C6.1748 1.5 5.38348 1.81607 4.80003 2.37868C4.21658 2.94129 3.88881 3.70435 3.88881 4.5C3.88881 5.09334 4.07127 5.67336 4.41312 6.16671C4.75498 6.66006 5.24087 7.04458 5.80935 7.27164C6.37783 7.4987 7.00337 7.55811 7.60687 7.44236C8.21036 7.3266 8.76471 7.04088 9.19981 6.62132C9.6349 6.20176 9.93121 5.66721 10.0513 5.08527C10.1713 4.50333 10.1097 3.90013 9.87421 3.35195C9.63874 2.80377 9.23998 2.33524 8.72836 2.00559ZM2.05253 12.4792C3.36483 11.2138 5.14412 10.502 7 10.5C8.85588 10.502 10.6352 11.2138 11.9475 12.4792C13.2598 13.7447 13.9979 15.4604 14 17.25C14 17.4489 13.9181 17.6397 13.7722 17.7803C13.6263 17.921 13.4285 18 13.2222 18C13.0159 18 12.8181 17.921 12.6722 17.7803C12.5264 17.6397 12.4444 17.4489 12.4444 17.25C12.4444 15.8576 11.8708 14.5222 10.8498 13.5377C9.82877 12.5531 8.44396 12 7 12C5.55604 12 4.17123 12.5531 3.1502 13.5377C2.12916 14.5222 1.55556 15.8576 1.55556 17.25C1.55556 17.4489 1.47361 17.6397 1.32775 17.7803C1.18189 17.921 0.984057 18 0.777778 18C0.571498 18 0.373667 17.921 0.227806 17.7803C0.0819442 17.6397 0 17.4489 0 17.25C0.00205866 15.4604 0.740218 13.7447 2.05253 12.4792Z"
@@ -70,7 +70,7 @@
                         <div>
                             Контакт
                         </div>
-                    </div>
+                    </div> -->
                     <div class="messages-container-input__attachment" @click.stop="attachment.addVideo">
                         <div class="messages-container-input__attachment-icon">
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -434,7 +434,7 @@
         outline: none;
         resize: none;
         border: none;
-
+        padding-left: 57px;
         /*display: flex;*/
         /*align-items: center;*/
         width: 100%;
@@ -449,15 +449,16 @@
         font-size: 16px;
         line-height: 21px;
 
-        min-height: 50px;
+
         max-height: 150px;
 
 
-        padding: 13px 50px 16px 63px;
+        // padding: 13px 50px 16px 63px;
         border-radius: 31px;
 
-        background: var(--main-color);
+        background: var(--messages-input-wrapper-bg);
         color: var(--font-color);
+        caret-color: var(--cursor-input-active);
         text-align: left;
         &::-webkit-scrollbar {
             display: none;
@@ -480,12 +481,14 @@
     .messages-container-input__icon_include {
         position: absolute;
         left: 17px;
-        bottom: 14px;
+        top: 21px;
+        transform: translateY(-21px);
     }
 
     .messages-container-input__icon_smile {
         position: relative;
-        bottom: 14px;
+         top: 21px;
+        transform: translateY(-21px);
         margin-left: 21px;
         min-width: 22px;
         min-height: 22px;
@@ -502,11 +505,13 @@
 
     .messages-container-input__icon_airplane {
         position: relative;
-        bottom: 14px;
+     
         margin-left: 16px;
         min-width: 23px;
         min-height: 22px;
         cursor: pointer;
+        top: 21px;
+        transform: translateY(-21px);
     }
     .messages-container-input__attachments {
         position: absolute;

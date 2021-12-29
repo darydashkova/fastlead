@@ -41,7 +41,6 @@
                             </svg>
                         </div>
                     </template>
-
                 </div>
             </div>
             <BaseModalText class="base-modal-text_padding-20 base-modal-text_mt-29 base-modal-text_uppercase base-modal-text_hovered pointer"

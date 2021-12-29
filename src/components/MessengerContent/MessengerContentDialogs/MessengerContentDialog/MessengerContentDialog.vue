@@ -6,6 +6,7 @@
         <div class="messenger-content-dialog__content" ref="content">
             <slot></slot>
         </div>
+        <div></div>
     </div>
 </template>
 
@@ -26,8 +27,6 @@
             const { setOffsetFolderDialogsPosition, offsetFolderDialogsPosition, selectedFolder } = useFolder()
 
             const loadingNextDialogs = ref(false)
-
-
             const loadNextDialogs = async () => {
                 if (!loadingNextDialogs.value && selectedFolder.value) {
                     loadingNextDialogs.value = true;
@@ -58,7 +57,7 @@
     .messenger-content-dialog{
         margin-top: 18px;
         //34px - поиск, 9 - margin, 29 - название папки, 22 - margin названия
-        height: calc(100% - 34px - 18px);
+        height: calc(100% - 110px - 18px);
         position: relative;
         ::-webkit-scrollbar {
             display: none;
@@ -66,11 +65,11 @@
     }
     .messenger-content-dialog_searching {
         margin-top: 0;
-        height: calc(100% - 34px - 9px - 29px - 22px + 9px);
+        height: calc(100% - 180px);
     }
 
     .messenger-content-dialog__content {
-        height: 100%;
+        height: calc(100% - 15px);
         width: 100%;
         overflow-y: auto;
     }

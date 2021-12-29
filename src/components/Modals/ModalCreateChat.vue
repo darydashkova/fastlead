@@ -66,7 +66,7 @@
                             <BaseModalLabel for-id="modal-create-chat__input"
                                             :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
                             <input id="modal-create-chat__input-phone" type="text" class="modal-create-chat__input" v-model="phone"   placeholder="7 (123) 456-78-90"
-                 v-maska="'# (###) ###-##-##'">
+                 v-maska="'7 (###) ###-##-##'">
                         </div>
                         <div v-else class="modal-create-chat__input-group modal-create-chat__input-group_padding-20">
                             <BaseModalLabel for-id="modal-create-chat__input"

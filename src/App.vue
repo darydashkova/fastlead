@@ -37,6 +37,7 @@
     outline: none;
     resize: none;
     border: none;
+     caret-color:var(--cursor-input-active);
   }
   * {
     box-sizing: border-box;
@@ -44,7 +45,7 @@
   body{
     margin: 0;
     padding: 0;
-    font-family: Segoe UI, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -80,7 +81,11 @@
   .pointer {
     cursor: pointer;
   }
-
+  .green-color {
+    background: var(--green-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
   .shadows {
     position: absolute;
     top: 0;
@@ -108,6 +113,7 @@
       border: 3px solid none;  /* padding вокруг плашки */
     }
   }
+
 
 
 </style>

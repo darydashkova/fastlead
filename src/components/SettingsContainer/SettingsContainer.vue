@@ -1,15 +1,17 @@
 <template>
     <div class="settings-container">
-        <SettingsNav></SettingsNav>
+        <!-- <SettingsNav></SettingsNav> -->
+         <SettingsNavNew></SettingsNavNew>
         <router-view class="settings-content"></router-view>
     </div>
 </template>
 
 <script>
     import SettingsNav from './SettingsNav/settings-nav.vue';
+    import SettingsNavNew from './SettingsNavNew/settings-nav.vue';
 
     export default {
-        components: { SettingsNav },
+        components: { SettingsNav, SettingsNavNew },
     }
 </script>
 
@@ -22,9 +24,9 @@
     .settings-content {
         height: 100%;
         background: var(--settings-main-color);
-        width: calc(100% - 90px);
+        width: calc(100% - 48px);
         position: absolute;
-        left: 90px;
+        left: 48px;
         top: 0;
         //overflow-y: auto;
 

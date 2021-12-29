@@ -2,7 +2,7 @@ import MessengerContent from "../../components/MessengerContent/messenger-conten
 import ModalCreateFolder from "../../components/Modals/ModalCreateFolder.vue"
 import ModalCreateChat from "../../components/Modals/ModalCreateChat.vue"
 import ModalAddToFolder from "../../components/Modals/ModalAddToFolder.vue"
-import ModalEditFolders from "../../components/Modals/ModalEditFolders.vue"
+import ModalEditFolders from "../../components/Modals/dialogs/ModalFoldersEditNew.vue"
 import ModalMoveChat from "../../components/Modals/ModalMoveChat.vue"
 import ModalConfirmDelete from "../../components/Modals/ModalConfirmDelete.vue"
 
@@ -72,7 +72,9 @@ export default {
             })
 
 
-
+            const closeModalEditFoldersNew = () => {
+                openedModalEditFolders.value = false;
+            }
         onMounted(() => {
             document.addEventListener('keyup', close);
         })
@@ -94,6 +96,7 @@ export default {
             openedModalAddToFolder,
             openedModalEditFolders,
             openedModalMoveChat,
+            closeModalEditFoldersNew,
             openedModalConfirmDelete,
         }
     },

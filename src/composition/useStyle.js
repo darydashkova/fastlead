@@ -14,37 +14,47 @@ export function useStyle() {
 
             'folder-color': '#757589',
             'webkit-scroll-color': '#B7B7BE',
-            'font-my-message-color': '#EDEDEF',
+            'font-my-message-color': '#252544',
 
 
         }
         const dark = {
             ...common,
+            'main-font-color':'#9797BB', //главный цвет текста 
             'left-bar-color': '#141427', //цвет панели с папками --> var(--left-bar-color)
             'default-svg-fill': '#575773',
             'hover-svg-fill': '#FBFBFE',
             'hover-folder-bg': '#1D1D35',
             'messenger-middle-bar-bg': '#414159',
-            'separator-color': '#2E2E4E', //цвет разделительной линии var(--separator-color)
+            'separator-color': '#252544', //цвет разделительной линии var(--separator-color)
             'user-info-settings-header-bg': '#2E2E4E',
             'user-info-settings-hover-svg-fill': '#F0F0FA',
             'user-info-settings-default-svg-fill': '#9797BB',
             'user-info-settings-default-setting-name': '#F0F0FA',
             'user-info-settings-hover-setting-bg': '#575773',
             'foreign-messages-font-color': '#F0F0FA', //цвет чужого сообщения var(--messages-color)
-            'messenger-search-input-bg': '#575773',
+            'messenger-search-input-bg': '#40406B',
+            'messenger-search-input-bg-active': '#1D1D35', 
             'user-icon-name' : '#575773',
-            'messages-input-wrapper-bg': '#141427',
+            'messages-input-wrapper-bg': '#252544',
+            
+            'border-integration-card':'#40406B',
+            
 
-            'font-color': '#F0F0FA', //цвет шрифта(основной) --> var(--font-color)
+
+            'font-color': ' #CFCFE4', //цвет шрифта(основной) --> var(--font-color)
             'sub-text-font-color': '#575773',
-            'main-color': '#1D1D35', //цвет фона с перепиской --> var(--main-color)
-            'messages-color': '#414159', //цвет чужого сообщения var(--messages-color)
+            'main-color': '#141427', //цвет фона с перепиской --> var(--main-color)
+            'messages-color': '#252544', //цвет чужого сообщения var(--messages-color)
             'context-background-color': '#2E2E4E', //цвет бг контекстного меню
             'placeholder-color': '#575773',
-
+            'settings-active-list':'#141427',//цвет открытого пункта меню со вложенным списком
+            'color-messanger':'#CFCFE4', //цвет в диалогах
+            'color-messanger-name' :'#F0F0FA', //цвет имени в диалоге
             'modal-bg-color': '#1D1D35',
+            'header-color':'#1D1D35', //цвет Header в диалогах
             'modal-element-hover-bg-color': '#2E2E4E',
+            'settings-active-link' : '#141427', //цвет активной ссылки в меню
             'modal-font-color': '#FBFBFE', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
             'modal-sub-font-color': '#9797BB', //цвет текста в модальном окне создания папки var(--create-folder-font--color)
             'modal-base-text-default-color': '#EDEDEF',
@@ -56,10 +66,11 @@ export function useStyle() {
 
 
             'button-cancel-color': '#2E2E4E', //цвет bg cancel кнопки
-            'settings-nav-color': '#141427', //цвет nav'а в настройках
+            'settings-nav-color': ' #1D1D35', //цвет nav'а в настройках
+            'settings-nav-border' : '#252544',//цвет border в меню
 
             'settings-left-bar-hover': '#1D1D35',
-            'settings-main-color': '#1D1D35',
+            'settings-main-color': '#141427',
             'settings-header-color': '#F0F0FA',
             'settings-whatsapp-color': '#141427', //цвет ватсаппа
             'settings-whatsapp-name-color': '#F0F0FA', //цвет названия ватсаппа
@@ -76,7 +87,7 @@ export function useStyle() {
 
 
 
-            'sub-text-color': '#B7B7BE', //цвет шрифта(вторичный) var(--sub-text-color),
+            'sub-text-color': '#9797BB', //цвет шрифта(вторичный) var(--sub-text-color),
             'date-in-message-color': '#EDEDEF', //цвет текста в отображении даты
             'stripe-instead-ava': '#FFFFFF', //цвет полосок вместо авы
             'mailings-cancel-button-color': '#4A4A5D',
@@ -84,6 +95,7 @@ export function useStyle() {
             'calendar-border-color': '#1D1D35',
             'calendar-font-color': '#B7B7BE',
             'calendar-active-font-color': '#FFFFFF',
+            'cursor-input-active':' #5EC075', //цвет курсора
 
 
             'settings-autoresponders-actions-input-bg-color': '#141427',
@@ -91,6 +103,10 @@ export function useStyle() {
             'base-checkbox-group-font-color': '#757589',
 
             'empty-photo-bg': 'rgba(29, 29, 53, 0.88)',
+            'border-active' : '#5EC075', //зеленые/активный border
+            'messanger-content' : '#252544',
+            'time-message-my' : '#2A5F5F', 
+            'my-message-bg' : '#5EC075' //цвет моего сообщения в диалоге
         }
         const light = {
             ...common,
@@ -163,6 +179,7 @@ export function useStyle() {
             'base-checkbox-group-font-color': '#404054',
 
             'empty-photo-bg': 'rgba(64, 64, 84, 0.56)',
+           
         }
 
         let setProperties = (property) => {

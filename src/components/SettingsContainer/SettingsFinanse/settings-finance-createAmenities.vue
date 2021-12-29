@@ -193,6 +193,11 @@ export default {
 
         onBeforeMount(() => {
             getFinance()
+            .then(r => {
+  
+
+                return r;
+            })
         })
          
         return {

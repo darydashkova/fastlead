@@ -16,6 +16,8 @@ const foldersInSelectedFolder = reactive({
 
 const offsetFolderDialogsPosition = ref(0);
 
+const foldersId = ref(null)
+
 export function useFolder() {
     const selectFolder = (id) => {
         setOffsetFolderDialogsPosition(0)
@@ -89,5 +91,7 @@ export function useFolder() {
         selectParentFolder,
         createpdateFolder,
         getAllFoldersInFolder,
+        foldersId,
+
     }
 }

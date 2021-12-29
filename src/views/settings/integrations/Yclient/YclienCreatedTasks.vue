@@ -28,8 +28,10 @@
                   
                 <template v-else-if="!data.yclients_task&&!loading">
                     <div class="empty-list">
-                        <div class="empty-list__title">У вас еще нет задач</div>
-                        <div class="empty-list__button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
+                        <div class="empty-list__info">
+                            <div class="empty-list__info-title">У вас еще нет задач</div>
+                            <div class="empty-list__info-button base-button base-button_enter base-button_p5-15" @click="addTask">Добавить задачу</div>
+                        </div>
                     </div>
                 </template>
                 
@@ -116,11 +118,13 @@ export default {
 <style lang="scss">
 .yclient-created-tasks{
     &__content{
-        
+        width: 100%;
+        height: 100%;
     } 
     &__block{
         padding: 41px 31px;
         width: 100%;
+        height:calc(100% - 62px);
         &-column{
             display: flex;
             justify-content:space-between;
@@ -145,8 +149,8 @@ export default {
                 width: 100%;
                 padding: 8px 10px;
                 color: var(--modal-font-color);
-                background: var(--modal-element-hover-bg-color);
-                border: 0.7px solid var(--modal-input-border-color);
+                background: var(--messenger-search-input-bg-active);
+                border: 0.7px solid var(--settings-nav-border);
                 width: calc(50% - 42px); 
                 border-radius: 3px;
                
@@ -170,23 +174,30 @@ export default {
             }
         } 
     .empty-list{
-        transform: translate(-50%, -50%);
-        left: 50%;
-        top: 50%;
-        position: absolute;
-        width: fit-content;
-        display:flex;
-        align-items: center;
-        flex-direction: column;
-        &__title{
-            font-weight: bold;
-            font-size: 24px;
-            line-height: 24px;
-            color: #F0F0FA;
-            padding-bottom:32px;
-        }
-        &__button{
-            color: #1D1D35
+        width: 100%;
+        position: relative;
+        height: 100%;
+        background-color: var(--header-color);
+        border-radius: 9px;
+        &__info{
+            transform: translate(-50%, -47%);
+            left: 50%;
+            top: 47%;
+            position: absolute;
+            width: fit-content;
+            display:flex;
+            align-items: center;
+            flex-direction: column;
+            &-title{
+                font-weight: bold;
+                font-size: 24px;
+                line-height: 24px;
+                color: #F0F0FA;
+                padding-bottom:32px;
+            }
+            &-button{
+                color: #1D1D35
+            }
         }
     }
 }

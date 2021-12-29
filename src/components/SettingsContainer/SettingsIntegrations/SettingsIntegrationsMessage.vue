@@ -147,7 +147,7 @@ export default {
         position: absolute;
         bottom: 5px;
         padding: 0px 10px;
-        background-color:var(--modal-element-hover-bg-color);
+        background-color:var(--messenger-search-input-bg-active);
         height: 35px;
         &-flex{
             display: flex;

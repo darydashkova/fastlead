@@ -1063,7 +1063,7 @@
                 }
                  if(editDate.value!=null){
                     loading.value=true;
-                    console.log( props.formData.data)
+            
                     if( props.formData.data.hasOwnProperty('funnel_actions') ){
                         
                     const id = editDate.value[0]

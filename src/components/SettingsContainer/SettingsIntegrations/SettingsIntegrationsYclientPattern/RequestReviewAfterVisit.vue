@@ -3,18 +3,21 @@
      <div class="settings-integrations-form__field">
         <div class="settings-integrations-form__date settings-integrations-form__birthday ">
             <div class="settings-integrations-form__date-column">
-                <div>Наименования</div>               
-                    <input class="settings-integrations-form__input_test " v-model="name"  placeholder="Ввести" :class="{'yclient-pattern__error':error.name}">  
+                <div>Наименования</div>   
+                 <div class="settings-integrations-form__container">            
+                    <input class="settings-integrations-form__input_test " v-model="name"  placeholder="Ввести" :class="{'yclient-pattern__error':error.name,
+                    'settings-integrations-form__select_active':focusName}"
+                     @focus="checkOpenModal(), focusName=true" @blur="focusName=false">  
+                     </div>
             </div>
             <!-- <div class="settings-integrations-form__date-column">
                 <div>Часовой пояс</div>
                 <div class="settings-integrations-form__container">
                     <button @click="openSelect" class="settings-integrations-form__input_test " :class="{'settings-integrations-form__select_active': statusSelect }"> 
                         <div class="settings-integrations-form__dropdown-inner" :class="{'settings-integrations-form__dropdown-inner_placeholder':(timeZoneOption=='Выбрать')}"> {{timeZoneOption}}
-                            <svg class="settings-integrations-form__dropdown-inner-arrow" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB">
-                                </path>
-                            </svg>
+                            <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
+                        </svg>
                         </div>
                             <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list_max-height" v-if="statusSelect">
                                 <div  class="settings-integrations-form__dropdown-item" v-for=" (item, index) in timeZones" :key="index" @click="chooseAcc">
@@ -26,23 +29,31 @@
             </div>  -->
             <div class="settings-integrations-form__date-column">
                 <div>Запросить отзыв после визита через N минут</div>
-                <input class="settings-integrations-form__input_test " type="number" placeholder="0" v-model="ntime" :class="{'yclient-pattern__error':error.ntime}"> 
+                 <div class="settings-integrations-form__container">
+                <input class="settings-integrations-form__input_test " type="number" placeholder="0" v-model="ntime" 
+                :class="{'yclient-pattern__error':error.ntime, 'settings-integrations-form__select_active':focusTime}" 
+                @focus="checkOpenModal(), focusTime=true" @blur="focusTime=false"> 
+                </div>
             </div>
+             <div class="settings-integrations-form__date-column">
+                <div>ID филиала</div>
+                 <div class="settings-integrations-form__container">
+                        <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" 
+                        v-model="filial" :class="{'yclient-pattern__error':error.id, 'settings-integrations-form__select_active':focusId}"
+                        @focus="checkOpenModal(), focusId=true" @blur="focusId=false"> 
+                     </div>
+                </div>
         </div>
         <div class="settings-integrations-form__date settings-integrations-form__birthday settings-integrations-form__date settings-integrations-form__birthday_top">
-            <div class="settings-integrations-form__date-column">
-                <div>ID филиала</div>
-                    <input class="settings-integrations-form__input_test " type="number" placeholder="Ввести" v-model="filial" :class="{'yclient-pattern__error':error.id}"> 
-                </div>
+           
                 <div class="settings-integrations-form__date-column">
                     <div>Аккаунт</div>
                     <div class="settings-integrations-form__container">
                         <button @click="openAcc" class="settings-integrations-form__input_test " :class="{'settings-integrations-form__select_active': statusAccSelect,'yclient-pattern__error':error.textOption }"> 
                             <div class="settings-integrations-form__dropdown-inner" :class="{'settings-integrations-form__dropdown-inner_placeholder':(textOption=='Выбрать')}"> {{textOption}}
-                                <svg class="settings-integrations-form__dropdown-inner-arrow" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB">
-                                    </path>
-                                </svg>
+                                <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusAccSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
+                        </svg>
                             </div>
                             <div class="settings-integrations-form__dropdown-list" v-if="statusAccSelect">
                               
@@ -83,115 +94,82 @@
                         </button>
                     </div>
                 </div>
-                <!-- <div class="settings-integrations-form__date-column">
-                    <div>Дополнительные фильтры</div>
-                    <div class="settings-integrations-form__container settings-integrations-form__container-filters">
-                        <button @click="openFilters" class="settings-integrations-form__input_test" :class="{'settings-integrations-form__select_active': statusFiltersSelect }"> 
-                            <div class="settings-integrations-form__dropdown-inner settings-integrations-form__dropdown-inner_placeholder"> Показать
-                                <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
-                                </svg>
+                    <!-- <div class="settings-integrations-form__date-column">
+                <div>Дополнительные фильтры</div>
+                <div class="settings-integrations-form__container">
+                    <button @click="openFilters" class="settings-integrations-form__input_test" :class="{'settings-integrations-form__select_active': statusFiltersSelect }"> 
+                        <div class="settings-integrations-form__dropdown-inner settings-integrations-form__dropdown-inner_placeholder"> Показать
+                            <svg :class="{'settings-integrations-form__dropdown-inner-svg_green': statusFiltersSelect }"  class='settings-integrations-form__dropdown-inner-svg' width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.14053 0.197198C9.07855 0.134713 9.00482 0.0851166 8.92358 0.051271C8.84234 0.0174253 8.7552 0 8.6672 0C8.57919 0 8.49205 0.0174253 8.41081 0.051271C8.32957 0.0851166 8.25584 0.134713 8.19386 0.197198L5.14053 3.25052C5.07855 3.31301 5.00482 3.3626 4.92358 3.39645C4.84234 3.43029 4.7552 3.44772 4.6672 3.44772C4.57919 3.44772 4.49205 3.43029 4.41081 3.39645C4.32957 3.3626 4.25584 3.31301 4.19386 3.25052L1.14053 0.197198C1.07855 0.134713 1.00482 0.0851166 0.92358 0.051271C0.84234 0.0174253 0.755203 0 0.667195 0C0.579187 0 0.49205 0.0174253 0.41081 0.051271C0.329571 0.0851166 0.255837 0.134713 0.193862 0.197198C0.0696944 0.322106 0 0.491073 0 0.667197C0 0.84332 0.0696944 1.01229 0.193862 1.1372L3.25386 4.19719C3.62886 4.57172 4.13719 4.78209 4.6672 4.78209C5.1972 4.78209 5.70553 4.57172 6.08053 4.19719L9.14053 1.1372C9.2647 1.01229 9.33439 0.84332 9.33439 0.667197C9.33439 0.491073 9.2647 0.322106 9.14053 0.197198Z" fill="#CFCFE4"/>
+                        </svg>
+                        </div>
+                    </button> 
+                    <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-filters" :class="{' settings-integrations-form__dropdown-list-filters_hidden':!statusFiltersSelect}">
+                        <div class="settings-integrations-form__dropdown-list-filters-title">Клиент потратил сумму</div>
+                        <div class="settings-integrations-form__date-row">
+                            <div class="settings-integrations-form__date-column">
+                                <div class="settings-integrations-form__date-column-title">От</div>
+                                <input type="number"   min="0"  class="settings-integrations-form__date-input" placeholder="00" >
                             </div>
-                        </button> 
-                        <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown-list-filters" :class="{' settings-integrations-form__dropdown-list-filters_hidden':!statusFiltersSelect}">
-                            <div class="settings-integrations-form__dropdown-list-filters-title">Клиент потратил сумму</div>
-                            <div class="settings-integrations-form__date-row">
-                                <div class="settings-integrations-form__date-column">
-                                    <div class="settings-integrations-form__date-column-title">От</div>
-                                    <input type="number"   min="0"  class="settings-integrations-form__date-input" placeholder="00" >
-                                </div>
-                                <div class="settings-integrations-form__date-column settings-integrations-form__date-column_end">
-                                    <div class="settings-integrations-form__date-column-title">До</div>
-                                    <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
-                                </div>
+                            <div class="settings-integrations-form__date-column settings-integrations-form__date-column_end">
+                                <div class="settings-integrations-form__date-column-title">До</div>
+                                <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
                             </div>
-                            <div class="settings-integrations-form__dropdown-list-filters-title">Кол-во посещений</div>
-                            <div class="settings-integrations-form__date-row">
-                                <div class="settings-integrations-form__date-column">
-                                    <div class="settings-integrations-form__date-column-title">От</div>
-                                    <input type="number"   min="0" class="settings-integrations-form__date-input"  placeholder="00">
-                                </div>
-                                <div class="settings-integrations-form__date-column settings-integrations-form__date-column_end">
-                                    <div class="settings-integrations-form__date-column-title">До</div>
-                                    <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
-                                </div>
+                        </div>
+                        <div class="settings-integrations-form__dropdown-list-filters-title">Кол-во посещений</div>
+                        <div class="settings-integrations-form__date-row">
+                            <div class="settings-integrations-form__date-column">
+                                <div class="settings-integrations-form__date-column-title">От</div>
+                                <input type="number"   min="0" class="settings-integrations-form__date-input"  placeholder="00">
                             </div>
-                             <div class="settings-integrations-form__dropdown-list-filters-title">Выполнять, если у записи статус</div>
-                            <div class="settings-integrations-form__date-row settings-integrations-form__checkbox-block">
-                                <div  v-for="(label, index) in checkboxStatus" :key="index" @click='activeCheckbox'>
-                                    <input class="settings-integrations-form__date-row-checkbox" type="checkbox"  :name="label.name" :value="label.val">
-                                      <label class="settings-integrations-form__date-row-label" for="vehicle1"   :class="{
-                            'settings-integrations-form__date-row-label_bottom': (index!=(checkboxStatus.length-1))}">{{label.title}}</label>
-                                </div>
+                            <div class="settings-integrations-form__date-column settings-integrations-form__date-column_end">
+                                <div class="settings-integrations-form__date-column-title">До</div>
+                                <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
                             </div>
-                             <div class="settings-integrations-form__dropdown-list-filters-title">Выполнять, если у записи тип</div>
-                             <div class="settings-integrations-form__date-row settings-integrations-form__checkbox-block">
-                                <div  v-for="(label, index) in checkboxIsOnline" :key="index" @click='activeCheckbox'>
-                                    <input class="settings-integrations-form__date-row-checkbox" type="checkbox"  :name="label.name" :value="label.val">
-                                      <label class="settings-integrations-form__date-row-label" for="vehicle1"   :class="{
-                            'settings-integrations-form__date-row-label_bottom': (index!=(checkboxIsOnline.length-1))}">{{label.title}}</label>
-                                </div>
+                        </div>
+                        
+                        <div class="settings-integrations-form__checkbox" >
+                            <div class="settings-integrations-form__checkbox-title"> Выполнять, если у записи статус</div>
+                            <BaseCheckbox :id="index" :title="checkbox[0]" v-for="(checkbox, index) in checkboxs" :key="index" :name="status" 
+                            ></BaseCheckbox>
+                        </div>
+                         <div class="settings-integrations-form__checkbox" >
+                            <div class="settings-integrations-form__checkbox-title"> Выполнять, если у записи тип</div>
+                            <BaseCheckbox :id="checkboxs.length" :title="'Онлайн'" :name="type" 
+                            ></BaseCheckbox>
+                             <BaseCheckbox :id="checkboxs.length+1" :title="'Офлайн'" :name="type" 
+                            ></BaseCheckbox>
+                        </div>
+                         <BaseSwitcherNew :model="item[1]" :index="key" @saveCheck="saveCheck"  v-for=" (item, key) in switcherInput" :key="key" :needInput="true"
+                         class="settings-integrations-form__checkbox"
+                            :title="item[0]"></BaseSwitcherNew>
+                     
+                           <BaseSwitcherNew :model="timeRecording[1]" :index="key" @saveCheck="saveCheck"  :needInput="false"  class="settings-integrations-form__checkbox"
+                            :title="timeRecording[0]"></BaseSwitcherNew>
+                        <div class="settings-integrations-form__date-row">
+                            <div class="settings-integrations-form__date-column">
+                                <div class="settings-integrations-form__date-column-title">От</div>
+                                <input type="number"   min="0" class="settings-integrations-form__date-input"  placeholder="00">
                             </div>
-                            <div class="settings-integrations-form__switcher " v-for="(item, index) in switcherObj" :key="index" @mousedown="changeSwitcher(item)" :class="{'base-switcher_no-border': (item.api==='groups')}">
-                                <template v-if="item.api!='groups'&&item.api!='recordingTime'">
-                                    <BaseSwitcher 
-                                        :value="item.active"
-                                        @changeValue="setStyle"
-                                        class="integration-modal-files__title-no-padding"
-                                        >{{item.title}}</BaseSwitcher>
-                                    <div>
-                                        <div class="settings-integrations-form__container">
-                                            <button class="settings-integrations-form__input_test " :class="{'settings-integrations-form__select_active': item.list }"> 
-                                                <div class="settings-integrations-form__dropdown-inner" :class="{'settings-integrations-form__dropdown-inner_placeholder':(textOption=='Выбрать')}"> {{textOption}}
-                                                    <svg class="settings-integrations-form__dropdown-inner-arrow" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB">
-                                                        </path>
-                                                    </svg>
-                                                </div>
-                                                <div class="settings-integrations-form__dropdown-list" v-if="item.list">
-                                                    <div  class="settings-integrations-form__dropdown-item" v-for=" (whatsapp, index) in whatsapps" :key="index" >
-                                                        {{whatsapp.phone}}
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </template>
-                                <template v-if="item.api==='recordingTime'">
-                                    <BaseSwitcher 
-                                    :value="item.active"
-                                    @changeValue="setStyle"
-                                    class="integration-modal-files__title-no-padding"
-                                    >{{item.title}}</BaseSwitcher>
-                                    <div class="settings-integrations-form__date-row_no-border">
-                                        <div class="settings-integrations-form__date-column">
-                                            <div class="settings-integrations-form__date-column-title">От</div>
-                                            <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
-                                        </div>
-                                        <div class="settings-integrations-form__date-column settings-integrations-form__date-column_end">
-                                            <div class="settings-integrations-form__date-column-title">До</div>
-                                            <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
-                                        </div>
-                                    </div>
-                                </template>
-                                 <template v-if="item.api==='groups'">
-                                    <BaseSwitcher 
-                                    :value="item.active"
-                                    @changeValue="setStyle"
-                                    class="integration-modal-files__title-no-padding"
-                                    >{{item.title}}</BaseSwitcher>
-                                 </template>
-                            </div>  
-                           
-                            
+                            <div class="settings-integrations-form__date-column settings-integrations-form__date-column_end">
+                                <div class="settings-integrations-form__date-column-title">До</div>
+                                <input type="number"   min="0"  class="settings-integrations-form__date-input"  placeholder="00">
+                            </div>
                         </div>
                     </div>
-                </div>  -->
+                </div>
+            </div> -->
+  <div class="settings-integrations-form__date-column">
+             
+                </div>
+                 <div class="settings-integrations-form__date-column">
+                
+                </div>
             </div>
      </div>
      <div class="settings-integrations-form__field ">
         <div class=" settings-integrations-form__create-message">
-            <SettingsIntegrationsMessage @dataFile='checkData' @propText="getText" :text='textMess' :nameFile='propFileData'
+            <SettingsIntegrationsMessage @dataFile='checkData' @propText="getText" :text='textMess' :nameFile='propFileData' @click="checkOpenModal()"
              :class="{'settings-integrations-form__create-message_error':error.message}"
             ></SettingsIntegrationsMessage>
             <SettingsIntegrationsVariables></SettingsIntegrationsVariables>
@@ -217,13 +195,16 @@ import TestCheck from "../SettingsIntegrationsElems/TestCheck.vue";
 import { useWhatsapp } from "../../../../composition/useWhatsapp";
 import {useIntegrations} from "../../../../composition/useIntegrations"
 import { useRouter, useRoute}  from 'vue-router'
-import BaseSwitcher from "../../../Base/BaseSwitcher";
+import BaseSwitcherNew from "../../../Base/BaseSwitcherNew";
 import { useStyle } from "../../../../composition/useStyle";
 import { useInstagram } from "../../../../composition/useInstagrams";
+import  BaseCheckbox  from "../../../../components/Base/BaseCheckbox.vue";
 export default {
-  components: { SettingsIntegrationsMessage, SettingsIntegrationsVariables, TestCheck, BaseSwitcher },
+  components: { SettingsIntegrationsMessage, SettingsIntegrationsVariables, TestCheck, BaseSwitcherNew, BaseCheckbox },
   props: {
-      Propdata:Object
+    Propdata:Object,
+    isCloseAll:Boolean,
+
       },
     setup(props) {
         const { style, setStyle } = useStyle();
@@ -252,6 +233,9 @@ export default {
         const ntime = ref('')
         const propsCheck = ref(true);
         const instId=ref('');
+        const focusName = ref(false);
+        const focusId = ref(false);
+        const focusTime = ref(false);
          textOption.value = 'Выбрать';
         const switcherObj = ref([
             {title: 'Выполнять, если категория записи', active:false, api:'entryСategory', list:false},
@@ -259,7 +243,28 @@ export default {
             {title: 'Выполнять, если категория клиента', active:false, api:'сustomerСategory', list:false},
             {title:  'Выполнять, если сотрудник', active:false, api:'employee', list:false},
             {title:   'Выполнять, если время записи', active:false, api:'recordingTime', list:false},
-            {title:   'Группировать записи по визиту', active:false, api:'groups', list:false},
+         
+        ])
+         const check = ref([
+             ['Не учитывать смену даты и времени', false],
+             ['Учитывать смену мастера', false],
+             ['Учитывать смену статуса записи', false],
+             ['Учитывать смену категории записи', false],
+             ['Учитывать изменение услуг записи', false]]
+         );
+         const timeRecording = ref(['Выполнять, если время записи', false])
+        const checkboxs = ref([
+            ['Ожидание клиента', false],
+            ['Клиент пришел', false],
+            ['Клиент не пришел', false],
+            ['Клиент подтвердил', false],
+        ])
+          const switcherInput = ref([
+            ['Выполнять, если категория записи', false],
+            ['Выполнять, если услуга записи', false],
+            ['Выполнять, если категория клиента', false],
+            ['Выполнять, если сотрудник', false],
+        
         ])
         const changeSwitcher = (activeItem) => {
             activeItem.active=!activeItem.active
@@ -459,6 +464,9 @@ export default {
         }
         const checkUpdate = ref(true);
         watch(()=>{
+            if(props.isCloseAll){
+                checkOpenModal()
+            }
             if(props.Propdata.parameters){
                 if(checkUpdate.value){
                 ntime.value=props.Propdata.parameters[0].n_minutes;
@@ -500,11 +508,20 @@ export default {
             }
         })
         const checkOpenModal = (item) => {
-            statusAccSelect.value=false;
-            statusTimeSelect.value = false;
-            statusSelect.value=false;
-            statusFiltersSelect.value=false;
-            item.value = true;
+            if(item){
+                statusAccSelect.value=false;
+                statusTimeSelect.value = false;
+                statusSelect.value=false;
+                statusFiltersSelect.value=false;
+                item.value = true;   
+            }
+            else{
+                statusAccSelect.value=false;
+                statusTimeSelect.value = false;
+                statusSelect.value=false;
+                statusFiltersSelect.value=false;
+            }
+            
         }
        
         const chooseOption = (text) => {
@@ -734,7 +751,14 @@ export default {
             testSend,
             instId,
             checkUpdate,
-            error
+            error,
+            focusName,
+            focusId,
+            focusTime,
+            check,
+            checkboxs,
+            timeRecording,
+            switcherInput
         }
     },
 }
@@ -757,7 +781,7 @@ export default {
             .settings-integrations-form__dropdown-inner{
                 height: 100%;
                 overflow: hidden;
-                align-items: flex-start;
+                align-items: center;
             }
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
@@ -776,7 +800,7 @@ export default {
         position: relative;
         svg {
             position: absolute;
-            right: 0;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -788,7 +812,7 @@ export default {
       &-time{
         display: flex;
         padding: 18px;
-        background: #1D1D35;
+      
     }  
     &-filters{
     display: flex;
@@ -862,7 +886,7 @@ export default {
     input[type="number"]::-webkit-outer-spin-button, 
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none; 
-        background: #2E2E4E url('../../../../assets/arrowFilters.svg') no-repeat center center;
+        background:  var(--messenger-search-input-bg-active) url('../../../../assets/arrowFilters.svg') no-repeat center center;
         width: 1em;
         opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
         position: absolute;
