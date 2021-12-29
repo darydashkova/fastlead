@@ -6,7 +6,7 @@
         <div class="messenger-content_column">
             <MessengerContentHeader :update="newFolders"></MessengerContentHeader>
             <div class="messenger-content_column-dialogs">
-                <MessengerContentSidebar @getId="getId" @getFolderEdit="getFolderEdit"
+                <MessengerContentSidebar @getId="getId" @getFolderEdit="getFolderEdit" @loadTrue ="loading = true" @loadFalse ="loading = false" :loading='loading'
                     v-if="!openedUserInfo"
                     class="messenger-content__middle-bar"
                 ></MessengerContentSidebar>
@@ -20,6 +20,9 @@
                 <ModalEditSelectFolderChild v-if="toggleModalEditSelectFolderChild" :id="folderId.parent_folder_id"  :child="folderId.folder_id"
                  @closeModalEditSelectChild="toggleModalEditSelectFolderChild=false" @updateFolderDialog="getFoldersForUpdate()"> 
                 </ModalEditSelectFolderChild>
+                 <teleport to="body" v-if="loading">
+                    <FullScreenLoader ></FullScreenLoader>
+                </teleport>
             </div>
         </div>
         

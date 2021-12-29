@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-nav">
+    <div class="settings-nav" @click="getPath()">
         <div class="settings-nav__container">
             <div class="settings-nav__container-logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__container-logo-mini">
@@ -83,7 +83,7 @@
                             </router-link>
                         </div>
                     </transition>-->
-                        <div class="settings-nav__link settings-nav__link_default pointer" @click="activeDialogs=!activeDialogs, activeSettings=false, activeMailing=false"
+                        <div class="settings-nav__link settings-nav__link_default pointer" @click="activeDialogs=!activeDialogs, activeSettings=false"
                           :class="{'router-link-exact-active active-link active-link_border' : activeDialogs}">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon" >
                                 <g clip-path="url(#clip0_107_13234)">
@@ -169,6 +169,7 @@
                             </svg>
                             CRM
                     </router-link> -->
+                    <div @click="activeDialogs=false, activeSettings=false">
                    <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/answerphone/list">
@@ -178,6 +179,7 @@
 
                         Автоответчик
                     </router-link>
+                    </div>
                      <!-- <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/chat-bot">
@@ -186,6 +188,7 @@
                             </svg>
                         Чат-бот
                     </router-link> -->
+                    <div @click="activeDialogs=false, activeSettings=false">
                     <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/mailings">
@@ -194,6 +197,7 @@
                         </svg>
                         Рассылки
                     </router-link>
+                    </div>
                       <!-- <div class="settings-nav__link settings-nav__link_default" @click="activeMailing=!activeMailing, activeSettings=false,activeDialogs=false"
                        :class="{'router-link-exact-active active-link' : activeMailing}">
                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"  class="settings-nav__icon">
@@ -225,8 +229,9 @@
                                 </router-link>
                             </SlideUpDown>
                         </div> -->
+                        <div @click="activeDialogs=false, activeSettings=false">
                        <router-link
-                            class="settings-nav__link settings-nav__link_default"
+                            class="settings-nav__link settings-nav__link_default" :class="{'router-link-active router-link-exact-active':(pathName=='partners')}"
                             to="/settings/partners/profit">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"  class="settings-nav__icon"> 
                             <g clip-path="url(#clip0_107_12831)">
@@ -240,15 +245,17 @@
                             </svg>
                             Партнерская программа
                     </router-link>
+                    </div>
+                    <div @click="activeDialogs=false, activeSettings=false">
                     <router-link
-                                class="settings-nav__link settings-nav__link_default"
+                                class="settings-nav__link settings-nav__link_default"  :class="{'router-link-active router-link-exact-active':(pathName=='finance')}"
                                 to="/settings/finance/rates">
                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg " class="settings-nav__icon">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M3.33333 2H12.6667C13.5504 2.00106 14.3976 2.35259 15.0225 2.97748C15.6474 3.60237 15.9989 4.4496 16 5.33333V10.6667C15.9989 11.5504 15.6474 12.3976 15.0225 13.0225C14.3976 13.6474 13.5504 13.9989 12.6667 14H3.33333C2.4496 13.9989 1.60237 13.6474 0.97748 13.0225C0.352588 12.3976 0.00105857 11.5504 0 10.6667V5.33333C0.00105857 4.4496 0.352588 3.60237 0.97748 2.97748C1.60237 2.35259 2.4496 2.00106 3.33333 2ZM12.6667 3.33333H3.33333C2.8029 3.33333 2.29419 3.54405 1.91912 3.91912C1.54405 4.29419 1.33333 4.8029 1.33333 5.33333H14.6667C14.6667 4.8029 14.456 4.29419 14.0809 3.91912C13.7058 3.54405 13.1971 3.33333 12.6667 3.33333ZM3.33333 12.6667H12.6667C13.1971 12.6667 13.7058 12.456 14.0809 12.0809C14.456 11.7058 14.6667 11.1971 14.6667 10.6667V6.66667H1.33333V10.6667C1.33333 11.1971 1.54405 11.7058 1.91912 12.0809C2.29419 12.456 2.8029 12.6667 3.33333 12.6667ZM4.66685 10.3331C4.66685 10.8854 4.21914 11.3331 3.66685 11.3331C3.11457 11.3331 2.66685 10.8854 2.66685 10.3331C2.66685 9.78086 3.11457 9.33315 3.66685 9.33315C4.21914 9.33315 4.66685 9.78086 4.66685 10.3331Z" fill="#9797BB"/>
                             </svg>
                             Финансы
                     </router-link>
-
+                    </div>
                    <div class="settings-nav__link settings-nav__link_default pointer" @click="activeSettings=!activeSettings, activeDialogs = false, activeMailing = false"
                     :class="{'router-link-exact-active active-link active-link_border' : activeSettings}"
                    >
@@ -272,7 +279,7 @@
                             </svg>
                         </div>
                     </div>
-                     <div class="settings-nav__link-list "  >
+                     <div class="settings-nav__link-list ">
                             <SlideUpDown v-model="activeSettings" :duration="250" class="settings-nav__link-list-slider settings-nav__link-list-slider_settings"> <!-- :duration="450" -->
                                 <router-link v-for="(setting, index) in settings" :key="index"
                                     class="settings-nav__link settings-nav__link_default"
@@ -454,9 +461,25 @@
                          
                     }
                 }  
+                 getPath(); 
                 })
                 ; 
-             
+           
+            }
+            const pathName = ref('')
+            const getPath =() => {
+                    const href = window.location.pathname;
+                    if(href.includes('/settings/finance')){
+                        pathName.value = 'finance'
+                    }
+                     else if(href.includes('/settings/partners')){
+                        pathName.value = 'partners'
+                    }
+                    else{
+                         pathName.value = ''
+                    }
+                  
+
             }
             const checkFolderChildren = () => {
                 for(let i = 0; i< folders.value.length; i++){
@@ -525,7 +548,9 @@
                 getAllFolders,
                 checkLink,
                 isGetFolder,
-                checkFolderChildren
+                checkFolderChildren,
+                getPath,
+                pathName
             }
 
         }

@@ -9,6 +9,7 @@ import { useUserInfo } from "../../composition/useUserInfo";
 import { useFolder } from "../../composition/useFolder";
 import { useDialogs } from "../../composition/useDialogs";
 import ModalEditSelectFolder from "../../components/Modals/dialogs/ModalEditSelectFolder.vue"
+import FullScreenLoader from "../FullScreenLoader";
 import ModalEditSelectFolderChild from '../../components/Modals/dialogs/ModalEditSelectFolderChild.vue'
 import {ref} from 'vue'
 
@@ -21,7 +22,8 @@ export default {
         SettingsNavNew,
         MessengerContentHeader,
         ModalEditSelectFolder,
-        ModalEditSelectFolderChild
+        ModalEditSelectFolderChild,
+        FullScreenLoader
     },
     setup() {
         const { openedUserInfo } = useUserInfo()
@@ -29,6 +31,7 @@ export default {
         const addParentFolder = ()=>{
        
         }
+        const loading = ref(false);
         const toggleModalEditSelectFolder = ref(false);
         const toggleModalEditSelectFolderChild = ref(false)
         const { selectedFolder, folders, getAllFolders } = useFolder();
@@ -60,11 +63,13 @@ export default {
        }
        const newFolders = ref(false);
        const getFoldersForUpdate = () => {
+        loading.value = true
         getAllFolders()
         .then((r)=>{
             toggleModalEditSelectFolder.value = false;
             toggleModalEditSelectFolderChild.value = false;
             newFolders.value=true;
+            loading.value = false
         })
         newFolders.value=false;
        }
@@ -85,7 +90,8 @@ export default {
             folderId,
             getFolderEdit,
             getFoldersForUpdate,
-            newFolders
+            newFolders,
+            loading
         }
     }
 }

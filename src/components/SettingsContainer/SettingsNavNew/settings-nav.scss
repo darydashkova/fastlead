@@ -198,6 +198,9 @@ background: var(--settings-active-link)!important;
       background: var(--green-color) !important;
       -webkit-background-clip: text !important;
       -webkit-text-fill-color: transparent;
+      .settings-nav__icon circle {
+        fill: url(#paint0_linear) !important;
+    }
     }
   }
   &-list{

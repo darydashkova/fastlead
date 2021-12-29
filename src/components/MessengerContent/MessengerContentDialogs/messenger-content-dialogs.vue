@@ -86,7 +86,7 @@
             </MessengerContentDialog>
         </template>
         <template v-else>
-            <div class="messenger-content-dialogs__loader" v-if="isLoadingDialogs">
+            <div class="messenger-content-dialogs__loader" v-if="isLoadingDialogs&&!loading">
                 <BaseLoader></BaseLoader>
             </div>
             <MessengerContentDialog v-else :need-loading-more="true">
@@ -132,7 +132,7 @@
     import {useContextMenu} from "../../../composition/useContextMenu";
     export default {
         components: { BaseSearchInput, BaseDialog, BaseFolderName, BaseLoader, MessengerContentDialog },
-        props:{},
+        props:{loading:Boolean},
         emits:['getId'],
         setup(props,{emit}) {
             const { dialogs, selectDialog, selectedDialog, toggleSelectedGroupDialogs, selectedGroupDialogs } = useDialogs();
@@ -208,11 +208,16 @@
             
             }
             const select = (dialog_id) => {
+                emit('loadTrue');
                 selectDialog(dialog_id)
+                // .then((r)=>{
+                //     console.log('ghbikj')
+                // })
                
                 getMessagesFromDialog(dialog_id)
                 .then((r) => {
                     emit('getId', dialog_id)
+                      emit('loadFalse');
                 });
                 
             }
