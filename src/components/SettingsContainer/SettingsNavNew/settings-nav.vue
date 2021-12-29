@@ -169,7 +169,7 @@
                             </svg>
                             CRM
                     </router-link> -->
-                    <div @click="activeDialogs=false, activeSettings=false">
+                    <!-- <div @click="activeDialogs=false, activeSettings=false">
                    <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/answerphone/list">
@@ -179,7 +179,7 @@
 
                         Автоответчик
                     </router-link>
-                    </div>
+                    </div> -->
                      <!-- <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/chat-bot">
