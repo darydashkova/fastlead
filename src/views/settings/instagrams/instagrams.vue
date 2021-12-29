@@ -20,11 +20,17 @@
                 </div>
                 <div class="settings-instagrams__element" v-for="instagram in instagrams"
                      :key="instagram.instagram_id+'SettingsWhatsapp'">
+                    <div class="settings-instagrams__header-element">
+                        <img src="@/assets/profile-img.png" class="settings-instagrams__header-element_img">
+                        <div class="settings-instagrams__header-element_status" v-if="instagram.status_id == 1">Активный</div>
+                        <div class="settings-instagrams__header-element_status-error" v-else-if="instagram.status_id == 4">Отключен</div>
+                        <div class="settings-instagrams__header-element_status-error" v-else>Неактивный</div>
+                    </div>
                     <div class="settings-instagrams__name">
                         <span>
                             {{instagram.login}}
                         </span>
-                        <div class="settings-instagrams__action-container">
+                        <!--<div class="settings-instagrams__action-container">
                             <div class="settings-instagrams__action settings-instagrams__action_default pointer"
                                  @click="edit(instagram)"
                             >
@@ -41,9 +47,9 @@
                                           fill="var(--red-color)"/>
                                 </svg>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
-                    <div class="settings-instagrams__phone"
+                    <!--<div class="settings-instagrams__phone"
                         :class="{
                             'settings-instagrams__phone_active': instagram.status_id === 1,
                             'settings-instagrams__phone_warning': instagram.status_id === 0,
@@ -51,17 +57,15 @@
                         }"
                     >
                         {{instagram.status}}
-                    </div>
-                    <!--<div class="settings-instagrams__folder">{{instagram.default_folder.name}}</div>-->
-                    <div
-                            class="active-button-disabled pointer"
-                            v-if="instagram.status_id == 4 || instagram.is_active">Активировать</div>
-                    <BaseButton
-                            @click="edit(instagram)"
-                            class="base-button_cancel base-button_p5-15 base-button_w-100"
-                            v-else-if="!instagram.is_active">Активировать</BaseButton>
-
-                            
+                    </div>-->
+                    <div class="settings-instagrams__folder">{{instagram.default_folder.name}}</div>
+                    <div class="settings-instagram__buttons">
+                        <div class="settings-instagram__buttons_del pointer" @click="del(instagram)">Удалить</div>
+                        <!--<div class="settings-instagram__buttons_active pointer" v-if="instagram.status_id == 4 || instagram.is_active">Активировать</div>-->
+                        <div @click="edit(instagram)" class="settings-instagram__buttons_active pointer" v-if="instagram.status_id == 1">Редактировать</div>
+                        <div class="settings-instagram__buttons_disable pointer" v-else-if="instagram.status_id == 4">Активировать</div>
+                        <div @click="activateInstagramAccount(instagram.instagram_id, instagram)" class="settings-instagram__buttons_active pointer" v-else>Активировать</div>
+                    </div>    
                 </div>
             </div>
         </div>
@@ -77,6 +81,7 @@
             v-if="modalFactorOpen"
                     @close="twoFactorModal"
                     :index="instagramIndex"
+                    :instagramId="accountInstagramId"
                     @succesInstagram="succesInstagram"
                     >
                 
@@ -95,8 +100,8 @@
     import {useInstagramApi} from "@/composition/useInstagramApi"
     export default {
         components: {ModalCreateInstagram, BaseButton, ModalCreateInstagramCode },
-        setup() {
-            const { instagrams, getInstagrams, deleteInstagrams } = useInstagram()
+        setup(props, {emit}) {
+            const { instagrams, getInstagrams, deleteInstagrams, activateInstagram, twoFactorInstagram } = useInstagram()
             const {routerActiveLink} = useInstagramApi()
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
@@ -124,7 +129,7 @@
                 toggleModalConfirmDelete(true);
 
             }
-            const modalFactorOpen = ref(false)
+            const modalFactorOpen = ref(true)
             const instagramIndex = ref(null)
             const twoFactorModal = (item, index) => {
             modalFactorOpen.value = item;
@@ -142,6 +147,20 @@
             const succesInstagram = (item) => {
                 modalFactorOpen.value = false;
             succes.value = item
+            }
+
+            const accountInstagramId = ref(null)
+
+            const activateInstagramAccount = (id, instagram) => {
+                activateInstagram({instagram_id : id})
+                .then((r) => {
+                    if(r.two_factor == true){
+                        modalFactorOpen.value = true
+                        instagramIndex.value = id
+                    } else {
+                        edit(instagram)
+                    }
+                })
             }
             return {
                 instagrams,
@@ -162,7 +181,10 @@
                 twoFactorModal,
                 instagramIndex,
                 succes,
-                succesInstagram
+                succesInstagram,
+                activateInstagramAccount,
+
+                accountInstagramId,
             }
         }
     }

@@ -21,7 +21,9 @@
                      @input="maxLength(login)"
                        >-->
                     <div class="modal-create-instagram__code">
-                        <input type="number" v-maska="'#'" v-for="(inputCode, index) in inputCodes" :key="index" class="modal-create-instagram__code_input" v-model="inputCode.value">
+                        <template v-for="(inputCode, index) in inputCodes" :key="index">
+                            <input @input="jumpInput" type="number" v-maska="'#'"  class="modal-create-instagram__code_input" v-model="inputCode.value" placeholder="–">
+                        </template>
                     </div>
             </div>
           
@@ -57,7 +59,7 @@
     import BaseModalHeader from '../../Base/BaseModalHeader.vue'
     import ModalCreateInstagramSuccess from './ModalCreateInstagramSuccess.vue'
 
-    import { onMounted, ref, reactive, computed, onUpdated } from "vue";
+    import { onMounted, ref, reactive, computed, onUpdated, watch } from "vue";
     import {useInstagram} from "../../../composition/useInstagrams";
     import FullScreenLoader from "../../FullScreenLoader";
 
@@ -65,11 +67,12 @@
         components: {FullScreenLoader, BaseButton, BaseModalLabel, BaseModalHeader, ModalCreateInstagramSuccess },
         props: {
             index:Number,
+            instagramId: Number,
         },
         emits:["succesInstagram"],
         setup(props, {emit}) {
             const loading = ref(false);
-            const { createInstagram, updateInstagram, getInstagrams, twoFactorInstagram } = useInstagram()
+            const { createInstagram, updateInstagram, getInstagrams, twoFactorInstagram, activateInstagram } = useInstagram()
             const max = ref();
             const maxLength = (evt) => {
                 if(evt.length<6){
@@ -115,7 +118,6 @@
 
             onMounted(() => {
                 if (props.selectedInstagram) {
-               
                     login.value = props.selectedInstagram.login;
                 }
             })
@@ -125,9 +127,37 @@
             //     close();
             // }
 
+           /*  const inputs = ref() */
+
+            const jumpInput = (e) => {
+                const inputs = e.path[1].children
+                const delInputs = e.path[1].children
+                console.log(e)
+                if(e.code == 'Escape'){
+                    console.log("HelloWorld")
+                } else {
+                    console.log("NOT")
+                }
+                /* for(i=0; i < inputCodes.value.length; i++){
+                    if(inputCodes.value[i].value != ""){
+                        inputs[i+1].focus()
+                    } 
+                } */
+            }
+            const deleteInput = (e) => {
+                const delInputs = e.path[1].children
+                    for(i=5; i < inputCodes.value.length; i--){
+                        if(inputCodes.value[i].value == ""){
+                            delInputs[i-1].focus()
+                        }
+                    }
+            }
+            const initialInput = (e) => {
+                /* inputs.value = e.path[1].children */
+            }
+
             const save = () => {
                 errors.login = false;
-                console.log(login.value)
          
                 if (!login.value) {
                     errors.login = true;
@@ -154,6 +184,7 @@
                     login: login.value,
                 }
             }
+            
 
             return {
                 login,
@@ -166,6 +197,9 @@
                 success,
                 inputCodes,
                 initialLogin,
+                instagramId: computed(() => props.instagramId),
+                jumpInput,
+                deleteInput,
             }
         }
     }
@@ -230,17 +264,24 @@
         padding: 9px 0px;
         &_input{
             font-style: normal;
-            font-weight: normal;
-            font-size: 64px;
+            font-weight: 600;
+            font-size: 30px;
             text-align: center;
             margin-top: 6px;
             padding: 6px 10px;
             color: var(--modal-font-color);
-            background: var(--modal-element-hover-bg-color);
+            background: #1D1D35;
             border-radius: 3px;
             width: 73.67px;
             height: 90px;
             margin-right: 6px;
+            line-height: 37px;
+            &::placeholder{
+                position: absolute;
+                margin-top: 50%;
+                color: #40406B;
+                margin-left: 25%;
+            }
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
                 /* display: none; <- Crashes Chrome on hover */

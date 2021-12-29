@@ -30,7 +30,7 @@
 .settings-instagrams__folder{
   display: flex;
   color: #9797BB;
-  margin: 5px 0px;
+  margin-bottom: 18px;
   font-size: 14px;
 }
 
@@ -55,18 +55,78 @@
   border-radius: 9px;
   background: #252544;
   margin: 0 8px 27px;
-  padding: 16px;
+  padding: 18px;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.settings-instagrams__header-element{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &_img{
+    width: 40px;
+    border-radius: 100%;
+  }
+  &_status{
+    font-size: 12px;
+    font-weight: 400;
+    color:#5EC075;
+    background: #5EC0751A;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 4px 10px;
+    border-radius: 22px;
+    &-error{
+      font-size: 12px;
+      font-weight: 400;
+      color:#EB5757;
+      background: #EB57571A;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 4px 10px;
+      border-radius: 22px;
+    }
+  }
+}
+.settings-instagram__buttons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &_del{
+    color: #EB5757;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #40406B;
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+  &_active{
+    color: #5EC075;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #40406B;
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+  &_disable{
+    color: #40406B;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #40406B;
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+}
 .settings-instagrams__name {
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
-  color: var(--settings-whatsapp-name-color);
+  color: #CFCFE4;
+  margin-top: 10px;
 
   width: 100%;
   display: flex;
@@ -147,7 +207,7 @@
   }
 }
 
-.active-button-disabled{
+.settings-instagram__buttons_active-disabled{
   background: transparent;
   border: 1px solid #6a709d;
   background: #6a709d;
