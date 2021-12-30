@@ -170,8 +170,8 @@ export default {
   margin-left: 50px;
   padding: 8px 10px;
   color: var(--modal-font-color);
-  background: var(--modal-element-hover-bg-color);
-  border: .7px solid var(--modal-input-border-color);
+  background: var(--messenger-search-input-bg-active) ;
+  border: 1px solid var(--settings-nav-border) ;
   box-sizing: border-box;
   border-radius: 3px;
   text-align: left;
@@ -181,23 +181,19 @@ export default {
     color: #40406B;
   }
 }
-
     .settings-integrations-form__input_test{
         margin-left: 0px; 
-         padding-bottom: 45px;
-         height: 608px;
-         max-height: 608px;
-           overflow: auto;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      }
+        padding-bottom: 45px;
+        height: 608px;
+        max-height: 608px;
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        }
 }
-.elem
-    .emoji-mart-static{
-        position: inherit !important;
-    }
+
 }
 </style>
