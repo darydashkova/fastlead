@@ -317,7 +317,7 @@
                             </svg>
                             Связь с поддержкой
                     </router-link> -->
-                      <div @click ="outAuth, pathNamePost()"
+                      <div @click ="outAuth"
                             class="settings-nav__link settings-nav__link_default pointer" >
                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
                             <g clip-path="url(#clip0_121_7970)">
