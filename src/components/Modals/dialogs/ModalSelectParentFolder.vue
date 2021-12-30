@@ -12,7 +12,7 @@
             <div class="modal-select-parent-folder__search">
                 <BaseSearchInput @handler="getValueSearch" :placeholder="'Поиск'"></BaseSearchInput>
             </div>
-            <div class="modal-select-parent-folder__folders-list">
+            <div class="modal-select-parent-folder__folders-list scroll-poiner">
             <template v-for="(folder, index) in newFoldersArray" :key="index">
                 <div class="modal-select-parent-folder__element pointer" v-if="!folder.is_default" @click="isActiveParentFolder(index, folder.folder_id)">
                     <div class="modal-select-parent-folder__select">
@@ -144,6 +144,7 @@
         align-items: center;
         justify-content: center;
         text-align: left;
+        z-index:1100;
         &__body{
             width: 520px;
             background: #252544;
