@@ -7,18 +7,21 @@ const answerphones = reactive({
 })
 
 const answerphone = ref({
+    autoresponder_id: null,
     name: "",
-    folder_ids: [],
+    folder_ids: null,
     event: "",
     message: {
         data: "",
-        type: "",
+        type: "text",
     },
     range_work: {
         start: "00:00",
         stop: "00:00",
     }
 })
+
+const answerphoneId = ref(null)
 
 document.querySelector(".subscription-message")
 export function useAnswerphone() {
@@ -44,12 +47,24 @@ export function useAnswerphone() {
         return await answerphoneActions.startAnswerphone(data)
     }
 
+    const createAnswerphone = async (data) => {
+        return await answerphoneActions.createAnswerphone(data)
+    }
+
+    const updateAnswerphone = async (data) => {
+        return await answerphoneActions.updateAnswerphone(data)
+    }
+
     return {
         getAllAnswerphone,
         deleteAnswerphone,
         stopAnswerphone,
         startAnswerphone,
+        createAnswerphone,
+        updateAnswerphone,
         answerphone,
+
+        answerphoneId,
 
         answerphones: computed(() => answerphones.data),
     }
