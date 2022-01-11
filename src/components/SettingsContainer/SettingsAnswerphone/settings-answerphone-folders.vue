@@ -40,7 +40,7 @@
                             
                         </div>
                         <template v-if="folder.folders && countArrayFolder[index].isFolderActive">
-                            <div class="connect-accaunt-folder__folder pointer" @click="activeSelectParent(index, folder.folder_id)">
+                            <div class="connect-accaunt-folder__folder folder-child pointer" @click="activeSelectParent(index, folder.folder_id)">
                             <div class="connect-accaunt-folder__select">
                                    <svg :class="{'active-select': selectParent.[index].parentActive}" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="0.5" y="0.5" width="21" height="21" rx="3.5" fill="#252544"/>
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <template v-for="(folderChild, jindex) in folder.folders" :key="jindex">
-                                <div class="connect-accaunt-folder__folder pointer" @click="activeSelectChild(jindex, folderChild.folder_id)">
+                                <div class="connect-accaunt-folder__folder folder-child pointer" @click="activeSelectChild(jindex, folderChild.folder_id)">
                                     <div class="connect-accaunt-folder__select">
                                         <svg :class="{'active-select': selectChild[jindex].childActive}"  width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <rect x="0.5" y="0.5" width="21" height="21" rx="3.5" fill="#252544"/>
