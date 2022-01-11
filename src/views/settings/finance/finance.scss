@@ -1,18 +1,33 @@
-.settings-finance__header {
-    height: 78px;
-    padding: 16px 45px;
-    position: relative;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--separator-color);
-  
-    font-style: normal;
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 29px;
-    color: var(--settings-header-color);
+.settings-finance{
+  &__header{
+          height: 64px;
+          position: relative;
+          text-align: left;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          background-color: var(--header-color);
+          font-style: normal;
+          font-weight: normal;
+      font-size: 22px;
+      line-height: 29px;
+      color: var(--settings-header-color);
+      &-title{
+          font-size: 24px;
+          font-weight: 700;
+          color: #F0F0FA;
+          padding-left: 30px;
+      }
   }
+  &__main{
+      padding: 30px 30px;
+      height: 100%;
+  }
+  &__wrapper{
+      text-align: left;
+      height: 100%;
+  }
+}
 
   .settings-finance__content {
     width: 100%;
@@ -27,33 +42,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    line-height: 70px;   
+    line-height: 55px;   
   }
 
   .navigation-link{
     text-decoration: none;
     color: #9797BB;
     padding-top: 5px;
-    color: #9797BB;
-    border-bottom: 3px #9797bb00 ;
+    border-bottom: 2px solid rgba(255, 0, 0, 0);
       &_active{
         color: #60d17c;
-        border-bottom: 3px solid #60d17c;
+        border-bottom: 2px solid #60d17c;
       }
-  }
-
-  .settings-finance__block{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .finance-question{
-    border: 1px solid #5EC075;
-    padding: 0px 10px 0px;
-    text-align: center;
-    align-items: center;
-    border-radius: 5px;
-    font-size: 14px;
   }

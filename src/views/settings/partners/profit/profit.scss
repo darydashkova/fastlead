@@ -1,11 +1,9 @@
 .profit__header{
     width: 100%;
-    padding-right: 40px;
     &-list{
         width: 100%;
         display: flex;
-        margin-left: 32px;
-        padding: 12px 18px 32px 0px;
+        padding: 12px 0px 32px 0px;
         border-bottom: 2px solid #40406B;
         &_item{
             height: 108px;
@@ -19,6 +17,9 @@
             display: flex;
             flex-direction: column;
             margin-right: 14px;
+            &:last-child{
+                margin-right: 0px;
+            }
             &-status{
                 font-size: 12px;
                 color: #9797BB;
@@ -81,17 +82,15 @@
 .profit__bottom{
     width: 100%;
     text-align: left;
-    padding-right: 40px;
     padding-bottom: 50px;
     &_title{
-        padding: 30px 0px 20px 32px;
+        padding: 22px 0px 20px 0px;
         color: #CFCFE4;
         font-size: 18px;
         font-weight: 400;
     }
     &_table{
-        margin-left: 33px;
-        max-width: 98%;
+        max-width: 100%;
         width: 100%;
         padding: 32px 0px 0px 32px;
         border-collapse: collapse;
@@ -126,8 +125,6 @@
 .partners__header{
     display: flex;
     justify-content: space-between;
-    margin-top: 32px;
-    margin-left: 30px;
     align-items: center;
     &_title{
         color: #CFCFE4;
@@ -157,6 +154,7 @@
     height: auto;
     min-height: 370px;
     background: #1D1D35;
+    border-radius: 0px 0px 6px 6px;
 }
 
 .history{
