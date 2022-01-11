@@ -35,8 +35,8 @@
             <tr class="links__bottom_table-row">
                 <td class="links__bottom_table-cell" v-for="(nameCell, index) in nameCells" :key="index">{{nameCell.name}}</td>
             </tr>
-            <tr class="settings-partners-links__table_row row-data-none">Отсутсвуют данные</tr>
-            <tr class="settings-partners-links__table_row row-data-none" v-if="!user.rules.partners_rules">Для того чтобы стать нашим партнером,<br><a href="/rules-partner-program.pdf" download>примите правила пользования<br>партнерской программой</a>
+            <tr class="settings-partners-links__table_row row-data-none" v-if="user.rules.partners_rules && !partners[0]">Отсутсвуют данные</tr>
+            <tr class="settings-partners-links__table_row row-data-none" v-else-if="!user.rules.partners_rules">Для того чтобы стать нашим партнером,<br><a href="/rules-partner-program.pdf" download>примите правила пользования<br>партнерской программой</a>
                 <div class="row-data-none__button pointer" @click="openPartnersRules()">Принять правила пользования</div>
             </tr>
             <PartnersLinks  @openModalChange="openModalChange()" @deleteLink="deleteLink" 
