@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-nav" @click="getPath()">
+    <div class="settings-nav" >
         <div class="settings-nav__container">
             <div class="settings-nav__container-logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__container-logo-mini">
@@ -57,7 +57,6 @@
                                         </linearGradient>
                                     </defs>
                                 </svg>
-
                                 WhatsApp аккаунты
                             </router-link>
                             <router-link to="/settings/instagrams"
@@ -83,7 +82,7 @@
                             </router-link>
                         </div>
                     </transition>-->
-                        <div class="settings-nav__link settings-nav__link_default pointer" @click="activeDialogs=!activeDialogs, activeSettings=false"
+                        <div class="settings-nav__link settings-nav__link_default pointer" @click="activeDialogs=!activeDialogs, activeSettings=false, pathNamePost()"
                           :class="{'router-link-exact-active active-link active-link_border' : activeDialogs}">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon" >
                                 <g clip-path="url(#clip0_107_13234)">
@@ -116,7 +115,7 @@
                             <SlideUpDown v-model="activeDialogs" :duration="350" class="settings-nav__link-list-slider">
                             <transition name="base-folder-transition">
                                 <div  class="settings-nav__link_folders">      
-                                    <div class="settings-nav__link-list-edit settings-nav__link settings-nav__link_default pointer"  @click="toggleModalEditFolders(true, null)">
+                                    <div class="settings-nav__link-list-edit settings-nav__link settings-nav__link_default pointer"  @click="toggleModalEditFolders(true, null), pathNamePost()">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
                                         <circle cx="8" cy="8" r="2" fill="#9797BB"/>
                                         </svg>
@@ -126,7 +125,7 @@
                                     <div
                                         :class="{
                                         'base-folder_active': (selectedFolder === folder.folder_id||checkFolderChildren() == folder.folder_id)}"
-                                            @click="choseFolder(folder.folder_id)"
+                                            @click="choseFolder(folder.folder_id), pathNamePost()"
                                             @contextmenu.prevent="(folder.is_default || !folder.editing_possible)? null : openContextMenu($event, {id: folder.folder_id, itemName: 'folder', item: folder.name,})"
                                     >  
                                     <router-link to="/messanger"   class="settings-nav__link settings-nav__link_default ">
@@ -169,16 +168,15 @@
                             </svg>
                             CRM
                     </router-link> -->
-                    <div @click="activeDialogs=false, activeSettings=false">
-                   <router-link
-                            class="settings-nav__link settings-nav__link_default"
-                            to="/settings/answerphone/list-answerphone">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
-                        <path d="M15.4129 0.587617C15.1739 0.345696 14.8765 0.16951 14.5494 0.0760819C14.2224 -0.0173463 13.8768 -0.0248588 13.546 0.0542704L2.87793 2.30099C2.26357 2.38524 1.68493 2.63932 1.20718 3.03462C0.729427 3.42992 0.371541 3.95074 0.173823 4.53843C-0.0238955 5.12611 -0.0535925 5.75732 0.0880762 6.36097C0.229745 6.96462 0.537152 7.51673 0.975679 7.95513L2.12116 9.09983C2.18316 9.1618 2.23233 9.23539 2.26585 9.31638C2.29937 9.39738 2.31659 9.48419 2.31652 9.57184V11.6839C2.31799 11.9809 2.38636 12.2737 2.51655 12.5406L2.51122 12.5452L2.52855 12.5626C2.72392 12.9553 3.04301 13.273 3.43667 13.4666L3.45401 13.4839L3.45867 13.4786C3.72562 13.6088 4.01846 13.6771 4.31545 13.6786H6.42773C6.60446 13.6785 6.77401 13.7485 6.89913 13.8733L8.04395 15.018C8.351 15.3284 8.71647 15.575 9.11928 15.7435C9.52208 15.9121 9.95427 15.9992 10.3909 16C10.7548 15.9995 11.1162 15.9401 11.4611 15.824C12.0434 15.6328 12.5608 15.2827 12.9548 14.8131C13.3487 14.3436 13.6036 13.7733 13.6907 13.1666L15.941 2.47633C16.0242 2.14275 16.0193 1.79326 15.9268 1.46215C15.8342 1.13103 15.6571 0.82967 15.4129 0.587617ZM3.06529 8.15847L1.91914 7.01378C1.65225 6.75334 1.46519 6.42219 1.37992 6.05919C1.29465 5.69619 1.31471 5.3164 1.43774 4.96439C1.55702 4.60327 1.77752 4.28399 2.07302 4.04455C2.36852 3.8051 2.72659 3.65555 3.10463 3.61369L13.6667 1.3903L3.6487 11.4086V9.57184C3.64971 9.30939 3.59867 9.04935 3.49853 8.80675C3.39839 8.56415 3.25113 8.34381 3.06529 8.15847ZM12.3805 12.9386C12.3293 13.3068 12.1765 13.6535 11.9392 13.9397C11.7019 14.2259 11.3895 14.4403 11.0371 14.5589C10.6847 14.6774 10.3062 14.6954 9.94415 14.6108C9.58209 14.5262 9.25078 14.3424 8.98741 14.08L7.84059 12.9333C7.65548 12.7472 7.43529 12.5996 7.19278 12.4991C6.95027 12.3986 6.69024 12.3473 6.42773 12.3479H4.59082L14.6101 2.33299L12.3805 12.9386Z" fill="#9797BB"/>
-                        </svg>
-
-                        Автоответчик
-                    </router-link>
+                    <div @click="activeDialogs=false, activeSettings=false, pathNamePost()">
+                        <router-link
+                                class="settings-nav__link settings-nav__link_default"
+                                to="/settings/answerphone/list-answerphone">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
+                                <path d="M15.4129 0.587617C15.1739 0.345696 14.8765 0.16951 14.5494 0.0760819C14.2224 -0.0173463 13.8768 -0.0248588 13.546 0.0542704L2.87793 2.30099C2.26357 2.38524 1.68493 2.63932 1.20718 3.03462C0.729427 3.42992 0.371541 3.95074 0.173823 4.53843C-0.0238955 5.12611 -0.0535925 5.75732 0.0880762 6.36097C0.229745 6.96462 0.537152 7.51673 0.975679 7.95513L2.12116 9.09983C2.18316 9.1618 2.23233 9.23539 2.26585 9.31638C2.29937 9.39738 2.31659 9.48419 2.31652 9.57184V11.6839C2.31799 11.9809 2.38636 12.2737 2.51655 12.5406L2.51122 12.5452L2.52855 12.5626C2.72392 12.9553 3.04301 13.273 3.43667 13.4666L3.45401 13.4839L3.45867 13.4786C3.72562 13.6088 4.01846 13.6771 4.31545 13.6786H6.42773C6.60446 13.6785 6.77401 13.7485 6.89913 13.8733L8.04395 15.018C8.351 15.3284 8.71647 15.575 9.11928 15.7435C9.52208 15.9121 9.95427 15.9992 10.3909 16C10.7548 15.9995 11.1162 15.9401 11.4611 15.824C12.0434 15.6328 12.5608 15.2827 12.9548 14.8131C13.3487 14.3436 13.6036 13.7733 13.6907 13.1666L15.941 2.47633C16.0242 2.14275 16.0193 1.79326 15.9268 1.46215C15.8342 1.13103 15.6571 0.82967 15.4129 0.587617ZM3.06529 8.15847L1.91914 7.01378C1.65225 6.75334 1.46519 6.42219 1.37992 6.05919C1.29465 5.69619 1.31471 5.3164 1.43774 4.96439C1.55702 4.60327 1.77752 4.28399 2.07302 4.04455C2.36852 3.8051 2.72659 3.65555 3.10463 3.61369L13.6667 1.3903L3.6487 11.4086V9.57184C3.64971 9.30939 3.59867 9.04935 3.49853 8.80675C3.39839 8.56415 3.25113 8.34381 3.06529 8.15847ZM12.3805 12.9386C12.3293 13.3068 12.1765 13.6535 11.9392 13.9397C11.7019 14.2259 11.3895 14.4403 11.0371 14.5589C10.6847 14.6774 10.3062 14.6954 9.94415 14.6108C9.58209 14.5262 9.25078 14.3424 8.98741 14.08L7.84059 12.9333C7.65548 12.7472 7.43529 12.5996 7.19278 12.4991C6.95027 12.3986 6.69024 12.3473 6.42773 12.3479H4.59082L14.6101 2.33299L12.3805 12.9386Z" fill="#9797BB"/>
+                                </svg>
+                            Автоответчик
+                        </router-link>
                     </div>
                      <!-- <router-link
                             class="settings-nav__link settings-nav__link_default"
@@ -188,7 +186,7 @@
                             </svg>
                         Чат-бот
                     </router-link> -->
-                    <div @click="activeDialogs=false, activeSettings=false">
+                    <div @click="activeDialogs=false, activeSettings=false, pathNamePost()">
                     <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/mailings">
@@ -229,9 +227,9 @@
                                 </router-link>
                             </SlideUpDown>
                         </div> -->
-                        <div @click="activeDialogs=false, activeSettings=false">
+                        <div @click="activeDialogs=false, activeSettings=false, pathNamePost('partners')" >
                        <router-link
-                            class="settings-nav__link settings-nav__link_default" :class="{'router-link-active router-link-exact-active':(pathName=='partners')}"
+                            class="settings-nav__link settings-nav__link_default" :class="{'router-link-active router-link-exact-active':(pathName==='partners')}"
                             to="/settings/partners/profit">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"  class="settings-nav__icon"> 
                             <g clip-path="url(#clip0_107_12831)">
@@ -243,12 +241,12 @@
                             </clipPath>
                             </defs>
                             </svg>
-                            Партнерская программа
+                           Партнерская программа
                     </router-link>
                     </div>
-                    <div @click="activeDialogs=false, activeSettings=false">
+                    <div @click="activeDialogs=false, activeSettings=false, pathNamePost('finance')">
                     <router-link
-                                class="settings-nav__link settings-nav__link_default"  :class="{'router-link-active router-link-exact-active':(pathName=='finance')}"
+                                class="settings-nav__link settings-nav__link_default"  :class="{'router-link-active router-link-exact-active':(pathName==='finance')}"
                                 to="/settings/finance/rates">
                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg " class="settings-nav__icon">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M3.33333 2H12.6667C13.5504 2.00106 14.3976 2.35259 15.0225 2.97748C15.6474 3.60237 15.9989 4.4496 16 5.33333V10.6667C15.9989 11.5504 15.6474 12.3976 15.0225 13.0225C14.3976 13.6474 13.5504 13.9989 12.6667 14H3.33333C2.4496 13.9989 1.60237 13.6474 0.97748 13.0225C0.352588 12.3976 0.00105857 11.5504 0 10.6667V5.33333C0.00105857 4.4496 0.352588 3.60237 0.97748 2.97748C1.60237 2.35259 2.4496 2.00106 3.33333 2ZM12.6667 3.33333H3.33333C2.8029 3.33333 2.29419 3.54405 1.91912 3.91912C1.54405 4.29419 1.33333 4.8029 1.33333 5.33333H14.6667C14.6667 4.8029 14.456 4.29419 14.0809 3.91912C13.7058 3.54405 13.1971 3.33333 12.6667 3.33333ZM3.33333 12.6667H12.6667C13.1971 12.6667 13.7058 12.456 14.0809 12.0809C14.456 11.7058 14.6667 11.1971 14.6667 10.6667V6.66667H1.33333V10.6667C1.33333 11.1971 1.54405 11.7058 1.91912 12.0809C2.29419 12.456 2.8029 12.6667 3.33333 12.6667ZM4.66685 10.3331C4.66685 10.8854 4.21914 11.3331 3.66685 11.3331C3.11457 11.3331 2.66685 10.8854 2.66685 10.3331C2.66685 9.78086 3.11457 9.33315 3.66685 9.33315C4.21914 9.33315 4.66685 9.78086 4.66685 10.3331Z" fill="#9797BB"/>
@@ -256,7 +254,7 @@
                             Финансы
                     </router-link>
                     </div>
-                   <div class="settings-nav__link settings-nav__link_default pointer" @click="activeSettings=!activeSettings, activeDialogs = false, activeMailing = false"
+                   <div class="settings-nav__link settings-nav__link_default pointer" @click="activeSettings=!activeSettings, activeDialogs = false, activeMailing = false, pathNamePost()"
                     :class="{'router-link-exact-active active-link active-link_border' : activeSettings}"
                    >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"  class="settings-nav__icon">
@@ -279,8 +277,8 @@
                             </svg>
                         </div>
                     </div>
-                     <div class="settings-nav__link-list ">
-                            <SlideUpDown v-model="activeSettings" :duration="250" class="settings-nav__link-list-slider settings-nav__link-list-slider_settings"> <!-- :duration="450" -->
+                     <div class="settings-nav__link-list " @click="pathNamePost()">
+                            <SlideUpDown v-model="activeSettings" :duration="250"  class="settings-nav__link-list-slider settings-nav__link-list-slider_settings"> <!-- :duration="450" -->
                                 <router-link v-for="(setting, index) in settings" :key="index"
                                     class="settings-nav__link settings-nav__link_default"
                                     :to="setting[1]">
@@ -362,12 +360,10 @@
         setup(props, {emit}) {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
              const { outAuth } = useAuth();
-
             const activeDialogs = ref(false)
             const activeSettings = ref(false);
             const openedAccounts = ref(false);
             const activeMailing = ref(false);
-
             const settings = ref([
                 ['Каналы', '/settings/whatsapps'], 
                 ['Интеграции', '/settings/integrations'],
@@ -380,21 +376,13 @@
                 // ['Валидация базы', '/'],
             ])
             const { getFolder, activeFolder } = MessengerContentInput()
-
             const { getDialogs, selectedGroupDialogs, toggleAllSelectedGroupDialogs } = useDialogs()
-
             const { selectedFolder, folders, selectFolder, getAllFoldersInFolder, selectedParentFolder, foldersInSelectedFolder, selectParentFolder, getAllFolders } = useFolder()
-
             const { toggleModalEditFolders } = useModals()
-
             const { setContext } = useContextMenu()
-
             const { toggleOpenedUserInfo, openedUserInfo } = useUserInfo()
-
             const { isLoadingDialogs } = useLoader()
-
             const { user } = useUser()
-
            
             const openContextMenu = ($event, context) => {
                 setContext({
@@ -402,7 +390,6 @@
                     left: $event.clientX,
                 }, context)
             }
-
             const choseFolder = (id) => {
                 if (selectedFolder.value !== id) {
                     selectFolder(id); 
@@ -434,7 +421,6 @@
                 toggleOpenedUserInfo(false);
                 getFolder(selectedFolder.value)
             }
-
             const parentFolderName = computed(() => {
                 return folders.value.find(i => i.folder_id === selectedParentFolder.value).name
             })
@@ -461,25 +447,35 @@
                          
                     }
                 }  
-                 getPath(); 
+             
                 })
                 ; 
            
             }
-            const pathName = ref('')
+            const pathName = ref('null')
             const getPath =() => {
-                    const href = window.location.pathname;
-                    if(href.includes('/settings/finance')){
+                    const hrefNew = document.location.pathname;
+                    if(hrefNew.includes('/settings/finance')){
                         pathName.value = 'finance'
                     }
-                     else if(href.includes('/settings/partners')){
+                     else if(hrefNew.includes('/settings/partners')){
                         pathName.value = 'partners'
                     }
                     else{
-                         pathName.value = ''
+                         pathName.value = 'null'
+                    } 
+            }
+            const pathNamePost = (name) => {
+                    if(name === 'partners'){
+                       pathName.value = 'partners' 
                     }
-                  
-
+                   else if(name === 'finance'){
+                         pathName.value = 'finance' 
+                    }
+                    else{
+                        pathName.value = '' 
+                    }
+              
             }
             const checkFolderChildren = () => {
                 for(let i = 0; i< folders.value.length; i++){
@@ -499,11 +495,17 @@
                 if(folders.value){
                     checkFolderChildren();
                 }
-
+                if(activeDialogs.value){
+                     activeSettings.value=false
+                }
+                else if (activeSettings.value) {
+                    activeDialogs.value=false
+                }
             })
             onMounted( () => {
                 init()
                 checkLink();
+                getPath()
                 
             
             })
@@ -513,7 +515,6 @@
                 content,
                 scrollbar,
                 scrollTo,
-
                 openedAccounts,
                 toggleOpenedUserInfo,
                 activeDialogs,
@@ -525,34 +526,28 @@
                 content,
                 scrollbar,
                 scrollTo,
-
                 choseFolder,
                 toggleModalEditFolders,
                 openContextMenu,
-
                 toggleOpenedUserInfo,
                 openedUserInfo,
-
-
                 image: computed(() => user.value.avatar),
                 userName: computed(() => user.value.login),
                 folders,
                 foldersInSelectedFolder,
                 parentFolderName,
                 selectedFolder,
-
                 selectParentFolder,
                 selectedParentFolder,
-
                 selectedGroupDialogs,
                 getAllFolders,
                 checkLink,
                 isGetFolder,
                 checkFolderChildren,
                 getPath,
-                pathName
+                pathName,
+                pathNamePost
             }
-
         }
     }
 </script>

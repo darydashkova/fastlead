@@ -102,7 +102,7 @@
   .scroll-poiner{
     overflow-y: auto;
     &::-webkit-scrollbar {
-      width: 10px;               /* ширина scrollbar */
+      width: 4px;               /* ширина scrollbar */
     }
     &::-webkit-scrollbar-track {
       background: none;        /* цвет дорожки */
