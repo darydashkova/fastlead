@@ -20,11 +20,17 @@
             </div>
                 <div class="settings-whatsapps__element" v-for="whatsapp in whatsapps"
                      :key="whatsapp.whatsapp_id+'SettingsWhatsapp'">
+                     
+                    <div class="settings-whatsapp__element-header">
+                        <img class="settings-whatsapp__profile_img" src="@/assets/profile-img.png">
+                        <div class="settings-whatsapp__status_diactive" v-if="whatsapp.status_id != 1">Неактивный</div>
+                        <div class="settings-whatsapp__status" v-else>Активный</div>
+                    </div> 
                     <div class="settings-whatsapps__name">
                         <span>
                             {{whatsapp.name}}
                         </span>
-                        <div class="settings-whatsapps__action-container">
+                        <!--<div class="settings-whatsapps__action-container">
                             <div class="settings-whatsapps__action settings-whatsapps__action_default pointer"
                                  @click="edit(whatsapp)"
                             >
@@ -41,12 +47,12 @@
                                           fill="var(--red-color)"/>
                                 </svg>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="settings-whatsapps__phone">
                         {{whatsapp.phone}}
                     </div>
-                    <div class="settings-whatsapps__phone"
+                    <!--<div class="settings-whatsapps__phone"
                         :class="{
                             'settings-whatsapps__phone_active': whatsapp.status_id === 1,
                             'settings-whatsapps__phone_warning': whatsapp.status_id === 2,
@@ -54,24 +60,31 @@
                         }"
                     >
                         {{whatsapp.status}}
-                    </div>
-                    <!--<div class="settings-whatsapp__folder">{{whatsapp.default_folder.name}}</div>-->
+                    </div>-->
+                    <div class="settings-whatsapp__folder">{{whatsapp.default_folder.name}}</div>
                     <!--<div
                             @click="sync(whatsapp)"
                             class="base-button_cancel base-button_p5-15 base-button_w-100"
                             v-if="whatsapp.is_active">Синхронизировать</div>-->
-                    <div
-                            class="active-button-disabled pointer"
-                            v-if="whatsapp.status_id == 4 || whatsapp.is_active">Активировать</div>
+                    
+                    <div class="settings-whatsapp__buttons-account">
+                        <div class="settings-whatsapp__buttons-account_del pointer" @click="del(whatsapp)">
+                            Удалить
+                        </div>
+                        <div    @click="edit(whatsapp)"
+                                class="settings-whatsapp__buttons-account_eidt pointer"
+                                v-if="whatsapp.status_id == 1 || whatsapp.is_active">Редактировать</div>
 
-                    <div
-                            @click="activate(whatsapp)"
-                            class="base-button_cancel base-button_p5-15 base-button_w-100 pointer"
-                            v-else>Активировать</div>
+                        <div
+                                @click="activate(whatsapp)"
+                                class="settings-whatsapp__buttons-account_activate pointer"
+                                v-else>Активировать</div>
+                        </div>
                     </div>
             </div>
         </div>
     </div>
+    <FullScreenLoader v-if="fullScreenLoader"></FullScreenLoader>
 </template>
 <script>
     import BaseButton from '../../../components/Base/BaseButton.vue'
@@ -81,9 +94,11 @@
     import {useModalsWhatsapps} from "../../../composition/useModalsWhatsapps";
     import {useModalConfirmDelete} from "../../../composition/useModalConfirmDelete";
     import {useInstagramApi} from "@/composition/useInstagramApi"
+    import FullScreenLoader from "@/components/FullScreenLoader.vue"
+    import {ref} from 'vue'
 
     export default {
-        components: { BaseButton },
+        components: { BaseButton, FullScreenLoader},
         setup() {
             const { whatsapps, getWhatsapps, deleteWhatsapps } = useWhatsapp()
             const { toggleModalCreateWhatsapp, selectedWhatsappToAction, toggleModalSyncWhatsapp, toggleModalChoiceActivationMethod,toggleModalChoiceActivationMethodMyself } = useModalsWhatsapps()
@@ -97,11 +112,15 @@
                 init();
             })
             getWhatsapps();
-
+            const fullScreenLoader = ref(false)
             const del = (whatsapp) => {
                 let callback = () => deleteWhatsapps([whatsapp.whatsapp_id])
                     .then(() => {
-                        getWhatsapps();
+                        fullScreenLoader.value = true
+                        getWhatsapps()
+                        .then(() => {
+                            fullScreenLoader.value = false
+                        })
                     })
                 setTextModalConfirmDelete(`Вы точно хотите удалить whatsapp "${whatsapp.name}"?`)
                 setSaveCallbackModalConfirmDelete(callback);
@@ -139,6 +158,7 @@
                 scrollTo,
 
                 routerActiveLink,
+                fullScreenLoader,
             }
         }
     }
