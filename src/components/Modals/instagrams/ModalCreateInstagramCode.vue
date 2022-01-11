@@ -173,6 +173,7 @@
                 instagramId: computed(() => props.instagramId),
                 jumpInput,
                 input: ($event) => emit('inputValue', $event.target.value),
+                
             }
         }
     }
