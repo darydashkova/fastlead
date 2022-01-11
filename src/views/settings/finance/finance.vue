@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-finance">
+    <!--<div class="settings-finance">
         <div class="settings-finance__header">
             <div>
                 Финансы
@@ -19,6 +19,24 @@
         <div class="settings-finance__table">
              <router-view />
         </div> 
+    </div>-->
+     <div class="settings-finance">
+        <div class="settings-finance__wrapper">
+            <div class="settings-finance__header">
+                <div class="settings-finance__header-title">Финансы</div>
+                <div class="settings-finance__navigation">
+                    <router-link class="navigation-link" to="/settings/finance/rates" :id = "arr[0].id"  :class="{'navigation-link_active' :  routerTrue.link == arr[0].link}">
+                        Тарифы
+                    </router-link>
+                    <router-link class="navigation-link" to="/settings/finance/history" :id = "arr[1].id" :class="{'navigation-link_active' :  routerTrue.link == arr[1].link}">
+                        История платежей
+                    </router-link>
+                </div>       
+            </div>
+            <div class="settings-finance__main">
+                <router-view />
+            </div>
+        </div>
     </div>
 </template>
 
