@@ -1,7 +1,25 @@
 .answerphone__list{
-    width: 100%;
     margin-top: 25px;
+    overflow: hidden;
+    border-radius: 5px;
+    height: 100%;
+}
+.answerphone__table-none{
+    height: calc(100% - 120px);
+    width: 100%;
     border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.answerphone__table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+    &_none-answerphones{
+        background: #1D1D35;
+        height: 100%;
+    }
     &_row{
         background: #252544;
         font-size: 10px;
@@ -9,34 +27,49 @@
     &_title{
         padding: 12px 20px;
         color: #9797BB;
-        &:first-child{
-            border-radius: 5px 0px 0px 0px;
-        }
         &:last-child{
-            border-radius: 0px 5px 0px 0px;
             text-align: right;
         }
     }
     &_element{
-        background: #131322;
+        background: #1D1D35;
         font-size: 12px;
+        border-bottom: 1px solid #252544;
+        &:last-child{
+            border-bottom: 1px solid #25254400;
+        }
     }
     &_value{
-        padding: 20px 20px;
+        padding: 20px 0px 20px 20px;
         color: #9797BB;
-        &:first-child{
-            border-radius: 0px 0px 0px 5px;
-        }
         &:last-child{
-            border-radius: 0px 0px 5px 0px;
             text-align: right;
         }
         & img{
             margin-right: 14px;
             width: 16px;
-            &:last-child{
-                margin-right: 0px;
-            }
+        }
+    }
+}
+.answerphone{
+    &__none-block{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        &_title{
+            color: #9797BB;
+            font-size: 16px;
+            font-weight: 4000;
+        }
+        &_button{
+            background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+            font-size: 16px;
+            margin-top: 27px;
+            padding: 8px 24px;
+            font-weight: 400;
+            border-radius: 5px;
+            color: #1D1D35;
         }
     }
 }
