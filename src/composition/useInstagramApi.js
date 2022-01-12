@@ -31,7 +31,6 @@ const initialCreateElement = ref({
 
 const routerActiveLink = ref({link: ""})
 
-document.querySelector(".subscription-message")
 export function useInstagramApi() {
 
     const createFacebook = async (data) => {

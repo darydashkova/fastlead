@@ -81,10 +81,6 @@
                 
             }
 
-            onUpdated(() => {
-                /* console.log(folders.value.length) */
-            })
-
             watch(() => {
                 getFolder()
             })

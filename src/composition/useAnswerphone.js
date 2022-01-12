@@ -23,7 +23,6 @@ const answerphone = ref({
 
 const answerphoneId = ref(null)
 
-document.querySelector(".subscription-message")
 export function useAnswerphone() {
     
     const getAllAnswerphone = async () => {
