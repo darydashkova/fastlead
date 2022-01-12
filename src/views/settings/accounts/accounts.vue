@@ -2,7 +2,7 @@
     <div class="settings-accounts">
         <div class="settings-accounts__wrapper">
             <div class="settings-accounts__header">
-                <div class="settings-accounts__header-title">Аккаунты</div>
+                <div class="settings-accounts__header-title">Каналы</div>
                  <div class="settings-accounts__navigation">
                     <router-link class="navigation-link" v-for="(routerLink, index) in routerLinks" :key="index" :to="routerLink.link"
                 :class="{'navigation-link_active' :  routerActiveLink.link == routerLink.link}"
