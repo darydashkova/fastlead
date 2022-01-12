@@ -42,7 +42,7 @@
                         <template v-if="folder.folders && countArrayFolder[index].isFolderActive">
                             <div class="connect-accaunt-folder__folder folder-child pointer" @click="activeSelectParent(index, folder.folder_id)">
                             <div class="connect-accaunt-folder__select">
-                                   <svg :class="{'active-select': selectParent.[index].parentActive}" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   <svg :class="{'active-select': selectParent[index].parentActive}" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="0.5" y="0.5" width="21" height="21" rx="3.5" fill="#252544"/>
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1131 6.84484C17.4002 6.49101 17.3461 5.97146 16.9922 5.68438C16.6384 5.3973 16.1189 5.4514 15.8318 5.80523L8.73419 14.5528L5.72907 12.233C5.3684 11.9546 4.85031 12.0213 4.57189 12.3819C4.29347 12.7426 4.36014 13.2607 4.72081 13.5392L8.36336 16.351L9.00078 16.843L9.50813 16.2178L17.1131 6.84484Z" fill="#252544"/>
                                         <rect x="0.5" y="0.5" width="21" height="21" rx="3.5" stroke="#40406B"/>
