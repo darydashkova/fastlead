@@ -40,6 +40,7 @@
                     : emit('toggleSearch', false)
 
                 emit('handler', $event.target.value)
+                emit('searchValue', searchValue)
             }
 
             return {
@@ -84,7 +85,7 @@
         border:none;
         outline: none;
         font-family: Inter;
-        border-radius: 6px;
+        border-radius: 4px;
         width: 100%;
         padding: 5px 20px 5px 42px;
         position: relative;

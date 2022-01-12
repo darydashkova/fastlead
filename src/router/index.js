@@ -71,13 +71,13 @@ const routes = [
         path: 'accounts', component: () => import('../views/settings/accounts/accounts.vue'), meta: { requiresAuth: true, title: 'Fastlead - Аккаунты' },
         children: [
           {
-            path: '/settings/whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: { requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты' }
+            path: '/settings/accounts/whatsapps', component: () => import('../views/settings/whatsapps/whatsapps.vue'), meta: { requiresAuth: true, title: 'Fastlead - WhatsApp аккаунты' }
           },
           {
-            path: '/settings/instagrams', component: () => import('../views/settings/instagrams/instagrams.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
+            path: '/settings/accounts/instagrams', component: () => import('../views/settings/instagrams/instagrams.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
           },
           {
-            path: '/settings/instagrams-api', component: () => import('../views/settings/instagrams-api/instagrams-api.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
+            path: '/settings/accounts/instagrams-api', component: () => import('../views/settings/instagrams-api/instagrams-api.vue'), meta: { requiresAuth: true, title: 'Fastlead - Instagram аккаунты' }
           },
         ]
       },

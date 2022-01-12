@@ -85,6 +85,7 @@
     background: var(--green-color);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    
 }
   .shadows {
     position: absolute;
@@ -103,6 +104,7 @@
     overflow-y: auto;
     &::-webkit-scrollbar {
       width: 4px;               /* ширина scrollbar */
+      display: inherit !important;
     }
     &::-webkit-scrollbar-track {
       background: none;        /* цвет дорожки */

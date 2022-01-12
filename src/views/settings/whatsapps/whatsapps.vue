@@ -91,7 +91,7 @@
             const { setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
             const {routerActiveLink} = useInstagramApi()
 
-            routerActiveLink.value.link = "/settings/whatsapps"
+            routerActiveLink.value.link = "/settings/accounts/whatsapps"
 
             onMounted( () => {
                 init();

@@ -10,7 +10,7 @@
         font-weight: 550;
         font-size: 16px;
         line-height: 21px;
-        color: #252544;
+        color: var(--base-button);
         padding: 8px 32px;
         border-radius: 6px;
         cursor: pointer;
@@ -19,6 +19,12 @@
         background: var(--green-color);
         border-radius: 6px;
         font-weight: 500;
+    }
+    .base-button_gradient{
+        background: var(--green-color);
+        border-radius: 6px;
+        color: var(--base-button);
+        cursor: pointer; 
     }
     .base-button_cancel {
         background: transparent;
@@ -42,6 +48,13 @@
     }
     .base-button_w-100 {
         width: 100%;
+    }
+    .base-button_p11-24{
+        padding: 11px 24px;
+    }
+    .base-button_fs12{
+        font-size: 12px;
+        line-height: 130%;
     }
       .base-button_border-green{
          border: 1px solid #5EC075;

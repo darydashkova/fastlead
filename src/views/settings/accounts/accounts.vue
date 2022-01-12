@@ -25,9 +25,9 @@ export default {
         const {routerActiveLink} = useInstagramApi()
 
         const routerLinks = ref([
-            {name: "WhatsApp", link: "/settings/whatsapps"},
-            {name: "Instagram", link: "/settings/instagrams"},
-           /*  {name: "InstagramsApi", link: "/settings/instagrams-api"}, */
+            {name: "WhatsApp", link: "/settings/accounts/whatsapps"},
+            {name: "Instagram", link: "/settings/accounts/instagrams"},
+           /*  {name: "InstagramsApi", link: "/settings/accounts/instagrams-api"}, */
         ])
 
 

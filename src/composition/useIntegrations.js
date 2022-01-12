@@ -13,6 +13,9 @@ export function useIntegrations() {
     const getAllTasksAmo = async () => {
            return await integrationActions.amocrmActions.getAllTasksAmo();
     }
+    const getOnlineChats = async () => {
+        return await integrationActions.amocrmActions.getOnlineChats();
+    }
     const getYclients = async () => {
         return await integrationActions.yclientsActions.getYclients();
     }
@@ -34,6 +37,10 @@ export function useIntegrations() {
     const getTaskById = async (data) => {
         return await integrationActions.amocrmActions.getTaskById(data);
     }
+    const reconnectOnlineChats = async (data) => {
+        return await integrationActions.amocrmActions.reconnectOnlineChats(data);
+    }
+
     const connectAmocrm = async () => {
         let client_id = amocrm_client_id,
             state = Math.random().toString(36).substring(2),
@@ -124,6 +131,14 @@ export function useIntegrations() {
     const testMessage = async (data) => {
         return await integrationActions.amocrmActions.testMessage(data);
     }
+    const addOnlineChats = async (data) => {
+        return await integrationActions.amocrmActions.addOnlineChats(data);
+    }
+    const disconnectOnlineChats = async (data) => {
+        return await integrationActions.amocrmActions.disconnectOnlineChats(data);
+    }
+
+    
     return {
         getBitrix,
         getAmocrm,
@@ -136,6 +151,7 @@ export function useIntegrations() {
         getFunnelsBitrix,
         getFunnelsAmocrm,
         getFunnelsYclients,
+        addOnlineChats,
 
         getColumnFromFunnelBitrix,
         getColumnFromFunnelAmocrm,
@@ -152,6 +168,9 @@ export function useIntegrations() {
         getAllTasksAmo,
         deleteIdAmocrm,
         testMessage,
-        getTaskById
+        getTaskById,
+        disconnectOnlineChats,
+        getOnlineChats,
+        reconnectOnlineChats
     }
 }

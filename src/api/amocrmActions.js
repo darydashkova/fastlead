@@ -46,5 +46,26 @@ export default {
         }
          return api.fetch('POST', `get/amocrm/channel?id=${lData.id}&type=${lData.type}`, lData, true)
     },
-
+    addOnlineChats: (data) => {
+        let lData = {
+            ...data,
+        }
+         return api.fetch('POST', `connect/onlinechat/amocrm`, lData, true)
+    },
+    disconnectOnlineChats: (data) => {
+        let lData = {
+            ...data,
+        }
+         return api.fetch('POST', `disconnect/onlinechat/amocrm`, lData, true)
+    },
+    getOnlineChats: () => {
+        return api.fetch('GET', `get/onlinechat/amocrm`, null, true)
+    },
+    reconnectOnlineChats: (data) => {
+        let lData = {
+            ...data,
+        }
+        return api.fetch('POST', `reconnect/onlinechat/amocrm`, lData, true)
+    }
+    
 }

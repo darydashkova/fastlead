@@ -8,40 +8,20 @@
             <template v-if="form.data.data">
                  <div class="settings-integrations-form__field settings-integrations-form__channel">
                      <div class="settings-integrations-form__label" >Канал</div>
-                     <!-- <button class="settings-integrations-form__input settings-integrations-form__input_width"
-                                    :class="{'settings-integrations-form__input_error': errors.new_dialog_action && (errors.new_dialog_action.funnel_id === null)}"
-                                    @click="(openedDropdown.openedProp!=null&& openedDropdown.openedIndex!=null)?openedDropdown.toggleOpened(null, null):openedDropdown.toggleOpened('channel', 'action')"
-                                    @blur="openedDropdown.toggleOpened(null, null)"
-                            >
-                                <div class="settings-integrations-form__dropdown-inner">
-
-                                <template v-if="form.data.data.funnel_actions==null||form.data.data.funnel_actions.id==null">Введите</template>
-                                <template v-else>{{validChannelName(form.data.data?.funnel_actions?.id)}}</template>
-
-                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
-                                    </svg>
-                                </div>
-                                <div class="settings-integrations-form__dropdown-list"
-                                     v-if="openedDropdown.openedProp === 'channel' && openedDropdown.openedIndex === 'action'">
-
-                              
-                                    <div class="settings-integrations-form__dropdown-item"
-                                          v-for="(whatsapp, index) in whatsapps"
-                                         :key="index"
-                                         @click="validChannelName(whatsapp.whatsapp_id)">
-                                          {{whatsapp.phone}}-{{ whatsapp.whatsapp_id}} {{whatsapp}}
-                                    </div>
-                                </div>
-                            </button> -->
-                            
+                        <div class="settings-integrations-form__chats">
                             <button class="settings-integrations-form__input settings-integrations-form__input_width "
                              :class="{'settings-integrations-form__select_active': showChannelsActive }"
                                     @click="showChannels(), closeFolder()"
                             >
                                 <div class="settings-integrations-form__dropdown-inner">
                                 <template v-if="phone==''">Введите</template>
-                                <template v-else> {{phone}}</template>
+                                <template v-else  >
+                                    <div class="settings-integrations-form__dropdown-inner-channel">
+                                       <img src="../../../assets/redesign-whatsapp.svg"  v-if="nameChannel=='whatsapp'"  class='settings-integrations-form__dropdown-inner_default'>
+                                        <img src="../../../assets/redesign-instagram.svg" v-if="nameChannel=='instagram'" class='settings-integrations-form__dropdown-inner_default'>
+                                    {{phone}}
+                                    </div>
+                                    </template>
                               
                                     <svg    :class="{'settings-integrations-form__dropdown-inner-svg_green': showChannelsActive }" width="8" class='settings-integrations-form__dropdown-inner-svg' height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
@@ -54,43 +34,25 @@
                                           v-for="(whatsapp, index) in whatsapps"
                                          :key="index"
                                          @click="channelChoise(whatsapp.whatsapp_id, 'whatsapp') ">
-                                            <svg class="settings-integrations-form__dropdown-image" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_675:274)">
-                                                <path d="M4.22905 13.7034L4.49061 13.8327C5.58061 14.479 6.8013 14.7807 8.02205 14.7807C11.8586 14.7807 14.9976 11.678 14.9976 7.88591C14.9976 6.07606 14.2564 4.30927 12.9485 3.01648C11.6406 1.72369 9.89667 0.99115 8.02205 0.99115C4.18549 0.99115 1.04642 4.09379 1.09005 7.92903C1.09005 9.22176 1.48242 10.4715 2.13636 11.5487L2.31074 11.8073L1.61324 14.3498L4.22905 13.7034Z" fill="#18CA7F"/>
-                                                <path d="M13.6896 2.32698C12.2073 0.81878 10.1582 0 8.0655 0C3.61863 0 0.043625 3.57665 0.0871875 7.92896C0.0871875 9.30792 0.479562 10.6438 1.13356 11.8504L0 15.9442L4.22894 14.8668C5.40606 15.5133 6.71394 15.8149 8.02194 15.8149C12.4253 15.8149 16.0002 12.2382 16.0002 7.88596C16.0002 5.77439 15.1718 3.79212 13.6896 2.32698ZM8.0655 14.4791C6.88838 14.4791 5.71125 14.1775 4.7085 13.5742L4.44694 13.4449L1.91831 14.0912L2.57225 11.635L2.39788 11.3764C0.479563 8.31691 1.39512 4.26613 4.53412 2.37004C7.67312 0.474008 11.7277 1.37897 13.646 4.48161C15.5642 7.58425 14.6487 11.5918 11.5098 13.4879C10.5069 14.1343 9.28625 14.4791 8.0655 14.4791ZM11.9021 9.69588L11.4225 9.4804C11.4225 9.4804 10.725 9.17875 10.289 8.96327C10.2454 8.96327 10.2018 8.92015 10.1582 8.92015C10.0274 8.92015 9.94019 8.96327 9.853 9.00639C9.853 9.00639 9.80944 9.04945 9.19906 9.73893C9.15544 9.82511 9.06825 9.86823 8.98106 9.86823H8.93744C8.89387 9.86823 8.80669 9.82511 8.76306 9.78205L8.54506 9.69588C8.0655 9.4804 7.62956 9.22181 7.28075 8.8771C7.19356 8.79092 7.06275 8.70474 6.97556 8.61856C6.67038 8.31691 6.36519 7.97214 6.14725 7.58431L6.10362 7.49813C6.06006 7.45501 6.06006 7.41195 6.01644 7.32578C6.01644 7.2396 6.01644 7.15342 6.06006 7.1103C6.06006 7.1103 6.23444 6.89483 6.36519 6.76559C6.45244 6.67935 6.496 6.55012 6.58319 6.46394C6.67038 6.33464 6.714 6.16229 6.67037 6.03299C6.62681 5.81751 6.10363 4.65402 5.97288 4.39549C5.88563 4.26619 5.7985 4.22314 5.66769 4.18002H5.18813C5.10088 4.18002 5.01375 4.22314 4.9265 4.22314L4.88287 4.26619C4.79569 4.30931 4.7085 4.39549 4.62131 4.43855C4.53413 4.52479 4.4905 4.6109 4.40331 4.69714C4.09813 5.08497 3.92375 5.55898 3.92375 6.03299C3.92375 6.3777 4.01094 6.72247 4.14175 7.02412L4.18538 7.15342C4.57775 7.97214 5.10088 8.70474 5.7985 9.3511L5.97288 9.52346C6.10363 9.65276 6.23444 9.73893 6.32163 9.86817C7.23719 10.6439 8.2835 11.2041 9.46062 11.5057C9.59144 11.5488 9.76581 11.5488 9.89662 11.5919H10.3326C10.5506 11.5919 10.8121 11.5057 10.9866 11.4196C11.1173 11.3334 11.2045 11.3334 11.2917 11.2472L11.3789 11.161C11.4661 11.0748 11.5533 11.0317 11.6405 10.9455C11.7277 10.8594 11.8149 10.7732 11.8585 10.6869C11.9457 10.5146 11.9893 10.2991 12.0329 10.0837V9.78205C12.0329 9.78205 11.9892 9.73893 11.9021 9.69588Z" fill="white"/>
-                                                </g>
-                                                <defs>
-                                                <clipPath id="clip0_675:274">
-                                                <rect width="16" height="16" fill="white"/>
-                                                </clipPath>
-                                                </defs>
-                                            </svg>
+                                           <img src="../../../assets/redesign-whatsapp.svg"  class="settings-integrations-form__dropdown-image">
+                                          
                                        <div class="settings-integrations-form_elipsis"> {{whatsapp.name}} / {{whatsapp.phone}} / {{whatsapp.status}}</div>
                                     </div>
                                      <div class="settings-integrations-form__dropdown-item"
                                           v-for="(instagram, index) in instagrams"
                                          :key="index"
                                          @click="channelChoise(instagram.instagram_id, 'instagram')">
-                                            <svg class="settings-integrations-form__dropdown-image" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_675:3241)">
-                                                <path d="M1.0003 1.08868C-0.257038 2.39468 0.000295601 3.78201 0.000295601 7.99668C0.000295601 11.4967 -0.610371 15.0053 2.58563 15.8313C3.58363 16.088 12.4263 16.088 13.423 15.83C14.7536 15.4867 15.8363 14.4073 15.9843 12.5253C16.005 12.2627 16.005 3.73534 15.9836 3.46734C15.8263 1.46268 14.5923 0.307344 12.9663 0.0733439C12.5936 0.0193439 12.519 0.00334392 10.607 1.05856e-05C3.82496 0.00334392 2.3383 -0.298656 1.0003 1.08868V1.08868Z" fill="url(#paint0_linear_675:3241)"/>
-                                                <path d="M7.99814 2.09274C5.57747 2.09274 3.2788 1.8774 2.4008 4.13074C2.03814 5.0614 2.0908 6.27007 2.0908 8.00074C2.0908 9.51941 2.04214 10.9467 2.4008 11.8701C3.2768 14.1247 5.59414 13.9087 7.9968 13.9087C10.3148 13.9087 12.7048 14.1501 13.5935 11.8701C13.9568 10.9301 13.9035 9.73941 13.9035 8.00074C13.9035 5.69274 14.0308 4.20274 12.9115 3.08407C11.7781 1.95074 10.2455 2.09274 7.99547 2.09274H7.99814ZM7.4688 3.1574C12.5181 3.1494 13.1608 2.58807 12.8061 10.3861C12.6801 13.1441 10.5801 12.8414 7.9988 12.8414C3.29214 12.8414 3.1568 12.7067 3.1568 7.99807C3.1568 3.23474 3.53014 3.16007 7.4688 3.15607V3.1574ZM11.1515 4.13807C10.7601 4.13807 10.4428 4.4554 10.4428 4.84674C10.4428 5.23807 10.7601 5.5554 11.1515 5.5554C11.5428 5.5554 11.8601 5.23807 11.8601 4.84674C11.8601 4.4554 11.5428 4.13807 11.1515 4.13807V4.13807ZM7.99814 4.96674C6.3228 4.96674 4.9648 6.3254 4.9648 8.00074C4.9648 9.67607 6.3228 11.0341 7.99814 11.0341C9.67347 11.0341 11.0308 9.67607 11.0308 8.00074C11.0308 6.3254 9.67347 4.96674 7.99814 4.96674V4.96674ZM7.99814 6.0314C10.6015 6.0314 10.6048 9.97007 7.99814 9.97007C5.39547 9.97007 5.39147 6.0314 7.99814 6.0314Z" fill="white"/>
-                                                </g>
-                                                <defs>
-                                                <linearGradient id="paint0_linear_675:3241" x1="1.03098" y1="14.9781" x2="15.9013" y2="2.10799" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#FFDD55"/>
-                                                <stop offset="0.5" stop-color="#FF543E"/>
-                                                <stop offset="1" stop-color="#C837AB"/>
-                                                </linearGradient>
-                                                <clipPath id="clip0_675:3241">
-                                                <rect width="16" height="16" fill="white"/>
-                                                </clipPath>
-                                                </defs>
-                                            </svg>
+                                            <img src="../../../assets/redesign-instagram.svg" class="settings-integrations-form__dropdown-image">
+                                       
                                         {{instagram.login}} / {{instagram.status}}
                                     </div>
                                 </div>
                             </button>
+                            <div class="settings-integrations-form__chats-button base-button_gradient base-button_p11-24 base-button_fs12 " @click="openChats=true">
+                                Подключение к онлайн-чатам
+                            </div>
+                            <ModalOnlineChats v-if="openChats" @close="openChats=false" :integration_id="form.data.data.amocrm_integration_id"></ModalOnlineChats>
+                        </div>
                             </div>
             <div class="settings-integrations-form__active" v-if="phone!=''">
                 <div class="settings-integrations-form__field">
@@ -159,9 +121,11 @@
                                 <div class="settings-integrations-form__dropdown-inner">
                                     <template v-if="!folderChoose[index]||folderChoose[index].length==0">Выбрать</template>
                                     <template v-else>  <div class="settings-integrations-form_elipsis">{{folderChoose[index][1]}}</div></template>
-                                    <svg   :class="{'settings-integrations-form__dropdown-inner-svg_green': openFolder[index]==true }" class='settings-integrations-form__dropdown-inner-svg'  width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4.1888 2.46058C4.16403 2.48338 4.1346 2.50147 4.1022 2.51381C4.06981 2.52615 4.03508 2.5325 4 2.5325C3.96492 2.5325 3.93019 2.52615 3.8978 2.51381C3.8654 2.50147 3.83597 2.48338 3.8112 2.46058L1.36591 0.215245C1.21591 0.0774725 1.01243 4.67421e-05 0.800243 7.24799e-07C0.588055 -4.52925e-05 0.384538 0.0772927 0.234464 0.215001C0.084389 0.352709 5.0074e-05 0.539506 6.11966e-08 0.7343C-4.99516e-05 0.929095 0.0841932 1.11593 0.234197 1.2537L2.68002 3.49904C3.03044 3.81985 3.50512 4 4 4C4.49488 4 4.96956 3.81985 5.31998 3.49904L7.7658 1.2537C7.91581 1.11593 8.00005 0.929095 8 0.7343C7.99995 0.539506 7.91561 0.352709 7.76554 0.215001C7.61546 0.0772928 7.41194 -4.52111e-05 7.19976 8.01112e-07C6.98757 4.68134e-05 6.78409 0.0774725 6.63409 0.215245L4.1888 2.46058Z" fill="#9797BB"/>
+                                   
+                                    <svg  class=' settings-integrations-form__input-edit' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.6667 2.33333L8.31467 2.33333C8.21156 2.33401 8.10965 2.31122 8.01667 2.26667L5.91267 1.21067C5.63493 1.07236 5.32893 1.00026 5.01867 1L3.33333 1C2.4496 1.00106 1.60237 1.35259 0.97748 1.97748C0.352588 2.60237 0.00105857 3.4496 0 4.33333L0 12.3333C0.00105857 13.2171 0.352588 14.0643 0.97748 14.6892C1.60237 15.3141 2.4496 15.6656 3.33333 15.6667L12.6667 15.6667C13.5504 15.6656 14.3976 15.3141 15.0225 14.6892C15.6474 14.0643 15.9989 13.2171 16 12.3333V5.66667C15.9989 4.78294 15.6474 3.93571 15.0225 3.31081C14.3976 2.68592 13.5504 2.33439 12.6667 2.33333ZM3.33333 2.33333L5.01867 2.33333C5.12177 2.33265 5.22368 2.35545 5.31667 2.4L7.42067 3.45267C7.69813 3.59212 8.00413 3.66537 8.31467 3.66667L12.6667 3.66667C13.0654 3.66732 13.4548 3.78711 13.7849 4.01067C14.115 4.23424 14.3708 4.55136 14.5193 4.92133L1.33333 4.996V4.33333C1.33333 3.8029 1.54405 3.29419 1.91912 2.91912C2.29419 2.54405 2.8029 2.33333 3.33333 2.33333ZM12.6667 14.3333L3.33333 14.3333C2.8029 14.3333 2.29419 14.1226 1.91912 13.7475C1.54405 13.3725 1.33333 12.8638 1.33333 12.3333L1.33333 6.32933L14.6667 6.254L14.6667 12.3333C14.6667 12.8638 14.456 13.3725 14.0809 13.7475C13.7058 14.1226 13.1971 14.3333 12.6667 14.3333Z" fill="#CFCFE4"/>
                                     </svg>
+
                                 </div>
                                 <div class="settings-integrations-form__dropdown-list settings-integrations-form__dropdown_height " v-if="openFolder[index]==true">
                                      <div  class="settings-integrations-form__dropdown-item settings-integrations-form__dropdown-create" 
@@ -222,7 +186,7 @@
                 </div>
                 <div class="settings-integrations-form__field">
                     <div class="settings-integrations-form__header settings-integrations-form__header_mb-30">
-                       Если клиента  нет в CRM системе и его нужно добавить  в сделку 
+                      Если клиент написал вам первым в мессенджер и его нужно добавить в сделку 
                     </div>
                     <div class=" settings-integrations-form__row_width">
                         <div class="settongs-integrations-form__input-group_max">
@@ -390,6 +354,7 @@
     import {useModals} from "../../../composition/useModals";
     import {useFolder} from "../../../composition/useFolder";
     import FullScreenLoader from "../../FullScreenLoader";
+    import ModalOnlineChats from "../../Modals/integrations/ModalOnlineChats";
 
     export default {
         components: {
@@ -401,7 +366,8 @@
             SettingsIntegrationAutoMessage,
             ModalFoldersAmo,
             SettingsTestSend,
-            FullScreenLoader
+            FullScreenLoader,
+            ModalOnlineChats
         },
         props: {
             formData: Object
@@ -420,7 +386,7 @@
                 createpdateFolder
             } = useFolder();
             const allFolders = ref({});
-           
+           const openChats = ref(false)
             const folderChoose = ref([]);
             const {editDate} = integrationTasks()
             const { whatsapps, getWhatsapps } = useWhatsapp()
@@ -511,9 +477,7 @@
                    form.data.data.funnel_actions[index].message.data=text
                     form.data.data.funnel_actions[index].message.type='text'
                 }
-                // form.data.data.funnel_actions[index].message.data=text
-                // form.data.data.funnel_actions[index].message.data
-                // form.data.data.funnel_actions[index].message.data
+
             }
            
             const openedDropdown = reactive({
@@ -572,9 +536,10 @@
            const phone = ref('')
            const phoneId = ref();
            const loadInfo = ref('false');
-            const channelChoise = (id, name) => {
-                
+           const nameChannel = ref('');
+            const channelChoise = (id, name) => {   
                 folderChoose.value=[]
+                nameChannel.value = name;
                 if(id!=null){
                     phoneId.value=id;
                     const data = ref({
@@ -608,13 +573,13 @@
                                 loadInfo.value = true;
                                 if(form.data.data.funnel_actions!=null){
                                     for(let i = 0; i<form.data.data.funnel_actions.length; i++){
-                                    // openModalFolder.value.push(false);
+
                                     for(let j = 0; j < allFolders.value.length; j++ ){
                                         if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
                                             folderChoose.value[i] = [form.data.data.funnel_actions[i].folder_id, allFolders.value[j].name ]
                                         }
                                     }
-                                    //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
+
                                 } 
                                 }
                             })
@@ -639,9 +604,7 @@
                         form.data.data.new_dialog_action.id=id;
                         typeName.value='instagram'; 
                         form.data.data.new_dialog_action.type='instagram';  
-                           
-                          
-                        //   form.data.data.funnel_actions.type='instagram'
+
                           loading.value=false;
                           getAllFolders()
                             .then ( (r) => {
@@ -649,15 +612,12 @@
                                 loadInfo.value = true;
                                 if(form.data.data.funnel_actions!=null){
                                           for(let i = 0; i<form.data.data.funnel_actions.length; i++){
-                                    // openModalFolder.value.push(false);
                                     for(let j = 0; j < allFolders.value.length; j++ ){
                                         if(form.data.data.funnel_actions[i].folder_id==allFolders.value[j].folder_id){
                                             folderChoose.value[i] = [form.data.data.funnel_actions[i].folder_id, allFolders.value[j].name ]
                                         }
                                     }
-                                    //folderChoose.value[i] = form.data.data.funnel_actions[i].folder_id
-                                 
-                                    
+
                                     }
                                     
                                 }
@@ -785,8 +745,6 @@
                             valid= false;
                         }
                         else{
-                            // errors.value.new_dialog_action.funnel_id = null;
-                            // errors.value.new_dialog_action.column_uid = null; 
                             valid= true;
                             isValid = true;
                         }  
@@ -811,7 +769,6 @@
                             }
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.folder_id!=null);
                         form.data.data.funnel_actions = form.data.data.funnel_actions.filter( lIndex => lIndex.message.data!="");
-                        //   form.data.data.funnel_actions=form.data.data.funnel_actions.filter( lIndex => lIndex.length!=0);
                         if(form.data.data.funnel_actions.length!=0){
                             if(form.data.data.new_dialog_action!=null){
                             if(form.data.data.new_dialog_action.column_uid===null&&form.data.data.new_dialog_action.funnel_id===null){
@@ -850,58 +807,8 @@
                                      valid=false;   
                                 }
                             } 
-                            
-                        //    else{
-                        //       if(form.data.data.funnel_actions.length!=0){console.log('11111')
-                        //     errors.value.new_dialog_action.funnel_id = 'not_null';
-                        //     errors.value.new_dialog_action.column_uid = 'not_null'; 
-                        //     valid=true; 
-                      
-                            
-                        //   }
-                        //   else if(form.data.data.funnel_actions.column_uid===null||form.data.data.funnel_actions.funnel_id===null){console.log('5555')
-                        //        form.data.data.funnel_actions=null
-                        //        if( form.data.data.funnel_actions=null&&form.data.data.new_dialog_action==null){
-                        //                errors.value.new_dialog_action.funnel_id = null;
-                        //         errors.value.new_dialog_action.column_uid = null;
-                        //         valid=false; 
-                        //        }
-                        //   }
-                        //    else{console.log('999')
-                        //     form.data.data.funnel_actions=null     
-                        // valid=false;
-                        // //   if(form.data.data.new_dialog_action==null){
-                        // //         errors.value.new_dialog_action.funnel_id = null;
-                        // //         errors.value.new_dialog_action.column_uid = null;
-                        // //         valid=false; 
-                        // //   }
-                             
-                         
-                        //    }   
-                        //    }  
                     }
-                   
-                   
-          
-
-                // errors.value.new_dialog_action = form.data.data.new_dialog_action;
-
-
-
-                // for(let i = 0; i <form.data.data.funnel_actions.length; i++){
-                //         if(form.data.data.funnel_actions[i].folder_id)
-                // }
-                // errors.value.funnel_actions.find(i => {
-                //     if (i.funnel_id === null || i.column_uid === null) {
-                //         valid = false;
-                //            console.log('333')
-                //     }
-                //     else
-                //      if ((i.funnel_id === null || i.column_uid === null)&&isValid){
-                           
-                //             valid=true; 
-                //     }
-                // })   
+ 
                 return valid;
             }
             const condition = ref();
@@ -1149,7 +1056,9 @@
                 loading,
                 clearError,
                 getFunnelItem,
-                loadInfo
+                loadInfo,
+                nameChannel,
+                openChats
         
             }
         }

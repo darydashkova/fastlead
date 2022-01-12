@@ -1,5 +1,8 @@
 <template>
     <div class="settings-nav" >
+         <teleport to="body" v-if="loading">
+                    <FullScreenLoader ></FullScreenLoader>
+        </teleport>
         <div class="settings-nav__container">
             <div class="settings-nav__container-logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__container-logo-mini">
@@ -281,14 +284,18 @@
                     </div>
                      <div class="settings-nav__link-list " @click="pathNamePost()">
                             <SlideUpDown v-model="activeSettings" :duration="250"  class="settings-nav__link-list-slider settings-nav__link-list-slider_settings"> <!-- :duration="450" -->
-                                <router-link v-for="(setting, index) in settings" :key="index"
+                            <div    v-for="(setting, index) in settings" :key="index" @click="checkSettingsActive(settings[index])">
+                                <router-link
+                                 :class="{'router-link-active router-link-exact-active':(setting[2])}"
                                     class="settings-nav__link settings-nav__link_default"
+                            
                                     :to="setting[1]">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
                                     <circle cx="8" cy="8" r="2" fill="#9797BB"/>
                                     </svg>
                                     {{setting[0]}}
                                 </router-link>
+                            </div>
                             </SlideUpDown>
                         </div>
                 </div>
@@ -355,9 +362,10 @@
     import {useModals} from "../../../composition/useModals";
     import {useLoader} from "../../../composition/useLoader";
     import {useUser} from "../../../composition/useUser";
+    import FullScreenLoader from "../../FullScreenLoader";
     import {MessengerContentInput} from "../../../components/MessengerContent/MessengerContentNav/messenger-content-nav.js";
     export default {
-        components: {SlideUpDown, BaseCircleIcon, BaseFolder},
+        components: {SlideUpDown, BaseCircleIcon, BaseFolder, FullScreenLoader},
         props: {},
         setup(props, {emit}) {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
@@ -369,7 +377,7 @@
             const activeMailing = ref(false);
 
             const settings = ref([
-                ['Каналы', '/settings/whatsapps'], 
+                     ['Каналы', '/settings/accounts/whatsapps', false], 
                 ['Интеграции', '/settings/integrations'],
                 // ['Настройки аккаунта', '/settings/account'],
                 // ['Статитистика','/'],
@@ -407,10 +415,11 @@
                 if (selectedFolder.value !== id) {
                     selectFolder(id); 
                     isLoadingDialogs.value = true;
+                  
                     getAllFoldersInFolder(id, true);
                     getDialogs(id)
                         .then((r) => {
-                       
+                            
                             isLoadingDialogs.value = false;
                             const isGetDialog = ref([])
                             const foldersNew = ref([]);
@@ -427,6 +436,7 @@
                                     emit("getDialogs")
                                 } 
                              }
+                         
                           
                         })
                 }
@@ -439,41 +449,63 @@
                 return folders.value.find(i => i.folder_id === selectedParentFolder.value).name
             })
             const isGetFolder = ref(false);
-            const checkLink = () => {
+            const activeAccount = ref(false)
+            const loading = ref(false);
+            const checkLink = (index) => {
                 isGetFolder.value = true;
+                   loading.value = true;
                 getAllFolders()
                 .then((r)=>{
                      const href = window.location.pathname;
-                if ( href == '/settings/mailings'){
-                    activeMailing.value = true;
-                    selectedFolder.value = null
-                }
-                if ( href == '/messenger'){
-                    activeDialogs.value = true;
-                }
+                    if ( href == '/settings/mailings'){
+                        activeMailing.value = true;
+                        selectedFolder.value = null
+                    }
+                    if ( href == '/messenger'){
+                        activeDialogs.value = true;
+                    }
+               
                 if (href.startsWith('/settings/')){
                     selectedFolder.value = null
                     const elem = document.querySelector('.router-link-active')
-                    const parent = elem.parentNode.classList[2] ;
-                    if(parent=='settings-nav__link-list-slider_settings'){
-                        activeSettings.value=true;
-                         
-                         
+                    const parent = elem.parentNode.parentNode.classList[2] ;
+                     if(href.startsWith('/settings/accounts/')){
+                        activeAccount.value = true
+                        activeSettings.value=true
+                        settings.value[0][2]=true
                     }
-                }  
-             
+                    if(parent=='settings-nav__link-list-slider_settings'){
+                        activeSettings.value=true; 
+                    }
+                } 
+                    loading.value = false; 
                 })
                 ; 
-           
+            }
+            
+            const checkSettingsActive = (item) => {
+                console.log(item[0])
+                if(item[0]==='Каналы'){
+                    settings.value[0][2]=true
+                    console.log(settings.value[0])
+                }
+                else if (item&&item[0]!='Каналы'){
+                      settings.value[0][2]=false
+                }
+                //settings
+
             }
             const pathName = ref('null')
-            const getPath =() => {
+            const getPath =() => {  
                     const hrefNew = document.location.pathname;
                     if(hrefNew.includes('/settings/finance')){
                         pathName.value = 'finance'
                     }
                      else if(hrefNew.includes('/settings/partners')){
                         pathName.value = 'partners'
+                    }
+                    else if(hrefNew.includes('/settings/instagrams')){
+                         pathName.value = 'instagrams'
                     }
                     else{
                          pathName.value = 'null'
@@ -486,10 +518,12 @@
                    else if(name === 'finance'){
                          pathName.value = 'finance' 
                     }
+                    else if (name ==='instagrams'){
+                        pathName.value = 'finance' 
+                    }
                     else{
                         pathName.value = '' 
                     }
-              
             }
             const checkFolderChildren = () => {
                 for(let i = 0; i< folders.value.length; i++){
@@ -542,7 +576,7 @@
                 content,
                 scrollbar,
                 scrollTo,
-
+                checkSettingsActive,
                 choseFolder,
                 toggleModalEditFolders,
                 openContextMenu,
@@ -568,7 +602,9 @@
                 checkFolderChildren,
                 getPath,
                 pathName,
-                pathNamePost
+                pathNamePost,
+                activeAccount,
+                loading
             }
 
         }

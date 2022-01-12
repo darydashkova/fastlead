@@ -63,7 +63,7 @@ export function useStyle() {
             'modal-input-border-color': '#414159',
             'modal-send-images-name-color': '#F0F0FA',
             'modal-element-borders-color': '#2E2E4E',
-
+            
 
             'button-cancel-color': '#2E2E4E', //цвет bg cancel кнопки
             'settings-nav-color': ' #1D1D35', //цвет nav'а в настройках
@@ -106,7 +106,8 @@ export function useStyle() {
             'border-active' : '#5EC075', //зеленые/активный border
             'messanger-content' : '#252544',
             'time-message-my' : '#2A5F5F', 
-            'my-message-bg' : '#5EC075' //цвет моего сообщения в диалоге
+            'my-message-bg' : '#5EC075' ,//цвет моего сообщения в диалоге
+            'base-button' : '#1D1D35', //цвет текста в кнопках
         }
         const light = {
             ...common,

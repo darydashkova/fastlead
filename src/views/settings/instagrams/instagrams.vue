@@ -101,7 +101,7 @@
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
             const { setSaveCallbackModalConfirmDelete, setTextModalConfirmDelete, toggleModalConfirmDelete } = useModalConfirmDelete()
 
-            routerActiveLink.value.link = "/settings/instagrams"
+            routerActiveLink.value.link = "/settings/accounts/instagrams"
 
             onMounted( () => {
                 init();
