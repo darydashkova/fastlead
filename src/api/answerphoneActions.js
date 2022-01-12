@@ -25,4 +25,20 @@ export default {
         }
         return api.fetch('POST', 'autoresponder/start', data, true)
     },
+
+    createAnswerphone: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'create/autoresponder', data, true)
+    },
+
+    updateAnswerphone: (data) => {
+        let body = {
+            ...data,
+            csrf_token: localStorage.getItem('x-csrf'),
+        }
+        return api.fetch('POST', 'update/autoresponder', data, true)
+    },
 }

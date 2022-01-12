@@ -1,15 +1,23 @@
 <template>
     <div class="modal-create-whatsapp" @mousedown.self="close">
         <div class="modal-create-whatsapp__body">
-            <BaseModalHeader>
-                {{header}}
-            </BaseModalHeader>
-            <div class="modal-create-whatsapp__input-group modal-create-whatsapp__input-group_padding-20">
-                <BaseModalLabel for-id="modal-create-whatsapp__input" :class="{'base-modal-label_error': errors.name}">Имя</BaseModalLabel>
-                <input id="modal-create-whatsapp__input" type="text" class="modal-create-whatsapp__input" v-model="name">
+            <div class="modal-create-whatsapp__header">
+                <div class="modal-create-whatsapp__header_cup">
+                    <div class="modal-create-whatsapp__header_title">
+                        Активация канала
+                    </div>
+                    <div class="modal-create-whatsapp__header_close pointer">
+                        <img src="@/assets/close.svg" @click.self="close">
+                    </div>
+                </div>
+                <div class="modal-create-whatsapp__header_subtitle">WhatsApp</div>
             </div>
             <div class="modal-create-whatsapp__input-group modal-create-whatsapp__input-group_padding-20">
-                <BaseModalLabel for-id="modal-create-whatsapp__input-phone" :class="{'base-modal-label_error': errors.phone}">Номер телефона</BaseModalLabel>
+                <div for-id="modal-create-whatsapp__input" class="modal-create-whatsapp__phone_title"  :class="{'base-modal-label_error': errors.name}">Имя</div>
+                <input id="modal-create-whatsapp__input" type="text" class="modal-create-whatsapp__input" v-model="name" placeholder="Введите имя">
+            </div>
+            <div class="modal-create-whatsapp__input-group modal-create-whatsapp__input-group_padding-20" v-if="selectedWhatsappToAction == null">
+                <div for-id="modal-create-whatsapp__input-phone" class="modal-create-whatsapp__phone_title" :class="{'base-modal-label_error': errors.phone}">Номер телефона</div>
                 <input id="modal-create-whatsapp__input-phone"
                        type="text"
                        class="modal-create-whatsapp__input"
@@ -17,24 +25,18 @@
                        placeholder="+7 (123) 456-78-90"
                        v-maska="'+7 (###) ###-##-##'"
                 >
-                <div  class="modal-create-whatsapp__input-phone-error" v-if='errors.text'>{{errors.text}}</div>
             </div>
             <div class="modal-create-whatsapp__buttons">
-                <div
-                        class="base-button_enter base-button_p5-15"
-                        @click="save"
-                >
-                    Сохранить
+                <div class="modal-create-whatsapp__buttons_accept pointer" @click="save">
+                    Готово
                 </div>
-                <div
-                        class="base-button_cancel base-button_p5-15"
-                        @click.self="close"
-                >
+                <div class="modal-create-whatsapp__buttons_cancel pointer" @click.self="close">
                     Отмена
                 </div>
             </div>
         </div>
     </div>
+    <FullScreenLoader v-if="fullScreenLoader"></FullScreenLoader>
 </template>
 
 <script>
@@ -45,13 +47,17 @@
     import {useWhatsapp} from "../../../composition/useWhatsapp";
     import {useModalsWhatsapps} from "../../../composition/useModalsWhatsapps";
 
+    import FullScreenLoader from "@/components/FullScreenLoader.vue"
+
     export default {
-        components: { BaseButton, BaseModalLabel, BaseModalHeader },
-        setup() {
-            const { toggleModalCreateWhatsapp, selectedWhatsappToAction } = useModalsWhatsapps()
-            const { createWhatsapp, getWhatsapps, updateWhatsapp } = useWhatsapp();
+        components: { BaseButton, BaseModalLabel, BaseModalHeader, FullScreenLoader},
+         setup() {
+            const { toggleModalCreateWhatsapp, selectedWhatsappToAction, toggleModalChoiceActivationMethodMyself } = useModalsWhatsapps()
+            const { createWhatsapp, getWhatsapps, updateWhatsapp, getWhatsappQr, whatsapps } = useWhatsapp();
             const phone = ref('');
             const name = ref('');
+            const fullScreenLoader = ref(false)
+
             const errors = reactive({
                 name: false,
                 phone: false,
@@ -104,6 +110,7 @@
                         })
                 } 
                 else {
+                    fullScreenLoader.value = true
                     createWhatsapp(infoToSend)
                         .then((r) => {
                             if (r.error) {
@@ -111,9 +118,19 @@
                                 errors.phone=true;
                                 return;
                                 
+                            } else {
+                                getWhatsapps()
+                                .then((l) => {
+                                    fullScreenLoader.value = false
+                                    for(i = 0; i < whatsapps.value.length; i++){
+                                        if(whatsapps.value[i].whatsapp_id == r.whatsapp_id){
+                                            selectedWhatsappToAction.value = whatsapps.value[i]
+                                            toggleModalChoiceActivationMethodMyself(true)
+                                            toggleModalCreateWhatsapp(false);
+                                        }
+                                    }
+                                })
                             }
-                            getWhatsapps();
-                            toggleModalCreateWhatsapp(false);
                         })
                 }
             }
@@ -125,6 +142,8 @@
                 close,
                 onlyNumber,
                 header,
+                selectedWhatsappToAction,
+                fullScreenLoader,
             }
         }
     }
@@ -147,12 +166,31 @@
             z-index: 1400;
         }
     }
+    .modal-create-whatsapp__header_cup{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     .modal-create-whatsapp__body {
-        width: 364px;
-        background: var(--modal-bg-color);
+        width: 520px;
+        background: #252544;
         border-radius: 9px;
-        padding: 20px 0;
         text-align: left;
+    }
+    .modal-create-whatsapp__header{
+        padding: 27px 24px;
+        border-bottom: 1px solid #1D1D35;
+        &_title{
+            color: #F0F0FA;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        &_subtitle{
+            color: #9797BB;
+            font-size: 16px;
+            font-weight: 400;
+            padding-top: 16px;
+        }
     }
     .modal-create-whatsapp__input-group {
         width: 100%;
@@ -171,19 +209,43 @@
         line-height: 21px;
         margin-top: 6px;
         width: 100%;
-        padding: 6px 10px;
-        color: var(--modal-font-color);
-        background: var(--modal-element-hover-bg-color);
-        border: 0.7px solid var(--modal-input-border-color);
+        padding: 12px 10px;
+        color: #F0F0FA;
+        background: #1D1D35;
         box-sizing: border-box;
         border-radius: 3px;
+        &::placeholder{
+            color:#40406B;
+        }
     }
     .modal-create-whatsapp__buttons {
-        padding: 0 20px;
+        padding: 18px 20px;
         width: 100%;
         display: flex;
-        justify-content: space-between;
-        margin-top: 44px;
+        border-top: 1px solid #1D1D35;
+        align-items: center;
+        &_accept{
+            color: #252544;
+            font-size: 16px;
+            font-weight: 500;
+            background: linear-gradient(45.66deg, #22A595 -40.44%, #84D160 120.07%);
+            border-radius: 6px;
+            padding: 8px 26px;
+        }
+        &_cancel{
+            color: #5EC075;
+            font-size: 16px;
+            font-weight: 400;
+            border: 1px solid #5EC075;
+            border-radius: 6px;
+            padding: 7px 26px;
+            margin-left: 22px;
+        }
+    }
+    .modal-create-whatsapp__phone_title{
+        color: #CFCFE4;
+        font-size: 14px;
+        font-weight: 400;
     }
     .modal-create-whatsapp__input-phone-error{
       background: var(--red-color);

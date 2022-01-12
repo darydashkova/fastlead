@@ -1,18 +1,18 @@
 <template>
     <div class="settings-partners">
-        <div class="settings-partners__header">
-            <div>
-                Партнерская программа
+        <div class="settings-partners__wrapper">
+            <div class="settings-partners__header">
+                <div class="settings-partners__header-title">Партнерская программа</div>
+                 <div class="settings-partners__navigation">
+                    <router-link class="navigation-link" v-for="(routerLink, index) in routerLinks" :key="index" :to="routerLink.link"
+                    :class="{'navigation-link_active' :  routerActiveLink.link == routerLink.link}"
+                    >{{routerLink.name}}</router-link>
+                </div>       
             </div>
-            <div class="settings-partners__navigation">
-                <router-link class="navigation-link" v-for="(routerLink, index) in routerLinks" :key="index" :to="routerLink.link"
-                :class="{'navigation-link_active' :  routerActiveLink.link == routerLink.link}"
-                >{{routerLink.name}}</router-link>
-            </div>        
+            <div class="settings-partners__main">
+                <router-view />
+            </div>
         </div>
-        <div class="settings-partners__table">
-             <router-view />
-        </div> 
     </div>
 </template>
 

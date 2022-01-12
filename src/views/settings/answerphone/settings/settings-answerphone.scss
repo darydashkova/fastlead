@@ -1,5 +1,5 @@
 .settings__wrapper{
-    margin-top: 40px;
+    
     &_title{
         font-size: 18px;
         color: #CFCFE4;
@@ -23,9 +23,11 @@
     &_input{
         margin-top: 6px;
         display: flex;
+        border: 1px solid var(--settings-nav-border);
+        border-radius: 4px;
         & span {
             width: 40px;
-            background: #121221;
+            background: #1D1D35;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,7 +38,7 @@
 .input__element{
     padding: 10px 10px;
     width: 360px;
-    background: #121221;
+    background: #1D1D35;
     color: #CFCFE4;
     font-size: 14px;
     &::placeholder{
@@ -65,11 +67,11 @@
         font-size: 14px;
         padding: 9px 10px;
         height: 39px;
-        border: 1px solid #00000000;
+        border: 1px solid var(--settings-nav-border);
         border-radius: 4px;
         &:hover{
             border: 1px solid #84D160;
-            color: #84D160;
+            color: #5EC075;
             transition: all 0.3s;
         }
     }
@@ -78,7 +80,7 @@
 .tuning__message{
     margin-top: 26px;
     margin-left: 20px;
-    width: 615px;
+    width: 100%;
     &_title{
         font-size: 12px;
         color: #CFCFE4;
@@ -93,9 +95,9 @@
     margin-top: 18%;
     &_cancel{
         background: none;
-        color: #84D160;
+        color: #5EC075;
         font-weight: 400;
-        border: 1px solid #84D160;
+        border: 1px solid #5EC075;
         border-radius: 6px;
         padding: 8px 26px;
     }
@@ -108,45 +110,63 @@
         margin-left: 18px;
     }
 }
-
-.settings-integration-message{
-    position: relative;
-    width: 100%; 
-    margin-right:16px;
-    .emoji-mart-static{
-        bottom:30px !important;
-    }
-    &__title{
-    font-size: 12px;
-    line-height: 130%;
-    color: #CFCFE4;
-   
-    text-align: left;
-    padding-bottom: 6px;
-    position: relative;
-    }
-    &__input{
+.tuning__message {
+    & .settings-integration-message{
         position: relative;
-        &-elems{
-        display: flex;
-        width: 99%;
-        left: 2px;
-        justify-content: space-between;
-        align-items: center;
-        position: absolute;
-        bottom: 10px;
-        padding: 0px 10px;
-        background-color:var(--modal-element-hover-bg-color);
-        height: 35px;
-        &-flex{
+        width: 90%; 
+        margin-right:16px;
+        .emoji-mart-static{
+            bottom:30px !important;
+        }
+        &__title{
+        font-size: 12px;
+        line-height: 130%;
+        color: #CFCFE4;
+    
+        text-align: left;
+        padding-bottom: 6px;
+        position: relative;
+        }
+        &__input{
+            position: relative;
+            &-elems{
             display: flex;
+            width: 99%;
+            left: 2px;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            bottom: 10px;
+            padding: 0px 10px;
+            background-color: #1D1D35;
+            height: 35px;
+            &-files{
+                display: none;
+            }
+            &-flex{
+                display: flex;
+            }
+            &-emoji{
+            padding-right: 12px;  
+            }
+            }
+            &-text{
+            height: 200px;
+            background: #1D1D35;
+            }
         }
-        &-emoji{
-          padding-right: 12px;  
-        }
-        }
-        &-text{
-          height: 200px;
+        & .settings-integrations-form__input_test{
+            margin-left: 0px; 
+            padding-bottom: 45px;
+            height: 297px;
+            max-height: 610px;
+            overflow: auto;
+            background: #1D1D35;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
         }
     }
     .settings-integrations-form__input_test{
@@ -163,9 +183,9 @@
       height: 0;
       }
 }
-.elem
-    .emoji-mart-static{
-        position: inherit !important;
+    .elem
+        .emoji-mart-static{
+            position: inherit !important;
+        }
     }
 }
-

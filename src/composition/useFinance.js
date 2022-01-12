@@ -23,7 +23,6 @@ const initialData = ref({
     ]
 })
 
-document.querySelector(".subscription-message")
 export function useFinance() {
 
     const createFinance = async (data) => {

@@ -13,7 +13,7 @@
                 <p class="settings-partners-rules__main_title text-center">
                     ДОГОВОР-ОФЕРТА<br>
                     по использованию функции «Партнерская программа» 
-                    в рамках СРМ системы FastLEad
+                    в рамках СРМ системы FastLead
                 </p>
                 <p class="settings-partners-rules__main_subtitle">
                 1. Общие условия:<br></p>

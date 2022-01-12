@@ -1,10 +1,13 @@
 .settings-finance__rates{
-    padding: 20px 32px 0px 32px;
     &_title{
         text-align: left;
         color: #CFCFE4;
         font-size: 18px;
         margin-top: 28px;
+        font-weight: 600;
+        &:first-child{
+            margin-top: 0px;
+        }
     }
 }
 .tariff_active{
