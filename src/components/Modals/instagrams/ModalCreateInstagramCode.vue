@@ -143,7 +143,6 @@
                 const dataNew = 
                 twoFactorInstagram(data.value)
                 .then ((r) => {
-                    console.log(r)
                     loading.value = false;
                       if (r.error) {
                           emit("succesInstagram", false)

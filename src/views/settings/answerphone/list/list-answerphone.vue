@@ -15,7 +15,7 @@ export default {
         AnswerphoneList,
     },
     setup() {
-        const {answerphones, getAllAnswerphone, deleteAnswerphone, stopAnswerphone, startAnswerphone, answerphoneId} = useAnswerphone()
+        const {answerphoneId} = useAnswerphone()
         return{
             answerphoneId,
         }

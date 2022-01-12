@@ -108,8 +108,6 @@
             const folderId = ref()
             const initialFolderId = () => {
                 answerphone.value.folder_ids = [folderId.value]
-                console.log(answerphone.value.folder_ids)
-                console.log(folderId.value)
                 emit('closeModalConnectFolder')
             }
 
