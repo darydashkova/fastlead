@@ -1,9 +1,11 @@
-import {reactive, computed} from 'vue';
+import {reactive, computed, ref} from 'vue';
 import integrationActions from "../api/integrationActions";
 
-const amocrm_client_id = `${process.env.VUE_APP_AMOCRM_ID}`
 
+const amocrm_client_id = `${process.env.VUE_APP_AMOCRM_ID}`
+const allChanels = ref([])
 export function useIntegrations() {
+
     const getBitrix = async () => {
         return await integrationActions.bitrixActions.getBitrix();
     }
@@ -171,6 +173,8 @@ export function useIntegrations() {
         getTaskById,
         disconnectOnlineChats,
         getOnlineChats,
-        reconnectOnlineChats
+        reconnectOnlineChats,
+        allChanels,
+
     }
 }

@@ -1,14 +1,24 @@
 import {reactive, computed} from 'vue'
 import whatsappActions from "../api/whatsappActions";
+import {useIntegrations} from "../composition/useIntegrations"
 
 const whatsapps = reactive({
     data: [],
 })
 export function useWhatsapp() {
+    const {allChanels} = useIntegrations()
     const getWhatsapps = async () => {
         return await whatsappActions.getWhatsapps()
             .then(r => {
                 whatsapps.data = [...r.whatsapps]
+                if(allChanels.value&& allChanels.value[0]){
+                    
+                    allChanels.value=allChanels.value.filter(i => i.hasOwnProperty('instagram_id'));
+                    console.log(  allChanels.value)
+                }
+                for(let i = 0; i<r.whatsapps.length;i++ ){
+                     allChanels.value.push(r.whatsapps[i])
+                }
                 return r;
             })
     }

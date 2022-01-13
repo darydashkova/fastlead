@@ -29,8 +29,7 @@ export default {
     setup(props, {emit}) {
         const { whatsapps, getWhatsapps } = useWhatsapp()
         const {getInstagrams, instagrams} = useInstagram()
-        getWhatsapps();
-        getInstagrams();
+
     const task = ref({});
     const fullName = ref('');
         const clickAmoSettings = (data) => {
@@ -69,6 +68,8 @@ export default {
                emit("updateTask");
             
         }
+        //         getWhatsapps() ;
+        // getInstagrams();
         return {
             clickAmoSettings,
             deleteInput,
