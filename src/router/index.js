@@ -113,10 +113,10 @@ const routes = [
         path: 'answerphone', component: () => import('../views/settings/answerphone/answerphone.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчик' },
         children: [
           {
-            path: '/settings/answerphone/list', component: () => import('../views/settings/answerphone/list/list.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчик' },
+            path: '/settings/answerphone/list-answerphone', component: () => import('../views/settings/answerphone/list/list-answerphone.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчик' },
           },
           {
-            path: '/settings/answerphone/settings', component: () => import('../views/settings/answerphone/settings/settings.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчик' },
+            path: '/settings/answerphone/settings-answerphone', component: () => import('../views/settings/answerphone/settings/settings-answerphone.vue'), meta: { requiresAuth: true, title: 'Fastlead - Автоответчик' },
           },
         ]
       },

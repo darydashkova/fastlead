@@ -1,8 +1,12 @@
 <template>
-    <div class="answerphone">
-        <div class="answerphone__wrapper wrapper">
-            <div class="wrapper__title">Автоответчик</div>
+    <div class="settings-answerphone">
+        <div class="settings-answerphone__wrapper">
+            <div class="settings-answerphone__header">
+                <div class="settings-answerphone__header-title">Автоответчик</div>
+            </div>
+            <div class="settings-answerphone__main">
             <router-view />
+            </div>
         </div>
     </div>
 </template>

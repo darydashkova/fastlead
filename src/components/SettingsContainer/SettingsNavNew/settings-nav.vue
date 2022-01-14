@@ -60,7 +60,6 @@
                                         </linearGradient>
                                     </defs>
                                 </svg>
-
                                 WhatsApp аккаунты
                             </router-link>
                             <router-link to="/settings/instagrams"
@@ -172,17 +171,16 @@
                             </svg>
                             CRM
                     </router-link> -->
-                    <!-- <div @click="activeDialogs=false, activeSettings=false, pathNamePost()">
-                   <router-link
-                            class="settings-nav__link settings-nav__link_default"
-                            to="/settings/answerphone/list">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
-                        <path d="M15.4129 0.587617C15.1739 0.345696 14.8765 0.16951 14.5494 0.0760819C14.2224 -0.0173463 13.8768 -0.0248588 13.546 0.0542704L2.87793 2.30099C2.26357 2.38524 1.68493 2.63932 1.20718 3.03462C0.729427 3.42992 0.371541 3.95074 0.173823 4.53843C-0.0238955 5.12611 -0.0535925 5.75732 0.0880762 6.36097C0.229745 6.96462 0.537152 7.51673 0.975679 7.95513L2.12116 9.09983C2.18316 9.1618 2.23233 9.23539 2.26585 9.31638C2.29937 9.39738 2.31659 9.48419 2.31652 9.57184V11.6839C2.31799 11.9809 2.38636 12.2737 2.51655 12.5406L2.51122 12.5452L2.52855 12.5626C2.72392 12.9553 3.04301 13.273 3.43667 13.4666L3.45401 13.4839L3.45867 13.4786C3.72562 13.6088 4.01846 13.6771 4.31545 13.6786H6.42773C6.60446 13.6785 6.77401 13.7485 6.89913 13.8733L8.04395 15.018C8.351 15.3284 8.71647 15.575 9.11928 15.7435C9.52208 15.9121 9.95427 15.9992 10.3909 16C10.7548 15.9995 11.1162 15.9401 11.4611 15.824C12.0434 15.6328 12.5608 15.2827 12.9548 14.8131C13.3487 14.3436 13.6036 13.7733 13.6907 13.1666L15.941 2.47633C16.0242 2.14275 16.0193 1.79326 15.9268 1.46215C15.8342 1.13103 15.6571 0.82967 15.4129 0.587617ZM3.06529 8.15847L1.91914 7.01378C1.65225 6.75334 1.46519 6.42219 1.37992 6.05919C1.29465 5.69619 1.31471 5.3164 1.43774 4.96439C1.55702 4.60327 1.77752 4.28399 2.07302 4.04455C2.36852 3.8051 2.72659 3.65555 3.10463 3.61369L13.6667 1.3903L3.6487 11.4086V9.57184C3.64971 9.30939 3.59867 9.04935 3.49853 8.80675C3.39839 8.56415 3.25113 8.34381 3.06529 8.15847ZM12.3805 12.9386C12.3293 13.3068 12.1765 13.6535 11.9392 13.9397C11.7019 14.2259 11.3895 14.4403 11.0371 14.5589C10.6847 14.6774 10.3062 14.6954 9.94415 14.6108C9.58209 14.5262 9.25078 14.3424 8.98741 14.08L7.84059 12.9333C7.65548 12.7472 7.43529 12.5996 7.19278 12.4991C6.95027 12.3986 6.69024 12.3473 6.42773 12.3479H4.59082L14.6101 2.33299L12.3805 12.9386Z" fill="#9797BB"/>
-                        </svg>
-
-                        Автоответчик
-                    </router-link>
-                    </div> -->
+                    <div @click="activeDialogs=false, activeSettings=false, pathNamePost()">
+                        <router-link
+                                class="settings-nav__link settings-nav__link_default"
+                                to="/settings/answerphone/list-answerphone">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-nav__icon">
+                                <path d="M15.4129 0.587617C15.1739 0.345696 14.8765 0.16951 14.5494 0.0760819C14.2224 -0.0173463 13.8768 -0.0248588 13.546 0.0542704L2.87793 2.30099C2.26357 2.38524 1.68493 2.63932 1.20718 3.03462C0.729427 3.42992 0.371541 3.95074 0.173823 4.53843C-0.0238955 5.12611 -0.0535925 5.75732 0.0880762 6.36097C0.229745 6.96462 0.537152 7.51673 0.975679 7.95513L2.12116 9.09983C2.18316 9.1618 2.23233 9.23539 2.26585 9.31638C2.29937 9.39738 2.31659 9.48419 2.31652 9.57184V11.6839C2.31799 11.9809 2.38636 12.2737 2.51655 12.5406L2.51122 12.5452L2.52855 12.5626C2.72392 12.9553 3.04301 13.273 3.43667 13.4666L3.45401 13.4839L3.45867 13.4786C3.72562 13.6088 4.01846 13.6771 4.31545 13.6786H6.42773C6.60446 13.6785 6.77401 13.7485 6.89913 13.8733L8.04395 15.018C8.351 15.3284 8.71647 15.575 9.11928 15.7435C9.52208 15.9121 9.95427 15.9992 10.3909 16C10.7548 15.9995 11.1162 15.9401 11.4611 15.824C12.0434 15.6328 12.5608 15.2827 12.9548 14.8131C13.3487 14.3436 13.6036 13.7733 13.6907 13.1666L15.941 2.47633C16.0242 2.14275 16.0193 1.79326 15.9268 1.46215C15.8342 1.13103 15.6571 0.82967 15.4129 0.587617ZM3.06529 8.15847L1.91914 7.01378C1.65225 6.75334 1.46519 6.42219 1.37992 6.05919C1.29465 5.69619 1.31471 5.3164 1.43774 4.96439C1.55702 4.60327 1.77752 4.28399 2.07302 4.04455C2.36852 3.8051 2.72659 3.65555 3.10463 3.61369L13.6667 1.3903L3.6487 11.4086V9.57184C3.64971 9.30939 3.59867 9.04935 3.49853 8.80675C3.39839 8.56415 3.25113 8.34381 3.06529 8.15847ZM12.3805 12.9386C12.3293 13.3068 12.1765 13.6535 11.9392 13.9397C11.7019 14.2259 11.3895 14.4403 11.0371 14.5589C10.6847 14.6774 10.3062 14.6954 9.94415 14.6108C9.58209 14.5262 9.25078 14.3424 8.98741 14.08L7.84059 12.9333C7.65548 12.7472 7.43529 12.5996 7.19278 12.4991C6.95027 12.3986 6.69024 12.3473 6.42773 12.3479H4.59082L14.6101 2.33299L12.3805 12.9386Z" fill="#9797BB"/>
+                                </svg>
+                            Автоответчик
+                        </router-link>
+                    </div>
                      <!-- <router-link
                             class="settings-nav__link settings-nav__link_default"
                             to="/settings/chat-bot">
@@ -370,12 +368,10 @@
         setup(props, {emit}) {
             const { container, content, scrollbar, scrollTo, init } = useCustomScroll()
              const { outAuth } = useAuth();
-
             const activeDialogs = ref(false)
             const activeSettings = ref(false);
             const openedAccounts = ref(false);
             const activeMailing = ref(false);
-
             const settings = ref([
                      ['Каналы', '/settings/accounts/whatsapps', false], 
                 ['Интеграции', '/settings/integrations'],
@@ -388,21 +384,13 @@
                 // ['Валидация базы', '/'],
             ])
             const { getFolder, activeFolder } = MessengerContentInput()
-
             const { getDialogs, selectedGroupDialogs, toggleAllSelectedGroupDialogs } = useDialogs()
-
             const { selectedFolder, folders, selectFolder, getAllFoldersInFolder, selectedParentFolder, foldersInSelectedFolder, selectParentFolder, getAllFolders } = useFolder()
-
             const { toggleModalEditFolders } = useModals()
-
             const { setContext } = useContextMenu()
-
             const { toggleOpenedUserInfo, openedUserInfo } = useUserInfo()
-
             const { isLoadingDialogs } = useLoader()
-
             const { user } = useUser()
-
            
             const openContextMenu = ($event, context) => {
                 setContext({
@@ -410,7 +398,6 @@
                     left: $event.clientX,
                 }, context)
             }
-
             const choseFolder = (id) => {
                 if (selectedFolder.value !== id) {
                     selectFolder(id); 
@@ -444,7 +431,6 @@
                 toggleOpenedUserInfo(false);
                 getFolder(selectedFolder.value)
             }
-
             const parentFolderName = computed(() => {
                 return folders.value.find(i => i.folder_id === selectedParentFolder.value).name
             })
@@ -549,7 +535,6 @@
                 else if (activeSettings.value) {
                     activeDialogs.value=false
                 }
-
             })
             onMounted( () => {
                 init()
@@ -564,7 +549,6 @@
                 content,
                 scrollbar,
                 scrollTo,
-
                 openedAccounts,
                 toggleOpenedUserInfo,
                 activeDialogs,
@@ -577,24 +561,20 @@
                 scrollbar,
                 scrollTo,
                 checkSettingsActive,
+
                 choseFolder,
                 toggleModalEditFolders,
                 openContextMenu,
-
                 toggleOpenedUserInfo,
                 openedUserInfo,
-
-
                 image: computed(() => user.value.avatar),
                 userName: computed(() => user.value.login),
                 folders,
                 foldersInSelectedFolder,
                 parentFolderName,
                 selectedFolder,
-
                 selectParentFolder,
                 selectedParentFolder,
-
                 selectedGroupDialogs,
                 getAllFolders,
                 checkLink,
@@ -606,7 +586,6 @@
                 activeAccount,
                 loading
             }
-
         }
     }
 </script>

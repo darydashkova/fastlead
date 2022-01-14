@@ -32,9 +32,12 @@ export function useInstagram() {
     const updateInstagram = async (data) => {
         return await instagramActions.updateInstagram(data);
     }
-const twoFactorInstagram = async (data) => {
-    return await instagramActions.twoFactorInstagram(data);
-}
+    const twoFactorInstagram = async (data) => {
+        return await instagramActions.twoFactorInstagram(data);
+    }
+    const activateInstagram = async (data) => {
+        return await instagramActions.activateInstagram(data);
+    }
     return {
         instagrams: computed(() => instagrams.data),
         getInstagrams,
@@ -42,7 +45,8 @@ const twoFactorInstagram = async (data) => {
         createInstagram,
         updateInstagram,
         twoFactorInstagram,
-        allChanels
+        allChanels,
+        activateInstagram,
 
     }
 }

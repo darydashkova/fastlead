@@ -21,7 +21,9 @@
                      @input="maxLength(login)"
                        >-->
                     <div class="modal-create-instagram__code">
-                        <input type="number" v-maska="'#'" v-for="(inputCode, index) in inputCodes" :key="index" class="modal-create-instagram__code_input" v-model="inputCode.value">
+                        <template v-for="(inputCode, index) in inputCodes" :key="index">
+                            <input @input="jumpInput" type="number" v-maska="'#'"  class="modal-create-instagram__code_input" v-model="inputCode.value" placeholder="–">
+                        </template>
                     </div>
             </div>
           
@@ -57,7 +59,7 @@
     import BaseModalHeader from '../../Base/BaseModalHeader.vue'
     import ModalCreateInstagramSuccess from './ModalCreateInstagramSuccess.vue'
 
-    import { onMounted, ref, reactive, computed, onUpdated } from "vue";
+    import { onMounted, ref, reactive, computed, onUpdated, watch } from "vue";
     import {useInstagram} from "../../../composition/useInstagrams";
     import FullScreenLoader from "../../FullScreenLoader";
 
@@ -65,11 +67,12 @@
         components: {FullScreenLoader, BaseButton, BaseModalLabel, BaseModalHeader, ModalCreateInstagramSuccess },
         props: {
             index:Number,
+            instagramId: Number,
         },
         emits:["succesInstagram"],
         setup(props, {emit}) {
             const loading = ref(false);
-            const { createInstagram, updateInstagram, getInstagrams, twoFactorInstagram } = useInstagram()
+            const { createInstagram, updateInstagram, getInstagrams, twoFactorInstagram, activateInstagram } = useInstagram()
             const max = ref();
             const maxLength = (evt) => {
                 if(evt.length<6){
@@ -104,7 +107,6 @@
 
             const errors = reactive({
                 login: false,
-               
             })
 
             const success = ref(false);
@@ -115,19 +117,20 @@
 
             onMounted(() => {
                 if (props.selectedInstagram) {
-               
                     login.value = props.selectedInstagram.login;
                 }
             })
-
-            // const closeAfterUpdate = () => {
-            //     getInstagrams();
-            //     close();
-            // }
+            const jumpInput = (e) => {
+                const delInputs = e.path[1].children
+                    for(i=0; i < inputCodes.value.length; i++){
+                        if(inputCodes.value[i].value != ""){
+                            delInputs[i+1].focus()
+                        }
+                    }
+            }
 
             const save = () => {
                 errors.login = false;
-                console.log(login.value)
          
                 if (!login.value) {
                     errors.login = true;
@@ -140,7 +143,6 @@
                 const dataNew = 
                 twoFactorInstagram(data.value)
                 .then ((r) => {
-                    console.log(r)
                     loading.value = false;
                       if (r.error) {
                           emit("succesInstagram", false)
@@ -154,6 +156,7 @@
                     login: login.value,
                 }
             }
+            
 
             return {
                 login,
@@ -166,6 +169,10 @@
                 success,
                 inputCodes,
                 initialLogin,
+                instagramId: computed(() => props.instagramId),
+                jumpInput,
+                input: ($event) => emit('inputValue', $event.target.value),
+                
             }
         }
     }
@@ -230,17 +237,24 @@
         padding: 9px 0px;
         &_input{
             font-style: normal;
-            font-weight: normal;
-            font-size: 64px;
+            font-weight: 600;
+            font-size: 30px;
             text-align: center;
             margin-top: 6px;
             padding: 6px 10px;
             color: var(--modal-font-color);
-            background: var(--modal-element-hover-bg-color);
+            background: #1D1D35;
             border-radius: 3px;
             width: 73.67px;
             height: 90px;
             margin-right: 6px;
+            line-height: 37px;
+            &::placeholder{
+                position: absolute;
+                margin-top: 50%;
+                color: #40406B;
+                margin-left: 25%;
+            }
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
                 /* display: none; <- Crashes Chrome on hover */

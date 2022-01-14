@@ -3,6 +3,7 @@
         <div class="date-range">
             <div class="date-range__header">
                 <div class="date-range__header_title">Диапазон времени</div>
+                <img src="@/assets/close.svg" class="pointer" @click="closeModalDateRange">
             </div>
             <div class="date-range__main main">
                 <div class="main__with">
@@ -75,16 +76,16 @@ export default {
     .date-range{
         width: 350px;
         height: 253px;
-        z-index: 99;
         &__header{
             background: #252544;
             display: flex;
             border-radius: 4px 4px 0px 0px;
+            justify-content: space-between;
+            padding: 27px 24px;
+            align-items: center;
             &_title{
                 font-size: 24px;
                 color: #F0F0FA;
-                padding: 27px 24px;
-                align-items: center;
             }
         }
         &__main{
