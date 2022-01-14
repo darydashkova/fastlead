@@ -169,7 +169,7 @@
             getAmocrmWrapper();
             getYclientsWrapper();
             const updateAmo = () => {
-                getAmocrmWrapper()
+                //getAmocrmWrapper()
                 }
             return {
                 openedForm,

@@ -415,6 +415,7 @@
                     form.data.data.funnel_actions = Array.isArray(form.data.data.funnel_actions) ? [...form.data.data.funnel_actions, objToAdd] : [objToAdd]
                 }
             })
+           
          const openFolder = ref([]);
             const errors = ref({
                 funnel_actions: [],
@@ -533,11 +534,13 @@
                     return name;
                 }
             })
+            
            const phone = ref('')
            const phoneId = ref();
            const loadInfo = ref('false');
            const nameChannel = ref('');
             const channelChoise = (id, name) => {   
+                form.data.data.funnel_actions=[]
                 folderChoose.value=[]
                 nameChannel.value = name;
                 if(id!=null){
@@ -867,7 +870,7 @@
               
                
                 init();
-                form.data = props.formData;
+                 form.data = props.formData;
                 if (!form.data.data.new_dialog_action) {
                     form.data.data.new_dialog_action = {
                         funnel_id: null,
