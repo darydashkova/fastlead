@@ -470,10 +470,9 @@
             }
             
             const checkSettingsActive = (item) => {
-                console.log(item[0])
                 if(item[0]==='Каналы'){
                     settings.value[0][2]=true
-                    console.log(settings.value[0])
+           
                 }
                 else if (item&&item[0]!='Каналы'){
                       settings.value[0][2]=false

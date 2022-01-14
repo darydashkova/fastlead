@@ -72,7 +72,6 @@
                 /* div.innerHTML = div.innerHTML.replace(/\n\n/g, '\n'); */
                 /* div.innerHTML = div.innerHTML.replace(/\&nbsp\;/gi, ' '); */
                 emit('changeMessage', div.innerHTML);
-                console.log(textarea.value.innerHTML)
             }
 
             const addEmoji = (emoji) => {

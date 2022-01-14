@@ -165,8 +165,6 @@
                 for(let i = 0; i<sameObject.value.length;i++ ){
                         sameObject.value[i][1] = false;
                     }
-                   
-                   console.log()
                 item = true;
 
             }
@@ -197,7 +195,6 @@
                 }
                 isGetArr.value = false
                 loading.value=false;
-               console.log( sameObject.value)
             })
         }
         getChats()

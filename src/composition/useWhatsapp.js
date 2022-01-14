@@ -14,7 +14,6 @@ export function useWhatsapp() {
                 if(allChanels.value&& allChanels.value[0]){
                     
                     allChanels.value=allChanels.value.filter(i => i.hasOwnProperty('instagram_id'));
-                    console.log(  allChanels.value)
                 }
                 for(let i = 0; i<r.whatsapps.length;i++ ){
                      allChanels.value.push(r.whatsapps[i])
