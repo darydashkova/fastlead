@@ -48,10 +48,10 @@
                                     </div>
                                 </div>
                             </button>
-                            <div class="settings-integrations-form__chats-button base-button_gradient base-button_p11-24 base-button_fs12 " @click="openChats=true">
+                            <!-- <div class="settings-integrations-form__chats-button base-button_gradient base-button_p11-24 base-button_fs12 " @click="openChats=true">
                                 Подключение к онлайн-чатам
-                            </div>
-                            <ModalOnlineChats v-if="openChats" @close="openChats=false" :integration_id="form.data.data.amocrm_integration_id"></ModalOnlineChats>
+                            </div> -->
+                            <!-- <ModalOnlineChats v-if="openChats" @close="openChats=false" :integration_id="form.data.data.amocrm_integration_id"></ModalOnlineChats> -->
                         </div>
                             </div>
             <div class="settings-integrations-form__active" v-if="phone!=''">
